@@ -1,10 +1,10 @@
-﻿package view;
+﻿package view ;
 
-import model.User;
-
-public class ShopView {
-
-    public void run(User user) {
-
-    }
+ class ShopView
+{
+    
+    public void run(User user) 		
+    {
+        
+    }		
 }

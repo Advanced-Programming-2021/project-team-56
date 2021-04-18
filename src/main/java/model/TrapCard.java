@@ -1,6 +1,7 @@
-﻿package model;
+﻿package model ;
 
-public class TrapCard extends Card {
-    private String description;
-    private int cardNumber;
+ class TrapCard extends Card
+{
+    private String desciotion;		
+    private int cardNumber;		
 }
