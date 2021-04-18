@@ -1,10 +1,10 @@
-import java.util.Scanner;
+﻿package Model 1;
 
-public class Main {
-
-    public static Scanner scan = new Scanner(System.in);
-
-    public static void main(String[] args) {
-
-    }
+ class Main
+{
+    
+    public void main(String args) 		
+    {
+        
+    }		
 }

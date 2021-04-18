@@ -1,4 +1,6 @@
-package model;
+﻿package model 1;
 
-public class Shop {
+ class Shop
+{
+    private ArrayList<Card> cards;		
 }

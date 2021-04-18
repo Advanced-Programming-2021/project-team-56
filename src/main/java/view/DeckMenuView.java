@@ -1,6 +1,6 @@
 ﻿package view 1;
 
- class MainMenuView
+ class DeckMenuView
 {
     
     public void run(User user) 		

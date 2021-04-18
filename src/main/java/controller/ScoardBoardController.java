@@ -1,6 +1,6 @@
 ﻿package controller 1;
 
- class MainMenuController
+ class ScoardBoardController
 {
     
     public String verifyOrder(String command) 		
@@ -13,7 +13,7 @@
         
     }		
     
-    private String menuNavigator() 		
+    private String showScoreBoard() 		
     {
         
     }		

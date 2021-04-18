@@ -1,6 +1,6 @@
 ﻿package view 1;
 
- class MainMenuView
+ class DuelWithUserView
 {
     
     public void run(User user) 		

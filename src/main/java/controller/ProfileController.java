@@ -1,14 +1,14 @@
 ﻿package controller 1;
 
- class ShopController
+ class ProfileController
 {
     
-    private String showCurrentMenu() 		
+    private String changePassword(String password) 		
     {
         
     }		
     
-    private String showAllCards() 		
+    private String changeNickname(String nickname) 		
     {
         
     }		
@@ -18,7 +18,7 @@
         
     }		
     
-    private String buyCard(String cardName) 		
+    private String showCurrentMenu() 		
     {
         
     }		
