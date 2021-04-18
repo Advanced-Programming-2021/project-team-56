@@ -4,9 +4,9 @@
 
  class Deck
 {
-    private ArrayList<Card> mainDeck;		
-    private ArrayList<Card> sideDeck;		
-    private boolean isActivated;		
+    private ArrayList<Card> mainDeck;
+    private ArrayList<Card> sideDeck;
+    private boolean isActivated;
     private String deckName;		
 
     
