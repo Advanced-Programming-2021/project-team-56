@@ -1,12 +1,14 @@
-﻿package model 1;
+﻿package model ;
 
- class User
+import java.util.ArrayList;
+
+class User
 {
     private String password;		
     private String username;		
     private int score;		
     private String nickname;		
-    private ArrayList<User> users;		
+    private ArrayList<User> users;
     private int money;		
     private ArrayList<Deck> decks;		
 

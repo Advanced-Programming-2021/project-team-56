@@ -1,9 +1,11 @@
-﻿package view 1;
+﻿package view ;
 
- class DeckMenuView
+import model.User;
+
+class DeckMenuView
 {
     
-    public void run(User user) 		
+    public void run(User user)
     {
         
     }		
