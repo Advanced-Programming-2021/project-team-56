@@ -1,10 +1,12 @@
-﻿package model 1;
+﻿package model ;
 
- class Board
+import java.util.ArrayList;
+
+class Board
 {
     private ArrayList<Card> graveyardPlayer;		
     private Deck playerDeck;		
-    private ArrayList<Card> spellAndTrapTerritory;		
+    private ArrayList<Card> spellAndTrapTerritory;
     private ArrayList<Card> monsterTerritory;		
     private ArrayList<Card> playerHand;		
     private Card fieldSpell;		

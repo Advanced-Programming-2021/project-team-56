@@ -1,4 +1,4 @@
-﻿package controller 1;
+﻿package controller ;
 
  class ScoardBoardController
 {

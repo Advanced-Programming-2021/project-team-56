@@ -1,4 +1,4 @@
-﻿package model 1;
+﻿package model ;
 
  class TrapCard extends Card
 {

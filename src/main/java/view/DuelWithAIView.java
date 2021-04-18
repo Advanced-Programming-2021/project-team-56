@@ -1,4 +1,4 @@
-﻿package view 1;
+﻿package view ;
 
  class DuelWithAIView
 {

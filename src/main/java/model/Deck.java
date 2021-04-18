@@ -1,16 +1,18 @@
 ﻿package model;
 
+import java.util.ArrayList;
+
 ;
 
  class Deck
 {
-    private ArrayList<Card> mainDeck;		
+    private ArrayList<Card> mainDeck;
     private ArrayList<Card> sideDeck;		
     private boolean isActivated;		
     private String deckName;		
 
     
-    public <<constructor>> Deck(String deckName) 		
+    public Deck(String deckName)
     {
         
     }		

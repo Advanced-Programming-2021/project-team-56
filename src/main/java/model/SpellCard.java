@@ -1,9 +1,11 @@
-﻿package model 1;
+﻿package model ;
 
- class SpellCard extends Card
+import java.util.ArrayList;
+
+class SpellCard extends Card
 {
     private String description;		
     private int cardNumber;		
     private String type;		
-    private ArrayList<Card> effectedCards;		
+    private ArrayList<Card> effectedCards;
 }
