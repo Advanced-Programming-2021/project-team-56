@@ -1,10 +1,8 @@
-﻿package view ;
+﻿package view;
 
- class DuelWithAIView
-{
-    
-    public void run(User user) 		
-    {
-        
-    }		
+class DuelWithAIView {
+
+    public void run(User user) {
+
+    }
 }
