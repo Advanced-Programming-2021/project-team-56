@@ -1,20 +1,25 @@
-﻿package controller;
+﻿package controller ;
 
-public class LoginMenuController {
-
-    public String verifyOrder(String command) {
-
-    }
-
-    private String logIn() {
-
-    }
-
-    private String showCurrentMenu() {
-
-    }
-
-    private String register() {
-
-    }
+ class LoginMenuController
+{
+    
+    public String verifyOrder(String commad) 		
+    {
+        
+    }		
+    
+    private String logIn() 		
+    {
+        
+    }		
+    
+    private String showCurrentMenu() 		
+    {
+        
+    }		
+    
+    private String register() 		
+    {
+        
+    }		
 }

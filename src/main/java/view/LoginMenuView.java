@@ -1,8 +1,10 @@
-﻿package view;
+﻿package view ;
 
-public class LoginMenuView {
-
-    public void run() {
-
-    }
+ class LoginMenuView
+{
+    
+    public void run() 		
+    {
+        
+    }		
 }
