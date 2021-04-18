@@ -1,12 +1,8 @@
 ﻿package controller;
 
-class LoginMenuController {
+class ScoreBoardController {
 
     public String verifyOrder(String command) {
-
-    }
-
-    private String logIn() {
 
     }
 
@@ -14,7 +10,7 @@ class LoginMenuController {
 
     }
 
-    private String register() {
+    private String showScoreBoard() {
 
     }
 }

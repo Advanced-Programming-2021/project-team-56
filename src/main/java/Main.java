@@ -1,10 +1,6 @@
-﻿package Model 1;
+﻿class Main {
 
- class Main
-{
-    
-    public void main(String args) 		
-    {
-        
-    }		
+    public void main(String[] args) {
+
+    }
 }

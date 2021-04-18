@@ -1,7 +1,6 @@
-﻿package model 1;
+﻿package model;
 
- class Card
-{
-    private object instance;		
-    private boolean isFacedUp;		
+class Card {
+    private Object instance;
+    private boolean isFacedUp;
 }

@@ -1,6 +1,7 @@
-﻿package model 1;
+﻿package model;
 
- class Shop
-{
-    private ArrayList<Card> cards;		
+import java.util.ArrayList;
+
+class Shop {
+    private ArrayList<Card> cards;
 }
