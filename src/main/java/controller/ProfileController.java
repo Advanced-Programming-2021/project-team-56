@@ -15,7 +15,16 @@ public class ProfileController {
         return profileController;
     }
 
-    public static String changePassword(String password, String username) {
+    public String isPasswordValid(String password, String username) {
+        User user = User.getUserByUsername(username);
+        if (user.getPassword().equals(password)) {
+            return "isValid";
+        } else {
+            return "isNotValid";
+        }
+    }
+
+    public String changePassword(String password, String username) {
         User user = User.getUserByUsername(username);
         user.setPassword(password);
         return "password changed successfully";
