@@ -13,10 +13,6 @@ public class MainMenuController {
         return mainMenuController;
     }
 
-    public String verifyOrder(String command) {
-
-    }
-
     private String showCurrentMenu() {
 
     }
