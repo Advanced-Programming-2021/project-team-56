@@ -2,19 +2,15 @@
 
 public class LoginMenuController {
 
-    public String verifyOrder(String command) {
+    private static String logIn() {
 
     }
 
-    private String logIn() {
+    private static String showCurrentMenu() {
 
     }
 
-    private String showCurrentMenu() {
-
-    }
-
-    private String register() {
+    private static String register(String username, String password, String nickname) {
 
     }
 }

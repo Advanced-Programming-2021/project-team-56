@@ -1,5 +1,6 @@
 ﻿package view;
 
+import controller.LoginMenuController;
 import sun.tools.jar.Main;
 
 import java.util.Scanner;
@@ -28,5 +29,36 @@ public class LoginMenuView {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(command);
         return matcher;
+    }
+
+    private void createUser(String command) {
+        String username, password, nickname;
+        String regex = "--username (\\S+)";
+        Matcher matcher = getMatcher(command, regex);
+        if (matcher.find()) {
+            username = matcher.group(1);
+        }else {
+            System.out.println("invalid command");
+            return;
+        }
+
+        regex = "--password (\\S+)";
+        matcher = getMatcher(command, regex);
+        if (matcher.find()) {
+            password = matcher.group(1);
+        } else {
+            System.out.println("invalid command");
+            return;
+        }
+        regex = "--nickname (\\S+)";
+        matcher = getMatcher(command, regex);
+        if (matcher.find()) {
+            nickname = matcher.group(1);
+        } else {
+            System.out.println("invalid command");
+            return;
+        }
+        LoginMenuController.register
+
     }
 }
