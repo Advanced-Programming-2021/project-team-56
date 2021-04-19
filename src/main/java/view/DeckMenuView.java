@@ -1,12 +1,10 @@
-﻿package view ;
+﻿package view;
 
 import model.User;
 
-class DeckMenuView
-{
-    
-    public void run(User user)
-    {
-        
-    }		
+public class DeckMenuView {
+
+    public void run(User user) {
+
+    }
 }

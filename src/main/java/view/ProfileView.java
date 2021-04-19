@@ -1,10 +1,10 @@
-﻿package view ;
+﻿package view;
 
- class ProfileView
-{
-    
-    public void run(User user) 		
-    {
-        
-    }		
+import model.User;
+
+public class ProfileView {
+
+    public void run(User user) {
+
+    }
 }

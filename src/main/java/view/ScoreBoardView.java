@@ -1,10 +1,10 @@
-﻿package view ;
+﻿package view;
 
- class ScoreBoardView
-{
-    
-    public void run(User user) 		
-    {
-        
-    }		
+import model.User;
+
+public class ScoreBoardView {
+
+    public void run(User user) {
+
+    }
 }

@@ -1,6 +1,6 @@
 ﻿package controller ;
 
-class MainMenuController {
+public class MainMenuController {
 
     public String verifyOrder(String command) {
 
