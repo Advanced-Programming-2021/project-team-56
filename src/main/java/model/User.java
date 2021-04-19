@@ -29,7 +29,7 @@ public class User {
     }
 
     public String getNickname() {
-        return this.nickname;
+return this.nickname;
     }
 
     public boolean isThisNicknameAlreadyTaken(String nickname) {
@@ -37,7 +37,7 @@ public class User {
     }
 
     public int getScore() {
-        return this.score;
+return this.score;
     }
 
     public void increaseMoney(int prize) {
@@ -53,11 +53,11 @@ public class User {
     }
 
     public int getMoney() {
-        return this.money;
+return this.money;
     }
 
     public String getPassword() {
-        return this.password;
+return this.password;
     }
 
     public User getUserByUsername(String username) {

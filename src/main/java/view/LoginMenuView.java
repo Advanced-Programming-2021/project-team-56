@@ -8,6 +8,7 @@ public class LoginMenuView {
         String command;
         while (true) {
             command = scan.nextLine();
+
             if (command.startsWith(""))
         }
     }
