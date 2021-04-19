@@ -15,7 +15,7 @@ public class ScoreBoardView {
         return scoreBoardView;
     }
 
-    public void run(User user) {
+    public void run(String username) {
 
     }
 }
