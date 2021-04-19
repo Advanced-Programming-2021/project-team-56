@@ -15,7 +15,7 @@ public class MainMenuView {
         return mainMenuView;
     }
 
-    public void run(User user) {
+    public void run(String username) {
 
     }
 }
