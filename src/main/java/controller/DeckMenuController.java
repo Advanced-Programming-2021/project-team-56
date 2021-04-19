@@ -2,6 +2,17 @@
 
 public class DeckMenuController {
 
+    private static DeckMenuController deckMenuController;
+
+    private DeckMenuController() {
+    }
+
+    public static DeckMenuController getInstance() {
+        if (deckMenuController == null)
+            deckMenuController = new DeckMenuController();
+        return deckMenuController;
+    }
+
     private String createDeck(String deckName) {
 
     }

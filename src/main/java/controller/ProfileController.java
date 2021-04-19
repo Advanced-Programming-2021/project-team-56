@@ -4,7 +4,18 @@ import model.User;
 
 public class ProfileController {
 
-    public static String changePassword(String password) {
+    private static ProfileController profileController;
+
+    private ProfileController() {
+    }
+
+    public static ProfileController getInstance() {
+        if (profileController == null)
+            profileController = new ProfileController();
+        return profileController;
+    }
+
+    private String changePassword(String password) {
 
     }
 
@@ -18,11 +29,11 @@ public class ProfileController {
         }
     }
 
-    public static String verifyOrder(String command) {
+    public String verifyOrder(String command) {
 
     }
 
-    public static String showCurrentMenu() {
+    private String showCurrentMenu() {
 
     }
 }

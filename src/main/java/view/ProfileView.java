@@ -7,6 +7,18 @@ import java.util.regex.Matcher;
 
 public class ProfileView {
 
+    private static ProfileView profileView;
+
+    private ProfileView() {
+    }
+
+    public static ProfileView getInstance() {
+        if (profileView == null)
+            profileView = new ProfileView();
+        return profileView;
+    }
+
+    public void run(User user) {
     public void run(String username) {
         User user = User.getUserByUsername(username);
         String command;
