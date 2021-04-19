@@ -16,8 +16,8 @@ public class ProfileView {
                 System.out.println("Profile Menu");
                 continue;
             }
-            if (command.startsWith("")) {
-
+            if (command.startsWith("profile change --nickname")) {
+                
             }
         }
     }

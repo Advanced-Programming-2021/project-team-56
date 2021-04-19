@@ -10,8 +10,8 @@ public class User {
         users = new ArrayList<>();
     }
 
-    private String password;
     private String username;
+    private String password;
     private int score;
     private String nickname;
     private int money;
