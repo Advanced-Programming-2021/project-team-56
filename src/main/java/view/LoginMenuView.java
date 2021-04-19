@@ -54,19 +54,18 @@ public class LoginMenuView {
 
     public static Matcher getMatcher(String command, String regex) {
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(command);
-        return matcher;
+        return pattern.matcher(command);
     }
 
     private void createUser(String command) {
         LoginMenuController loginMenuController = LoginMenuController.getInstance();
         String result = "";
-        String regex = "^user create --uesername (\\S+) --password (\\S+) --nickname (\\S+)$";
+        String regex = "^user create --username (\\S+) --password (\\S+) --nickname (\\S+)$";
         Matcher matcher = getMatcher(command, regex);
         if (matcher.find()) {
             result = loginMenuController.register(matcher.group(1), matcher.group(2), matcher.group(3));
         }
-        regex = "^user create --uesername (\\S+) --nickname (\\S+) --password (\\S+)$";
+        regex = "^user create --username (\\S+) --nickname (\\S+) --password (\\S+)$";
         matcher = getMatcher(command, regex);
         if (matcher.find()) {
             result = loginMenuController.register(matcher.group(1), matcher.group(3), matcher.group(2));
