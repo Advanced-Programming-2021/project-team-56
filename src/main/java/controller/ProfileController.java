@@ -1,7 +1,5 @@
 ﻿package controller;
 
-import model.User;
-
 public class ProfileController {
 
     private static ProfileController profileController;
@@ -15,32 +13,19 @@ public class ProfileController {
         return profileController;
     }
 
-    public String isPasswordValid(String password, String username) {
-        User user = User.getUserByUsername(username);
-        if (user.getPassword().equals(password)) {
-            return "isValid";
-        } else {
-            return "isNotValid";
-        }
+    private String changePassword(String password) {
+
     }
 
-    public String changePassword(String password, String username) {
-        User user = User.getUserByUsername(username);
-        user.setPassword(password);
-        return "password changed successfully";
+    private String changeNickname(String nickname) {
+
     }
 
-    public String changeNickname(String username, String nickname) {
-        if (User.isThisNicknameAlreadyTaken(nickname)) {
-            return "user with nickname " + nickname + " already exists";
-        } else {
-            User user = User.getUserByUsername(username);
-            user.setNickname(nickname);
-            return "nickname changed successfully";
-        }
+    public String verifyOrder(String command) {
+
     }
 
-    public String showCurrentMenu() {
-        return "Profile Menu";
+    private String showCurrentMenu() {
+
     }
 }
