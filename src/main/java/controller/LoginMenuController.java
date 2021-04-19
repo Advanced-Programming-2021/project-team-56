@@ -18,10 +18,6 @@ public class LoginMenuController {
 
     }
 
-    public String showCurrentMenu() {
-
-    }
-
     public String register(String username, String password, String nickname) {
 
     }
