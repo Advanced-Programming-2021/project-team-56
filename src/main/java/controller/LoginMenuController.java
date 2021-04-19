@@ -27,10 +27,6 @@ public class LoginMenuController {
         return "user logged in successfully!";
     }
 
-    public String showCurrentMenu() {
-
-    }
-
     public String register(String username, String password, String nickname) {
         if (User.isThisUsernameAlreadyTaken(username)) {
             return "user with username " + username + " already exists";
