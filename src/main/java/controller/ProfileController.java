@@ -2,6 +2,17 @@
 
 public class ProfileController {
 
+    private static ProfileController profileController;
+
+    private ProfileController() {
+    }
+
+    public static ProfileController getInstance() {
+        if (profileController == null)
+            profileController = new ProfileController();
+        return profileController;
+    }
+
     private String changePassword(String password) {
 
     }
