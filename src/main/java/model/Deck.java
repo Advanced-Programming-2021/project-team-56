@@ -2,9 +2,7 @@
 
 import java.util.ArrayList;
 
-;
-
-class Deck {
+public class Deck {
     private ArrayList<Card> mainDeck;
     private ArrayList<Card> sideDeck;
     private boolean isActivated;
@@ -12,15 +10,15 @@ class Deck {
 
 
     public Deck(String deckName) {
-
+        this.deckName = deckName;
     }
 
     public String getDeckName() {
-
+        return this.deckName;
     }
 
-    public void setIsActive() {
-
+    public void setIsActive(boolean isActive) {
+        this.isActivated = isActive;
     }
 
     public void addCardToSideDeck(String cardName) {

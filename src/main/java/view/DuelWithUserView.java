@@ -1,10 +1,10 @@
-﻿package view ;
+﻿package view;
 
- class DuelWithUserView
-{
-    
-    public void run(User user) 		
-    {
-        
-    }		
+import model.User;
+
+public class DuelWithUserView {
+
+    public void run(User user) {
+
+    }
 }

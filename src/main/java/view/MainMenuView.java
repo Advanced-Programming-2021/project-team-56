@@ -1,10 +1,10 @@
-﻿package view ;
+﻿package view;
 
- class MainMenuView
-{
-    
-    public void run(User user) 		
-    {
-        
-    }		
+import model.User;
+
+public class MainMenuView {
+
+    public void run(User user) {
+
+    }
 }

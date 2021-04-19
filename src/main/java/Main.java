@@ -1,8 +1,10 @@
-﻿
+﻿import view.LoginMenuView;
 
-class Main {
+import java.util.Scanner;
 
-    public static void main(String[] args) {
-
+public class Main {
+    public void main(String[] args) {
+        LoginMenuView loginMenuView = new LoginMenuView();
+        loginMenuView.run();
     }
 }
