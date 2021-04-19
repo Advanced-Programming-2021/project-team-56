@@ -13,16 +13,23 @@ public class User {
     private ArrayList<Deck> decks;
 
 
+    public User(String username, String nickname, String password) {
+        setUsername(username);
+        setPassword(password);
+        setNickname(nickname);
+        users.add(this);
+    }
+
     public boolean isThisUsernameAlreadyTaken(String username) {
 
     }
 
     public String getUsername() {
-
+        return this.username;
     }
 
     public String getNickname() {
-
+return this.nickname;
     }
 
     public boolean isThisNicknameAlreadyTaken(String nickname) {
@@ -30,7 +37,7 @@ public class User {
     }
 
     public int getScore() {
-
+return this.score;
     }
 
     public void increaseMoney(int prize) {
@@ -46,27 +53,31 @@ public class User {
     }
 
     public int getMoney() {
-
+return this.money;
     }
 
     public String getPassword() {
-
+return this.password;
     }
 
-    public User getUserByUsername() {
-
+    public User getUserByUsername(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username))
+                return user;
+        }
+        return null;
     }
 
-    public void setPassword() {
-
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setNickname() {
-
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public User(String username, String nickname, String password) {
-
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public boolean isThisDeckNameAlreadyTaken(String deckName) {
@@ -74,7 +85,11 @@ public class User {
     }
 
     public Deck getDeckByDeckName(String deckName) {
-
+        for (Deck deck : decks) {
+            if (deck.getDeckName().equals(deckName))
+                return deck;
+        }
+        return null;
     }
 
     public void addCardToDeck(String deckNAme, String cardName) {

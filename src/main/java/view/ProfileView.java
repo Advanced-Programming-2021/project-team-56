@@ -2,7 +2,7 @@
 
 import model.User;
 
-class ProfileView {
+public class ProfileView {
 
     public void run(User user) {
 

@@ -2,6 +2,6 @@
 
 import java.util.ArrayList;
 
-class Shop {
+public class Shop {
     private ArrayList<Card> cards;
 }

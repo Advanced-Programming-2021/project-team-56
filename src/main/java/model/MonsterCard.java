@@ -1,6 +1,6 @@
 ﻿package model;
 
-class MonsterCard extends Card {
+public class MonsterCard extends Card {
     private int level;
     private String attribute;
     private String type;

@@ -1,6 +1,6 @@
 ﻿package controller;
 
-class ScoreBoardController {
+public class ScoreBoardController {
 
     public String verifyOrder(String command) {
 

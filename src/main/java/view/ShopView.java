@@ -2,7 +2,7 @@
 
 import model.User;
 
-class ShopView {
+public class ShopView {
 
     public void run(User user) {
 

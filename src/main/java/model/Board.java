@@ -2,7 +2,7 @@
 
 import java.util.ArrayList;
 
-class Board {
+public class Board {
     private ArrayList<Card> graveyardPlayer;
     private Deck playerDeck;
     private ArrayList<Card> spellAndTrapTerritory;
