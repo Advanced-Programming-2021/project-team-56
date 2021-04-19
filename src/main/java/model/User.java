@@ -58,11 +58,11 @@ public class User {
     }
 
     public String getNickname() {
-        return this.nickname;
+return this.nickname;
     }
 
     public int getScore() {
-        return this.score;
+return this.score;
     }
 
     public ArrayList<Deck> getDecks() {
@@ -82,11 +82,11 @@ public class User {
     }
 
     public int getMoney() {
-        return this.money;
+return this.money;
     }
 
     public String getPassword() {
-        return this.password;
+return this.password;
     }
 
     public void setPassword(String password) {
