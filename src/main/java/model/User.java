@@ -4,20 +4,25 @@ import java.util.ArrayList;
 
 public class User {
 
+    private static ArrayList<User> users;
+
+    static {
+        users = new ArrayList<>();
+    }
+
     private String password;
     private String username;
     private int score;
     private String nickname;
-    private ArrayList<User> users;
     private int money;
     private ArrayList<Deck> decks;
-
 
     public User(String username, String nickname, String password) {
         setUsername(username);
         setPassword(password);
         setNickname(nickname);
         users.add(this);
+        decks = new ArrayList<>();
     }
 
     public boolean isThisUsernameAlreadyTaken(String username) {
@@ -29,7 +34,7 @@ public class User {
     }
 
     public String getNickname() {
-return this.nickname;
+        return this.nickname;
     }
 
     public boolean isThisNicknameAlreadyTaken(String nickname) {
@@ -37,7 +42,15 @@ return this.nickname;
     }
 
     public int getScore() {
-return this.score;
+        return this.score;
+    }
+
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public ArrayList<Deck> getDecks() {
+        return decks;
     }
 
     public void increaseMoney(int prize) {
@@ -53,14 +66,14 @@ return this.score;
     }
 
     public int getMoney() {
-return this.money;
+        return this.money;
     }
 
     public String getPassword() {
-return this.password;
+        return this.password;
     }
 
-    public User getUserByUsername(String username) {
+    public static User getUserByUsername(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username))
                 return user;
