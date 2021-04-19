@@ -2,7 +2,7 @@
 
 import model.User;
 
-class DeckMenuView {
+public class DeckMenuView {
 
     public void run(User user) {
 

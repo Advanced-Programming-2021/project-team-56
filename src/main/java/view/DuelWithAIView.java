@@ -2,7 +2,7 @@
 
 import model.User;
 
-class DuelWithAIView {
+public class DuelWithAIView {
 
     public void run(User user) {
 

@@ -1,6 +1,6 @@
 ﻿package view;
 
-class LoginMenuView {
+public class LoginMenuView {
 
     public void run() {
 

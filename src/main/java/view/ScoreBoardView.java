@@ -2,7 +2,7 @@
 
 import model.User;
 
-class ScoreBoardView {
+public class ScoreBoardView {
 
     public void run(User user) {
 

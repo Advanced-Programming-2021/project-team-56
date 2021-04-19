@@ -1,6 +1,6 @@
 ﻿package controller;
 
-class ShopController {
+public class ShopController {
 
     private String showCurrentMenu() {
 

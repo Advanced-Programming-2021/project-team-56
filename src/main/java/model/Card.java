@@ -1,6 +1,6 @@
 ﻿package model;
 
-class Card {
+public class Card {
     private Object instance;
     private boolean isFacedUp;
 }
