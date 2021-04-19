@@ -1,9 +1,11 @@
 ﻿package view ;
 
- class DuelWithAIView
+import model.User;
+
+class DuelWithAIView
 {
     
-    public void run(User user) 		
+    public void run(User user)
     {
         
     }		

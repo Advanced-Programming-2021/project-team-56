@@ -2,7 +2,7 @@
 
 import java.util.ArrayList;
 
-class User
+ class User
 {
     private String password;		
     private String username;		

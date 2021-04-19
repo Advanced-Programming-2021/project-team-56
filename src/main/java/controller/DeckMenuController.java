@@ -1,6 +1,6 @@
 ﻿package controller ;
 
- class DeckMenuController
+  class DeckMenuController
 {
     
     private String createDeck(String deckName) 		
