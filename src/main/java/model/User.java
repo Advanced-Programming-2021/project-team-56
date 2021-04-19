@@ -25,9 +25,29 @@ public class User {
         decks = new ArrayList<>();
     }
 
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public static User getUserByUsername(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username))
+                return user;
+        }
+        return null;
+    }
+
     public static boolean isThisUsernameAlreadyTaken(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username))
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isThisNicknameAlreadyTaken(String nickname) {
+        for (User user : users) {
+            if (user.getNickname().equals(nickname))
                 return true;
         }
         return false;
@@ -41,20 +61,8 @@ public class User {
         return this.nickname;
     }
 
-    public static boolean isThisNicknameAlreadyTaken(String nickname) {
-        for (User user : users) {
-            if (user.getNickname().equals(nickname))
-                return true;
-        }
-        return false;
-    }
-
     public int getScore() {
         return this.score;
-    }
-
-    public static ArrayList<User> getUsers() {
-        return users;
     }
 
     public ArrayList<Deck> getDecks() {
@@ -79,14 +87,6 @@ public class User {
 
     public String getPassword() {
         return this.password;
-    }
-
-    public static User getUserByUsername(String username) {
-        for (User user : users) {
-            if (user.getUsername().equals(username))
-                return user;
-        }
-        return null;
     }
 
     public void setPassword(String password) {

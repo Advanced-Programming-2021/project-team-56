@@ -1,7 +1,6 @@
 ﻿package view;
 
 import controller.LoginMenuController;
-import sun.tools.jar.Main;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
