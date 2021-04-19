@@ -62,30 +62,33 @@ public class ProfileView {
         matcher = LoginMenuView.getMatcher(command, "^profile change --current (\\S+) --password --new (\\S+)$");
         if (matcher.find()) {
             checkPasswords(matcher.group(1), matcher.group(2), username);
-
+            return;
         }
         matcher = LoginMenuView.getMatcher(command, "^profile change --current (\\S+) --new (\\S+) --password$");
         if (matcher.find()) {
             checkPasswords(matcher.group(1), matcher.group(2), username);
+            return;
         }
         matcher = LoginMenuView.getMatcher(command, "^profile change --password --new (\\S+) --current (\\S+)$");
         if (matcher.find()) {
             checkPasswords(matcher.group(2), matcher.group(1), username);
+            return;
         }
         matcher = LoginMenuView.getMatcher(command, "^profile change --new (\\S+) --password --current (\\S+)$");
         if (matcher.find()) {
             checkPasswords(matcher.group(2), matcher.group(1), username);
+            return;
         }
         matcher = LoginMenuView.getMatcher(command, "^profile change --new (\\S+) --current (\\S+) --password$");
         if (matcher.find()) {
             checkPasswords(matcher.group(2), matcher.group(1), username);
+            return;
         }
         System.out.println("invalid command");
     }
 
     private void checkPasswords(String currentPassword, String newPassword, String username) {
-        User user = User.getUserByUsername(username);
-        if (currentPassword.equals(user.getPassword())) {
+        if (ProfileController.getInstance().isPasswordValid(currentPassword, username).equals("isValid")) {
             if (currentPassword.equals(newPassword)) {
                 System.out.println("please enter a new password");
             } else {
