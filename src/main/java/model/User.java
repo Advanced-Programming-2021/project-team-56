@@ -25,8 +25,12 @@ public class User {
         decks = new ArrayList<>();
     }
 
-    public boolean isThisUsernameAlreadyTaken(String username) {
-
+    public static boolean isThisUsernameAlreadyTaken(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username))
+                return true;
+        }
+        return false;
     }
 
     public String getUsername() {
@@ -37,8 +41,12 @@ public class User {
         return this.nickname;
     }
 
-    public boolean isThisNicknameAlreadyTaken(String nickname) {
-
+    public static boolean isThisNicknameAlreadyTaken(String nickname) {
+        for (User user : users) {
+            if (user.getNickname().equals(nickname))
+                return true;
+        }
+        return false;
     }
 
     public int getScore() {
