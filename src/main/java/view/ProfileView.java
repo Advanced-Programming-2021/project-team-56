@@ -19,7 +19,6 @@ public class ProfileView {
     }
 
     public void run(String username) {
-        User user = User.getUserByUsername(username);
         String command;
         while (true) {
             command = LoginMenuView.scan.nextLine();
