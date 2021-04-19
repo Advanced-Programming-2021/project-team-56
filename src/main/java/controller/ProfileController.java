@@ -1,6 +1,6 @@
 ﻿package controller;
 
-class ProfileController {
+public class ProfileController {
 
     private String changePassword(String password) {
 

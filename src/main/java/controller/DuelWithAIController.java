@@ -1,6 +1,6 @@
 ﻿package controller;
 
-class DuelWithAIController {
+public class DuelWithAIController {
     private int turnCounter;
     private int phase;
 

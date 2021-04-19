@@ -2,7 +2,7 @@
 
 import java.util.ArrayList;
 
-class Deck {
+public class Deck {
     private ArrayList<Card> mainDeck;
     private ArrayList<Card> sideDeck;
     private boolean isActivated;

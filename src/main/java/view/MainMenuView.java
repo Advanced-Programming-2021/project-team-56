@@ -2,7 +2,7 @@
 
 import model.User;
 
-class MainMenuView {
+public class MainMenuView {
 
     public void run(User user) {
 
