@@ -1,5 +1,4 @@
 ﻿package view;
-import model.User;
 
 public class DeckMenuView {
 
@@ -14,6 +13,12 @@ public class DeckMenuView {
         return deckMenuView;
     }
     public void run(String username) {
-
+        while (true) {
+            String command = LoginMenuView.scan.nextLine();
+            command = command.trim();
+            if (command.startsWith("deck create")) {
+                createDeck
+            }
+        }
     }
 }
