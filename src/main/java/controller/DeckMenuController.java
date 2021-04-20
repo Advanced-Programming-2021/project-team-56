@@ -15,14 +15,14 @@ public class DeckMenuController {
             deckMenuController = new DeckMenuController();
         return deckMenuController;
     }
-
-    public String showUsersDecks(String username) {
-
-    }
-
-    public String showUsersDeck(String username, String deckName) {
-
-    }
+//این دو تا تابع رو کامل کن کامنتش کردم که ارور نخوره
+//    public String showUsersDecks(String username) {
+//
+//    }
+//
+//    public String showUsersDeck(String username, String deckName) {
+//
+//    }
 
     public String createDeck(String deckName, String username) {
         User user = User.getUserByUsername(username);
@@ -53,26 +53,26 @@ public class DeckMenuController {
         return "deck with name " + deckName + " does not exist";
     }
     //TODO This to add card methods has so much in common, use another method to reduce the duplicated codes
-    public String addCardToSideDeck(String deckName, String cardName, String username) {
+    public String addToSideDeck(String deckName, String cardName, String username) {
         User user = User.getUserByUsername(username);
-        if (user.isCardWithThisNameExistent(cardName)) {
-            if (user.isDeckWithThisNameExistent(deckName)) {
-                Deck deck = user.getDeckByDeckName(deckName);
-                if (!deck.isSideDeckFull()) {
-                    if (!deck.isThreeCardsWithThisNameInDeck(cardName)) {
-                        deck.addCardToSideDeck(cardName);
-                        return "card added successfully";
-                    }
-                    return "there are already three cards with name " + cardName + " in deck " + deckName;
-                }
-                return "side deck is full";
-            }
+        if (!user.isCardWithThisNameExistent(cardName)) {
+            return "card with name " + cardName + " does not exists";
+        }
+        if (!user.isDeckWithThisNameExistent(deckName)) {
             return "deck with name " + deckName + " does not exist";
         }
-        return "card with name " + cardName + " does not exists";
+        Deck deck = user.getDeckByDeckName(deckName);
+        if (deck.isSideDeckFull()) {
+            return "side deck is full";
+        }
+        if (deck.isThreeCardsWithThisNameInDeck(cardName)) {
+            return "there are already three cards with name " + cardName + " in deck " + deckName;
+        }
+        deck.addCardToSideDeck(cardName);
+        return "card added successfully";
     }
 
-    public String addCardToMainDeck(String deckName, String cardName, String username) {
+    public String addToMainDeck(String deckName, String cardName, String username) {
         User user = User.getUserByUsername(username);
         if (user.isCardWithThisNameExistent(cardName)) {
             if (user.isDeckWithThisNameExistent(deckName)) {

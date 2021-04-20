@@ -69,18 +69,18 @@ public class User {
     public int getScore() {
         return this.score;
     }
-
-    public Card getUserCardByNameForDeckAdding(String cardName, Deck deck) {
-        //TODO if cards with the same names are the same object this is the code, if not check if the card is in the deck or not
-        //TODO before
-        for (Card card : userAllCards) {
-            if (card.getName().equals(cardName)) {
-                if (deck.isCardWithThisNameInDeck(cardName)) {
-
-                }
-            }
-        }
-    }
+//اینو کامنتش کردم باگ نخوره
+//    public Card getUserCardByNameForDeckAdding(String cardName, Deck deck) {
+//        //TODO if cards with the same names are the same object this is the code, if not check if the card is in the deck or not
+//        //TODO before
+//        for (Card card : userAllCards) {
+//            if (card.getName().equals(cardName)) {
+//                if (deck.isCardWithThisNameInDeck(cardName)) {
+//
+//                }
+//            }
+//        }
+//    }
 
     public ArrayList<Deck> getDecks() {
         return decks;

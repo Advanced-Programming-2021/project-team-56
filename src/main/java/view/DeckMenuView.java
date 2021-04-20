@@ -3,10 +3,23 @@
 import controller.DeckMenuController;
 
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DeckMenuView {
 
     private static DeckMenuView deckMenuView;
+    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
+    static Pattern createDeck = Pattern.compile("^deck create (\\S+)$");
+    static Pattern deleteDeck = Pattern.compile("^deck delete (\\S+)$");
+    static Pattern setActive = Pattern.compile("^deck set-activate (\\S+)$");
+    static Pattern addToSideDeck1 = Pattern.compile("^deck add-card --card (\\S+) --deck (\\S+) --side$");
+    static Pattern addToSideDeck2 = Pattern.compile("^deck add-card --card (\\S+) --side --deck (\\S+)$");
+    static Pattern addToSideDeck3 = Pattern.compile("^deck add-card --side --card (\\S+) --deck (\\S+)$");
+    static Pattern addToSideDeck4 = Pattern.compile("^deck add-card --deck (\\S+) --card (\\S+) --side$");
+    static Pattern addToSideDeck5 = Pattern.compile("^deck add-card --deck (\\S+) --side --card (\\S+)$");
+    static Pattern addToSideDeck6 = Pattern.compile("^deck add-card --side --deck (\\S+) --card (\\S+)$");
+    static Pattern addToMainDeck1 = Pattern.compile("^deck add-card --card (\\S+) --deck (\\S+)$");
+    static Pattern addToMainDeck2 = Pattern.compile("^deck add-card --deck (\\S+) --card (\\S+)$");
 
     private DeckMenuView() {
     }
@@ -19,8 +32,7 @@ public class DeckMenuView {
 
     public void run(String username) {
         while (true) {
-            String command = LoginMenuView.scan.nextLine();
-            command = command.trim();
+            String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("menu show-current")) {
                 System.out.println("Deck Menu");
                 continue;
@@ -28,8 +40,9 @@ public class DeckMenuView {
             if (command.equals("menu exit")) {
                 return;
             }
-            if (command.startsWith("menu enter")) {
-                checkMenuEnterCommand(command);
+            Matcher matcher = menuEnter.matcher(command);
+            if (matcher.find()) {
+                System.out.println("menu navigation is not possible");
                 continue;
             }
             if (command.startsWith("deck")) {
@@ -38,16 +51,6 @@ public class DeckMenuView {
             }
             System.out.println("invalid command");
         }
-    }
-
-    private void checkMenuEnterCommand(String command) {
-        String regex = "^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$";
-        if (LoginMenuView.getMatcher(command, regex).find()) {
-            System.out.println("menu navigation is not possible");
-        } else {
-            System.out.println("invalid command");
-        }
-
     }
 
     private void checkDeckCommands(String command, String username) {
@@ -73,18 +76,19 @@ public class DeckMenuView {
             return;
         }
         //TODO make these two one: deck show
-        if (command.equals("deck show --all")) {
-            String result = DeckMenuController.getInstance().showUsersDecks(username);
-            System.out.println(result);
-            return;
-        }
-        if (command.startsWith("deck show")) {
-            checkShowDeckCommand(username);
-        }
+        //کامنت کردم که باگ نخوره
+//        if (command.equals("deck show --all")) {
+//            String result = DeckMenuController.getInstance().showUsersDecks(username);
+//            System.out.println(result);
+//            return;
+//        }
+//        if (command.startsWith("deck show")) {
+//            checkShowDeckCommand(username);
+//        }
     }
 
     private void checkCreateDeckCommand(String command, String username) {
-        Matcher matcher = LoginMenuView.getMatcher(command, "^deck create (\\S+)$");
+        Matcher matcher = createDeck.matcher(command);
         if (matcher.find()) {
             String result = DeckMenuController.getInstance().createDeck(matcher.group(1), username);
             System.out.println(result);
@@ -94,7 +98,7 @@ public class DeckMenuView {
     }
 
     private void checkDeleteDeckCommand(String command, String username) {
-        Matcher matcher = LoginMenuView.getMatcher(command, "^deck delete (\\S+)$");
+        Matcher matcher = deleteDeck.matcher(command);
         if (matcher.find()) {
             String result = DeckMenuController.getInstance().deleteDeck(matcher.group(1), username);
             System.out.println(result);
@@ -104,7 +108,7 @@ public class DeckMenuView {
     }
 
     private void checkSetDeckActivateCommand(String command, String username) {
-        Matcher matcher = LoginMenuView.getMatcher(command, "^deck set-activate (\\S+)$");
+        Matcher matcher = setActive.matcher(command);
         if (matcher.find()) {
             String result = DeckMenuController.getInstance().setActive(matcher.group(1), username);
             System.out.println(result);
@@ -115,70 +119,55 @@ public class DeckMenuView {
 
     private void checkAddCardCommand(String command, String username) {
         if (command.contains("--side")) {
-            checkAddCardToSideDeckCommand(command, username);
+            System.out.println(checkAddCardToSideDeckCommand(command, username));
         } else {
-            checkAddCardToMainDeckCommand(command, username);
+            System.out.println(checkAddCardToMainDeckCommand(command, username));
         }
     }
 
-    private void checkAddCardToSideDeckCommand(String command, String username) {
-        //TODO Complete
-        Matcher matcher = LoginMenuView.getMatcher(command, "^deck add-card --card (\\S+) --deck (\\S+) --side$");
+    private String checkAddCardToSideDeckCommand(String command, String username) {
+        DeckMenuController deckMenuController = DeckMenuController.getInstance();
+        Matcher matcher = addToSideDeck1.matcher(command);
         if (matcher.find()) {
-            checkAddCardToSideDeck(matcher.group(2), matcher.group(1), username);
-            return;
+            return deckMenuController.addToSideDeck(matcher.group(2), matcher.group(1), username);
         }
-        matcher = LoginMenuView.getMatcher(command, "^deck add-card --card (\\S+) --side --deck (\\S+)$");
+        matcher = addToSideDeck2.matcher(command);
         if (matcher.find()) {
-            checkAddCardToSideDeck(matcher.group(2), matcher.group(1), username);
-            return;
+            return deckMenuController.addToSideDeck(matcher.group(2), matcher.group(1), username);
         }
-        matcher = LoginMenuView.getMatcher(command, "^deck add-card --side --card (\\S+) --deck (\\S+)$");
+        matcher = addToSideDeck3.matcher(command);
         if (matcher.find()) {
-            checkAddCardToSideDeck(matcher.group(2), matcher.group(1), username);
-            return;
+            return deckMenuController.addToSideDeck(matcher.group(2), matcher.group(1), username);
+
         }
-        matcher = LoginMenuView.getMatcher(command, "^deck add-card --deck (\\S+) --card (\\S+) --side$");
+        matcher = addToSideDeck4.matcher(command);
         if (matcher.find()) {
-            checkAddCardToSideDeck(matcher.group(1), matcher.group(2), username);
-            return;
+            return deckMenuController.addToSideDeck(matcher.group(1), matcher.group(2), username);
         }
-        matcher = LoginMenuView.getMatcher(command, "^deck add-card --deck (\\S+) --side --card (\\S+)$");
+        matcher = addToSideDeck5.matcher(command);
         if (matcher.find()) {
-            checkAddCardToSideDeck(matcher.group(1), matcher.group(2), username);
-            return;
+            return deckMenuController.addToSideDeck(matcher.group(1), matcher.group(2), username);
+
         }
-        matcher = LoginMenuView.getMatcher(command, "^deck add-card --side --deck (\\S+) --card (\\S+)$");
+        matcher = addToSideDeck6.matcher(command);
         if (matcher.find()) {
-            checkAddCardToSideDeck(matcher.group(1), matcher.group(2), username);
+            return deckMenuController.addToSideDeck(matcher.group(1), matcher.group(2), username);
         }
+        return "invalid command";
     }
 
-    private void checkAddCardToSideDeck(String deckName, String cardName, String username) {
-        String result = DeckMenuController.getInstance().addCardToSideDeck(deckName, cardName, username);
-        System.out.println(result);
-    }
-
-    private void checkAddCardToMainDeckCommand(String command, String username) {
-        Matcher matcher = LoginMenuView.getMatcher(command, "^deck add-card --card (\\S+) --deck (\\S+)$");
-        if (matcher .find()) {
-            checkAddCardToMainDeck(matcher.group(2), matcher.group(1), username);
-            return;
-        }
-        matcher = LoginMenuView.getMatcher(command, "^deck add-card --deck (\\S+) --card (\\S+)$");
+    private String checkAddCardToMainDeckCommand(String command, String username) {
+        DeckMenuController deckMenuController = DeckMenuController.getInstance();
+        Matcher matcher = addToMainDeck1.matcher(command);
         if (matcher.find()) {
-            checkAddCardToMainDeck(matcher.group(1), matcher.group(2), username);
-            return;
+            return deckMenuController.addToMainDeck(matcher.group(2), matcher.group(1), username);
         }
-        System.out.println("invalid command");
+        matcher = addToMainDeck2.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.addToMainDeck(matcher.group(1), matcher.group(2), username);
+        }
+        return "invalid command";
     }
-
-    private void checkAddCardToMainDeck(String deckName, String cardName, String username) {
-        String result = DeckMenuController.getInstance().addCardToMainDeck(deckName, cardName, username);
-        System.out.println(result);
-    }
-
-
 
     private void checkRemoveCardCommand(String username) {
 
