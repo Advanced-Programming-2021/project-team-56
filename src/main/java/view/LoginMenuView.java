@@ -24,9 +24,7 @@ public class LoginMenuView {
     public void run() {
         String command;
         while (true) {
-            command = scan.nextLine();
-            command = command.trim();
-
+            command = scan.nextLine().trim();
             if (command.equals("menu show-current")) {
                 System.out.println("Login Menu");
                 continue;

@@ -21,7 +21,7 @@ public class LoginMenuController {
         if (user == null) {
             return "Username and password didn’t match!";
         }
-        if (user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(password)) {
             return "Username and password didn’t match!";
         }
         return "user logged in successfully!";

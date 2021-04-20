@@ -18,8 +18,7 @@ public class MainMenuView {
     public void run(String username) {
         String command;
         while (true) {
-            command = LoginMenuView.scan.nextLine();
-            command = command.trim();
+            command = LoginMenuView.scan.nextLine().trim();
 
             if (command.equals("menu show-current")) {
                 System.out.println("Main Menu");

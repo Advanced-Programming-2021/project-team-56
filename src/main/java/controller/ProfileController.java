@@ -40,7 +40,4 @@ public class ProfileController {
         }
     }
 
-    public String showCurrentMenu() {
-        return "Profile Menu";
-    }
 }

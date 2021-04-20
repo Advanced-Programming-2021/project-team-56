@@ -20,8 +20,7 @@ public class ScoreBoardView {
     public void run() {
         String command;
         while (true) {
-            command = LoginMenuView.scan.nextLine();
-            command = command.trim();
+            command = LoginMenuView.scan.nextLine().trim();
 
             if (command.equals("menu show-current")) {
                 System.out.println("Scoreboard");

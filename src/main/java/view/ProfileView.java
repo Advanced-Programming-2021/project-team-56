@@ -20,8 +20,7 @@ public class ProfileView {
     public void run(String username) {
         String command;
         while (true) {
-            command = LoginMenuView.scan.nextLine();
-            command = command.trim();
+            command = LoginMenuView.scan.nextLine().trim();
             if (command.startsWith("menu enter")) {
                 checkMenuEnterCommand(command);
                 continue;
@@ -30,8 +29,7 @@ public class ProfileView {
                 return;
             }
             if (command.equals("menu show-current")) {
-                String result = ProfileController.getInstance().showCurrentMenu();
-                System.out.println(result);
+                System.out.println("Profile Menu");
                 continue;
             }
             if (command.startsWith("profile change --nickname")) {

@@ -4,12 +4,7 @@ import java.util.ArrayList;
 
 public class User {
 
-    private static ArrayList<User> users;
-
-    static {
-        users = new ArrayList<>();
-    }
-
+    private static ArrayList<User> users = new ArrayList<>();
     private String username;
     private String password;
     private int score;
