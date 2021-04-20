@@ -1,7 +1,5 @@
 ﻿package view;
 
-import model.User;
-
 public class ShopView {
 
     private static ShopView shopView;
@@ -15,7 +13,7 @@ public class ShopView {
         return shopView;
     }
 
-    public void run(User user) {
+    public void run(String username) {
 
     }
 }
