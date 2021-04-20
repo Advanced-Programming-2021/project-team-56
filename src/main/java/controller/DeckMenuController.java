@@ -52,8 +52,42 @@ public class DeckMenuController {
         }
         return "deck with name " + deckName + " does not exist";
     }
+    //TODO This to add card methods has so much in common, use another method to reduce the duplicated codes
+    public String addCardToSideDeck(String deckName, String cardName, String username) {
+        User user = User.getUserByUsername(username);
+        if (user.isCardWithThisNameExistent(cardName)) {
+            if (user.isDeckWithThisNameExistent(deckName)) {
+                Deck deck = user.getDeckByDeckName(deckName);
+                if (!deck.isSideDeckFull()) {
+                    if (!deck.isThreeCardsWithThisNameInDeck(cardName)) {
+                        deck.addCardToSideDeck(cardName);
+                        return "card added successfully";
+                    }
+                    return "there are already three cards with name " + cardName + " in deck " + deckName;
+                }
+                return "side deck is full";
+            }
+            return "deck with name " + deckName + " does not exist";
+        }
+        return "card with name " + cardName + " does not exists";
+    }
 
-    private String addCard(String deckName, String cardName) {
-
+    public String addCardToMainDeck(String deckName, String cardName, String username) {
+        User user = User.getUserByUsername(username);
+        if (user.isCardWithThisNameExistent(cardName)) {
+            if (user.isDeckWithThisNameExistent(deckName)) {
+                Deck deck = user.getDeckByDeckName(deckName);
+                if (!deck.isMainDeckFull()) {
+                    if (!deck.isThreeCardsWithThisNameInDeck(cardName)) {
+                        deck.addCardToMainDeck(cardName);
+                        return "card added successfully";
+                    }
+                    return "there are already three cards with name " + cardName + " in deck " + deckName;
+                }
+                return "main deck is full";
+            }
+            return "deck with name " + deckName + " does not exist";
+        }
+        return "card with name " + cardName + " does not exists";
     }
 }
