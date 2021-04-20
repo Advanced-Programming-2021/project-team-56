@@ -13,6 +13,14 @@ public class DeckMenuController {
         return deckMenuController;
     }
 
+    public String showUsersDecks(String username) {
+
+    }
+
+    public String showUsersDeck(String username, String deckName) {
+
+    }
+
     private String createDeck(String deckName) {
 
     }

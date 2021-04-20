@@ -41,7 +41,7 @@ public class MainMenuView {
     }
 
     private void checkEnterMenuCommand(String command, String username) {
-        String regex = "^menu enter (Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
+        String regex = "^menu enter (Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
         Matcher matcher = LoginMenuView.getMatcher(command, regex);
         if (matcher.find()) {
             String menuName = matcher.group(1);
