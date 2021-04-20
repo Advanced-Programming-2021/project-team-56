@@ -1,6 +1,8 @@
 ﻿package model;
 
 public class Card {
-    private Object instance;
     private boolean isFacedUp;
+    private String cardName;
+    private String description;
+    private int cardNumber;
 }
