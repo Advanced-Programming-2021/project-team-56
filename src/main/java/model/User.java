@@ -96,9 +96,9 @@ public class User {
         this.username = username;
     }
 
-    public boolean isThisDeckNameAlreadyTaken(String deckName) {
-
-    }
+//    public boolean isThisDeckNameAlreadyTaken(String deckName) {
+//
+//    }
 
     public Deck getDeckByDeckName(String deckName) {
         for (Deck deck : decks) {
