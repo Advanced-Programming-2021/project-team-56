@@ -12,12 +12,4 @@ public class MainMenuController {
             mainMenuController = new MainMenuController();
         return mainMenuController;
     }
-
-    private String showCurrentMenu() {
-
-    }
-
-    private String menuNavigator() {
-
-    }
 }

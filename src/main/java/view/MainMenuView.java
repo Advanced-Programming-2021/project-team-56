@@ -21,7 +21,6 @@ public class MainMenuView {
         String command;
         while (true) {
             command = LoginMenuView.scan.nextLine().trim();
-
             if (command.equals("menu show-current")) {
                 System.out.println("Main Menu");
                 continue;
