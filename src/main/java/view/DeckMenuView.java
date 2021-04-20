@@ -17,7 +17,7 @@ public class DeckMenuView {
             String command = LoginMenuView.scan.nextLine();
             command = command.trim();
             if (command.startsWith("deck create")) {
-                createDeck
+                createDeck(username);
             }
         }
     }

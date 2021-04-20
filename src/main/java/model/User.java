@@ -113,7 +113,7 @@ public class User {
         return null;
     }
 
-    public void addCardToDeck(String deckNAme, String cardName) {
+    public void addCardToDeck(String deckName, String cardName) {
 
     }
 }
