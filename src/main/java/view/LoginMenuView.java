@@ -27,7 +27,9 @@ public class LoginMenuView {
         LoginMenuController loginMenuController = LoginMenuController.getInstance();
         String command;
         while (true) {
-            command = scan.nextLine().trim();
+            command = scan.nextLine();
+            command = command.trim();
+
             if (command.equals("menu show-current")) {
                 System.out.println("Login Menu");
                 continue;
