@@ -19,6 +19,11 @@ public class DeckMenuView {
             if (command.startsWith("deck create")) {
                 createDeck(username);
             }
+            if (command.equals("menu show-current")) {
+
+            }
+
+            System.out.println("invalid command");
         }
     }
 }
