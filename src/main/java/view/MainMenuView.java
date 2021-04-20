@@ -1,10 +1,12 @@
 ﻿package view;
 
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainMenuView {
 
     private static MainMenuView mainMenuView;
+    static Pattern menuEnter = Pattern.compile("^menu enter (Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$");
 
     private MainMenuView() {
     }
@@ -40,8 +42,7 @@ public class MainMenuView {
     }
 
     private void checkEnterMenuCommand(String command, String username) {
-        String regex = "^menu enter (Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
-        Matcher matcher = LoginMenuView.getMatcher(command, regex);
+        Matcher matcher = menuEnter.matcher(command);
         if (matcher.find()) {
             String menuName = matcher.group(1);
             if (menuName.equals("Scoreboard")) {
