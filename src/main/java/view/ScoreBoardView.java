@@ -1,7 +1,6 @@
 ﻿package view;
 
 import controller.ScoreBoardController;
-import model.User;
 
 import java.util.regex.Matcher;
 
@@ -18,7 +17,7 @@ public class ScoreBoardView {
         return scoreBoardView;
     }
 
-    public void run(User user) {
+    public void run() {
         String command;
         while (true) {
             command = LoginMenuView.scan.nextLine();
@@ -31,7 +30,7 @@ public class ScoreBoardView {
             if (command.equals("menu exit")) {
                 break;
             }
-            String regex = "^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
+            String regex = "^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
             Matcher matcher = LoginMenuView.getMatcher(command, regex);
             if (matcher.find()) {
                 System.out.println("menu navigation is not possible");

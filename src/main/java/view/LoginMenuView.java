@@ -42,7 +42,7 @@ public class LoginMenuView {
             if (command.equals("menu exit")) {
                 break;
             }
-            String regex = "^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
+            String regex = "^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
             Matcher matcher = getMatcher(command, regex);
             if (matcher.find()) {
                 System.out.println("please login first");
@@ -116,8 +116,7 @@ public class LoginMenuView {
             System.out.println(result);
         }
         if (result.equals("user logged in successfully!")) {
-            MainMenuView mainMenuView = MainMenuView.getInstance();
-            mainMenuView.run(username);
+            MainMenuView.getInstance().run(username);
         }
     }
 }
