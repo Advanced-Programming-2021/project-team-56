@@ -13,15 +13,7 @@ public class ShopController {
         return shopController;
     }
 
-    private String showCurrentMenu() {
-
-    }
-
     private String showAllCards() {
-
-    }
-
-    public String verifyOrder(String command) {
 
     }
 

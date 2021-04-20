@@ -13,7 +13,7 @@ public class DeckMenuView {
             deckMenuView = new DeckMenuView();
         return deckMenuView;
     }
-    public void run(User user) {
+    public void run(String username) {
 
     }
 }

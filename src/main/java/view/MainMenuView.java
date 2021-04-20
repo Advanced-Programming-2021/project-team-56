@@ -1,7 +1,5 @@
 ﻿package view;
 
-import model.User;
-
 import java.util.regex.Matcher;
 
 public class MainMenuView {
@@ -28,16 +26,48 @@ public class MainMenuView {
                 continue;
             }
             if (command.startsWith("menu enter")) {
-                enterMenu(command);
+                checkEnterMenuCommand(command, username);
+                continue;
             }
+            if (command.equals("menu exit")) {
+                return;
+            }
+            if (command.equals("user logout")) {
+                System.out.println("user logged out successfully!");
+                return;
+            }
+            System.out.println("invalid command");
         }
     }
 
-    private void enterMenu(String command) {
-        String regex = "^menu enter (Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
+    private void checkEnterMenuCommand(String command, String username) {
+        String regex = "^menu enter (Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
         Matcher matcher = LoginMenuView.getMatcher(command, regex);
         if (matcher.find()) {
-            if ()
+            String menuName = matcher.group(1);
+            if (menuName.equals("Scoreboard")) {
+                ScoreBoardView.getInstance().run();
+                return;
+            }
+            if (menuName.equals("Profile")) {
+                ProfileView.getInstance().run(username);
+                return;
+            }
+            //TODO Complete the menus
+            if (menuName.equals("Shop")) {
+                ShopView.getInstance().run(username);
+            }
+            if (menuName.equals("Deck")) {
+                DeckMenuView.getInstance().run(username);
+            }
+            if (menuName.equals("Duel")) {
+                //TODO Make a MainDuelMenu and run that
+            }
+            if (menuName.equals("Import/Export")) {
+                //TODO Make a Import/Export Menu
+            }
+        } else {
+            System.out.println("invalid command");
         }
     }
 }
