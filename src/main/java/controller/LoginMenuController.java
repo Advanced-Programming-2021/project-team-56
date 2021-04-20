@@ -34,7 +34,7 @@ public class LoginMenuController {
         if (User.isThisNicknameAlreadyTaken(nickname)) {
             return "user with nickname " + nickname + " already exists";
         }
-        User user = new User(username, nickname, password);
+        new User(username, nickname, password);
         return "user created successfully!";
     }
 }
