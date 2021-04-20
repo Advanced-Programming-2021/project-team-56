@@ -3,10 +3,19 @@
 import controller.ProfileController;
 
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProfileView {
 
     private static ProfileView profileView;
+    static Pattern menuEnter = Pattern.compile("^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
+    static Pattern changeNickname = Pattern.compile("^profile change --nickname (\\S+)$");
+    static Pattern changePassword1 = Pattern.compile("^profile change --password --current (\\S+) --new (\\S+)$");
+    static Pattern changePassword2 = Pattern.compile("^profile change --current (\\S+) --password --new (\\S+)$");
+    static Pattern changePassword3 = Pattern.compile("^profile change --current (\\S+) --new (\\S+) --password$");
+    static Pattern changePassword4 = Pattern.compile("^profile change --password --new (\\S+) --current (\\S+)$");
+    static Pattern changePassword5 = Pattern.compile("^profile change --new (\\S+) --password --current (\\S+)$");
+    static Pattern changePassword6 = Pattern.compile("^profile change --new (\\S+) --current (\\S+) --password$");
 
     private ProfileView() {
     }
@@ -43,8 +52,8 @@ public class ProfileView {
     }
 
     private void checkMenuEnterCommand(String command) {
-        String regex = "^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$";
-        if (LoginMenuView.getMatcher(command, regex).find()) {
+        Matcher matcher = menuEnter.matcher(command);
+        if (matcher.find()) {
             System.out.println("menu navigation is not possible");
         } else {
             System.out.println("invalid command");
@@ -52,7 +61,7 @@ public class ProfileView {
     }
 
     private void checkProfileChangeNicknameCommand(String username, String command) {
-        Matcher matcher = LoginMenuView.getMatcher(command, "^profile change --nickname (\\S+)$");
+        Matcher matcher = changeNickname.matcher(command);
         if (matcher.find()) {
             String newNickname = matcher.group(1);
             String result = ProfileController.getInstance().changeNickname(username, newNickname);
@@ -63,32 +72,32 @@ public class ProfileView {
     }
 
     private void checkProfileChangePasswordCommand(String username, String command) {
-        Matcher matcher = LoginMenuView.getMatcher(command, "^profile change --password --current (\\S+) --new (\\S+)$");
+        Matcher matcher = changePassword1.matcher(command);
         if (matcher.find()) {
             checkPasswords(matcher.group(1), matcher.group(2), username);
             return;
         }
-        matcher = LoginMenuView.getMatcher(command, "^profile change --current (\\S+) --password --new (\\S+)$");
+        matcher = changePassword2.matcher(command);
         if (matcher.find()) {
             checkPasswords(matcher.group(1), matcher.group(2), username);
             return;
         }
-        matcher = LoginMenuView.getMatcher(command, "^profile change --current (\\S+) --new (\\S+) --password$");
+        matcher = changePassword3.matcher(command);
         if (matcher.find()) {
             checkPasswords(matcher.group(1), matcher.group(2), username);
             return;
         }
-        matcher = LoginMenuView.getMatcher(command, "^profile change --password --new (\\S+) --current (\\S+)$");
+        matcher = changePassword4.matcher(command);
         if (matcher.find()) {
             checkPasswords(matcher.group(2), matcher.group(1), username);
             return;
         }
-        matcher = LoginMenuView.getMatcher(command, "^profile change --new (\\S+) --password --current (\\S+)$");
+        matcher = changePassword5.matcher(command);
         if (matcher.find()) {
             checkPasswords(matcher.group(2), matcher.group(1), username);
             return;
         }
-        matcher = LoginMenuView.getMatcher(command, "^profile change --new (\\S+) --current (\\S+) --password$");
+        matcher = changePassword6.matcher(command);
         if (matcher.find()) {
             checkPasswords(matcher.group(2), matcher.group(1), username);
             return;
