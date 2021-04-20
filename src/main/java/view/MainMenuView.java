@@ -59,6 +59,7 @@ public class MainMenuView {
             }
             if (menuName.equals("Deck")) {
                 DeckMenuView.getInstance().run(username);
+                return;
             }
             if (menuName.equals("Duel")) {
                 //TODO Make a MainDuelMenu and run that
