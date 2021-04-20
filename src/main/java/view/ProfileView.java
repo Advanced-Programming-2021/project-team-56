@@ -1,6 +1,7 @@
 ﻿package view;
 
 import controller.ProfileController;
+import model.User;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -106,12 +107,12 @@ public class ProfileView {
     }
 
     private void checkPasswords(String currentPassword, String newPassword, String username) {
-        if (ProfileController.getInstance().isPasswordValid(currentPassword, username).equals("isValid")) {
+        if (User.getUserByUsername(username).getPassword().equals(currentPassword)) {
             if (currentPassword.equals(newPassword)) {
                 System.out.println("please enter a new password");
             } else {
-                String result = ProfileController.getInstance().changePassword(newPassword, username);
-                System.out.println(result);
+                ProfileController.getInstance().changePassword(newPassword, username);
+                System.out.println("password changed successfully");
             }
         } else {
             System.out.println("current password is invalid");
