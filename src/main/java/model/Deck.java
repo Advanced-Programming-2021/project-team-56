@@ -17,8 +17,16 @@ public class Deck {
         return this.deckName;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActivated = isActive;
+    public void setDeckActive() {
+        this.isActivated = true;
+    }
+
+    public void setDeckInactive() {
+        this.isActivated = false;
+    }
+
+    public boolean isDeckActivated() {
+        return this.isActivated;
     }
 
     public void addCardToSideDeck(String cardName) {

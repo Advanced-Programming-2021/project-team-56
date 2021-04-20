@@ -96,9 +96,22 @@ public class User {
         this.username = username;
     }
 
-//    public boolean isThisDeckNameAlreadyTaken(String deckName) {
-//
-//    }
+    public boolean isDeckWithThisNameExistent(String deckName) {
+        for (Deck deck : decks) {
+            if (deck.getDeckName().equals(deckName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addDeckToDecks(Deck deck) {
+        this.decks.add(deck);
+    }
+
+    public void removeDeckFromDecks(Deck deck) {
+        this.decks.remove(deck);
+    }
 
     public Deck getDeckByDeckName(String deckName) {
         for (Deck deck : decks) {
@@ -106,6 +119,16 @@ public class User {
                 return deck;
         }
         return null;
+    }
+
+    public void setDeckActivate(Deck targetDeck) {
+        for (Deck deck : decks) {
+            if (deck.isDeckActivated()) {
+                deck.setDeckInactive();
+                targetDeck.setDeckActive();
+                return;
+            }
+        }
     }
 
     public void addCardToDeck(String deckNAme, String cardName) {

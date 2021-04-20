@@ -45,7 +45,7 @@ public class ProfileView {
     }
 
     private void checkMenuEnterCommand(String command) {
-        String regex = "^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$";
+        String regex = "^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$";
         if (LoginMenuView.getMatcher(command, regex).find()) {
             System.out.println("menu navigation is not possible");
         } else {
