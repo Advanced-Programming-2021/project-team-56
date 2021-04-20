@@ -4,12 +4,7 @@ import java.util.ArrayList;
 
 public class User {
 
-    private static ArrayList<User> users;
-
-    static {
-        users = new ArrayList<>();
-    }
-
+    private static ArrayList<User> users = new ArrayList<>();
     private String username;
     private String password;
     private int score;
@@ -101,9 +96,9 @@ public class User {
         this.username = username;
     }
 
-    public boolean isThisDeckNameAlreadyTaken(String deckName) {
-
-    }
+//    public boolean isThisDeckNameAlreadyTaken(String deckName) {
+//
+//    }
 
     public Deck getDeckByDeckName(String deckName) {
         for (Deck deck : decks) {
@@ -113,7 +108,7 @@ public class User {
         return null;
     }
 
-    public void addCardToDeck(String deckName, String cardName) {
+    public void addCardToDeck(String deckNAme, String cardName) {
 
     }
 }
