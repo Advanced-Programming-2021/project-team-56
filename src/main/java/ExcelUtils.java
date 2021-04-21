@@ -1,4 +1,3 @@
-package data;
 
 import model.MonsterCard;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -34,6 +33,7 @@ public class ExcelUtils {
 
     public void run() throws IOException {
         String prjDir = System.getProperty("user.dir");
+        System.out.println(prjDir);
         String excelPath = prjDir + "/data/Monster.xlsx";
         FileInputStream files = new FileInputStream(new File(excelPath));
         XSSFWorkbook workbook = new XSSFWorkbook(files);
@@ -54,6 +54,7 @@ public class ExcelUtils {
                 switch (j) {
                     case 0:
                         name = sheet.getRow(i).getCell(j).toString();
+                        monsterCard.setName(name);
                         break;
                     case 1:
                         level = (int) sheet.getRow(i).getCell(j).getNumericCellValue();
@@ -73,7 +74,6 @@ public class ExcelUtils {
                         break;
                     case 5:
                         attack = (int) sheet.getRow(i).getCell(j).getNumericCellValue();
-                        System.out.println(attack);
                         monsterCard.setAttack(attack);
                         break;
                     case 6:
@@ -82,7 +82,7 @@ public class ExcelUtils {
                         break;
                     case 7:
                         description = sheet.getRow(i).getCell(j).toString();
-                        System.out.println(description);
+                        monsterCard.setDescription(description);
                         break;
                     case 8:
                         price = (int) sheet.getRow(i).getCell(j).getNumericCellValue();
