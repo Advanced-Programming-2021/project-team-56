@@ -12,7 +12,7 @@ public class User {
 
     private String username;
     private String password;
-    private int score;
+    private int score = 0;
     private String nickname;
     private int money;
     private ArrayList<Deck> decks;
@@ -20,7 +20,7 @@ public class User {
 
     {
         decks = new ArrayList<>();
-        userAllCards= new ArrayList<>();
+        userAllCards = new ArrayList<>();
     }
 
     public User(String username, String nickname, String password) {
@@ -66,36 +66,25 @@ public class User {
         return this.nickname;
     }
 
+
     public int getScore() {
         return this.score;
     }
-//اینو کامنتش کردم باگ نخوره
-//    public Card getUserCardByNameForDeckAdding(String cardName, Deck deck) {
-//        //TODO if cards with the same names are the same object this is the code, if not check if the card is in the deck or not
-//        //TODO before
-//        for (Card card : userAllCards) {
-//            if (card.getName().equals(cardName)) {
-//                if (deck.isCardWithThisNameInDeck(cardName)) {
-//
-//                }
-//            }
-//        }
-//    }
 
     public ArrayList<Deck> getDecks() {
         return decks;
     }
 
     public void increaseMoney(int prize) {
-
+        this.money += prize;
     }
 
     public void increaseScore(int matchPoint) {
-
+        this.score += matchPoint;
     }
 
     public void decreaseMoney(int payment) {
-
+        this.money -= payment;
     }
 
     public int getMoney() {
@@ -104,6 +93,10 @@ public class User {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public ArrayList<Card> getUserAllCards() {
+        return userAllCards;
     }
 
     public void setPassword(String password) {
@@ -156,13 +149,8 @@ public class User {
         for (Deck deck : decks) {
             if (deck.isDeckActivated()) {
                 deck.setDeckInactive();
-                targetDeck.setDeckActive();
-                return;
             }
         }
-    }
-
-    public void addCardToDeck(String deckNAme, String cardName) {
-
+        targetDeck.setDeckActive();
     }
 }

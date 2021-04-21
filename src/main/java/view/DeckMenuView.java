@@ -20,6 +20,17 @@ public class DeckMenuView {
     static Pattern addToSideDeck6 = Pattern.compile("^deck add-card --side --deck (\\S+) --card (\\S+)$");
     static Pattern addToMainDeck1 = Pattern.compile("^deck add-card --card (\\S+) --deck (\\S+)$");
     static Pattern addToMainDeck2 = Pattern.compile("^deck add-card --deck (\\S+) --card (\\S+)$");
+    static Pattern removeFromSideDeck1 = Pattern.compile("^deck rm-card --card (\\S+) --deck (\\S+) --side$");
+    static Pattern removeFromSideDeck2 = Pattern.compile("^deck rm-card --card (\\S+) --side --deck (\\S+)$");
+    static Pattern removeFromSideDeck3 = Pattern.compile("^deck rm-card --side --card (\\S+) --deck (\\S+)$");
+    static Pattern removeFromSideDeck4 = Pattern.compile("^deck rm-card --deck (\\S+) --card (\\S+) --side$");
+    static Pattern removeFromSideDeck5 = Pattern.compile("^deck rm-card --deck (\\S+) --side --card (\\S+)$");
+    static Pattern removeFromSideDeck6 = Pattern.compile("^deck rm-card --side --deck (\\S+) --card (\\S+)$");
+    static Pattern removeFromMainDeck1 = Pattern.compile("^deck rm-card --card (\\S+) --deck (\\S+)$");
+    static Pattern removeFromMainDeck2 = Pattern.compile("^deck rm-card --deck (\\S+) --card (\\S+)$");
+    static Pattern showSideDeck1 = Pattern.compile("^deck show --deck-name (\\S+) --side$");
+    static Pattern showSideDeck2 = Pattern.compile("^deck show --side --deck-name (\\S+)$");
+    static Pattern showMainDeck = Pattern.compile("^deck show --deck-name (\\S+)$");
 
     private DeckMenuView() {
     }
@@ -72,19 +83,25 @@ public class DeckMenuView {
             return;
         } //undone
         if (command.startsWith("deck rm-card")) {
-            checkRemoveCardCommand(username);
+            checkRemoveCardCommand(command, username);
             return;
         }
-        //TODO make these two one: deck show
-        //کامنت کردم که باگ نخوره
-//        if (command.equals("deck show --all")) {
-//            String result = DeckMenuController.getInstance().showUsersDecks(username);
-//            System.out.println(result);
-//            return;
-//        }
-//        if (command.startsWith("deck show")) {
-//            checkShowDeckCommand(username);
-//        }
+
+        if (command.equals("deck show --all")) {
+            String result = DeckMenuController.getInstance().showUsersDecks(username);
+            System.out.print(result);
+            return;
+        }
+        if (command.startsWith("deck show")) {
+            System.out.print(checkShowDeck(command, username));
+            return;
+        }
+        if (command.equals("deck show --cards")) {
+            String result = DeckMenuController.getInstance().showCards(username);
+            System.out.print(result);
+            return;
+        }
+        System.out.println("invalid command");
     }
 
     private void checkCreateDeckCommand(String command, String username) {
@@ -169,11 +186,70 @@ public class DeckMenuView {
         return "invalid command";
     }
 
-    private void checkRemoveCardCommand(String username) {
-
+    private void checkRemoveCardCommand(String command, String username) {
+        if (command.contains("--side")) {
+            System.out.println(checkRemoveFromSideDeck(command, username));
+        } else {
+            System.out.println(checkRemoveFromMainDeck(command, username));
+        }
     }
 
-    private void checkShowDeckCommand(String username) {
+    private String checkRemoveFromSideDeck(String command, String username) {
+        DeckMenuController deckMenuController = DeckMenuController.getInstance();
+        Matcher matcher = removeFromSideDeck1.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.removeFromSideDeck(matcher.group(2), matcher.group(1), username);
+        }
+        matcher = removeFromSideDeck2.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.removeFromSideDeck(matcher.group(2), matcher.group(1), username);
+        }
+        matcher = removeFromSideDeck3.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.removeFromSideDeck(matcher.group(2), matcher.group(1), username);
+        }
+        matcher = removeFromSideDeck4.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.removeFromSideDeck(matcher.group(1), matcher.group(2), username);
+        }
+        matcher = removeFromSideDeck5.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.removeFromSideDeck(matcher.group(1), matcher.group(2), username);
+        }
+        matcher = removeFromSideDeck6.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.removeFromSideDeck(matcher.group(1), matcher.group(2), username);
+        }
+        return "invalid command";
+    }
 
+    private String checkRemoveFromMainDeck(String command, String username) {
+        DeckMenuController deckMenuController = DeckMenuController.getInstance();
+        Matcher matcher = removeFromMainDeck1.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.removeFromMainDeck(matcher.group(2), matcher.group(1), username);
+        }
+        matcher = removeFromMainDeck2.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.removeFromMainDeck(matcher.group(1), matcher.group(2), username);
+        }
+        return "invalid command";
+    }
+
+    private String checkShowDeck(String command, String username) {
+        DeckMenuController deckMenuController = DeckMenuController.getInstance();
+        Matcher matcher = showSideDeck1.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.showMainOrSideDeck(matcher.group(1), username, "side");
+        }
+        matcher = showSideDeck2.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.showMainOrSideDeck(matcher.group(1), username, "side");
+        }
+        matcher = showMainDeck.matcher(command);
+        if (matcher.find()) {
+            return deckMenuController.showMainOrSideDeck(matcher.group(1), username, "main");
+        }
+        return "invalid command\n";
     }
 }
