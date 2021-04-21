@@ -89,16 +89,6 @@ public class Deck {
         return false;
     }
 
-    public boolean isCardWithThisNameInDeck(String cardName) {
-        //Shiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiit code
-        for (Card card : deckCards) {
-            if (card.getName().equals(cardName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void addCardToSideDeck(String cardName) {
         for (Card card : userCards) {
             if (card.getName().equals(cardName)) {
