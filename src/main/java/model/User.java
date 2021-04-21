@@ -14,7 +14,7 @@ public class User {
     private String password;
     private int score = 0;
     private String nickname;
-    private int money;
+    private int money = 100000;
     private ArrayList<Deck> decks;
     private ArrayList<Card> userAllCards;
 
