@@ -1,5 +1,7 @@
 
 import model.MonsterCard;
+import model.SpellCard;
+import model.TrapCard;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -30,6 +32,9 @@ public class ExcelUtils {
     private static int defence;
     private static String cardType;
     private static String monsterType;
+    private static String type;
+    private static String status;
+    private static String icon;
 
     public void run() throws IOException {
         String prjDir = System.getProperty("user.dir");
@@ -44,6 +49,8 @@ public class ExcelUtils {
         files = new FileInputStream(new File(excelPath));
         workbook = new XSSFWorkbook(files);
         sheet = workbook.getSheetAt(0);
+        createSpellCards(sheet);
+        createTrapCards(sheet);
     }
 
     private void createMonsterCardObjects(XSSFSheet sheet) {
@@ -94,7 +101,75 @@ public class ExcelUtils {
         }
     }
 
-    private void createSpellAndTrapCards(XSSFSheet sheet) {
+    private void createSpellCards(XSSFSheet sheet) {
+        ArrayList<SpellCard> spellCards = SpellCard.getSpellCards();
+        for (int i = 13; i < sheet.getPhysicalNumberOfRows(); i++) {
+            SpellCard spellCard = new SpellCard();
+            for (int j = 0; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
+                switch (j) {
+                    case 0:
+                        name = sheet.getRow(i).getCell(j).toString();
+                        spellCard.setName(name);
+                        break;
+                    case 1:
+                        type = sheet.getRow(i).getCell(j).toString();
+                        spellCard.setType(type);
+                        break;
+                    case 2:
+                        icon = sheet.getRow(i).getCell(j).toString();
+                        spellCard.setIcon(icon);
+                        break;
+                    case 3:
+                        description = sheet.getRow(i).getCell(j).toString();
+                        spellCard.setDescription(description);
+                        break;
+                    case 4:
+                        status = sheet.getRow(i).getCell(j).toString();
+                        spellCard.setStatus(status);
+                        break;
+                    case 5:
+                        price = (int) sheet.getRow(i).getCell(j).getNumericCellValue();
+                        spellCard.setPrice(price);
+                        break;
+                }
+            }
+            spellCards.add(spellCard);
+        }
+    }
 
+    private void createTrapCards(XSSFSheet sheet) {
+        ArrayList<TrapCard> trapCards = TrapCard.getTrapCards();
+        for (int i = 1; i < 13; i++) {
+            TrapCard trapCard = new TrapCard();
+            for (int j = 0; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
+                switch (j) {
+                    case 0:
+                        name = sheet.getRow(i).getCell(j).toString();
+                        trapCard.setName(name);
+                        break;
+                    case 1:
+                        type = sheet.getRow(i).getCell(j).toString();
+                        trapCard.setType(type);
+                        break;
+                    case 2:
+                        icon = sheet.getRow(i).getCell(j).toString();
+                        trapCard.setIcon(icon);
+                        break;
+                    case 3:
+                        description = sheet.getRow(i).getCell(j).toString();
+                        trapCard.setDescription(description);
+                        break;
+                    case 4:
+                        status = sheet.getRow(i).getCell(j).toString();
+                        trapCard.setStatus(status);
+                        break;
+                    case 5:
+                        price = (int) sheet.getRow(i).getCell(j).getNumericCellValue();
+                        trapCard.setPrice(price);
+                        break;
+                }
+            }
+            trapCards.add(trapCard);
+        }
     }
 }

@@ -5,6 +5,7 @@ public class Card {
     private String name;
     private String description;
     private int cardNumber;
+    private int price;
 
     public String getName() {
         return name;
@@ -16,5 +17,9 @@ public class Card {
 
     public void setDescription(String description){
         this.description = description;
+    }
+
+    public void setPrice(int price){
+        this.price = price;
     }
 }

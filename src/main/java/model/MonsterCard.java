@@ -9,7 +9,6 @@ public class MonsterCard extends Card {
     private int attack;
     private int defence;
     private boolean isInAttackPosition;
-    private int price;
     private String cardType;
     private String monsterType;
 
@@ -43,7 +42,4 @@ public class MonsterCard extends Card {
         this.defence = defence;
     }
 
-    public void setPrice(int price){
-        this.price = price;
-    }
 }
