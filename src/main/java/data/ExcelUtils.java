@@ -39,9 +39,14 @@ public class ExcelUtils {
         XSSFWorkbook workbook = new XSSFWorkbook(files);
         XSSFSheet sheet = workbook.getSheetAt(0);
         createMonsterCardObjects(sheet);
+        prjDir = System.getProperty("user.dir");
+        excelPath = prjDir + "/data/SpellTrap.xlsx";
+        files = new FileInputStream(new File(excelPath));
+        workbook = new XSSFWorkbook(files);
+        sheet = workbook.getSheetAt(0);
     }
 
-    private void createMonsterCardObjects(XSSFSheet sheet){
+    private void createMonsterCardObjects(XSSFSheet sheet) {
         ArrayList<MonsterCard> monsterCards = MonsterCard.getMonsterCards();
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             MonsterCard monsterCard = new MonsterCard();
@@ -87,5 +92,9 @@ public class ExcelUtils {
             }
             monsterCards.add(monsterCard);
         }
+    }
+
+    private void createSpellAndTrapCards(XSSFSheet sheet) {
+
     }
 }
