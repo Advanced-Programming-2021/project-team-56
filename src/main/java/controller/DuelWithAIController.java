@@ -1,4 +1,4 @@
-﻿package controller;
+package controller;
 
 public class DuelWithAIController {
 
@@ -17,7 +17,7 @@ public class DuelWithAIController {
     private int phase;
 
 
-    private String showCurrentMenu() {
+   /* private String showCurrentMenu() {
 
     }
 
@@ -91,5 +91,5 @@ public class DuelWithAIController {
 
     private String cardShow() {
 
-    }
+    }*/
 }

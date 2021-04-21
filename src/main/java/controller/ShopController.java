@@ -1,4 +1,4 @@
-﻿package controller;
+package controller;
 
 public class ShopController {
 
@@ -13,11 +13,11 @@ public class ShopController {
         return shopController;
     }
 
-    private String showAllCards() {
+  //  private String showAllCards() {
+//
+   // }
 
-    }
-
-    private String buyCard(String cardName) {
-
-    }
+  //  private String buyCard(String cardName) {
+//
+  //  }
 }

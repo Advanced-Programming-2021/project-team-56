@@ -1,4 +1,4 @@
-﻿package model;
+package model;
 
 public class Card {
     private boolean isFacedUp;
@@ -8,5 +8,9 @@ public class Card {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

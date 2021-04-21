@@ -1,4 +1,4 @@
-﻿package model;
+package model;
 
 public class MonsterCard extends Card {
     private int level;
