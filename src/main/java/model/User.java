@@ -16,13 +16,18 @@ public class User {
     private String nickname;
     private int money;
     private ArrayList<Deck> decks;
+    private ArrayList<Card> userAllCards;
+
+    {
+        decks = new ArrayList<>();
+        userAllCards= new ArrayList<>();
+    }
 
     public User(String username, String nickname, String password) {
         setUsername(username);
         setPassword(password);
         setNickname(nickname);
         users.add(this);
-        decks = new ArrayList<>();
     }
 
     public static ArrayList<User> getUsers() {
@@ -65,6 +70,18 @@ public class User {
         return this.score;
     }
 
+    public Card getUserCardByNameForDeckAdding(String cardName, Deck deck) {
+        //TODO if cards with the same names are the same object this is the code, if not check if the card is in the deck or not
+        //TODO before
+        for (Card card : userAllCards) {
+            if (card.getName().equals(cardName)) {
+                if (deck.isCardWithThisNameInDeck(cardName)) {
+
+                }
+            }
+        }
+    }
+
     public ArrayList<Deck> getDecks() {
         return decks;
     }
@@ -101,8 +118,30 @@ public class User {
         this.username = username;
     }
 
-    public boolean isThisDeckNameAlreadyTaken(String deckName) {
+    public boolean isDeckWithThisNameExistent(String deckName) {
+        for (Deck deck : decks) {
+            if (deck.getDeckName().equals(deckName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public boolean isCardWithThisNameExistent(String cardName) {
+        for (Card card : userAllCards) {
+            if (card.getName().equals(cardName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addDeckToDecks(Deck deck) {
+        this.decks.add(deck);
+    }
+
+    public void removeDeckFromDecks(Deck deck) {
+        this.decks.remove(deck);
     }
 
     public Deck getDeckByDeckName(String deckName) {
@@ -111,6 +150,16 @@ public class User {
                 return deck;
         }
         return null;
+    }
+
+    public void setDeckActivate(Deck targetDeck) {
+        for (Deck deck : decks) {
+            if (deck.isDeckActivated()) {
+                deck.setDeckInactive();
+                targetDeck.setDeckActive();
+                return;
+            }
+        }
     }
 
     public void addCardToDeck(String deckNAme, String cardName) {
