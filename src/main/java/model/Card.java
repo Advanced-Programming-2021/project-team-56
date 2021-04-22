@@ -6,9 +6,18 @@ public class Card {
     private boolean isFacedUp;
     private String name;
     private String description;
-    private int cardNumber;
     private int price;
     private static ArrayList<Card> cards = new ArrayList<>();
+
+    public Card() {
+
+    }
+
+    public Card(String name, String description, int price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 
     public static ArrayList<Card> getCards() {
         return cards;
@@ -52,13 +61,13 @@ public class Card {
         }
     }
 
-    public int getPrice(){
+    public int getPrice() {
         return price;
     }
 
-    public static Card getCardByName(String cardName){
+    public static Card getCardByName(String cardName) {
         for (int i = 0; i < cards.size(); i++) {
-            if (cards.get(i).getName().equals(cardName)){
+            if (cards.get(i).getName().equals(cardName)) {
                 return cards.get(i);
             }
         }

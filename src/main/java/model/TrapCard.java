@@ -8,6 +8,18 @@ public class TrapCard extends Card {
     private String status;
     private String type;
 
+    public TrapCard() {
+
+    }
+
+    public TrapCard(Card card) {
+        super(card.getName(), card.getDescription(), card.getPrice());
+        TrapCard trapCard = (TrapCard) card;
+        this.type = trapCard.getType();
+        this.icon = trapCard.getIcon();
+        this.status = trapCard.getStatus();
+    }
+
     public static ArrayList<TrapCard> getTrapCards() {
         return trapCards;
     }
@@ -26,5 +38,17 @@ public class TrapCard extends Card {
 
     public static void setTrapCards(ArrayList<TrapCard> allTrapCards) {
         trapCards = allTrapCards;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 }

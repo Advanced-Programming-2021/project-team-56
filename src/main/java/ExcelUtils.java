@@ -102,8 +102,8 @@ public class ExcelUtils {
             cards.add(monsterCard);
             monsterCards.add(monsterCard);
         }
-        MonsterCard.setMonsterCards(monsterCards);
-        Card.addMonsterCards(monsterCards);
+//        MonsterCard.setMonsterCards(monsterCards);
+//        Card.addMonsterCards(monsterCards);
     }
 
     private void createSpellCards(XSSFSheet sheet) {
@@ -142,8 +142,8 @@ public class ExcelUtils {
             spellCards.add(spellCard);
             cards.add(spellCard);
         }
-        SpellCard.setSpellCards(spellCards);
-        Card.addSpellCards(spellCards);
+//        SpellCard.setSpellCards(spellCards);
+//        Card.addSpellCards(spellCards);
     }
 
     private void createTrapCards(XSSFSheet sheet) {
@@ -182,7 +182,7 @@ public class ExcelUtils {
             trapCards.add(trapCard);
             cards.add(trapCard);
         }
-        TrapCard.setTrapCards(trapCards);
-        Card.addTrapCards(trapCards);
+//        TrapCard.setTrapCards(trapCards);
+//        Card.addTrapCards(trapCards);
     }
 }

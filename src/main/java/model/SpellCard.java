@@ -9,6 +9,18 @@ public class SpellCard extends Card {
     private ArrayList<Card> effectedCards;
     private static ArrayList<SpellCard> spellCards = new ArrayList<>();
 
+    public SpellCard() {
+
+    }
+
+    public SpellCard(Card card) {
+        super(card.getName(), card.getDescription(), card.getPrice());
+        SpellCard spellCard = (SpellCard) card;
+        this.type = spellCard.getType();
+        this.icon = spellCard.getIcon();
+        this.status = spellCard.getStatus();
+    }
+
     public static ArrayList<SpellCard> getSpellCards() {
         return spellCards;
     }
@@ -27,5 +39,17 @@ public class SpellCard extends Card {
 
     public static void setSpellCards(ArrayList<SpellCard> allSpellCards) {
         spellCards = allSpellCards;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 }

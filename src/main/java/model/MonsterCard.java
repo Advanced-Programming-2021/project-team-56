@@ -5,12 +5,26 @@ import java.util.ArrayList;
 public class MonsterCard extends Card {
     private int level;
     private String attribute;
-    private String type;
     private int attack;
     private int defence;
     private boolean isInAttackPosition;
     private String cardType;
     private String monsterType;
+
+    public MonsterCard(){
+
+    }
+
+    public MonsterCard(Card card){
+        super(card.getName(), card.getDescription(), card.getPrice());
+        MonsterCard monsterCard = new MonsterCard();
+        this.attack = monsterCard.getAttack();
+        this.defence = monsterCard.getDefence();
+        this.level = monsterCard.getLevel();
+        this.monsterType = monsterCard.getMonsterType();
+        this.attribute = monsterCard.getAttribute();
+        this.cardType = monsterCard.getCardType();
+    }
 
     private static ArrayList<MonsterCard> monsterCards = new ArrayList<>();
 
@@ -44,6 +58,30 @@ public class MonsterCard extends Card {
 
     public static void setMonsterCards(ArrayList<MonsterCard> allMonsterCards){
         monsterCards = allMonsterCards;
+    }
+
+    public int getAttack(){
+        return attack;
+    }
+
+    public int getDefence(){
+        return defence;
+    }
+
+    public int getLevel(){
+        return level;
+    }
+
+    public String getMonsterType(){
+        return monsterType;
+    }
+
+    public String getAttribute(){
+        return attribute;
+    }
+
+    public String getCardType(){
+        return cardType;
     }
 
 }

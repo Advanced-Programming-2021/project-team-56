@@ -33,7 +33,7 @@ public class ShopController {
 
     public static String buyCard(String cardName, String customer) {
         int priceOfCard = Card.getCardByName(cardName).getPrice();
-        if (!isThereCardWithThisName(cardName)) {
+        if (!isThereAnyCardWithThisName(cardName)) {
             return "there is no card with this name";
         }
         if (priceOfCard > User.getUserByUsername(customer).getMoney()) {
@@ -44,7 +44,7 @@ public class ShopController {
         return "";
     }
 
-    private static boolean isThereCardWithThisName(String cardName) {
+    private static boolean isThereAnyCardWithThisName(String cardName) {
         for (int i = 0; i < Card.getCards().size(); i++) {
             if (Card.getCards().get(i).getName().equals(cardName)) {
                 return true;
