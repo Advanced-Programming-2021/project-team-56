@@ -4,24 +4,14 @@ import java.util.ArrayList;
 
 public class User {
 
-    private static ArrayList<User> users;
-
-    static {
-        users = new ArrayList<>();
-    }
-
+    private static ArrayList<User> users = new ArrayList<>();
     private String username;
     private String password;
     private int score = 0;
     private String nickname;
     private int money = 100000;
-    private ArrayList<Deck> decks;
-    private ArrayList<Card> userAllCards;
-
-    {
-        decks = new ArrayList<>();
-        userAllCards = new ArrayList<>();
-    }
+    private ArrayList<Deck> decks = new ArrayList<>();
+    private ArrayList<Card> userAllCards = new ArrayList<>();
 
     public User(String username, String nickname, String password) {
         setUsername(username);
@@ -152,5 +142,9 @@ public class User {
             }
         }
         targetDeck.setDeckActive();
+    }
+
+    public void addCardToUserAllCards(Card card){
+        userAllCards.add(card);
     }
 }
