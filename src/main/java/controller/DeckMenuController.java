@@ -173,10 +173,10 @@ public class DeckMenuController {
 
     public String showCards(String username) {
         User user = User.getUserByUsername(username);
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (Card card : user.getUserAllCards()) {
-            result += card.getName() + ":" + card.getDescription() + "\n";
+            result.append(card.getName()).append(":").append(card.getDescription()).append("\n");
         }
-        return result;
+        return result.toString();
     }
 }
