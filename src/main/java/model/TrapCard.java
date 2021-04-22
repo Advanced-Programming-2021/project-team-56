@@ -8,19 +8,23 @@ public class TrapCard extends Card {
     private String status;
     private String type;
 
-    public static ArrayList<TrapCard> getTrapCards(){
+    public static ArrayList<TrapCard> getTrapCards() {
         return trapCards;
     }
 
-    public void setType(String type){
+    public void setType(String type) {
         this.type = type;
     }
 
-    public void setIcon(String icon){
+    public void setIcon(String icon) {
         this.icon = icon;
     }
 
-    public void setStatus(String status){
+    public void setStatus(String status) {
         this.status = status;
+    }
+
+    public static void setTrapCards(ArrayList<TrapCard> allTrapCards) {
+        trapCards = allTrapCards;
     }
 }

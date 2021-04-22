@@ -28,12 +28,12 @@ public class ScoreBoardController {
         int rank = 1;
         for (int i = 0; i < users.size(); i++) {
             if (i == 0) {
-                scoreBoard.append("1- ").append(users.get(0).getNickname()).append(": ").append(users.get(0).getScore()).append("\n");
+                scoreBoard.append("1- " + users.get(0).getNickname() + ": " + users.get(0).getScore() + "\n");
             } else {
                 if (users.get(i).getScore() != users.get(i - 1).getScore()) {
                     rank++;
                 }
-                scoreBoard.append(rank).append("- ").append(users.get(i).getNickname()).append(": ").append(users.get(i).getScore()).append("\n");
+                scoreBoard.append(rank + "- " + users.get(i).getNickname() + ": " + users.get(i).getScore() + "\n");
             }
         }
         return scoreBoard.toString();

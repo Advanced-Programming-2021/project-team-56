@@ -1,4 +1,5 @@
 
+import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
 import model.TrapCard;
@@ -55,6 +56,7 @@ public class ExcelUtils {
 
     private void createMonsterCardObjects(XSSFSheet sheet) {
         ArrayList<MonsterCard> monsterCards = MonsterCard.getMonsterCards();
+        ArrayList<Card> cards = Card.getCards();
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             MonsterCard monsterCard = new MonsterCard();
             for (int j = 0; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
@@ -97,12 +99,16 @@ public class ExcelUtils {
                         break;
                 }
             }
+            cards.add(monsterCard);
             monsterCards.add(monsterCard);
         }
+        MonsterCard.setMonsterCards(monsterCards);
+        Card.addMonsterCards(monsterCards);
     }
 
     private void createSpellCards(XSSFSheet sheet) {
         ArrayList<SpellCard> spellCards = SpellCard.getSpellCards();
+        ArrayList<Card> cards = Card.getCards();
         for (int i = 13; i < sheet.getPhysicalNumberOfRows(); i++) {
             SpellCard spellCard = new SpellCard();
             for (int j = 0; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
@@ -134,11 +140,15 @@ public class ExcelUtils {
                 }
             }
             spellCards.add(spellCard);
+            cards.add(spellCard);
         }
+        SpellCard.setSpellCards(spellCards);
+        Card.addSpellCards(spellCards);
     }
 
     private void createTrapCards(XSSFSheet sheet) {
         ArrayList<TrapCard> trapCards = TrapCard.getTrapCards();
+        ArrayList<Card> cards = Card.getCards();
         for (int i = 1; i < 13; i++) {
             TrapCard trapCard = new TrapCard();
             for (int j = 0; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
@@ -170,6 +180,9 @@ public class ExcelUtils {
                 }
             }
             trapCards.add(trapCard);
+            cards.add(trapCard);
         }
+        TrapCard.setTrapCards(trapCards);
+        Card.addTrapCards(trapCards);
     }
 }
