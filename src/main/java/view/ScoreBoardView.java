@@ -1,12 +1,14 @@
-﻿package view;
+package view;
 
 import controller.ScoreBoardController;
 
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ScoreBoardView {
 
     private static ScoreBoardView scoreBoardView;
+    static Pattern menuEnter = Pattern.compile("^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$");
 
     private ScoreBoardView() {
     }
@@ -20,9 +22,7 @@ public class ScoreBoardView {
     public void run() {
         String command;
         while (true) {
-            command = LoginMenuView.scan.nextLine();
-            command = command.trim();
-
+            command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("menu show-current")) {
                 System.out.println("Scoreboard");
                 continue;
@@ -30,8 +30,7 @@ public class ScoreBoardView {
             if (command.equals("menu exit")) {
                 break;
             }
-            String regex = "^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
-            Matcher matcher = LoginMenuView.getMatcher(command, regex);
+            Matcher matcher = menuEnter.matcher(command);
             if (matcher.find()) {
                 System.out.println("menu navigation is not possible");
                 continue;

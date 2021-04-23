@@ -1,4 +1,4 @@
-﻿package model;
+package model;
 
 import java.util.ArrayList;
 
@@ -6,13 +6,15 @@ public class Deck {
     private ArrayList<Card> mainDeck;
     private ArrayList<Card> sideDeck;
     private ArrayList<Card> deckCards;
-    private boolean isActivated;
+    private ArrayList<Card> userCards;
+    private boolean isActivated = false;
     private String deckName;
 
     {
         mainDeck = new ArrayList<>();
         sideDeck = new ArrayList<>();
         deckCards = new ArrayList<>();
+        userCards = new ArrayList<>();
     }
 
     public Deck(String deckName) {
@@ -23,12 +25,28 @@ public class Deck {
         return this.deckName;
     }
 
+    public ArrayList<Card> getUserCards() {
+        return userCards;
+    }
+
     public void setDeckActive() {
         this.isActivated = true;
     }
 
     public void setDeckInactive() {
         this.isActivated = false;
+    }
+
+    public ArrayList<Card> getMainDeck() {
+        return mainDeck;
+    }
+
+    public ArrayList<Card> getSideDeck() {
+        return sideDeck;
+    }
+
+    public ArrayList<Card> getDeckCards() {
+        return deckCards;
     }
 
     public boolean isDeckActivated() {
@@ -62,9 +80,8 @@ public class Deck {
         return false;
     }
 
-    public boolean isCardWithThisNameInDeck(String cardName) {
-        //TODO Shit code
-        for (Card card : deckCards) {
+    public boolean isCardWithThisNameExistent(String cardName) {
+        for (Card card : userCards) {
             if (card.getName().equals(cardName)) {
                 return true;
             }
@@ -73,10 +90,22 @@ public class Deck {
     }
 
     public void addCardToSideDeck(String cardName) {
-
+        for (Card card : userCards) {
+            if (card.getName().equals(cardName)) {
+                sideDeck.add(card);
+                deckCards.add(card);
+                userCards.remove(card);
+            }
+        }
     }
 
     public void addCardToMainDeck(String cardName) {
-
+        for (Card card : userCards) {
+            if (card.getName().equals(cardName)) {
+                mainDeck.add(card);
+                deckCards.add(card);
+                userCards.remove(card);
+            }
+        }
     }
 }

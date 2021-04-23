@@ -1,4 +1,4 @@
-﻿package view;
+package view;
 
 import controller.LoginMenuController;
 
@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 public class LoginMenuView {
 
     private static LoginMenuView loginMenuView;
+    static Pattern menuEnter = Pattern.compile("^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$");
+    static Pattern loginUser = Pattern.compile("^user login (\\S+) (\\S+) (\\S+) (\\S+)$");
 
     private LoginMenuView() {
     }
@@ -22,6 +24,7 @@ public class LoginMenuView {
     public static Scanner scan = new Scanner(System.in);
 
     public void run() {
+        LoginMenuController loginMenuController = LoginMenuController.getInstance();
         String command;
         while (true) {
             command = scan.nextLine();
@@ -32,7 +35,7 @@ public class LoginMenuView {
                 continue;
             }
             if (command.startsWith("user create")) {
-                createUser(command);
+                System.out.println(loginMenuController.createUser(command));
                 continue;
             }
             if (command.startsWith("user login")) {
@@ -42,8 +45,7 @@ public class LoginMenuView {
             if (command.equals("menu exit")) {
                 break;
             }
-            String regex = "^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
-            Matcher matcher = getMatcher(command, regex);
+            Matcher matcher = menuEnter.matcher(command);
             if (matcher.find()) {
                 System.out.println("please login first");
                 continue;
@@ -52,54 +54,11 @@ public class LoginMenuView {
         }
     }
 
-    public static Matcher getMatcher(String command, String regex) {
-        Pattern pattern = Pattern.compile(regex);
-        return pattern.matcher(command);
-    }
-
-    private void createUser(String command) {
-        LoginMenuController loginMenuController = LoginMenuController.getInstance();
-        String result = "";
-        String regex = "^user create --username (\\S+) --password (\\S+) --nickname (\\S+)$";
-        Matcher matcher = getMatcher(command, regex);
-        if (matcher.find()) {
-            result = loginMenuController.register(matcher.group(1), matcher.group(2), matcher.group(3));
-        }
-        regex = "^user create --username (\\S+) --nickname (\\S+) --password (\\S+)$";
-        matcher = getMatcher(command, regex);
-        if (matcher.find()) {
-            result = loginMenuController.register(matcher.group(1), matcher.group(3), matcher.group(2));
-        }
-        regex = "^user create --password (\\S+) --nickname (\\S+) --username (\\S+)$";
-        matcher = getMatcher(command, regex);
-        if (matcher.find()) {
-            result = loginMenuController.register(matcher.group(3), matcher.group(1), matcher.group(2));
-        }
-        regex = "^user create --password (\\S+) --username (\\S+) --nickname (\\S+)$";
-        matcher = getMatcher(command, regex);
-        if (matcher.find()) {
-            result = loginMenuController.register(matcher.group(2), matcher.group(1), matcher.group(3));
-        }
-        regex = "^user create --nickname (\\S+) --username (\\S+) --password (\\S+)$";
-        matcher = getMatcher(command, regex);
-        if (matcher.find()) {
-            result = loginMenuController.register(matcher.group(2), matcher.group(3), matcher.group(1));
-        }
-        regex = "^user create --nickname (\\S+) --password (\\S+) --username (\\S+)$";
-        matcher = getMatcher(command, regex);
-        if (matcher.find()) {
-            result = loginMenuController.register(matcher.group(3), matcher.group(2), matcher.group(1));
-        }
-        if (result.equals("")) System.out.println("invalid command");
-        else System.out.println(result);
-    }
-
     private void loginUser(String command) {
         LoginMenuController loginMenuController = LoginMenuController.getInstance();
         String result = "";
         String username = "";
-        String regex = "^user login (\\S+) (\\S+) (\\S+) (\\S+)$";
-        Matcher matcher = getMatcher(command, regex);
+        Matcher matcher = loginUser.matcher(command);
         if (matcher.find()) {
             if (matcher.group(1).equals("--username") && matcher.group(3).equals("--password")) {
                 result = loginMenuController.logIn(matcher.group(2), matcher.group(4));

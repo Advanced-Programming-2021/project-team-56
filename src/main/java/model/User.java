@@ -1,27 +1,17 @@
-﻿package model;
+package model;
 
 import java.util.ArrayList;
 
 public class User {
 
-    private static ArrayList<User> users;
-
-    static {
-        users = new ArrayList<>();
-    }
-
+    private static ArrayList<User> users = new ArrayList<>();
     private String username;
     private String password;
-    private int score;
+    private int score = 0;
     private String nickname;
-    private int money;
-    private ArrayList<Deck> decks;
-    private ArrayList<Card> userAllCards;
-
-    {
-        decks = new ArrayList<>();
-        userAllCards= new ArrayList<>();
-    }
+    private int money = 100000;
+    private ArrayList<Deck> decks = new ArrayList<>();
+    private ArrayList<Card> userAllCards = new ArrayList<>();
 
     public User(String username, String nickname, String password) {
         setUsername(username);
@@ -66,20 +56,9 @@ public class User {
         return this.nickname;
     }
 
+
     public int getScore() {
         return this.score;
-    }
-
-    public Card getUserCardByNameForDeckAdding(String cardName, Deck deck) {
-        //TODO if cards with the same names are the same object this is the code, if not check if the card is in the deck or not
-        //TODO before
-        for (Card card : userAllCards) {
-            if (card.getName().equals(cardName)) {
-                if (deck.isCardWithThisNameInDeck(cardName)) {
-
-                }
-            }
-        }
     }
 
     public ArrayList<Deck> getDecks() {
@@ -87,15 +66,15 @@ public class User {
     }
 
     public void increaseMoney(int prize) {
-
+        this.money += prize;
     }
 
     public void increaseScore(int matchPoint) {
-
+        this.score += matchPoint;
     }
 
     public void decreaseMoney(int payment) {
-
+        this.money -= payment;
     }
 
     public int getMoney() {
@@ -104,6 +83,10 @@ public class User {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public ArrayList<Card> getUserAllCards() {
+        return userAllCards;
     }
 
     public void setPassword(String password) {
@@ -156,13 +139,21 @@ public class User {
         for (Deck deck : decks) {
             if (deck.isDeckActivated()) {
                 deck.setDeckInactive();
-                targetDeck.setDeckActive();
-                return;
             }
         }
+        targetDeck.setDeckActive();
     }
 
-    public void addCardToDeck(String deckNAme, String cardName) {
-
+    public void addCardToUserAllCards(Card card) {
+        if (card instanceof SpellCard) {
+            SpellCard spellCard = new SpellCard(card);
+            userAllCards.add(spellCard);
+        } else if (card instanceof TrapCard) {
+            TrapCard trapCard = new TrapCard(card);
+            userAllCards.add(trapCard);
+        } else {
+            MonsterCard monsterCard = new MonsterCard(card);
+            userAllCards.add(monsterCard);
+        }
     }
 }

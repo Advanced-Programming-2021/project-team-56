@@ -1,10 +1,12 @@
-﻿package view;
+package view;
 
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainMenuView {
 
     private static MainMenuView mainMenuView;
+    static Pattern menuEnter = Pattern.compile("^menu enter (Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$");
 
     private MainMenuView() {
     }
@@ -18,9 +20,7 @@ public class MainMenuView {
     public void run(String username) {
         String command;
         while (true) {
-            command = LoginMenuView.scan.nextLine();
-            command = command.trim();
-
+            command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("menu show-current")) {
                 System.out.println("Main Menu");
                 continue;
@@ -41,8 +41,7 @@ public class MainMenuView {
     }
 
     private void checkEnterMenuCommand(String command, String username) {
-        String regex = "^menu enter (Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$";
-        Matcher matcher = LoginMenuView.getMatcher(command, regex);
+        Matcher matcher = menuEnter.matcher(command);
         if (matcher.find()) {
             String menuName = matcher.group(1);
             if (menuName.equals("Scoreboard")) {
@@ -59,7 +58,6 @@ public class MainMenuView {
             }
             if (menuName.equals("Deck")) {
                 DeckMenuView.getInstance().run(username);
-                return;
             }
             if (menuName.equals("Duel")) {
                 //TODO Make a MainDuelMenu and run that
