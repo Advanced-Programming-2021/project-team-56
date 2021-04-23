@@ -155,8 +155,8 @@ public class User {
             MonsterCard monsterCard = new MonsterCard(card);
             userAllCards.add(monsterCard);
         }
-        for (int i = 0; i < decks.size(); i++) {
-            decks.get(i).getUserCards().add(card);
+        for (Deck deck : decks) {
+            deck.getUserCards().add(card);
         }
     }
 
