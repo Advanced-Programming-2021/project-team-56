@@ -44,21 +44,15 @@ public class Card {
     }
 
     public static void addSpellCards(ArrayList<SpellCard> spellCards) {
-        for (int i = 0; i < spellCards.size(); i++) {
-            cards.add(spellCards.get(i));
-        }
+        cards.addAll(spellCards);
     }
 
     public static void addTrapCards(ArrayList<TrapCard> trapCards) {
-        for (int i = 0; i < trapCards.size(); i++) {
-            cards.add(trapCards.get(i));
-        }
+        cards.addAll(trapCards);
     }
 
     public static void addMonsterCards(ArrayList<MonsterCard> monsterCards) {
-        for (int i = 0; i < monsterCards.size(); i++) {
-            cards.add(monsterCards.get(i));
-        }
+        cards.addAll(monsterCards);
     }
 
     public int getPrice() {

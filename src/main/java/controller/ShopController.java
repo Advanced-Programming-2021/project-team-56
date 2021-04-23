@@ -31,7 +31,7 @@ public class ShopController {
         return cardsDemo.toString();
     }
 
-    public static String buyCard(String cardName, String customer) {
+    public  String buyCard(String cardName, String customer) {
         int priceOfCard = Card.getCardByName(cardName).getPrice();
         if (!isThereAnyCardWithThisName(cardName)) {
             return "there is no card with this name";
@@ -44,7 +44,7 @@ public class ShopController {
         return "";
     }
 
-    private static boolean isThereAnyCardWithThisName(String cardName) {
+    private boolean isThereAnyCardWithThisName(String cardName) {
         for (int i = 0; i < Card.getCards().size(); i++) {
             if (Card.getCards().get(i).getName().equals(cardName)) {
                 return true;
