@@ -52,7 +52,6 @@ public class MainMenuView {
                 ProfileView.getInstance().run(username);
                 return;
             }
-            //TODO Complete the menus
             if (menuName.equals("Shop")) {
                 ShopView.getInstance().run(username);
             }

@@ -39,7 +39,6 @@ public class ExcelUtils {
 
     public void run() throws IOException {
         String prjDir = System.getProperty("user.dir");
-        System.out.println(prjDir);
         String excelPath = prjDir + "/data/Monster.xlsx";
         FileInputStream files = new FileInputStream(new File(excelPath));
         XSSFWorkbook workbook = new XSSFWorkbook(files);

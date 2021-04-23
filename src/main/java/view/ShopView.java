@@ -9,6 +9,7 @@ public class ShopView {
 
     private static ShopView shopView;
     static Pattern buyCard = Pattern.compile("^shop buy ([\\S]+)$");
+    static Pattern menuEnter = Pattern.compile("^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$");
 
     private ShopView() {
     }
@@ -38,6 +39,11 @@ public class ShopView {
                 if (!ShopController.getInstance().buyCard(matcher.group(1), username).equals("")) {
                     System.out.println(ShopController.getInstance().buyCard(matcher.group(1), username));
                 }
+                continue;
+            }
+            matcher = menuEnter.matcher(command);
+            if (matcher.find()){
+                System.out.println("menu navigation is not possible");
                 continue;
             }
             System.out.println("invalid command");

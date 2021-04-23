@@ -22,7 +22,7 @@ public class ScoreBoardController {
     public String showScoreBoard() {
         ArrayList<User> users = User.getUsers();
         Comparator<User> comparator = Comparator.comparing(User::getScore, Comparator.reverseOrder())
-                .thenComparing(User::getUsername);
+                .thenComparing(User::getUsername, Comparator.reverseOrder());
         Collections.sort(users, comparator);
         StringBuilder scoreBoard = new StringBuilder();
         int rank = 1;

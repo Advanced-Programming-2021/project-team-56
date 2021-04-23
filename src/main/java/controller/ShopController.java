@@ -32,10 +32,10 @@ public class ShopController {
     }
 
     public  String buyCard(String cardName, String customer) {
-        int priceOfCard = Card.getCardByName(cardName).getPrice();
         if (!isThereAnyCardWithThisName(cardName)) {
             return "there is no card with this name";
         }
+        int priceOfCard = Card.getCardByName(cardName).getPrice();
         if (priceOfCard > User.getUserByUsername(customer).getMoney()) {
             return "not enough money";
         }
