@@ -27,9 +27,7 @@ public class LoginMenuView {
         LoginMenuController loginMenuController = LoginMenuController.getInstance();
         String command;
         while (true) {
-            command = scan.nextLine();
-            command = command.trim();
-
+            command = scan.nextLine().trim();
             if (command.equals("menu show-current")) {
                 System.out.println("Login Menu");
                 continue;
@@ -61,21 +59,21 @@ public class LoginMenuView {
         Matcher matcher = loginUser.matcher(command);
         if (matcher.find()) {
             if (matcher.group(1).equals("--username") && matcher.group(3).equals("--password")) {
-                result = loginMenuController.logIn(matcher.group(2), matcher.group(4));
                 username = matcher.group(2);
+                result = loginMenuController.logIn(username, matcher.group(4));
             }
             if (matcher.group(1).equals("--password") && matcher.group(3).equals("--username")) {
-                result = loginMenuController.logIn(matcher.group(4), matcher.group(2));
                 username = matcher.group(4);
+                result = loginMenuController.logIn(username, matcher.group(2));
             }
         }
         if (result.equals("")) {
             System.out.println("invalid command");
         } else {
             System.out.println(result);
-        }
-        if (result.equals("user logged in successfully!")) {
-            MainMenuView.getInstance().run(username);
+            if (result.equals("user logged in successfully!")) {
+                MainMenuView.getInstance().run(username);
+            }
         }
     }
 }
