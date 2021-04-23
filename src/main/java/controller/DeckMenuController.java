@@ -55,7 +55,6 @@ public class DeckMenuController {
         return "deck with name " + deckName + " does not exist";
     }
 
-    //TODO This to add card methods has so much in common, use another method to reduce the duplicated codes
     public String addToSideDeck(String deckName, String cardName, String username) {
         User user = User.getUserByUsername(username);
         if (!user.isDeckWithThisNameExistent(deckName)) {
@@ -174,10 +173,10 @@ public class DeckMenuController {
 
     public String showCards(String username) {
         User user = User.getUserByUsername(username);
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (Card card : user.getUserAllCards()) {
-            result += card.getName() + ":" + card.getDescription() + "\n";
+            result.append(card.getName()).append(":").append(card.getDescription()).append("\n");
         }
-        return result;
+        return result.toString();
     }
 }

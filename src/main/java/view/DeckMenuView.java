@@ -65,23 +65,22 @@ public class DeckMenuView {
     }
 
     private void checkDeckCommands(String command, String username) {
-        //TODO Complete the checkDeckCommands
         if (command.startsWith("deck create")) {
             checkCreateDeckCommand(command, username);
             return;
-        } // done
+        }
         if (command.startsWith("deck delete")) {
             checkDeleteDeckCommand(command, username);
             return;
-        } //done
+        }
         if (command.startsWith("deck set-activate")) {
             checkSetDeckActivateCommand(command, username);
             return;
-        } //done
+        }
         if (command.startsWith("deck add-card")) {
             checkAddCardCommand(command, username);
             return;
-        } //undone
+        }
         if (command.startsWith("deck rm-card")) {
             checkRemoveCardCommand(command, username);
             return;
