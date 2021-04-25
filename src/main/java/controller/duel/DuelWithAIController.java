@@ -1,4 +1,4 @@
-package controller;
+package controller.duel;
 
 public class DuelWithAIController {
 

@@ -1,6 +1,7 @@
-package view;
+package view.duel;
 
 import controller.DeckMenuController;
+import view.LoginMenuView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

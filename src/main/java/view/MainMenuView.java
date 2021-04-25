@@ -1,5 +1,7 @@
 package view;
 
+import view.duel.DeckMenuView;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
