@@ -1,7 +1,5 @@
 package view;
 
-import view.duel.DeckMenuView;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,12 +54,15 @@ public class MainMenuView {
             }
             if (menuName.equals("Shop")) {
                 ShopView.getInstance().run(username);
+                return;
             }
             if (menuName.equals("Deck")) {
                 DeckMenuView.getInstance().run(username);
+                return;
             }
             if (menuName.equals("Duel")) {
-                //TODO Make a MainDuelMenu and run that
+                DuelMenuView.getInstance().run(username);
+                return;
             }
             if (menuName.equals("Import/Export")) {
                 //TODO Make a Import/Export Menu

@@ -1,7 +1,6 @@
-package view.duel;
+package view;
 
 import controller.DeckMenuController;
-import view.LoginMenuView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -155,7 +154,6 @@ public class DeckMenuView {
         matcher = addToSideDeck3.matcher(command);
         if (matcher.find()) {
             return deckMenuController.addToSideDeck(matcher.group(2), matcher.group(1), username);
-
         }
         matcher = addToSideDeck4.matcher(command);
         if (matcher.find()) {

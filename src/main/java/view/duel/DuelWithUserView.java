@@ -1,4 +1,4 @@
-package view;
+package view.duel;
 
 import model.User;
 
