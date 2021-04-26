@@ -53,6 +53,13 @@ public class Deck {
         return this.isActivated;
     }
 
+    public boolean isDeckValid() {
+        if (this.mainDeck.size() >= 40) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean isMainDeckFull() {
         if (mainDeck.size() == 60) {
             return true;

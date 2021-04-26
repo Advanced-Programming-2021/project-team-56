@@ -15,7 +15,7 @@ public class DuelWithUserView {
         return duelWithUserView;
     }
 
-    public void run(User user) {
+    public void run(String username, String secondPlayerUsername, String rounds) {
 
     }
 }

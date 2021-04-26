@@ -15,7 +15,7 @@ public class DuelWithAIView {
         return duelWithAIView;
     }
 
-    public void run(User user) {
+    public void run(String username, String numberOfRounds) {
 
     }
 }

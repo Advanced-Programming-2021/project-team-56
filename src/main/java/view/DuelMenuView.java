@@ -1,7 +1,10 @@
 package view;
 
-import model.User;
+import controller.DuelMenuController;
+import view.duel.DuelWithAIView;
+import view.duel.DuelWithUserView;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +18,12 @@ public class DuelMenuView {
     static Pattern newUserDuel4 = Pattern.compile("^duel --second-player (\\S+) --new --rounds (\\d+)$");
     static Pattern newUserDuel5 = Pattern.compile("^duel --second-player (\\S+) --rounds (\\d+) --new$");
     static Pattern newUserDuel6 = Pattern.compile("^duel --new --second-player (\\S+) --rounds (\\d+)$");
+    static Pattern newAIDuel1 = Pattern.compile("^duel --new --ai --rounds (\\d+)$");
+    static Pattern newAIDuel2 = Pattern.compile("^duel --new --rounds (\\d+) --ai$");
+    static Pattern newAIDuel3 = Pattern.compile("^duel --rounds (\\d+) --new --ai$");
+    static Pattern newAIDuel4 = Pattern.compile("^duel --ai --new --rounds (\\d+)$");
+    static Pattern newAIDuel5 = Pattern.compile("^duel --ai --rounds (\\d+) --new$");
+    static Pattern newAIDuel6 = Pattern.compile("^duel --rounds (\\d+) --ai --new$");
 
     public static DuelMenuView getInstance() {
         if (duelMenuView == null)
@@ -43,49 +52,68 @@ public class DuelMenuView {
                 } else {
                     checkDuelWithUserCommand(command, username);
                 }
+                continue;
             }
             System.out.println("invalid command");
         }
     }
 
-    private void checkDuelWithUserCommand(String command, String username) {
-        Matcher matcher = newUserDuel1.matcher(command);
-        if (matcher.find()) {
-            checkDuelWithUser(username, matcher.group(2), matcher.group(1));
+    private void checkDuelWithUserCommand(String command, String firstPlayerUsername) {
+        ArrayList<Matcher> newUserDuelMatchers1 = new ArrayList<>();
+        newUserDuelMatchers1.add(newUserDuel1.matcher(command));
+        newUserDuelMatchers1.add(newUserDuel2.matcher(command));
+        newUserDuelMatchers1.add(newUserDuel3.matcher(command));
+        for (Matcher matcher : newUserDuelMatchers1) {
+            if (matcher.find()) {
+                checkDuelWithUser(firstPlayerUsername, matcher.group(2), matcher.group(1));
+                return;
+            }
+        }
+        ArrayList<Matcher> newUserDuelMatchers2 = new ArrayList<>();
+        newUserDuelMatchers2.add(newUserDuel4.matcher(command));
+        newUserDuelMatchers2.add(newUserDuel5.matcher(command));
+        newUserDuelMatchers2.add(newUserDuel6.matcher(command));
+        for (Matcher matcher : newUserDuelMatchers2) {
+            if (matcher.find()) {
+                checkDuelWithUser(firstPlayerUsername, matcher.group(1), matcher.group(2));
+                return;
+            }
+        }
+        System.out.println("invalid command");
+    }
+
+    private void checkDuelWithUser(String firstPlayerUsername, String secondPlayerUsername, String numberOfRounds) {
+        String result = DuelMenuController.getInstance().canUsersDuel(firstPlayerUsername, secondPlayerUsername, numberOfRounds);
+        if (result.equals("duel is valid")) {
+            DuelWithUserView.getInstance().run(firstPlayerUsername, secondPlayerUsername, numberOfRounds);
             return;
         }
-        matcher = newUserDuel2.matcher(command);
-        if (matcher.find()) {
-            checkDuelWithUser(username, matcher.group(2), matcher.group(1));
-            return;
-        }
-        matcher = newUserDuel3.matcher(command);
-        if (matcher.find()) {
-            checkDuelWithUser(username, matcher.group(2), matcher.group(1));
-            return;
-        }
-        matcher = newUserDuel4.matcher(command);
-        if (matcher.find()) {
-            checkDuelWithUser(username, matcher.group(1), matcher.group(2));
-            return;
-        }
-        matcher = newUserDuel5.matcher(command);
-        if (matcher.find()) {
-            checkDuelWithUser(username, matcher.group(1), matcher.group(2));
-            return;
-        }
-        matcher = newUserDuel6.matcher(command);
-        if (matcher.find()) {
-            checkDuelWithUser(username, matcher.group(1), matcher.group(2));
+        System.out.println(result);
+    }
+
+    private void checkDuelWithAICommand(String command, String username) {
+        ArrayList<Matcher> newAIDuelMatchers = new ArrayList<>();
+        newAIDuelMatchers.add(newAIDuel1.matcher(command));
+        newAIDuelMatchers.add(newAIDuel2.matcher(command));
+        newAIDuelMatchers.add(newAIDuel3.matcher(command));
+        newAIDuelMatchers.add(newAIDuel4.matcher(command));
+        newAIDuelMatchers.add(newAIDuel5.matcher(command));
+        newAIDuelMatchers.add(newAIDuel6.matcher(command));
+        for (Matcher matcher : newAIDuelMatchers) {
+            if (matcher.find()) {
+                checkDuelWithAI(username, matcher.group(1));
+            }
             return;
         }
         System.out.println("invalid command");
     }
 
-    private void checkDuelWithUser(String username, String secondPlayerUsername, String rounds) {
-        if (User.isThisUsernameAlreadyTaken(secondPlayerUsername)) {
-            if ()
+    private void checkDuelWithAI(String username, String numberOfRounds) {
+        String result = DuelMenuController.getInstance().canUserDuel(username, numberOfRounds);
+        if (result.equals("duel is valid")) {
+            DuelWithAIView.getInstance().run(username, numberOfRounds);
+            return;
         }
-        System.out.println("there is no player with this username");
+        System.out.println(result);
     }
 }
