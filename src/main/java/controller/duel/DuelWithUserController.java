@@ -12,4 +12,8 @@ public class DuelWithUserController {
             duelWithUserController = new DuelWithUserController();
         return duelWithUserController;
     }
+
+    public void run(){
+
+    }
 }
