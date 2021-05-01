@@ -10,14 +10,16 @@ public class Board {
     private HashMap<Integer, Card> spellAndTrapTerritory = new HashMap<>();
     private HashMap<Integer, Card> monsterTerritory = new HashMap<>();
     private ArrayList<Card> playerHand = new ArrayList<>();
+    private User user;
     private Card fieldSpell;
     private Card selectedCard;
     private int LP = 8000;
 
-    public Board(Deck playerDeck) {
+    public Board(Deck playerDeck, User user) {
         this.playerDeck = playerDeck;
         Collections.shuffle(this.playerDeck.getMainDeck());
         setPlayerHand();
+        this.user = user;
         this.monsterTerritory.put(5, null);
         this.monsterTerritory.put(3, null);
         this.monsterTerritory.put(1, null);
@@ -42,6 +44,30 @@ public class Board {
 
     public Card getSelectedCard() {
         return selectedCard;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public ArrayList<Card> getPlayerHand() {
+        return playerHand;
+    }
+
+    public Card getFieldSpell() {
+        return fieldSpell;
+    }
+
+    public int getLP() {
+        return LP;
+    }
+
+    public HashMap<Integer, Card> getMonsterTerritory() {
+        return monsterTerritory;
+    }
+
+    public HashMap<Integer, Card> getSpellAndTrapTerritory() {
+        return spellAndTrapTerritory;
     }
 
     public void setSelectedCard(Card selectedCard) {
