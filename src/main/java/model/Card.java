@@ -23,6 +23,10 @@ public class Card {
         return cards;
     }
 
+    public boolean getIsFacedUp() {
+        return this.isFacedUp;
+    }
+
     public String getName() {
         return name;
     }

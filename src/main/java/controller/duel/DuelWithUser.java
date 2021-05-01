@@ -1,6 +1,8 @@
 package controller.duel;
 
 import model.Board;
+import model.Card;
+import model.MonsterCard;
 import model.User;
 import view.duel.phase.*;
 
@@ -41,7 +43,7 @@ public class DuelWithUser {
         while (true) {
             switch (phaseCounter) {
                 case 1:
-                    if (!DrawPhaseView.getInstance().run()){
+                    if (!DrawPhaseView.getInstance().run()) {
 
                     }
                     break;
@@ -166,4 +168,89 @@ public class DuelWithUser {
         return "card selected";
     }
 
+    public String showField() {
+        String field = getEnemyBoard().getUser().getNickname() + ":" + getEnemyBoard().getLP() + "\n";
+        for (int i = 0; i < getEnemyBoard().getPlayerHand().size(); i++) {
+            field += "\tc";
+        }
+        field += "\n";
+        ///////////////////number of main deck
+        field = showCards(field, "enemy's spell and trap");
+        field += "\n";
+        field = showCards(field, "enemy's monster");
+        field += "\n";
+        field += getEnemyBoard().getGraveyard().size() + "\t\t\t\t\t\t";
+        if (getEnemyBoard().getFieldSpell() == null) field += "E\n\n\n";
+        else field += "O\n\n\n";
+        field += "--------------------------\n\n\n";
+        if (getMyBoard().getFieldSpell() == null) field += "E\t\t\t\t\t\t" + getMyBoard().getGraveyard().size() + "\n";
+        else field += "O\t\t\t\t\t\t" + getMyBoard().getGraveyard().size() + "\n";
+        field = showCards(field, "my monster");
+        field += "\n";
+        field = showCards(field, "my spell and trap");
+        field += "\n";
+        ///////////////////number of main deck
+        for (int i = 0; i < getMyBoard().getPlayerHand().size(); i++) {
+            field += "\tc";
+        }
+        field += "\n";
+        field += getMyBoard().getUser().getNickname() + ":" + getMyBoard().getLP() + "\n";
+        return field;
+    }
+
+    private String showSpellAndTrap(Card spellOrTrapCard, String field) {
+        if (spellOrTrapCard == null) {
+            field += "\tE";
+        } else {
+            if (spellOrTrapCard.getIsFacedUp()) field += "\tO";
+            else field += "\tH";
+        }
+        return field;
+    }
+
+    private String showMonster(MonsterCard monster, String field) {
+        if (monster == null) {
+            field += "\tE";
+        } else {
+            if (monster.getIsInAttackPosition()) {
+                field += "\tOO";
+            } else {
+                if (monster.getIsFacedUp()) field += "\tDO";
+                else field += "\tDH";
+            }
+        }
+        return field;
+    }
+
+    private String showCards(String field, String state) {
+        if (state.equals("enemy's spell and trap")) {
+            field = showSpellAndTrap(getEnemyBoard().getSpellAndTrapTerritory().get(4), field);
+            field = showSpellAndTrap(getEnemyBoard().getSpellAndTrapTerritory().get(2), field);
+            field = showSpellAndTrap(getEnemyBoard().getSpellAndTrapTerritory().get(1), field);
+            field = showSpellAndTrap(getEnemyBoard().getSpellAndTrapTerritory().get(3), field);
+            field = showSpellAndTrap(getEnemyBoard().getSpellAndTrapTerritory().get(5), field);
+        }
+        if (state.equals("enemy's monster")) {
+            field = showMonster(getEnemyBoard().getMonsterTerritory().get(4), field);
+            field = showMonster(getEnemyBoard().getMonsterTerritory().get(2), field);
+            field = showMonster(getEnemyBoard().getMonsterTerritory().get(1), field);
+            field = showMonster(getEnemyBoard().getMonsterTerritory().get(3), field);
+            field = showMonster(getEnemyBoard().getMonsterTerritory().get(5), field);
+        }
+        if (state.equals("my monster")) {
+            field = showMonster(getMyBoard().getMonsterTerritory().get(5), field);
+            field = showMonster(getMyBoard().getMonsterTerritory().get(3), field);
+            field = showMonster(getMyBoard().getMonsterTerritory().get(1), field);
+            field = showMonster(getMyBoard().getMonsterTerritory().get(2), field);
+            field = showMonster(getMyBoard().getMonsterTerritory().get(4), field);
+        }
+        if (state.equals("my spell and trap")) {
+            field = showSpellAndTrap(getMyBoard().getSpellAndTrapTerritory().get(5), field);
+            field = showSpellAndTrap(getMyBoard().getSpellAndTrapTerritory().get(3), field);
+            field = showSpellAndTrap(getMyBoard().getSpellAndTrapTerritory().get(1), field);
+            field = showSpellAndTrap(getMyBoard().getSpellAndTrapTerritory().get(2), field);
+            field = showSpellAndTrap(getMyBoard().getSpellAndTrapTerritory().get(4), field);
+        }
+        return field;
+    }
 }
