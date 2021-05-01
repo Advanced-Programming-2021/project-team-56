@@ -1,8 +1,8 @@
 package view;
 
 import controller.DuelMenuController;
+import controller.duel.DuelWithUser;
 import view.duel.DuelWithAIView;
-import view.duel.DuelWithUserView;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -85,7 +85,7 @@ public class DuelMenuView {
     private void checkDuelWithUser(String firstPlayerUsername, String secondPlayerUsername, String numberOfRounds) {
         String result = DuelMenuController.getInstance().canUsersDuel(firstPlayerUsername, secondPlayerUsername, numberOfRounds);
         if (result.equals("duel is valid")) {
-            DuelWithUserView.getInstance().run(firstPlayerUsername, secondPlayerUsername, numberOfRounds);
+            DuelWithUser.getInstance().run(firstPlayerUsername, secondPlayerUsername, numberOfRounds);
             return;
         }
         System.out.println(result);
