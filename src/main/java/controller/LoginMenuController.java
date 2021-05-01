@@ -28,10 +28,10 @@ public class LoginMenuController {
     public String logIn(String username, String password) {
         User user = User.getUserByUsername(username);
         if (user == null) {
-            return "Username and password didn’t match!";
+            return "Username and password didn't match!";
         }
         if (!user.getPassword().equals(password)) {
-            return "Username and password didn’t match!";
+            return "Username and password didn't match!";
         }
         return "user logged in successfully!";
     }
