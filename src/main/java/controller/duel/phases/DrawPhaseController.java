@@ -32,6 +32,6 @@ public class DrawPhaseController {
         }
         playerHand.add(mainDeck.get(mainDeck.size() - 1));
         mainDeck.remove(mainDeck.size() - 1);
-        return "Card is drawn successfully";
+        return "new card added to the hand : " + playerHand.get(playerHand.size()-1).getName();
     }
 }
