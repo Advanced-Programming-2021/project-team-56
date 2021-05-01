@@ -2,20 +2,32 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class Board {
     private ArrayList<Card> graveyardPlayer = new ArrayList<>();
     private Deck playerDeck = new Deck();
-    private ArrayList<Card> spellAndTrapTerritory = new ArrayList<>();
-    private ArrayList<Card> monsterTerritory = new ArrayList<>();
+    private HashMap<Integer, Card> spellAndTrapTerritory = new HashMap<>();
+    private HashMap<Integer, Card> monsterTerritory = new HashMap<>();
     private ArrayList<Card> playerHand = new ArrayList<>();
     private Card fieldSpell;
+    private Card selectedCard;
     private int LP = 8000;
 
     public Board(Deck playerDeck) {
         this.playerDeck = playerDeck;
         Collections.shuffle(this.playerDeck.getMainDeck());
         setPlayerHand();
+        this.monsterTerritory.put(5, null);
+        this.monsterTerritory.put(3, null);
+        this.monsterTerritory.put(1, null);
+        this.monsterTerritory.put(2, null);
+        this.monsterTerritory.put(4, null);
+        this.spellAndTrapTerritory.put(5, null);
+        this.spellAndTrapTerritory.put(3, null);
+        this.spellAndTrapTerritory.put(1, null);
+        this.spellAndTrapTerritory.put(2, null);
+        this.spellAndTrapTerritory.put(4, null);
     }
 
     private void setPlayerHand() {
@@ -26,6 +38,14 @@ public class Board {
 
     public void addCardToGraveyard(Card card) {
 
+    }
+
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
     }
 
     public void addCardToMonsterTerritory(Card card) {

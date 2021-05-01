@@ -4,7 +4,12 @@ import model.Board;
 import model.User;
 import view.duel.phase.*;
 
+import java.util.regex.Pattern;
+
 public class DuelWithUser {
+
+    static Pattern selectMonster = Pattern.compile("");
+
     private int phaseCounter = 1;
     private int turnCounter = 1;
 
@@ -66,5 +71,9 @@ public class DuelWithUser {
 
     public Board getEnemyBoard(){
         return boards[(turnCounter + 1) % 2];
+    }
+
+    public void selectCard(String command) {
+
     }
 }

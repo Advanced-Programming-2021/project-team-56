@@ -34,7 +34,6 @@ public class DeckMenuView {
 
     private DeckMenuView() {
     }
-
     public static DeckMenuView getInstance() {
         if (deckMenuView == null)
             deckMenuView = new DeckMenuView();
