@@ -29,7 +29,9 @@ public class DuelWithUser {
         while (true) {
             switch (phaseCounter) {
                 case 1:
-                    DrawPhaseView.getInstance().run();
+                    if (!DrawPhaseView.getInstance().run()){
+
+                    }
                     break;
                 case 2:
                     StandByPhaseView.getInstance().run();

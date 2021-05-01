@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Board {
-    private ArrayList<Card> graveyardPlayer = new ArrayList<>();
+    private ArrayList<Card> graveyard = new ArrayList<>();
     private Deck playerDeck = new Deck();
     private ArrayList<Card> spellAndTrapTerritory = new ArrayList<>();
     private ArrayList<Card> monsterTerritory = new ArrayList<>();
@@ -30,5 +30,17 @@ public class Board {
 
     public void addCardToMonsterTerritory(Card card) {
 
+    }
+
+    public ArrayList<Card> getMainDeck(){
+        return playerDeck.getMainDeck();
+    }
+
+    public ArrayList<Card> getPlayerHand(){
+        return playerHand;
+    }
+
+    public ArrayList<Card> getGraveyard(){
+        return graveyard;
     }
 }
