@@ -50,10 +50,6 @@ public class Board {
         return user;
     }
 
-    public ArrayList<Card> getPlayerHand() {
-        return playerHand;
-    }
-
     public Card getFieldSpell() {
         return fieldSpell;
     }
