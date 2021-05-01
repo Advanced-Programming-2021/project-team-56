@@ -29,6 +29,10 @@ public class DrawPhaseView {
             if (command.equals("next phase")) {
                 break;
             }
+            if (command.equals("summon")){
+                System.out.println("you can’t summon this card");
+                continue;
+            }
             System.out.println("invalid command");
         }
         return true;
