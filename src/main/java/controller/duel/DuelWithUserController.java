@@ -5,7 +5,8 @@ import model.User;
 import view.duel.phase.*;
 
 public class DuelWithUserController {
-    private int phaseCounter = 0;
+    private int phaseCounter = 1;
+    private int turnCounter = 1;
 
     private static DuelWithUserController duelWithUserController;
     private Board[] boards = new Board[2];
@@ -20,7 +21,7 @@ public class DuelWithUserController {
     }
 
     public void phaseCaller() {
-        switch (phaseCounter % 6 + 1) {
+        switch (phaseCounter) {
             case 1:
                 DrawPhaseView.getInstance().run();
                 break;
@@ -41,10 +42,22 @@ public class DuelWithUserController {
                 break;
         }
         phaseCounter++;
+        if (phaseCounter == 7) {
+            phaseCounter -= 6;
+        }
+        turnCounter++;
     }
 
     public void setUpGame(String firstPlayer, String secondPlayer) {
         boards[0] = new Board(User.getUserByUsername(firstPlayer).getActivatedDeck());
         boards[1] = new Board(User.getUserByUsername(secondPlayer).getActivatedDeck());
+    }
+
+    public Board getMyBoard(){
+        return boards[turnCounter % 2];
+    }
+
+    public Board getEnemyBoard(){
+        return boards[(turnCounter + 1) % 2];
     }
 }
