@@ -1,6 +1,9 @@
 package view.duel;
 
+import controller.DeckMenuController;
+import controller.duel.DuelWithUserController;
 import model.User;
+import view.LoginMenuView;
 
 public class DuelWithUserView {
 
@@ -16,6 +19,9 @@ public class DuelWithUserView {
     }
 
     public void run(String username, String secondPlayerUsername, String rounds) {
-
+        DuelWithUserController.getInstance().setUpGame(username, secondPlayerUsername);
+        while (true){
+            String command = LoginMenuView.scan.nextLine().trim();
+        }
     }
 }

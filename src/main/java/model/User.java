@@ -144,6 +144,15 @@ public class User {
         targetDeck.setDeckActive();
     }
 
+    public Deck getActivatedDeck(){
+        for (Deck deck : decks) {
+            if (deck.isDeckActivated()) {
+                return deck;
+            }
+        }
+        return null;
+    }
+
     public void addCardToUserAllCards(Card card) {
         if (card instanceof SpellCard) {
             SpellCard spellCard = new SpellCard(card);
