@@ -2,20 +2,34 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class Board {
     private ArrayList<Card> graveyard = new ArrayList<>();
     private Deck playerDeck = new Deck();
-    private ArrayList<Card> spellAndTrapTerritory = new ArrayList<>();
-    private ArrayList<Card> monsterTerritory = new ArrayList<>();
+    private HashMap<Integer, Card> spellAndTrapTerritory = new HashMap<>();
+    private HashMap<Integer, Card> monsterTerritory = new HashMap<>();
     private ArrayList<Card> playerHand = new ArrayList<>();
+    private User user;
     private Card fieldSpell;
+    private Card selectedCard;
     private int LP = 8000;
 
-    public Board(Deck playerDeck) {
+    public Board(Deck playerDeck, User user) {
         this.playerDeck = playerDeck;
         Collections.shuffle(this.playerDeck.getMainDeck());
         setPlayerHand();
+        this.user = user;
+        this.monsterTerritory.put(5, null);
+        this.monsterTerritory.put(3, null);
+        this.monsterTerritory.put(1, null);
+        this.monsterTerritory.put(2, null);
+        this.monsterTerritory.put(4, null);
+        this.spellAndTrapTerritory.put(5, null);
+        this.spellAndTrapTerritory.put(3, null);
+        this.spellAndTrapTerritory.put(1, null);
+        this.spellAndTrapTerritory.put(2, null);
+        this.spellAndTrapTerritory.put(4, null);
     }
 
     private void setPlayerHand() {
@@ -26,6 +40,38 @@ public class Board {
 
     public void addCardToGraveyard(Card card) {
 
+    }
+
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public ArrayList<Card> getPlayerHand() {
+        return playerHand;
+    }
+
+    public Card getFieldSpell() {
+        return fieldSpell;
+    }
+
+    public int getLP() {
+        return LP;
+    }
+
+    public HashMap<Integer, Card> getMonsterTerritory() {
+        return monsterTerritory;
+    }
+
+    public HashMap<Integer, Card> getSpellAndTrapTerritory() {
+        return spellAndTrapTerritory;
+    }
+
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
     }
 
     public void addCardToMonsterTerritory(Card card) {
