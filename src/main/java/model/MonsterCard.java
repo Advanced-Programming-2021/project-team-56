@@ -84,4 +84,8 @@ public class MonsterCard extends Card {
         return cardType;
     }
 
+    public boolean getIsInAttackPosition() {
+        return this.isInAttackPosition;
+    }
+
 }

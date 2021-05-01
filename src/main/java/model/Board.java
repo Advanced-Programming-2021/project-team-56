@@ -8,7 +8,7 @@ public class Board {
     private ArrayList<Card> graveyard = new ArrayList<>();
     private Deck playerDeck = new Deck();
     private HashMap<Integer, Card> spellAndTrapTerritory = new HashMap<>();
-    private HashMap<Integer, Card> monsterTerritory = new HashMap<>();
+    private HashMap<Integer, MonsterCard> monsterTerritory = new HashMap<>();
     private ArrayList<Card> playerHand = new ArrayList<>();
     private User user;
     private Card fieldSpell;
@@ -58,7 +58,7 @@ public class Board {
         return LP;
     }
 
-    public HashMap<Integer, Card> getMonsterTerritory() {
+    public HashMap<Integer, MonsterCard> getMonsterTerritory() {
         return monsterTerritory;
     }
 
