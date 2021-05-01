@@ -169,33 +169,33 @@ public class DuelWithUser {
     }
 
     public String showField() {
-        String field = getEnemyBoard().getUser().getNickname() + ":" + getEnemyBoard().getLP() + "\n";
+        StringBuilder field = new StringBuilder(getEnemyBoard().getUser().getNickname() + ":" + getEnemyBoard().getLP() + "\n");
         for (int i = 0; i < getEnemyBoard().getPlayerHand().size(); i++) {
-            field += "\tc";
+            field.append("\tc");
         }
-        field += "\n";
+        field.append("\n");
         ///////////////////number of main deck
-        field = showCards(field, "enemy's spell and trap");
-        field += "\n";
-        field = showCards(field, "enemy's monster");
-        field += "\n";
-        field += getEnemyBoard().getGraveyard().size() + "\t\t\t\t\t\t";
-        if (getEnemyBoard().getFieldSpell() == null) field += "E\n\n\n";
-        else field += "O\n\n\n";
-        field += "--------------------------\n\n\n";
-        if (getMyBoard().getFieldSpell() == null) field += "E\t\t\t\t\t\t" + getMyBoard().getGraveyard().size() + "\n";
-        else field += "O\t\t\t\t\t\t" + getMyBoard().getGraveyard().size() + "\n";
-        field = showCards(field, "my monster");
-        field += "\n";
-        field = showCards(field, "my spell and trap");
-        field += "\n";
+        field = new StringBuilder(showCards(field.toString(), "enemy's spell and trap"));
+        field.append("\n");
+        field = new StringBuilder(showCards(field.toString(), "enemy's monster"));
+        field.append("\n");
+        field.append(getEnemyBoard().getGraveyard().size()).append("\t\t\t\t\t\t");
+        if (getEnemyBoard().getFieldSpell() == null) field.append("E\n\n\n");
+        else field.append("O\n\n\n");
+        field.append("--------------------------\n\n\n");
+        if (getMyBoard().getFieldSpell() == null) field.append("E\t\t\t\t\t\t").append(getMyBoard().getGraveyard().size()).append("\n");
+        else field.append("O\t\t\t\t\t\t").append(getMyBoard().getGraveyard().size()).append("\n");
+        field = new StringBuilder(showCards(field.toString(), "my monster"));
+        field.append("\n");
+        field = new StringBuilder(showCards(field.toString(), "my spell and trap"));
+        field.append("\n");
         ///////////////////number of main deck
         for (int i = 0; i < getMyBoard().getPlayerHand().size(); i++) {
-            field += "\tc";
+            field.append("\tc");
         }
-        field += "\n";
-        field += getMyBoard().getUser().getNickname() + ":" + getMyBoard().getLP() + "\n";
-        return field;
+        field.append("\n");
+        field.append(getMyBoard().getUser().getNickname()).append(":").append(getMyBoard().getLP()).append("\n");
+        return field.toString();
     }
 
     private String showSpellAndTrap(Card spellOrTrapCard, String field) {
