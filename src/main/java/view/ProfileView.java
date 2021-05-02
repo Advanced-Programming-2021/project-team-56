@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class ProfileView {
 
     private static ProfileView profileView;
-    static Pattern menuEnter = Pattern.compile("^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
+    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
     static Pattern changeNickname = Pattern.compile("^profile change --nickname (\\S+)$");
 
     private ProfileView() {

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class ScoreBoardView {
 
     private static ScoreBoardView scoreBoardView;
-    static Pattern menuEnter = Pattern.compile("^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$");
+    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
 
     private ScoreBoardView() {
     }

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class DuelMenuView {
 
     private static DuelMenuView duelMenuView;
-    static Pattern menuEnter = Pattern.compile("^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$");
+    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
     static Pattern newUserDuel1 = Pattern.compile("^duel --rounds (\\d+) --new --second-player (\\S+)$");
     static Pattern newUserDuel2 = Pattern.compile("^duel --new --rounds (\\d+) --second-player (\\S+)$");
     static Pattern newUserDuel3 = Pattern.compile("^duel --rounds (\\d+) --new --second-player (\\S+)$");

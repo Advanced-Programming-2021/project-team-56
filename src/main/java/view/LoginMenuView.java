@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class LoginMenuView {
 
     private static LoginMenuView loginMenuView;
-    static Pattern menuEnter = Pattern.compile("^menu enter (?:Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$");
+    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
     static Pattern loginUser = Pattern.compile("^user login (\\S+) (\\S+) (\\S+) (\\S+)$");
 
     private LoginMenuView() {
@@ -24,7 +24,6 @@ public class LoginMenuView {
     public static Scanner scan = new Scanner(System.in);
 
     public void run() {
-        LoginMenuController loginMenuController = LoginMenuController.getInstance();
         String command;
         while (true) {
             command = scan.nextLine().trim();
@@ -33,7 +32,7 @@ public class LoginMenuView {
                 continue;
             }
             if (command.startsWith("user create")) {
-                System.out.println(loginMenuController.createUser(command));
+                System.out.println(LoginMenuController.getInstance().createUser(command));
                 continue;
             }
             if (command.startsWith("user login")) {

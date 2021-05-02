@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class MainMenuView {
 
     private static MainMenuView mainMenuView;
-    static Pattern menuEnter = Pattern.compile("^menu enter (Login|Duel|Deck|Scoreboard|Profile|Shop|Import\\/Export)$");
+    static Pattern menuEnter = Pattern.compile("^menu enter (Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
 
     private MainMenuView() {
     }
@@ -66,6 +66,7 @@ public class MainMenuView {
             }
             if (menuName.equals("Import/Export")) {
                 //TODO Make a Import/Export Menu
+                System.out.println("not completed");
             }
         } else {
             System.out.println("invalid command");
