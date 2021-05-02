@@ -253,4 +253,8 @@ public class DuelWithUser {
         }
         return field;
     }
+
+    public int getTurnCounter(){
+        return turnCounter;
+    }
 }

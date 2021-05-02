@@ -3,8 +3,13 @@ package view.duel.phase;
 import controller.duel.phases.DrawPhaseController;
 import view.LoginMenuView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class DrawPhaseView {
     private static DrawPhaseView drawPhase;
+    static Pattern setPosition = Pattern.compile("^set -- position (attack|defence)$");
+    static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     private DrawPhaseView() {
 
@@ -29,8 +34,30 @@ public class DrawPhaseView {
             if (command.equals("next phase")) {
                 break;
             }
-            if (command.equals("summon")){
-                System.out.println("you can’t summon this card");
+            if (command.equals("summon")) {
+                System.out.println("action not allowed in this phase");
+                continue;
+            }
+            if (command.equals("set")) {
+                System.out.println("you can’t do this action in this phase");
+                continue;
+            }
+            Matcher matcher = setPosition.matcher(command);
+            if (matcher.find()){
+                System.out.println("you can’t do this action in this phase");
+                continue;
+            }
+            if (command.equals("flip-summon")){
+                System.out.println("you can’t do this action in this phase");
+                continue;
+            }
+            matcher = attack.matcher(command);
+            if (matcher.find()){
+                System.out.println("you can’t do this action in this phase");
+                continue;
+            }
+            if (command.equals("attack direct")){
+                System.out.println("you can’t do this action in this phase");
                 continue;
             }
             System.out.println("invalid command");

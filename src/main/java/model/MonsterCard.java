@@ -8,6 +8,9 @@ public class MonsterCard extends Card {
     private int attack;
     private int defence;
     private boolean isInAttackPosition;
+    private int lastChangedPositionTurn;
+    private int lastTimeAttackedTurn;
+    private int summonedTurn;
     private String cardType;
     private String monsterType;
 
@@ -15,8 +18,8 @@ public class MonsterCard extends Card {
 
     }
 
-    public MonsterCard(Card card){
-        super(card.getName(), card.getDescription(), card.getPrice());
+    public MonsterCard(Card card, int id){
+        super(card.getName(), card.getDescription(), card.getPrice(), id);
         MonsterCard monsterCard = new MonsterCard();
         this.attack = monsterCard.getAttack();
         this.defence = monsterCard.getDefence();

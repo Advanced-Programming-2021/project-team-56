@@ -1,7 +1,11 @@
 package controller.duel.phases;
 
+import controller.duel.DuelWithUser;
+import model.MonsterCard;
+
 public class MainPhase1Controller {
     private static MainPhase1Controller mainPhase1;
+    private int lastSummonedOrSetTurn;
 
     private MainPhase1Controller() {
 
@@ -14,4 +18,57 @@ public class MainPhase1Controller {
         return mainPhase1;
     }
 
+    public String summon() {
+        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null) {
+            return "no card is selected yet";
+        }
+        if (isMonsterTerritoryFull()) {
+            return "monster card zone is full";
+        }
+        if (DuelWithUser.getInstance().getTurnCounter() == lastSummonedOrSetTurn) {
+            return "you already summoned/set on this turn";
+        }
+        if (!areThereEnoughCardsToTribute()){
+            return "there are not enough cards for tribute";
+        }
+        return "";
+    }
+
+    public String set(){
+        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null) {
+            return "no card is selected yet";
+        }
+        if (isMonsterTerritoryFull()) {
+            return "monster card zone is full";
+        }
+        return "";
+    }
+
+    private boolean isMonsterTerritoryFull() {
+        for (int i = 1; i < 6; i++) {
+            if (DuelWithUser.getInstance().getMyBoard().getMonsterTerritory().get(i) == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean areThereEnoughCardsToTribute() {
+        MonsterCard monster = (MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard();
+        int tributes;
+        if(monster.getLevel() > 6){
+            tributes = 2;
+        }else {
+            tributes = 1;
+        }
+        for (int i = 1; i < 6; i++) {
+            if (DuelWithUser.getInstance().getMyBoard().getMonsterTerritory().get(i) != null) {
+                tributes--;
+            }
+        }
+        if (tributes <= 0){
+            return true;
+        }
+        return false;
+    }
 }
