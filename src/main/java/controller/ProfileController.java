@@ -37,13 +37,11 @@ public class ProfileController {
         if (User.getUserByUsername(username).getPassword().equals(currentPassword)) {
             if (currentPassword.equals(newPassword)) {
                 return "please enter a new password";
-            } else {
-                User.getUserByUsername(username).setPassword(newPassword);
-                return "password changed successfully";
             }
-        } else {
-            return "current password is invalid";
+            User.getUserByUsername(username).setPassword(newPassword);
+            return "password changed successfully";
         }
+        return "current password is invalid";
     }
 
     public String checkProfileChangePasswordCommand(String username, String command) {
