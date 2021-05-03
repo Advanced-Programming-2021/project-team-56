@@ -153,15 +153,15 @@ public class User {
         return null;
     }
 
-    public void addCardToUserAllCards(Card card) {
+    public void addCardToUserAllCards(Card card, int id) {
         if (card instanceof SpellCard) {
-            SpellCard spellCard = new SpellCard(card);
+            SpellCard spellCard = new SpellCard(card, id);
             userAllCards.add(spellCard);
         } else if (card instanceof TrapCard) {
-            TrapCard trapCard = new TrapCard(card);
+            TrapCard trapCard = new TrapCard(card, id);
             userAllCards.add(trapCard);
         } else {
-            MonsterCard monsterCard = new MonsterCard(card);
+            MonsterCard monsterCard = new MonsterCard(card, id);
             userAllCards.add(monsterCard);
         }
         for (Deck deck : decks) {

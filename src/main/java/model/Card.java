@@ -8,19 +8,25 @@ public class Card {
     private String description;
     private int price;
     private static ArrayList<Card> cards = new ArrayList<>();
+    private int id;
 
     public Card() {
 
     }
 
-    public Card(String name, String description, int price) {
+    public Card(String name, String description, int price, int id) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.id = id;
     }
 
     public static ArrayList<Card> getCards() {
         return cards;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public boolean getIsFacedUp() {
