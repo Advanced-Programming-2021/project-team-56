@@ -77,4 +77,8 @@ public class Card {
         }
         return null;
     }
+
+    public void setFacedUp(boolean isFacedUp){
+        this.isFacedUp = isFacedUp;
+    }
 }

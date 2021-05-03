@@ -14,11 +14,11 @@ public class MonsterCard extends Card {
     private String cardType;
     private String monsterType;
 
-    public MonsterCard(){
+    public MonsterCard() {
 
     }
 
-    public MonsterCard(Card card, int id){
+    public MonsterCard(Card card, int id) {
         super(card.getName(), card.getDescription(), card.getPrice(), id);
         MonsterCard monsterCard = (MonsterCard) card;
         this.attack = monsterCard.getAttack();
@@ -43,47 +43,47 @@ public class MonsterCard extends Card {
         this.attribute = attribute;
     }
 
-    public void setMonsterType(String monsterType){
+    public void setMonsterType(String monsterType) {
         this.monsterType = monsterType;
     }
 
-    public void setCardType(String cardType){
+    public void setCardType(String cardType) {
         this.cardType = cardType;
     }
 
-    public void setAttack(int attack){
+    public void setAttack(int attack) {
         this.attack = attack;
     }
 
-    public void setDefence(int defence){
+    public void setDefence(int defence) {
         this.defence = defence;
     }
 
-    public static void setMonsterCards(ArrayList<MonsterCard> allMonsterCards){
+    public static void setMonsterCards(ArrayList<MonsterCard> allMonsterCards) {
         monsterCards = allMonsterCards;
     }
 
-    public int getAttack(){
+    public int getAttack() {
         return attack;
     }
 
-    public int getDefence(){
+    public int getDefence() {
         return defence;
     }
 
-    public int getLevel(){
+    public int getLevel() {
         return level;
     }
 
-    public String getMonsterType(){
+    public String getMonsterType() {
         return monsterType;
     }
 
-    public String getAttribute(){
+    public String getAttribute() {
         return attribute;
     }
 
-    public String getCardType(){
+    public String getCardType() {
         return cardType;
     }
 
@@ -91,4 +91,11 @@ public class MonsterCard extends Card {
         return this.isInAttackPosition;
     }
 
+    public void setSummonedTurn(int summonedTurn) {
+        this.summonedTurn = summonedTurn;
+    }
+
+    public void setInAttackPosition(boolean isInAttackPosition){
+        this.isInAttackPosition = isInAttackPosition;
+    }
 }

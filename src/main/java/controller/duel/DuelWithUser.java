@@ -21,7 +21,6 @@ public class DuelWithUser {
 
     private int phaseCounter = 1;
     private int turnCounter = 1;
-    private int lastSummonedOrSetTurn;
     private static DuelWithUser duelWithUserController;
     private Board[] boards = new Board[2];
 
@@ -256,7 +255,7 @@ public class DuelWithUser {
     }
 
     public int getLastSummonedOrSetTurn(){
-        return lastSummonedOrSetTurn;
+        return getMyBoard().getLastSummonedOrSetTurn();
     }
 
     public int getTurnCounter() {

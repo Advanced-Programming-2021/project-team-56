@@ -14,6 +14,7 @@ public class Board {
     private Card fieldSpell;
     private Card selectedCard;
     private int LP = 8000;
+    private int lastSummonedOrSetTurn;
 
     public Board(Deck playerDeck, User user) {
         this.playerDeck = new Deck(playerDeck);
@@ -84,5 +85,13 @@ public class Board {
 
     public ArrayList<Card> getGraveyard(){
         return graveyard;
+    }
+
+    public int getLastSummonedOrSetTurn(){
+        return lastSummonedOrSetTurn;
+    }
+
+    public void setLastSummonedOrSetTurn(int turn){
+        lastSummonedOrSetTurn = turn;
     }
 }
