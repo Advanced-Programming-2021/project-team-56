@@ -83,8 +83,8 @@ public class DeckMenuController {
         if (!deck.isCardWithThisNameExistent(cardName)) {
             return "card with name " + cardName + " does not exists";
         }
-        if (deck.isSideDeckFull()) {
-            return "side deck is full";
+        if (deck.isMainDeckFull()) {
+            return "main deck is full";
         }
         if (deck.isThreeCardsWithThisNameInDeck(cardName)) {
             return "there are already three cards with name " + cardName + " in deck " + deckName;
