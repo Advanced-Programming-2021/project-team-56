@@ -37,6 +37,9 @@ public class Board {
         for (int i = 0; i < 5; i++) {
             playerHand.add(playerDeck.getMainDeck().get(i));
         }
+        for (int i = 0; i < 5; i++) {
+            playerDeck.getMainDeck().remove(0);
+        }
     }
 
     public void addCardToGraveyard(Card card) {
