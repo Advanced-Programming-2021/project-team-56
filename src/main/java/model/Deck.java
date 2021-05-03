@@ -24,6 +24,11 @@ public class Deck {
     public Deck() {
     }
 
+    public Deck(Deck deck){
+        mainDeck.addAll(deck.getMainDeck());
+        sideDeck.addAll(deck.getSideDeck());
+    }
+
     public String getDeckName() {
         return this.deckName;
     }

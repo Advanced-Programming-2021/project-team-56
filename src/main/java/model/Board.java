@@ -16,7 +16,7 @@ public class Board {
     private int LP = 8000;
 
     public Board(Deck playerDeck, User user) {
-        this.playerDeck = playerDeck;
+        this.playerDeck = new Deck(playerDeck);
         Collections.shuffle(this.playerDeck.getMainDeck());
         setPlayerHand();
         this.user = user;

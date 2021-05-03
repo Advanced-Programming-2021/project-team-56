@@ -20,7 +20,7 @@ public class MonsterCard extends Card {
 
     public MonsterCard(Card card, int id){
         super(card.getName(), card.getDescription(), card.getPrice(), id);
-        MonsterCard monsterCard = new MonsterCard();
+        MonsterCard monsterCard = (MonsterCard) card;
         this.attack = monsterCard.getAttack();
         this.defence = monsterCard.getDefence();
         this.level = monsterCard.getLevel();
