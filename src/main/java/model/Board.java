@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Board {
     private ArrayList<Card> graveyard = new ArrayList<>();
-    private Deck playerDeck = new Deck();
+    private Deck playerDeck;
     private HashMap<Integer, Card> spellAndTrapTerritory = new HashMap<>();
     private HashMap<Integer, MonsterCard> monsterTerritory = new HashMap<>();
     private ArrayList<Card> playerHand = new ArrayList<>();
