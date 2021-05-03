@@ -5,7 +5,7 @@ import model.MonsterCard;
 
 public class MainPhase1Controller {
     private static MainPhase1Controller mainPhase1;
-    private int lastSummonedOrSetTurn;
+
 
     private MainPhase1Controller() {
 
@@ -19,13 +19,14 @@ public class MainPhase1Controller {
     }
 
     public String summon() {
-        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return "no card is selected yet";
         }
         if (isMonsterTerritoryFull()) {
             return "monster card zone is full";
         }
-        if (DuelWithUser.getInstance().getTurnCounter() == lastSummonedOrSetTurn) {
+        if (duelWithUser.getTurnCounter() == duelWithUser.getLastSummonedOrSetTurn()) {
             return "you already summoned/set on this turn";
         }
         if (!areThereEnoughCardsToTribute()){
@@ -35,11 +36,15 @@ public class MainPhase1Controller {
     }
 
     public String set(){
-        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return "no card is selected yet";
         }
         if (isMonsterTerritoryFull()) {
             return "monster card zone is full";
+        }
+        if (duelWithUser.getTurnCounter() == duelWithUser.getLastSummonedOrSetTurn()) {
+            return "you already summoned/set on this turn";
         }
         return "";
     }

@@ -21,7 +21,7 @@ public class DuelWithUser {
 
     private int phaseCounter = 1;
     private int turnCounter = 1;
-
+    private int lastSummonedOrSetTurn;
     private static DuelWithUser duelWithUserController;
     private Board[] boards = new Board[2];
 
@@ -183,7 +183,8 @@ public class DuelWithUser {
         if (getEnemyBoard().getFieldSpell() == null) field.append("E\n\n\n");
         else field.append("O\n\n\n");
         field.append("--------------------------\n\n\n");
-        if (getMyBoard().getFieldSpell() == null) field.append("E\t\t\t\t\t\t").append(getMyBoard().getGraveyard().size()).append("\n");
+        if (getMyBoard().getFieldSpell() == null)
+            field.append("E\t\t\t\t\t\t").append(getMyBoard().getGraveyard().size()).append("\n");
         else field.append("O\t\t\t\t\t\t").append(getMyBoard().getGraveyard().size()).append("\n");
         field = new StringBuilder(showCards(field.toString(), "my monster"));
         field.append("\n");
@@ -254,7 +255,11 @@ public class DuelWithUser {
         return field;
     }
 
-    public int getTurnCounter(){
+    public int getLastSummonedOrSetTurn(){
+        return lastSummonedOrSetTurn;
+    }
+
+    public int getTurnCounter() {
         return turnCounter;
     }
 }
