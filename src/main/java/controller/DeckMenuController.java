@@ -55,41 +55,32 @@ public class DeckMenuController {
         return "deck with name " + deckName + " does not exist";
     }
 
-    public String addToSideDeck(String deckName, String cardName, String username) {
+    public String addToDeck(String deckName, String cardName, String username, boolean isAddToSide) {
         User user = User.getUserByUsername(username);
-        if (!user.isDeckWithThisNameExistent(deckName)) {
-            return "deck with name " + deckName + " does not exist";
-        }
         Deck deck = user.getDeckByDeckName(deckName);
         if (!deck.isCardWithThisNameExistent(cardName)) {
             return "card with name " + cardName + " does not exists";
         }
-        if (deck.isSideDeckFull()) {
-            return "side deck is full";
-        }
-        if (deck.isThreeCardsWithThisNameInDeck(cardName)) {
-            return "there are already three cards with name " + cardName + " in deck " + deckName;
-        }
-        deck.addCardToSideDeck(cardName);
-        return "card added successfully";
-    }
-
-    public String addToMainDeck(String deckName, String cardName, String username) {
-        User user = User.getUserByUsername(username);
         if (!user.isDeckWithThisNameExistent(deckName)) {
             return "deck with name " + deckName + " does not exist";
         }
-        Deck deck = user.getDeckByDeckName(deckName);
-        if (!deck.isCardWithThisNameExistent(cardName)) {
-            return "card with name " + cardName + " does not exists";
-        }
-        if (deck.isMainDeckFull()) {
-            return "main deck is full";
+        if (isAddToSide) {
+            if (deck.isSideDeckFull()) {
+                return "side deck is full";
+            }
+        } else {
+            if (deck.isMainDeckFull()) {
+                return "main deck is full";
+            }
         }
         if (deck.isThreeCardsWithThisNameInDeck(cardName)) {
             return "there are already three cards with name " + cardName + " in deck " + deckName;
         }
-        deck.addCardToMainDeck(cardName);
+        if (isAddToSide) {
+            deck.addCardToSideDeck(cardName);
+        } else {
+            deck.addCardToMainDeck(cardName);
+        }
         return "card added successfully";
     }
 
@@ -137,9 +128,13 @@ public class DeckMenuController {
             if (deck.getMainDeck().size() < 40) validity = "invalid";
             else validity = "valid";
             if (deck.isDeckActivated()) {
-                activeDeck.append(deck.getDeckName()).append(": main deck ").append(deck.getMainDeck().size()).append(", side deck ").append(deck.getSideDeck().size()).append(", ").append(validity).append("\n");
+                activeDeck.append(deck.getDeckName()).append(": main deck ")
+                        .append(deck.getMainDeck().size()).append(", side deck ")
+                        .append(deck.getSideDeck().size()).append(", ").append(validity).append("\n");
             } else {
-                inActiveDecks.append(deck.getDeckName()).append(": main deck ").append(deck.getMainDeck().size()).append(", side deck ").append(deck.getSideDeck().size()).append(", ").append(validity).append("\n");
+                inActiveDecks.append(deck.getDeckName()).append(": main deck ")
+                        .append(deck.getMainDeck().size()).append(", side deck ")
+                        .append(deck.getSideDeck().size()).append(", ").append(validity).append("\n");
             }
         }
         result += activeDeck.toString() + "Other decks:\n" + inActiveDecks.toString();

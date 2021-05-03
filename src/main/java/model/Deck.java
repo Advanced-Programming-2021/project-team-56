@@ -105,6 +105,7 @@ public class Deck {
                 sideDeck.add(card);
                 deckCards.add(card);
                 userCards.remove(card);
+                return;
             }
         }
     }
@@ -115,6 +116,7 @@ public class Deck {
                 mainDeck.add(card);
                 deckCards.add(card);
                 userCards.remove(card);
+                return;
             }
         }
     }

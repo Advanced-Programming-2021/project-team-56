@@ -34,6 +34,7 @@ public class DeckMenuView {
 
     private DeckMenuView() {
     }
+
     public static DeckMenuView getInstance() {
         if (deckMenuView == null)
             deckMenuView = new DeckMenuView();
@@ -84,7 +85,6 @@ public class DeckMenuView {
             checkRemoveCardCommand(command, username);
             return;
         }
-
         if (command.equals("deck show --all")) {
             String result = DeckMenuController.getInstance().showUsersDecks(username);
             System.out.print(result);
@@ -144,28 +144,28 @@ public class DeckMenuView {
         DeckMenuController deckMenuController = DeckMenuController.getInstance();
         Matcher matcher = addToSideDeck1.matcher(command);
         if (matcher.find()) {
-            return deckMenuController.addToSideDeck(matcher.group(2), matcher.group(1), username);
+            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, true);
         }
         matcher = addToSideDeck2.matcher(command);
         if (matcher.find()) {
-            return deckMenuController.addToSideDeck(matcher.group(2), matcher.group(1), username);
+            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, true);
         }
         matcher = addToSideDeck3.matcher(command);
         if (matcher.find()) {
-            return deckMenuController.addToSideDeck(matcher.group(2), matcher.group(1), username);
+            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, true);
         }
         matcher = addToSideDeck4.matcher(command);
         if (matcher.find()) {
-            return deckMenuController.addToSideDeck(matcher.group(1), matcher.group(2), username);
+            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, true);
         }
         matcher = addToSideDeck5.matcher(command);
         if (matcher.find()) {
-            return deckMenuController.addToSideDeck(matcher.group(1), matcher.group(2), username);
+            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, true);
 
         }
         matcher = addToSideDeck6.matcher(command);
         if (matcher.find()) {
-            return deckMenuController.addToSideDeck(matcher.group(1), matcher.group(2), username);
+            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, true);
         }
         return "invalid command";
     }
@@ -174,11 +174,11 @@ public class DeckMenuView {
         DeckMenuController deckMenuController = DeckMenuController.getInstance();
         Matcher matcher = addToMainDeck1.matcher(command);
         if (matcher.find()) {
-            return deckMenuController.addToMainDeck(matcher.group(2), matcher.group(1), username);
+            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, false);
         }
         matcher = addToMainDeck2.matcher(command);
         if (matcher.find()) {
-            return deckMenuController.addToMainDeck(matcher.group(1), matcher.group(2), username);
+            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, false);
         }
         return "invalid command";
     }
