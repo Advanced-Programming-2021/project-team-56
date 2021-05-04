@@ -73,6 +73,10 @@ public class DuelWithUser {
     public void setUpGame(String firstPlayer, String secondPlayer) {
         boards[0] = new Board(User.getUserByUsername(firstPlayer).getActivatedDeck(), User.getUserByUsername(firstPlayer));
         boards[1] = new Board(User.getUserByUsername(secondPlayer).getActivatedDeck(), User.getUserByUsername(secondPlayer));
+        boards[0].setOpponentBoard(boards[1]);
+        boards[1].setOpponentBoard(boards[0]);
+        boards[0].setPlayerHand();
+        boards[1].setPlayerHand();
     }
 
     public Board getMyBoard() {

@@ -98,4 +98,5 @@ public class MonsterCard extends Card {
     public void setInAttackPosition(boolean isInAttackPosition){
         this.isInAttackPosition = isInAttackPosition;
     }
+
 }

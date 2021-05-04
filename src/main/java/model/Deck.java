@@ -23,7 +23,7 @@ public class Deck {
 
     public Deck() {
     }
-
+//////////////?
     public Deck(Deck deck){
         mainDeck.addAll(deck.getMainDeck());
         sideDeck.addAll(deck.getSideDeck());

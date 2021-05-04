@@ -20,7 +20,6 @@ public class Board {
         this.playerDeck = new Deck(playerDeck);
         Collections.shuffle(this.playerDeck.getMainDeck());
         setCardsBoard(this);
-        setPlayerHand();
         this.user = user;
         this.monsterTerritory.put(5, null);
         this.monsterTerritory.put(3, null);
@@ -34,9 +33,11 @@ public class Board {
         this.spellAndTrapTerritory.put(4, null);
     }
 
-    private void setPlayerHand() {
+    public void setPlayerHand() {
         for (int i = 0; i < 5; i++) {
             playerHand.add(playerDeck.getMainDeck().get(i));
+            playerDeck.getMainDeck().remove(i);
+            //TOdo
         }
     }
 
@@ -44,6 +45,12 @@ public class Board {
         ArrayList<Card> allCards = playerDeck.getMainDeck();
         for (Card card : allCards) {
             card.setBoard(board);
+        }
+    }
+    ///////////////////?
+    public void setOpponentBoard(Board opponentBoard) {
+        for (Card card : playerDeck.getMainDeck()) {
+            card.setOpponentBoard(opponentBoard);
         }
     }
 

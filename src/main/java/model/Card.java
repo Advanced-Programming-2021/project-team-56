@@ -70,6 +70,10 @@ public class Card {
         this.currentBoard = board;
     }
 
+    public void setOpponentBoard(Board opponentBoard) {
+        this.opponentBoard = opponentBoard;
+    }
+
     public static void addSpellCards(ArrayList<SpellCard> spellCards) {
         cards.addAll(spellCards);
     }
@@ -103,5 +107,9 @@ public class Card {
 
     public boolean canEffectOfCardActivate() {
         return this.cardEffect.canEffectActivate(this);
+    }
+
+    public void setFacedUp(boolean isFacedUp) {
+        this.isFacedUp = isFacedUp;
     }
 }
