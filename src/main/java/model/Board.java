@@ -19,6 +19,7 @@ public class Board {
     public Board(Deck playerDeck, User user) {
         this.playerDeck = new Deck(playerDeck);
         Collections.shuffle(this.playerDeck.getMainDeck());
+        setCardsBoard(this);
         setPlayerHand();
         this.user = user;
         this.monsterTerritory.put(5, null);
@@ -36,6 +37,13 @@ public class Board {
     private void setPlayerHand() {
         for (int i = 0; i < 5; i++) {
             playerHand.add(playerDeck.getMainDeck().get(i));
+        }
+    }
+
+    private void setCardsBoard(Board board) {
+        ArrayList<Card> allCards = playerDeck.getMainDeck();
+        for (Card card : allCards) {
+            card.setBoard(board);
         }
     }
 

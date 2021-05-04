@@ -65,8 +65,8 @@ public class DuelWithUser {
             phaseCounter++;
             if (phaseCounter == 7) {
                 phaseCounter -= 6;
+                turnCounter++;
             }
-            turnCounter++;
         }
     }
 
