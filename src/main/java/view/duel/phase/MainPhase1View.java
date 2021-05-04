@@ -3,8 +3,12 @@ package view.duel.phase;
 import controller.duel.phases.MainPhase1Controller;
 import view.LoginMenuView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainPhase1View {
     private static MainPhase1View mainPhase1;
+    static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
 
     private MainPhase1View() {
 
@@ -19,17 +23,31 @@ public class MainPhase1View {
 
     public void run() {
         System.out.println("phase: Main Phase 1");
-        while (true){
+        MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
+        while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("next phase")) {
                 break;
             }
-            if (command.equals("summon")){
-                System.out.println(MainPhase1Controller.getInstance().summon());
+            if (command.equals("summon")) {
+                System.out.println(mainPhase1Controller.summon());
                 continue;
             }
-            if (command.equals("set")){
-                System.out.println(MainPhase1Controller.getInstance().set());
+            if (command.equals("set")) {
+                System.out.println(mainPhase1Controller.set());
+                continue;
+            }
+            Matcher matcher = setPosition.matcher(command);
+            if (matcher.find()) {
+                if (matcher.group(1).equals("attack")) {
+                    System.out.println(mainPhase1Controller.changeToAttackPosition());
+                } else {
+                    System.out.println(mainPhase1Controller.changeToDefencePosition());
+                }
+                continue;
+            }
+            if (command.equals("flip-summon")) {
+                System.out.println(mainPhase1Controller.flipSummon());
                 continue;
             }
         }
