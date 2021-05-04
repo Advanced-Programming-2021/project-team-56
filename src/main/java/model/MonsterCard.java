@@ -114,4 +114,8 @@ public class MonsterCard extends Card {
     public int getSummonedTurn() {
         return summonedTurn;
     }
+
+    public void setLastTimeAttackedTurn(int lastTimeAttackedTurn) {
+        this.lastTimeAttackedTurn = lastTimeAttackedTurn;
+    }
 }

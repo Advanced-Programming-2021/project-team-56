@@ -47,15 +47,25 @@ public class MainPhase1Controller {
         }
         if (monsterCard.getLevel() < 7) {
             int firstAddress = Integer.parseInt(LoginMenuView.scan.nextLine().trim());
+            if (firstAddress < 1 || firstAddress > 5){
+                return "invalid selection";
+            }
             if (!isAddressValid(firstAddress)) {
-                return "there no monsters one this address";
+                return "there no monsters on this address";
             } else {
+                tribute(firstAddress);
                 normalSummon(monsterCard);
                 return "summoned successfully";
             }
         } else {
             int firstAddress = Integer.parseInt(LoginMenuView.scan.nextLine().trim());
+            if (firstAddress < 1 || firstAddress > 5){
+                return "invalid selection";
+            }
             int secondAddress = Integer.parseInt(LoginMenuView.scan.nextLine().trim());
+            if (secondAddress < 1 || secondAddress > 5){
+                return "invalid selection";
+            }
             if (firstAddress == secondAddress) {
                 return "there is no monster on one of these addresses";
             }
@@ -246,16 +256,11 @@ public class MainPhase1Controller {
     private boolean isAddressValid(int address) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        for (int i = 1; i < 5; i++) {
-            if (i == address) {
-                if (monsterTerritory.get(i) == null) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
+        if (monsterTerritory.get(address) != null) {
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     private void tribute(int address) {
