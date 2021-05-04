@@ -39,7 +39,7 @@ public class MainPhase1Controller {
         }
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         if (monsterCard.getLevel() < 5) {
-            normalSummon(monsterCard, duelWithUser);
+            normalSummon(monsterCard);
             return "summoned successfully";
         }
         if (!areThereEnoughCardsToTribute()) {
@@ -47,22 +47,32 @@ public class MainPhase1Controller {
         }
         if (monsterCard.getLevel() < 7) {
             int firstAddress = Integer.parseInt(LoginMenuView.scan.nextLine().trim());
-            if (!isAddressValid(firstAddress, duelWithUser)) {
-                return "there no monsters one this address";
+            if (firstAddress < 1 || firstAddress > 5){
+                return "invalid selection";
+            }
+            if (!isAddressValid(firstAddress)) {
+                return "there no monsters on this address";
             } else {
-                normalSummon(monsterCard, duelWithUser);
+                tribute(firstAddress);
+                normalSummon(monsterCard);
                 return "summoned successfully";
             }
         } else {
             int firstAddress = Integer.parseInt(LoginMenuView.scan.nextLine().trim());
+            if (firstAddress < 1 || firstAddress > 5){
+                return "invalid selection";
+            }
             int secondAddress = Integer.parseInt(LoginMenuView.scan.nextLine().trim());
+            if (secondAddress < 1 || secondAddress > 5){
+                return "invalid selection";
+            }
             if (firstAddress == secondAddress) {
                 return "there is no monster on one of these addresses";
             }
-            if (isAddressValid(firstAddress, duelWithUser) && isAddressValid(secondAddress, duelWithUser)) {
-                tribute(duelWithUser, firstAddress);
-                tribute(duelWithUser, secondAddress);
-                normalSummon(monsterCard, duelWithUser);
+            if (isAddressValid(firstAddress) && isAddressValid(secondAddress)) {
+                tribute(firstAddress);
+                tribute(secondAddress);
+                normalSummon(monsterCard);
                 return "summoned successfully";
             } else {
                 return "there is no monster on one of these addresses";
@@ -83,12 +93,83 @@ public class MainPhase1Controller {
             if (duelWithUser.getTurnCounter() == duelWithUser.getLastSummonedOrSetTurn()) {
                 return "you already summoned/set on this turn";
             }
-        }else {
+        } else {
             if (isMonsterTerritoryFull()) {
                 return "monster card zone is full";
             }
         }
         return "";
+    }
+
+    public String changeToAttackPosition() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (duelWithUser.getMyBoard().getSelectedCard() == null) {
+            return "no card is selected yet";
+        }
+        if (!isCardInMyMonsterTerritory()) {
+            return "you can’t change this card position";
+        }
+        MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
+        if (monsterCard.getIsInAttackPosition()) {
+            return "this card is already in the wanted position";
+        }
+        if (duelWithUser.getTurnCounter() == monsterCard.getLastTimeChangedPositionTurn()) {
+            return "you already changed this card position in this turn";
+        }
+        changePosition(true);
+        return "monster card position changed successfully";
+    }
+
+    public String changeToDefencePosition() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (duelWithUser.getMyBoard().getSelectedCard() == null) {
+            return "no card is selected yet";
+        }
+        if (!isCardInMyMonsterTerritory()) {
+            return "you can’t change this card position";
+        }
+        MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
+        if (!monsterCard.getIsInAttackPosition()) {
+            return "this card is already in the wanted position";
+        }
+        if (duelWithUser.getTurnCounter() == monsterCard.getLastTimeChangedPositionTurn()) {
+            return "you already changed this card position in this turn";
+        }
+        if (duelWithUser.getTurnCounter() == monsterCard.getLastTimeAttackedTurn()) {
+            return "you already attacked with this card in this turn";
+        }
+        changePosition(false);
+        return "monster card position changed successfully";
+    }
+
+    private void changePosition(boolean position) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
+        monsterCard.setInAttackPosition(position);
+        monsterCard.setLastTimeChangedPositionTurn(duelWithUser.getTurnCounter());
+        duelWithUser.getMyBoard().setSelectedCard(null);
+    }
+
+    public String flipSummon() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (duelWithUser.getMyBoard().getSelectedCard() == null) {
+            return "no card is selected yet";
+        }
+        if (!isCardInMyMonsterTerritory()) {
+            return "you can’t change this card position";
+        }
+        MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
+        if (monsterCard.getSummonedTurn() == duelWithUser.getTurnCounter()) {
+            return "you can’t flip summon this card";
+        }
+        if (monsterCard.getIsFacedUp()) {
+            return "you can’t flip summon this card";
+        }
+        monsterCard.setFacedUp(true);
+        monsterCard.setInAttackPosition(false);
+        monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return "flip summoned successfully";
     }
 
     private boolean isMonsterTerritoryFull() {
@@ -161,7 +242,8 @@ public class MainPhase1Controller {
         }
     }
 
-    private void normalSummon(MonsterCard monsterCard, DuelWithUser duelWithUser) {
+    private void normalSummon(MonsterCard monsterCard) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         placeMonsterOnTheField(monsterCard);
         drawCardFromPlayerHand(monsterCard);
         duelWithUser.getMyBoard().setSelectedCard(null);
@@ -171,25 +253,34 @@ public class MainPhase1Controller {
         monsterCard.setFacedUp(true);
     }
 
-    private boolean isAddressValid(int address, DuelWithUser duelWithUser) {
+    private boolean isAddressValid(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        for (int i = 1; i < 5; i++) {
-            if (i == address) {
-                if (monsterTerritory.get(i) == null) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
+        if (monsterTerritory.get(address) != null) {
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
-    private void tribute(DuelWithUser duelWithUser, int address) {
+    private void tribute(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         graveyard.add(monsterTerritory.get(address));
         monsterTerritory.put(address, null);
+    }
+
+    public boolean isCardInMyMonsterTerritory() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        Card card = duelWithUser.getMyBoard().getSelectedCard();
+        for (int i = 1; i < 6; i++) {
+            if (monsterTerritory.get(i).getId() == card.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

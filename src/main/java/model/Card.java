@@ -130,4 +130,5 @@ public class Card {
     public void setFacedUp(boolean isFacedUp) {
         this.isFacedUp = isFacedUp;
     }
+
 }

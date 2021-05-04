@@ -10,7 +10,7 @@ public class MonsterCard extends Card {
     private int defence;
     private int finalDefence;
     private boolean isInAttackPosition;
-    private int lastChangedPositionTurn;
+    private int lastTimeChangedPositionTurn;
     private int lastTimeAttackedTurn;
     private int summonedTurn;
     private String cardType;
@@ -135,4 +135,23 @@ public class MonsterCard extends Card {
         this.isInAttackPosition = isInAttackPosition;
     }
 
+    public int getLastTimeChangedPositionTurn() {
+        return lastTimeChangedPositionTurn;
+    }
+
+    public int getLastTimeAttackedTurn() {
+        return lastTimeAttackedTurn;
+    }
+
+    public void setLastTimeChangedPositionTurn(int lastTimeChangedPositionTurn) {
+        this.lastTimeChangedPositionTurn = lastTimeChangedPositionTurn;
+    }
+
+    public int getSummonedTurn() {
+        return summonedTurn;
+    }
+
+    public void setLastTimeAttackedTurn(int lastTimeAttackedTurn) {
+        this.lastTimeAttackedTurn = lastTimeAttackedTurn;
+    }
 }

@@ -52,6 +52,9 @@ public class Board {
         for (Card card : playerDeck.getMainDeck()) {
             card.setOpponentBoard(opponentBoard);
         }
+        for (int i = 0; i < 5; i++) {
+            playerDeck.getMainDeck().remove(0);
+        }
     }
 
     public void addCardToGraveyard(Card card) {
