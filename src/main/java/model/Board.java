@@ -48,7 +48,7 @@ public class Board {
         }
     }
     ///////////////////?
-    public void setOpponentBoard(Board opponentBoard) {
+    public void setCardsOpponentBoard(Board opponentBoard) {
         for (Card card : playerDeck.getMainDeck()) {
             card.setOpponentBoard(opponentBoard);
         }
