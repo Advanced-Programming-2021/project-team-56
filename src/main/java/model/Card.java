@@ -10,8 +10,13 @@ public class Card {
     private static ArrayList<Card> cards = new ArrayList<>();
     private int id;
 
-    public Card() {
+    //TODO set IEffectID for monster cards without effect 0 in CSV File and with Effects, their own effectID and set it here
+    private Board currentBoard;
+    private Board opponentBoard;
+    private int IEffectID;
+    private IEffect cardEffect;
 
+    public Card() {
     }
 
     public Card(String name, String description, int price, int id) {
@@ -41,6 +46,14 @@ public class Card {
         return description;
     }
 
+    public Board getCurrentBoard() {
+        return currentBoard;
+    }
+
+    public Board getOpponentBoard() {
+        return opponentBoard;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -51,6 +64,10 @@ public class Card {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void setBoard(Board board) {
+        this.currentBoard = board;
     }
 
     public static void addSpellCards(ArrayList<SpellCard> spellCards) {
@@ -76,5 +93,15 @@ public class Card {
             }
         }
         return null;
+    }
+
+    public void activateEffectOfCard() {
+        if (this.cardEffect.canEffectActivate(this)) {
+            this.cardEffect.activateEffect(this);
+        }
+    }
+
+    public boolean canEffectOfCardActivate() {
+        return this.cardEffect.canEffectActivate(this);
     }
 }
