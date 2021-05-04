@@ -5,5 +5,7 @@ public enum GameCommandType {
     FLIP_SUMMON,
     BATTLE,
     SPELL_ACTIVE,
+    SET,
+    CHANGE_POSITION,
 
 }
