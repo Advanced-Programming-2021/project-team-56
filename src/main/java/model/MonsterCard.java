@@ -29,8 +29,8 @@ public class MonsterCard extends Card {
         this.monsterType = monsterCard.getMonsterType();
         this.attribute = monsterCard.getAttribute();
         this.cardType = monsterCard.getCardType();
-        setFinalAttack();
-        setFinalDefence();
+        setFinalAttack(this.attack);
+        setFinalDefence(this.defence);
     }
 
     private static ArrayList<MonsterCard> monsterCards = new ArrayList<>();
@@ -47,12 +47,12 @@ public class MonsterCard extends Card {
         this.attribute = attribute;
     }
 
-    public void setFinalDefence() {
-        this.finalDefence = this.defence;
+    public void setFinalDefence(int defence) {
+        this.finalDefence = defence;
     }
 
-    public void setFinalAttack() {
-        this.finalAttack = this.attack;
+    public void setFinalAttack(int attack) {
+        this.finalAttack = attack;
     }
 
     public void increaseFinalAttack(int deltaAttack) {

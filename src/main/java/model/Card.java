@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Card {
     private boolean isFacedUp;
@@ -81,6 +82,11 @@ public class Card {
 
     public void setOpponentBoard(Board opponentBoard) {
         this.opponentBoard = opponentBoard;
+    }
+
+    public void setCardEffect() {
+        //TODO Amirali begir bzar to excel
+        cardEffect = Effect.getInstance().getAllEffects().get(IEffectID);
     }
 
     public static void addSpellCards(ArrayList<SpellCard> spellCards) {
