@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class MainPhase1View {
     private static MainPhase1View mainPhase1;
     static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
+    static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     private MainPhase1View() {
 
@@ -48,6 +49,15 @@ public class MainPhase1View {
             }
             if (command.equals("flip-summon")) {
                 System.out.println(mainPhase1Controller.flipSummon());
+                continue;
+            }
+            matcher = attack.matcher(command);
+            if (matcher.find()){
+                System.out.println("you can’t do this action in this phase");
+                continue;
+            }
+            if (command.equals("attack direct")){
+                System.out.println("you can’t do this action in this phase");
                 continue;
             }
         }

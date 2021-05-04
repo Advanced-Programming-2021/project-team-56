@@ -271,7 +271,7 @@ public class MainPhase1Controller {
         monsterTerritory.put(address, null);
     }
 
-    private boolean isCardInMyMonsterTerritory() {
+    public boolean isCardInMyMonsterTerritory() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         Card card = duelWithUser.getMyBoard().getSelectedCard();

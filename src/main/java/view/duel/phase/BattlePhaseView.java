@@ -1,5 +1,6 @@
 package view.duel.phase;
 
+import controller.duel.phases.BattlePhaseController;
 import view.LoginMenuView;
 
 import java.util.regex.Matcher;
@@ -22,7 +23,7 @@ public class BattlePhaseView {
     }
 
     public void run(){
-        System.out.println("phase: ");
+        System.out.println("phase: battle phase");
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("next phase")) {
@@ -47,7 +48,7 @@ public class BattlePhaseView {
             }
             matcher = attack.matcher(command);
             if (matcher.find()){
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(BattlePhaseController.getInstance().attackCard(Integer.parseInt(matcher.group(1))));
                 continue;
             }
             if (command.equals("attack direct")){
