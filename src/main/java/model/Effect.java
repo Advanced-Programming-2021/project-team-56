@@ -102,7 +102,7 @@ public class Effect {
 
         @Override
         public void activateEffect(Card card, Update update) {
-
+            //TODO Final attack has been changed to 0 for one turn
         }
 
         @Override
@@ -121,10 +121,41 @@ public class Effect {
         }
     };
 
+    IEffect effectMan_EaterBug = new IEffect() {
+        @Override
+        public boolean canEffectActivate(Card card, Update update) {
+            //TODO check if it changed position from face down to face up
+            return false;
+        }
+
+        @Override
+        public void activateEffect(Card card, Update update) {
+
+        }
+
+        @Override
+        public EffectType getType() {
+            return EffectType.MONSTER_FLIP;
+        }
+
+        @Override
+        public boolean canDeActive(Card card, Update update) {
+            return false;
+        }
+
+        @Override
+        public void deActive(Card card, Update update) {
+
+        }
+    };
+
     public HashMap<Integer, IEffect> getAllEffects() {
         //TODO put all IEffects
         allEffects.put(0, null);
         allEffects.put(1, effectCommandKnight);
+        allEffects.put(2, effectYomiShip);
+        allEffects.put(3, effectSuijin);
+        allEffects.put(4, effectMan_EaterBug);
 
         return allEffects;
     }
