@@ -6,5 +6,4 @@ public enum GameCommandType {
     BATTLE,
     SPELL_ACTIVE,
 
-
 }

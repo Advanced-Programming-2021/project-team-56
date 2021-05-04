@@ -6,7 +6,9 @@ public class MonsterCard extends Card {
     private int level;
     private String attribute;
     private int attack;
+    private int finalAttack;
     private int defence;
+    private int finalDefence;
     private boolean isInAttackPosition;
     private int lastChangedPositionTurn;
     private int lastTimeAttackedTurn;
@@ -27,6 +29,8 @@ public class MonsterCard extends Card {
         this.monsterType = monsterCard.getMonsterType();
         this.attribute = monsterCard.getAttribute();
         this.cardType = monsterCard.getCardType();
+        setFinalAttack();
+        setFinalDefence();
     }
 
     private static ArrayList<MonsterCard> monsterCards = new ArrayList<>();
@@ -41,6 +45,30 @@ public class MonsterCard extends Card {
 
     public void setAttribute(String attribute) {
         this.attribute = attribute;
+    }
+
+    public void setFinalDefence() {
+        this.finalDefence = this.defence;
+    }
+
+    public void setFinalAttack() {
+        this.finalAttack = this.attack;
+    }
+
+    public void increaseFinalAttack(int deltaAttack) {
+        this.finalAttack += deltaAttack;
+    }
+
+    public void decreaseFinalAttack(int deltaAttack) {
+        this.finalAttack -= deltaAttack;
+    }
+
+    public void increaseFinalDefence(int deltaDefence) {
+        this.finalDefence += deltaDefence;
+    }
+
+    public void decreaseFinalDefence(int deltaDefence) {
+        this.finalDefence -= deltaDefence;
     }
 
     public void setMonsterType(String monsterType) {
@@ -65,6 +93,14 @@ public class MonsterCard extends Card {
 
     public int getAttack() {
         return attack;
+    }
+
+    public int getFinalDefence() {
+        return finalDefence;
+    }
+
+    public int getFinalAttack() {
+        return finalAttack;
     }
 
     public int getDefence() {
