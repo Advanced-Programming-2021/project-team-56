@@ -166,7 +166,6 @@ public class MainPhase1Controller {
             return "you can’t flip summon this card";
         }
         monsterCard.setFacedUp(true);
-        monsterCard.setInAttackPosition(false);
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
         duelWithUser.getMyBoard().setSelectedCard(null);
         return "flip summoned successfully";

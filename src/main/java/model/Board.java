@@ -47,6 +47,7 @@ public class Board {
             card.setBoard(board);
         }
     }
+
     ///////////////////?
     public void setCardsOpponentBoard(Board opponentBoard) {
         for (Card card : playerDeck.getMainDeck()) {
@@ -93,23 +94,27 @@ public class Board {
 
     }
 
-    public ArrayList<Card> getMainDeck(){
+    public ArrayList<Card> getMainDeck() {
         return playerDeck.getMainDeck();
     }
 
-    public ArrayList<Card> getPlayerHand(){
+    public ArrayList<Card> getPlayerHand() {
         return playerHand;
     }
 
-    public ArrayList<Card> getGraveyard(){
+    public ArrayList<Card> getGraveyard() {
         return graveyard;
     }
 
-    public int getLastSummonedOrSetTurn(){
+    public int getLastSummonedOrSetTurn() {
         return lastSummonedOrSetTurn;
     }
 
-    public void setLastSummonedOrSetTurn(int turn){
+    public void setLastSummonedOrSetTurn(int turn) {
         lastSummonedOrSetTurn = turn;
+    }
+
+    public void setLP(int LP) {
+        this.LP = LP;
     }
 }

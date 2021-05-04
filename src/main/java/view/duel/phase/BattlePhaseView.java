@@ -47,12 +47,13 @@ public class BattlePhaseView {
                 continue;
             }
             matcher = attack.matcher(command);
+            BattlePhaseController battlePhase = BattlePhaseController.getInstance();
             if (matcher.find()){
-                System.out.println(BattlePhaseController.getInstance().attackCard(Integer.parseInt(matcher.group(1))));
+                System.out.println(battlePhase.attackCard(Integer.parseInt(matcher.group(1))));
                 continue;
             }
             if (command.equals("attack direct")){
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(battlePhase.attackUser());
                 continue;
             }
             System.out.println("invalid command");
