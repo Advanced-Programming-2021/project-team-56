@@ -15,6 +15,7 @@ public class Card {
     private Board opponentBoard;
     private int IEffectID;
     private IEffect cardEffect;
+    private ArrayList<Card> effectedCards = new ArrayList<>();
 
     public Card() {
     }
@@ -30,8 +31,16 @@ public class Card {
         return cards;
     }
 
+    public ArrayList<Card> getEffectedCards() {
+        return effectedCards;
+    }
+
     public int getId(){
         return id;
+    }
+
+    public IEffect getCardEffect() {
+        return cardEffect;
     }
 
     public boolean getIsFacedUp() {
@@ -99,14 +108,17 @@ public class Card {
         return null;
     }
 
-    public void activateEffectOfCard() {
-        if (this.cardEffect.canEffectActivate(this)) {
-            this.cardEffect.activateEffect(this);
+    public void activateEffectOfCard(Update update) {
+        if (this.cardEffect.canEffectActivate(this, update)) {
+            this.cardEffect.activateEffect(this, update);
+        }
+        if (this.cardEffect.canDeActive(this, update)) {
+            this.cardEffect.deActive(this, update);
         }
     }
 
-    public boolean canEffectOfCardActivate() {
-        return this.cardEffect.canEffectActivate(this);
+    public boolean canEffectOfCardActivate(Update update) {
+        return this.cardEffect.canEffectActivate(this, update);
     }
 
     public void setFacedUp(boolean isFacedUp) {

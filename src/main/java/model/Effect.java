@@ -25,13 +25,38 @@ public class Effect {
     //TODO Write all effects
     IEffect effectCommandKnight = new IEffect() {
         @Override
-        public boolean canEffectActivate(Card card) {
-
-            return true;
+        public boolean canEffectActivate(Card card, Update update) {
+            if (card.getIsFacedUp()) {
+                return true;
+            }
+            return false;
         }
 
         @Override
-        public void activateEffect(Card card) {
+        public void activateEffect(Card card, Update update) {
+            for (Card monsterCard : card.getCurrentBoard().getMonsterTerritory().values()) {
+                for (Card effectedMonsterCard : card.getEffectedCards()) {
+                    if (monsterCard != effectedMonsterCard) {
+                        MonsterCard downCastMonsterCard = (MonsterCard) monsterCard;
+                        downCastMonsterCard.increaseFinalAttack(400);
+                        card.getEffectedCards().add(monsterCard);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public EffectType getType() {
+            return EffectType.MONSTER_CONTINUOUS;
+        }
+
+        @Override
+        public boolean canDeActive(Card card, Update update) {
+            return false;
+        }
+
+        @Override
+        public void deActive(Card card, Update update) {
 
         }
     };
