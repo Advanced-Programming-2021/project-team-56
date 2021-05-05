@@ -56,6 +56,10 @@ public class EndPhaseView {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
+            if (command.startsWith("select")){
+                System.out.println(DuelWithUser.getInstance().selectCard(command));
+                continue;
+            }
             System.out.println("invalid command");
         }
         String nickname = DuelWithUser.getInstance().getEnemyBoard().getUser().getNickname();

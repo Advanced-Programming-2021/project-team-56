@@ -54,11 +54,11 @@ public class DuelWithUser {
                     break;
                 case 4:
                     String result = BattlePhaseView.getInstance().run();
-                    if (result.equals("I won")){
+                    if (result.equals("I won")) {
 
-                    }else if(result.equals("I lost")){
+                    } else if (result.equals("I lost")) {
 
-                    }else {
+                    } else {
 
                     }
                     break;
@@ -78,8 +78,8 @@ public class DuelWithUser {
     }
 
     public void setUpGame(String firstPlayer, String secondPlayer) {
-        boards[0] = new Board(User.getUserByUsername(firstPlayer).getActivatedDeck(), User.getUserByUsername(firstPlayer));
-        boards[1] = new Board(User.getUserByUsername(secondPlayer).getActivatedDeck(), User.getUserByUsername(secondPlayer));
+        boards[0] = new Board(User.getUserByUsername(firstPlayer));
+        boards[1] = new Board(User.getUserByUsername(secondPlayer));
         boards[0].setCardsOpponentBoard(boards[1]);
         boards[1].setCardsOpponentBoard(boards[0]);
         boards[0].setPlayerHand();
@@ -128,12 +128,16 @@ public class DuelWithUser {
             return "card selected";
         }
         if (command.equals("select --field")) {
-            if (getMyBoard().getFieldSpell() == null) return "no card found in the given position";
+            if (getMyBoard().getFieldSpell() == null) {
+                return "no card found in the given position";
+            }
             getMyBoard().setSelectedCard(getMyBoard().getFieldSpell());
             return "card selected";
         }
         if (command.equals("select --field --opponent") || command.equals("select --opponent --field")) {
-            if (getEnemyBoard().getFieldSpell() == null) return "no card found in the given position";
+            if (getEnemyBoard().getFieldSpell() == null) {
+                return "no card found in the given position";
+            }
             getMyBoard().setSelectedCard(getEnemyBoard().getFieldSpell());
             return "card selected";
         }
@@ -213,8 +217,11 @@ public class DuelWithUser {
         if (spellOrTrapCard == null) {
             field += "\tE";
         } else {
-            if (spellOrTrapCard.getIsFacedUp()) field += "\tO";
-            else field += "\tH";
+            if (spellOrTrapCard.getIsFacedUp()) {
+                field += "\tO";
+            } else {
+                field += "\tH";
+            }
         }
         return field;
     }
@@ -226,8 +233,11 @@ public class DuelWithUser {
             if (monster.getIsInAttackPosition()) {
                 field += "\tOO";
             } else {
-                if (monster.getIsFacedUp()) field += "\tDO";
-                else field += "\tDH";
+                if (monster.getIsFacedUp()) {
+                    field += "\tDO";
+                } else {
+                    field += "\tDH";
+                }
             }
         }
         return field;
@@ -265,7 +275,7 @@ public class DuelWithUser {
         return field;
     }
 
-    public int getLastSummonedOrSetTurn(){
+    public int getLastSummonedOrSetTurn() {
         return getMyBoard().getLastSummonedOrSetTurn();
     }
 

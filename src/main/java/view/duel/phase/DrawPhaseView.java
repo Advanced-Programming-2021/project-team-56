@@ -1,5 +1,6 @@
 package view.duel.phase;
 
+import controller.duel.DuelWithUser;
 import controller.duel.phases.DrawPhaseController;
 import view.LoginMenuView;
 
@@ -58,6 +59,10 @@ public class DrawPhaseView {
             }
             if (command.equals("attack direct")){
                 System.out.println("you can’t do this action in this phase");
+                continue;
+            }
+            if (command.startsWith("select")){
+                System.out.println(DuelWithUser.getInstance().selectCard(command));
                 continue;
             }
             System.out.println("invalid command");

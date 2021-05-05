@@ -16,8 +16,8 @@ public class Board {
     private int LP = 8000;
     private int lastSummonedOrSetTurn;
 
-    public Board(Deck playerDeck, User user) {
-        this.playerDeck = new Deck(playerDeck);
+    public Board(User user) {
+        this.playerDeck = new Deck(user.getActivatedDeck());
         Collections.shuffle(this.playerDeck.getMainDeck());
         setCardsBoard(this);
         this.user = user;

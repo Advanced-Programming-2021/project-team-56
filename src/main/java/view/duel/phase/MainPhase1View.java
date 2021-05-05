@@ -1,5 +1,6 @@
 package view.duel.phase;
 
+import controller.duel.DuelWithUser;
 import controller.duel.phases.MainPhase1Controller;
 import view.LoginMenuView;
 
@@ -60,6 +61,11 @@ public class MainPhase1View {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
+            if (command.startsWith("select")){
+                System.out.println(DuelWithUser.getInstance().selectCard(command));
+                continue;
+            }
+            System.out.println("invalid command");
         }
     }
 }

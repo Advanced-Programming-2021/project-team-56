@@ -30,6 +30,10 @@ public class BattlePhaseView {
             if (command.equals("next phase")) {
                 break;
             }
+            if (command.startsWith("select")){
+                System.out.println(DuelWithUser.getInstance().selectCard(command));
+                continue;
+            }
             if (command.equals("summon")) {
                 System.out.println("action not allowed in this phase");
                 continue;
