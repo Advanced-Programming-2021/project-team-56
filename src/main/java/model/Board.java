@@ -35,8 +35,8 @@ public class Board {
 
     public void setPlayerHand() {
         for (int i = 0; i < 5; i++) {
-            playerHand.add(playerDeck.getMainDeck().get(i));
-            playerDeck.getMainDeck().remove(i);
+            playerHand.add(playerDeck.getMainDeck().get(0));
+            playerDeck.getMainDeck().remove(0);
             //TOdo
         }
     }
@@ -48,13 +48,9 @@ public class Board {
         }
     }
 
-    ///////////////////?
     public void setCardsOpponentBoard(Board opponentBoard) {
         for (Card card : playerDeck.getMainDeck()) {
             card.setOpponentBoard(opponentBoard);
-        }
-        for (int i = 0; i < 5; i++) {
-            playerDeck.getMainDeck().remove(0);
         }
     }
 
