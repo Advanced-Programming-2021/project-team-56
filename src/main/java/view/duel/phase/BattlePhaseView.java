@@ -51,20 +51,25 @@ public class BattlePhaseView {
             BattlePhaseController battlePhase = BattlePhaseController.getInstance();
             if (matcher.find()) {
                 System.out.println(battlePhase.attackCard(Integer.parseInt(matcher.group(1))));
-                if (isGameOver()){
+                if (isGameOver()) {
                     break;
                 }
                 continue;
             }
             if (command.equals("attack direct")) {
                 System.out.println(battlePhase.attackUser());
-                if (isGameOver()){
-                    break;
+                if (isGameOver()) {
+                    if (DuelWithUser.getInstance().getMyBoard().getLP() <= 0) {
+                        return "I lost";
+                    } else {
+                        return "I won";
+                    }
                 }
                 continue;
             }
             System.out.println("invalid command");
         }
+        return "the game continues";
     }
 
     private boolean isGameOver() {
