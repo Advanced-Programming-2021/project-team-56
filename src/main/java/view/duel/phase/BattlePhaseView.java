@@ -1,5 +1,6 @@
 package view.duel.phase;
 
+import controller.duel.DuelWithUser;
 import controller.duel.phases.BattlePhaseController;
 import view.LoginMenuView;
 
@@ -22,7 +23,7 @@ public class BattlePhaseView {
         return battlePhase;
     }
 
-    public void run(){
+    public String run() {
         System.out.println("phase: battle phase");
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
@@ -38,24 +39,46 @@ public class BattlePhaseView {
                 continue;
             }
             Matcher matcher = setPosition.matcher(command);
-            if (matcher.find()){
+            if (matcher.find()) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            if (command.equals("flip-summon")){
+            if (command.equals("flip-summon")) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
             matcher = attack.matcher(command);
-            if (matcher.find()){
-                System.out.println(BattlePhaseController.getInstance().attackCard(Integer.parseInt(matcher.group(1))));
+            BattlePhaseController battlePhase = BattlePhaseController.getInstance();
+            if (matcher.find()) {
+                System.out.println(battlePhase.attackCard(Integer.parseInt(matcher.group(1))));
+                if (isGameOver()) {
+                    break;
+                }
                 continue;
             }
-            if (command.equals("attack direct")){
-                System.out.println("you can’t do this action in this phase");
+            if (command.equals("attack direct")) {
+                System.out.println(battlePhase.attackUser());
+                if (isGameOver()) {
+                    if (DuelWithUser.getInstance().getMyBoard().getLP() <= 0) {
+                        return "I lost";
+                    } else {
+                        return "I won";
+                    }
+                }
                 continue;
             }
             System.out.println("invalid command");
         }
+        return "the game continues";
+    }
+
+    private boolean isGameOver() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (duelWithUser.getEnemyBoard().getLP() <= 0) {
+            return true;
+        } else if (duelWithUser.getMyBoard().getLP() <= 0) {
+            return true;
+        }
+        return false;
     }
 }
