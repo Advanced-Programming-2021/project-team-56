@@ -12,8 +12,8 @@ public class TrapCard extends Card {
 
     }
 
-    public TrapCard(Card card, int id) {
-        super(card.getName(), card.getDescription(), card.getPrice(), id);
+    public TrapCard(Card card) {
+        super(card.getName(), card.getDescription(), card.getPrice());
         TrapCard trapCard = (TrapCard) card;
         this.type = trapCard.getType();
         this.icon = trapCard.getIcon();

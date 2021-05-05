@@ -10,7 +10,6 @@ import java.util.Comparator;
 public class ShopController {
 
     private static ShopController shopController;
-    private int id = 1;
 
     private ShopController() {
     }
@@ -41,8 +40,7 @@ public class ShopController {
             return "not enough money";
         }
         User.getUserByUsername(customer).decreaseMoney(priceOfCard);
-        User.getUserByUsername(customer).addCardToUserAllCards(Card.getCardByName(cardName), id);
-        id++;
+        User.getUserByUsername(customer).addCardToUserAllCards(Card.getCardByName(cardName));
         return "";
     }
 

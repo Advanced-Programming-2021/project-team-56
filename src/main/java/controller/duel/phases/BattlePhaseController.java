@@ -42,7 +42,7 @@ public class BattlePhaseController {
         if (enemyMonsterCard.getIsInAttackPosition()) {
             int enemyMonsterAttack = enemyMonsterCard.getFinalAttack();
             if (enemyMonsterAttack == myMonsterAttack) {
-                destroyMyCard(monsterCard.getId());
+                destroyMyCard(monsterCard);
                 destroyEnemyCard(address);
                 return "both you and your opponent monster cards are destroyed and no one receives damage";
             } else if (myMonsterAttack > enemyMonsterAttack) {
@@ -55,7 +55,7 @@ public class BattlePhaseController {
                 int damage = enemyMonsterAttack - myMonsterAttack;
                 int myLife = duelWithUser.getMyBoard().getLP();
                 duelWithUser.getMyBoard().setLP(myLife - damage);
-                destroyMyCard(monsterCard.getId());
+                destroyMyCard(monsterCard);
                 return "Your monster card is destroyed and you received " + damage + " battle damage";
             }
         } else {
@@ -117,14 +117,14 @@ public class BattlePhaseController {
         monsterTerritory.put(address, null);
     }
 
-    private void destroyMyCard(int id) {
+    private void destroyMyCard(MonsterCard monsterCard) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         int address = 1;
         for (int i = 1; i < 6; i++) {
-            if (monsterTerritory.get(i).getId() == id) {
-                address = id;
+            if (monsterTerritory.get(i) == monsterCard) {
+                address = i;
             }
         }
         graveyard.add(monsterTerritory.get(address));

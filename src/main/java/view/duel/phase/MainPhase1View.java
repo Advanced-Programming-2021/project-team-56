@@ -26,6 +26,7 @@ public class MainPhase1View {
     public void run() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: Main Phase 1");
+        System.out.print(duelWithUser.showField());
         MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();

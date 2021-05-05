@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Card {
     private boolean isFacedUp;
@@ -9,7 +8,6 @@ public class Card {
     private String description;
     private int price;
     private static ArrayList<Card> cards = new ArrayList<>();
-    private int id;
 
     //TODO set IEffectID for monster cards without effect 0 in CSV File and with Effects, their own effectID and set it here
     private Board currentBoard;
@@ -21,11 +19,10 @@ public class Card {
     public Card() {
     }
 
-    public Card(String name, String description, int price, int id) {
+    public Card(String name, String description, int price) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.id = id;
     }
 
     public static ArrayList<Card> getCards() {
@@ -34,10 +31,6 @@ public class Card {
 
     public ArrayList<Card> getEffectedCards() {
         return effectedCards;
-    }
-
-    public int getId(){
-        return id;
     }
 
     public IEffect getCardEffect() {

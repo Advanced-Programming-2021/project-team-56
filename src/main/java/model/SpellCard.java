@@ -13,8 +13,8 @@ public class SpellCard extends Card {
 
     }
 
-    public SpellCard(Card card, int id) {
-        super(card.getName(), card.getDescription(), card.getPrice(), id);
+    public SpellCard(Card card) {
+        super(card.getName(), card.getDescription(), card.getPrice());
         SpellCard spellCard = (SpellCard) card;
         this.type = spellCard.getType();
         this.icon = spellCard.getIcon();

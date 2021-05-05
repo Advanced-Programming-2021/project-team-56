@@ -214,7 +214,7 @@ public class MainPhase1Controller {
     private boolean isCardInMyHand(Card card) {
         ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
         for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i).getId() == card.getId()) {
+            if (playerHand.get(i) == card) {
                 return true;
             }
         }
@@ -234,7 +234,7 @@ public class MainPhase1Controller {
     private void drawCardFromPlayerHand(MonsterCard monsterCard) {
         ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
         for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i).getId() == monsterCard.getId()) {
+            if (playerHand.get(i) == monsterCard) {
                 playerHand.remove(i);
                 return;
             }
@@ -275,7 +275,7 @@ public class MainPhase1Controller {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         for (int i = 1; i < 6; i++) {
-            if (monsterTerritory.get(i).getId() == card.getId()) {
+            if (monsterTerritory.get(i) == card) {
                 return true;
             }
         }
