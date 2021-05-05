@@ -37,10 +37,6 @@ public class SpellCard extends Card {
         this.status = status;
     }
 
-    public static void setSpellCards(ArrayList<SpellCard> allSpellCards) {
-        spellCards = allSpellCards;
-    }
-
     public String getType() {
         return type;
     }

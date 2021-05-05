@@ -89,18 +89,6 @@ public class Card {
         cardEffect = Effect.getInstance().getAllEffects().get(IEffectID);
     }
 
-    public static void addSpellCards(ArrayList<SpellCard> spellCards) {
-        cards.addAll(spellCards);
-    }
-
-    public static void addTrapCards(ArrayList<TrapCard> trapCards) {
-        cards.addAll(trapCards);
-    }
-
-    public static void addMonsterCards(ArrayList<MonsterCard> monsterCards) {
-        cards.addAll(monsterCards);
-    }
-
     public int getPrice() {
         return price;
     }

@@ -87,10 +87,6 @@ public class MonsterCard extends Card {
         this.defence = defence;
     }
 
-    public static void setMonsterCards(ArrayList<MonsterCard> allMonsterCards) {
-        monsterCards = allMonsterCards;
-    }
-
     public int getAttack() {
         return attack;
     }
