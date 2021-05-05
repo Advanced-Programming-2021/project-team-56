@@ -53,7 +53,14 @@ public class DuelWithUser {
                     MainPhase1View.getInstance().run();
                     break;
                 case 4:
-                    BattlePhaseView.getInstance().run();
+                    String result = BattlePhaseView.getInstance().run();
+                    if (result.equals("I won")){
+
+                    }else if(result.equals("I lost")){
+
+                    }else {
+
+                    }
                     break;
                 case 5:
                     MainPhase2View.getInstance().run();
