@@ -24,6 +24,7 @@ public class BattlePhaseView {
     }
 
     public String run() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: battle phase");
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
@@ -31,7 +32,7 @@ public class BattlePhaseView {
                 break;
             }
             if (command.startsWith("select")){
-                System.out.println(DuelWithUser.getInstance().selectCard(command));
+                System.out.println(duelWithUser.selectCard(command));
                 continue;
             }
             if (command.equals("summon")) {
@@ -55,6 +56,7 @@ public class BattlePhaseView {
             BattlePhaseController battlePhase = BattlePhaseController.getInstance();
             if (matcher.find()) {
                 System.out.println(battlePhase.attackCard(Integer.parseInt(matcher.group(1))));
+                System.out.print(duelWithUser.showField());
                 if (isGameOver()) {
                     break;
                 }
@@ -62,13 +64,22 @@ public class BattlePhaseView {
             }
             if (command.equals("attack direct")) {
                 System.out.println(battlePhase.attackUser());
+                System.out.print(duelWithUser.showField());
                 if (isGameOver()) {
-                    if (DuelWithUser.getInstance().getMyBoard().getLP() <= 0) {
+                    if (duelWithUser.getMyBoard().getLP() <= 0) {
                         return "I lost";
                     } else {
                         return "I won";
                     }
                 }
+                continue;
+            }
+            if (command.equals("card show --selected")){
+                System.out.println(duelWithUser.showSelectedCard());
+                continue;
+            }
+            if (command.equals("show graveyard")){
+                System.out.print(duelWithUser.showGraveYard());
                 continue;
             }
             System.out.println("invalid command");

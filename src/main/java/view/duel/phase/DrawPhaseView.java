@@ -24,9 +24,11 @@ public class DrawPhaseView {
     }
 
     public boolean run() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: draw phase");
         String result = DrawPhaseController.getInstance().run();
         System.out.println(result);
+        System.out.print(duelWithUser.showField());
         if (result.equals("No cards is in your deck")) {
             return false;
         }
@@ -62,7 +64,15 @@ public class DrawPhaseView {
                 continue;
             }
             if (command.startsWith("select")){
-                System.out.println(DuelWithUser.getInstance().selectCard(command));
+                System.out.println(duelWithUser.selectCard(command));
+                continue;
+            }
+            if (command.equals("card show --selected")){
+                System.out.println(duelWithUser.showSelectedCard());
+                continue;
+            }
+            if (command.equals("show graveyard")){
+                System.out.print(duelWithUser.showGraveYard());
                 continue;
             }
             System.out.println("invalid command");

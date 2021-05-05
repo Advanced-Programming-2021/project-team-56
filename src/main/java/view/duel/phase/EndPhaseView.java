@@ -24,6 +24,7 @@ public class EndPhaseView {
     }
 
     public void run() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: End Phase");
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
@@ -57,12 +58,20 @@ public class EndPhaseView {
                 continue;
             }
             if (command.startsWith("select")){
-                System.out.println(DuelWithUser.getInstance().selectCard(command));
+                System.out.println(duelWithUser.selectCard(command));
+                continue;
+            }
+            if (command.equals("card show --selected")){
+                System.out.println(duelWithUser.showSelectedCard());
+                continue;
+            }
+            if (command.equals("show graveyard")){
+                System.out.print(duelWithUser.showGraveYard());
                 continue;
             }
             System.out.println("invalid command");
         }
-        String nickname = DuelWithUser.getInstance().getEnemyBoard().getUser().getNickname();
+        String nickname = duelWithUser.getEnemyBoard().getUser().getNickname();
         System.out.println("its " + nickname + "’s turn");
     }
 }
