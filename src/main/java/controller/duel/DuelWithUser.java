@@ -265,6 +265,38 @@ public class DuelWithUser {
         return field;
     }
 
+    public String showGraveYard() {
+        String graveYard = "";
+        if (getMyBoard().getGraveyard().size() == 0) {
+            graveYard = "graveyard empty\n";
+        } else {
+            for (Card card : getMyBoard().getGraveyard()) {
+                graveYard += card.getName() + ":" + card.getDescription() + "\n";
+            }
+        }
+        return graveYard;
+    }
+
+    public String showSelectedCard() {
+        Card selectedCard = getMyBoard().getSelectedCard();
+        if (selectedCard == null) {
+            return  "no card is selected yet";
+        } else {
+            for (int i = 1; i <= 5; i++) {
+                if (selectedCard == getEnemyBoard().getMonsterTerritory().get(i) && !selectedCard.getIsFacedUp()) {
+                    return "card is not visible";
+                }
+                if (selectedCard == getEnemyBoard().getSpellAndTrapTerritory().get(i) && !selectedCard.getIsFacedUp()) {
+                    return "card is not visible";
+                }
+                if (selectedCard == getEnemyBoard().getFieldSpell() && !selectedCard.getIsFacedUp()) {
+                    return "card is not visible";
+                }
+            }
+            return selectedCard.getName() + ":" + selectedCard.getDescription();
+        }
+    }
+
     public int getLastSummonedOrSetTurn(){
         return getMyBoard().getLastSummonedOrSetTurn();
     }
