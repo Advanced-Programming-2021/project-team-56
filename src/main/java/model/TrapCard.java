@@ -36,10 +36,6 @@ public class TrapCard extends Card {
         this.status = status;
     }
 
-    public static void setTrapCards(ArrayList<TrapCard> allTrapCards) {
-        trapCards = allTrapCards;
-    }
-
     public String getType() {
         return type;
     }
