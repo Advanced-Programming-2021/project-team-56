@@ -60,6 +60,7 @@ public class Effect {
 
         @Override
         public boolean canDeActive(Card card, Update update) {
+            /////////////////////TOdo
             return card.getCurrentBoard().getGraveyard().contains(card);
         }
 
