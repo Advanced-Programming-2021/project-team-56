@@ -34,11 +34,10 @@ public class Effect {
 
         @Override
         public void activateEffect(Card card, Update update) {
-            for (Card monsterCard : card.getCurrentBoard().getMonsterTerritory().values()) {
+            for (MonsterCard monsterCard : card.getCurrentBoard().getMonsterTerritory().values()) {
                 for (Card effectedMonsterCard : card.getEffectedCards()) {
                     if (monsterCard != effectedMonsterCard) {
-                        MonsterCard downCastMonsterCard = (MonsterCard) monsterCard;
-                        downCastMonsterCard.increaseFinalAttack(400);
+                        monsterCard.increaseFinalAttack(400);
                         card.getEffectedCards().add(monsterCard);
                     }
                 }

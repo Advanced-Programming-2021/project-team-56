@@ -7,5 +7,4 @@ public enum GameCommandType {
     SPELL_ACTIVE,
     SET,
     CHANGE_POSITION,
-
 }
