@@ -12,6 +12,7 @@ public class User {
     private int money = 100000;
     private ArrayList<Deck> decks = new ArrayList<>();
     private ArrayList<Card> userAllCards = new ArrayList<>();
+    private ArrayList<Integer> playerLP = new ArrayList<>();
 
     public User(String username, String nickname, String password) {
         setUsername(username);
@@ -56,6 +57,28 @@ public class User {
         return this.nickname;
     }
 
+    public ArrayList<Integer> getPlayerLP() {
+        return playerLP;
+    }
+
+    public int getMaxLP() {
+        int maxLP = playerLP.get(0);
+        for (int i = 0; i < playerLP.size(); i++) {
+            if (playerLP.get(i) > maxLP) {
+                maxLP = playerLP.get(i);
+            }
+        }
+        for (int i = 0; i < playerLP.size(); i++) {
+            playerLP.remove(0);
+        }
+        return maxLP;
+    }
+
+    public void clearLP(){
+        for (int i = 0; i < playerLP.size(); i++) {
+            playerLP.remove(0);
+        }
+    }
 
     public int getScore() {
         return this.score;
@@ -144,7 +167,7 @@ public class User {
         targetDeck.setDeckActive();
     }
 
-    public Deck getActivatedDeck(){
+    public Deck getActivatedDeck() {
         for (Deck deck : decks) {
             if (deck.isDeckActivated()) {
                 return deck;

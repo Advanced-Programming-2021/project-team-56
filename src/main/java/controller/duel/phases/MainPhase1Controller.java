@@ -2,7 +2,9 @@ package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
 import model.Card;
+import model.EffectType;
 import model.MonsterCard;
+import model.Update;
 import view.LoginMenuView;
 
 import java.util.ArrayList;
@@ -168,6 +170,9 @@ public class MainPhase1Controller {
         monsterCard.setFacedUp(true);
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
         duelWithUser.getMyBoard().setSelectedCard(null);
+        if (monsterCard.getCardEffect().getType() == EffectType.MONSTER_FLIP){
+            monsterCard.getCardEffect().activateEffect(monsterCard, Update.getInstance());
+        }
         return "flip summoned successfully";
     }
 
