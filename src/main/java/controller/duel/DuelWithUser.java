@@ -33,12 +33,34 @@ public class DuelWithUser {
         return duelWithUserController;
     }
 
-    public void run(String username, String secondPlayerUsername, String rounds) {
-        setUpGame(username, secondPlayerUsername);
-        phaseCaller();
+    public void run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
+        if (rounds.equals("3")) {
+            int numberOfWinsPlayer1 = 0;
+            int numberOfWinsPlayer2 = 0;
+            while (numberOfWinsPlayer1 != 2 && numberOfWinsPlayer2 != 2) {
+                setUpGame(firstPlayerUsername, secondPlayerUsername);
+                if (phaseCaller() == 1) {
+                    numberOfWinsPlayer1++;
+                } else {
+                    numberOfWinsPlayer2++;
+                }
+            }
+            if (numberOfWinsPlayer1 == 2) {
+                threeRoundWinner(firstPlayerUsername, secondPlayerUsername);
+            } else {
+                threeRoundWinner(secondPlayerUsername, firstPlayerUsername);
+            }
+        } else {
+            setUpGame(firstPlayerUsername, secondPlayerUsername);
+            if (phaseCaller() == 1) {
+                oneRoundWin(firstPlayerUsername, secondPlayerUsername);
+            } else {
+                oneRoundWin(secondPlayerUsername, firstPlayerUsername);
+            }
+        }
     }
 
-    public void phaseCaller() {
+    public int phaseCaller() {
         while (true) {
             switch (phaseCounter) {
                 case 1:
@@ -55,9 +77,9 @@ public class DuelWithUser {
                 case 4:
                     String result = BattlePhaseView.getInstance().run();
                     if (result.equals("I won")) {
-
+                        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                     } else if (result.equals("I lost")) {
-
+                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                     } else {
 
                     }
@@ -295,7 +317,7 @@ public class DuelWithUser {
     public String showSelectedCard() {
         Card selectedCard = getMyBoard().getSelectedCard();
         if (selectedCard == null) {
-            return  "no card is selected yet";
+            return "no card is selected yet";
         } else {
             for (int i = 1; i <= 5; i++) {
                 if (selectedCard == getEnemyBoard().getMonsterTerritory().get(i) && !selectedCard.getIsFacedUp()) {
@@ -312,11 +334,31 @@ public class DuelWithUser {
         }
     }
 
-    public int getLastSummonedOrSetTurn(){
+    public int getLastSummonedOrSetTurn() {
         return getMyBoard().getLastSummonedOrSetTurn();
     }
 
     public int getTurnCounter() {
         return turnCounter;
+    }
+
+    private void oneRoundWin(String winnerSideUsername, String loserSideUsername) {
+        User winner = User.getUserByUsername(winnerSideUsername);
+        winner.increaseScore(1000);
+        winner.increaseMoney(winner.getMaxLP() + 1000);
+        winner.clearLP();
+        User loser = User.getUserByUsername(loserSideUsername);
+        loser.increaseMoney(100);
+        loser.clearLP();
+    }
+
+    private void threeRoundWinner(String winnerSideUsername, String loserSideUsername) {
+        User winner = User.getUserByUsername(winnerSideUsername);
+        winner.increaseScore(3000);
+        winner.increaseMoney(3000 + 3 * winner.getMaxLP());
+        winner.clearLP();
+        User loser = User.getUserByUsername(loserSideUsername);
+        loser.clearLP();
+        loser.increaseMoney(300);
     }
 }
