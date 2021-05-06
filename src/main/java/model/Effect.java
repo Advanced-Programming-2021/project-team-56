@@ -1,5 +1,7 @@
 package model;
 
+import controller.duel.phases.BattlePhaseController;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,11 +37,13 @@ public class Effect {
         @Override
         public void activateEffect(Card card, Update update) {
             for (MonsterCard monsterCard : card.getCurrentBoard().getMonsterTerritory().values()) {
+                int changed = 0;
                 for (Card effectedMonsterCard : card.getEffectedCards()) {
-                    if (monsterCard != effectedMonsterCard) {
-                        monsterCard.increaseFinalAttack(400);
-                        card.getEffectedCards().add(monsterCard);
-                    }
+                    if (monsterCard == effectedMonsterCard) changed = 1;
+                }
+                if (changed == 0) {
+                    monsterCard.increaseFinalAttack(400);
+                    card.getEffectedCards().add(monsterCard);
                 }
             }
         }
@@ -51,8 +55,7 @@ public class Effect {
 
         @Override
         public boolean canDeActive(Card card, Update update) {
-            //TODO How to use update for canDeactivation
-            return true;
+            return card.getCurrentBoard().getGraveyard().contains(card);
         }
 
         @Override
@@ -68,13 +71,27 @@ public class Effect {
     IEffect effectYomiShip = new IEffect() {
         @Override
         public boolean canEffectActivate(Card card, Update update) {
-            //TODO How to use update for canDeactivation
-            return true;
+            MonsterCard monsterCard = (MonsterCard) card;
+            if (update.getGameCommandType() == GameCommandType.AFTER_DAMAGE && monsterCard == BattlePhaseController.getInstance().enemyMonsterCard) {
+                if (monsterCard.getIsInAttackPosition() && BattlePhaseController.getInstance().monsterCard.getAttack() > monsterCard.getAttack()) {
+                    return true;
+                }
+                if (!monsterCard.getIsInAttackPosition() && BattlePhaseController.getInstance().monsterCard.getAttack() > monsterCard.getDefence()) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         @Override
         public void activateEffect(Card card, Update update) {
-            //TODO Ok MIKONIM
+            card.getOpponentBoard().getGraveyard().add(BattlePhaseController.getInstance().monsterCard);
+            for (int i = 1; i <= 5; i++) {
+                if (BattlePhaseController.getInstance().monsterCard == card.getOpponentBoard().getMonsterTerritory().get(i)) {
+                    card.getOpponentBoard().getMonsterTerritory().put(i, null);
+                    break;
+                }
+            }
         }
 
         @Override
@@ -96,6 +113,9 @@ public class Effect {
     IEffect effectSuijin = new IEffect() {
         @Override
         public boolean canEffectActivate(Card card, Update update) {
+            if (update.getGameCommandType() == GameCommandType.BEFORE_DAMAGE) {
+                return true;
+            }
             return false;
         }
 
