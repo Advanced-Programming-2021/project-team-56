@@ -6,6 +6,7 @@ public class Card {
     private boolean isFacedUp;
     private String name;
     private String description;
+    private int startEffectTurn = -1;
     private int price;
     private static ArrayList<Card> cards = new ArrayList<>();
 
@@ -53,6 +54,10 @@ public class Card {
         return currentBoard;
     }
 
+    public int getStartEffectTurn() {
+        return startEffectTurn;
+    }
+
     public Board getOpponentBoard() {
         return opponentBoard;
     }
@@ -67,6 +72,10 @@ public class Card {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void setStartEffectTurn(int startEffectTurn) {
+        this.startEffectTurn = startEffectTurn;
     }
 
     public void setBoard(Board board) {
