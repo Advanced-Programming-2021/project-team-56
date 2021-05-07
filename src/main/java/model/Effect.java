@@ -222,6 +222,8 @@ public class Effect {
         }
     };
 
+    //TODO Spell and Trap Effects
+
     public HashMap<Integer, IEffect> getAllEffects() {
         //TODO put all IEffects
         allEffects.put(0, null);
