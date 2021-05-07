@@ -19,9 +19,10 @@ public class DrawPhaseController {
     }
 
     public String run() {
-        ArrayList<Card> mainDeck = DuelWithUser.getInstance().getMyBoard().getMainDeck();
-        ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
-        ArrayList<Card> graveyard = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         if (mainDeck.size() == 0) {
             return "No cards is in your deck";
         }
