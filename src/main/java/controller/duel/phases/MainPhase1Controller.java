@@ -190,7 +190,6 @@ public class MainPhase1Controller {
     }
 
     private boolean areThereEnoughCardsToTribute(int tributes) {
-        MonsterCard monster = (MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard();
         for (int i = 1; i < 6; i++) {
             if (DuelWithUser.getInstance().getMyBoard().getMonsterTerritory().get(i) != null) {
                 tributes--;
@@ -266,18 +265,19 @@ public class MainPhase1Controller {
 
     private String specialSummonTheTricky() {
         MainPhase1View mainPhase1View = MainPhase1View.getInstance();
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (!isThereAnyOtherCard()) {
             return "there is no way you could special summon a monster";
         }
         int address = mainPhase1View.getAddress();
-        if (address < 1 || address > 6) {
+        if (address > duelWithUser.getMyBoard().getPlayerHand().size() || address < 1){
             return "invalid selection";
         }
         if (!isItAnotherCard(address)) {
             return "there is no card on the address";
         }
         tributeFromHand(address);
-        summon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard(), true);
+        summon((MonsterCard) duelWithUser.getMyBoard().getSelectedCard(), true);
         return "special summon of The Tricky was successful";
     }
 
