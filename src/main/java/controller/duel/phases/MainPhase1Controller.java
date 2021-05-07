@@ -5,7 +5,6 @@ import model.Card;
 import model.EffectType;
 import model.MonsterCard;
 import model.Update;
-import view.LoginMenuView;
 import view.duel.phase.MainPhase1View;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class MainPhase1Controller {
         }
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         if (monsterCard.getLevel() < 5) {
-            normalSummon(monsterCard);
+            summon(monsterCard, false);
             return "summoned successfully";
         }
         if (monsterCard.getLevel() < 7) {
@@ -58,7 +57,7 @@ public class MainPhase1Controller {
                 return "there no monsters on this address";
             } else {
                 tribute(firstAddress);
-                normalSummon(monsterCard);
+                summon(monsterCard, false);
                 return "summoned successfully";
             }
         } else {
@@ -79,7 +78,7 @@ public class MainPhase1Controller {
             if (isAddressValid(firstAddress) && isAddressValid(secondAddress)) {
                 tribute(firstAddress);
                 tribute(secondAddress);
-                normalSummon(monsterCard);
+                summon(monsterCard, false);
                 return "summoned successfully";
             } else {
                 return "there is no monster on one of these addresses";
@@ -261,7 +260,7 @@ public class MainPhase1Controller {
         tribute(firstAddress);
         tribute(secondAddress);
         tribute(thirdAddress);
-        normalSummon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard());
+        summon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard(), true);
         return "special summon of Gate Guardian was successful";
     }
 
@@ -278,7 +277,7 @@ public class MainPhase1Controller {
             return "there is no card on the address";
         }
         tributeFromHand(address);
-        specialSummon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard());
+        summon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard(), true);
         return "special summon of The Tricky was successful";
     }
 
@@ -334,18 +333,7 @@ public class MainPhase1Controller {
         }
     }
 
-    private void normalSummon(MonsterCard monsterCard) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
-        placeMonsterOnTheField(monsterCard);
-        drawCardFromPlayerHand(monsterCard);
-        duelWithUser.getMyBoard().setSelectedCard(null);
-        duelWithUser.getMyBoard().setLastSummonedOrSetTurn(duelWithUser.getTurnCounter());
-        monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
-        monsterCard.setInAttackPosition(true);
-        monsterCard.setFacedUp(true);
-    }
-
-    private void specialSummon(MonsterCard monsterCard) {
+    private void summon(MonsterCard monsterCard, boolean isSpecialSummon) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         placeMonsterOnTheField(monsterCard);
         drawCardFromPlayerHand(monsterCard);
@@ -353,6 +341,9 @@ public class MainPhase1Controller {
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
         monsterCard.setInAttackPosition(true);
         monsterCard.setFacedUp(true);
+        if (!isSpecialSummon){
+            duelWithUser.getMyBoard().setLastSummonedOrSetTurn(duelWithUser.getTurnCounter());
+        }
     }
 
     private boolean isAddressValid(int address) {
