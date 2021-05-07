@@ -41,6 +41,9 @@ public class MainPhase1Controller {
             return "you already summoned/set on this turn";
         }
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
+        if (monsterCard.getName().equals("Terratiger, the Empowered Warrior")) {
+            return terraTigerTheEmpoweredWarrior();
+        }
         if (monsterCard.getLevel() < 5) {
             summon(monsterCard, false);
             return "summoned successfully";
@@ -242,18 +245,18 @@ public class MainPhase1Controller {
             return "there is no way you could special summon a monster";
         }
         int firstAddress = mainPhase1View.getAddress();
-        if (firstAddress < 1 || firstAddress > 5){
+        if (firstAddress < 1 || firstAddress > 5) {
             return "invalid selection";
         }
         int secondAddress = mainPhase1View.getAddress();
-        if (secondAddress < 1 || secondAddress > 5){
+        if (secondAddress < 1 || secondAddress > 5) {
             return "invalid selection";
         }
         int thirdAddress = mainPhase1View.getAddress();
-        if (thirdAddress < 1 || thirdAddress > 5){
+        if (thirdAddress < 1 || thirdAddress > 5) {
             return "invalid selection";
         }
-        if (firstAddress == secondAddress || secondAddress == thirdAddress || thirdAddress == firstAddress){
+        if (firstAddress == secondAddress || secondAddress == thirdAddress || thirdAddress == firstAddress) {
             return "invalid selection";
         }
         tribute(firstAddress);
@@ -270,7 +273,7 @@ public class MainPhase1Controller {
             return "there is no way you could special summon a monster";
         }
         int address = mainPhase1View.getAddress();
-        if (address > duelWithUser.getMyBoard().getPlayerHand().size() || address < 1){
+        if (address > duelWithUser.getMyBoard().getPlayerHand().size() || address < 1) {
             return "invalid selection";
         }
         if (!isItAnotherCard(address)) {
@@ -341,7 +344,7 @@ public class MainPhase1Controller {
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
         monsterCard.setInAttackPosition(true);
         monsterCard.setFacedUp(true);
-        if (!isSpecialSummon){
+        if (!isSpecialSummon) {
             duelWithUser.getMyBoard().setLastSummonedOrSetTurn(duelWithUser.getTurnCounter());
         }
     }
@@ -384,4 +387,43 @@ public class MainPhase1Controller {
         return false;
     }
 
+    private String terraTigerTheEmpoweredWarrior() {
+        if (!canTigerEffectBeActivated()) {
+            return "there is no way you could special summon a monster";
+        }
+        while (true) {
+            int address = MainPhase1View.getInstance().teressaTigerInputOutput();
+            if (address == -100) {
+                return "ok";
+            } else {
+                DuelWithUser duelWithUser = DuelWithUser.getInstance();
+                ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+                if (address > playerHand.size() || address < 1) {
+                    return "invalid selection";
+                } else {
+                    if ((playerHand.get(address) instanceof MonsterCard)) {
+                        MonsterCard monsterCard = (MonsterCard) playerHand.get(address);
+                        if (monsterCard.getLevel() <= 4) {
+                            summon(monsterCard, true);
+                            return "special summon of" + monsterCard.getName() + "was successful";
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean canTigerEffectBeActivated() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        for (int i = 0; i < playerHand.size(); i++) {
+            if ((playerHand.get(i) instanceof MonsterCard)) {
+                MonsterCard monsterCard = (MonsterCard) playerHand.get(i);
+                if (monsterCard.getLevel() <= 4) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
