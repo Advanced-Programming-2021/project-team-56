@@ -62,12 +62,14 @@ public class User {
     }
 
     public int getMaxLP() {
+        //TODO Index i can be started from 1 because 0 is maxLP in the beginning
         int maxLP = playerLP.get(0);
-        for (int i = 0; i < playerLP.size(); i++) {
+        for (int i = 1; i < playerLP.size(); i++) {
             if (playerLP.get(i) > maxLP) {
                 maxLP = playerLP.get(i);
             }
         }
+        //TODO isn't this code done when you're clearing: clearLP
         for (int i = 0; i < playerLP.size(); i++) {
             playerLP.remove(0);
         }

@@ -61,6 +61,7 @@ public class DuelWithUser {
     }
 
     public int phaseCaller() {
+        //TODO What should this method return ? 42, 55: phaseCaller() == 1
         while (true) {
             switch (phaseCounter) {
                 case 1:
