@@ -89,8 +89,17 @@ public class MainPhase1View {
         }
     }
 
-    public int getAddress(){
+    public int getAddress() {
         System.out.println("Give an address for monster location");
         return Integer.parseInt(LoginMenuView.scan.nextLine().trim());
+    }
+
+    public int teressaTigerInputOutput() {
+        System.out.println("would you to activate the effect of this card");
+        if (LoginMenuView.scan.nextLine().trim().equals("yes")) {
+            return getAddress();
+        } else {
+            return -100;
+        }
     }
 }

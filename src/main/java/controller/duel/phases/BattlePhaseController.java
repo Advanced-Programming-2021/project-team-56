@@ -44,6 +44,9 @@ public class BattlePhaseController {
         }
         monsterCard.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         int myMonsterAttack = monsterCard.getFinalAttack();
+        if (enemyMonsterCard.getName().equals("Exploder Dragon")) {
+            return exploderDragonEffect(address);
+        }
         if (enemyMonsterCard.getIsInAttackPosition()) {
             int enemyMonsterAttack = enemyMonsterCard.getFinalAttack();
             if (enemyMonsterAttack == myMonsterAttack) {
@@ -69,12 +72,12 @@ public class BattlePhaseController {
             enemyMonsterCard.setFacedUp(true);
             if (myMonsterAttack > enemyMonsterDefence) {
                 destroyEnemyCard(address);
-                if (enemyMonsterCard.getCardEffect().getType() == MONSTER_FLIP && shouldFlipSummonOccur){
+                if (enemyMonsterCard.getCardEffect().getType() == MONSTER_FLIP && shouldFlipSummonOccur) {
                     enemyMonsterCard.getCardEffect().activateEffect(enemyMonsterCard, Update.getInstance());
                 }
                 return "the defense position monster is destroyed";
             } else if (myMonsterAttack == enemyMonsterDefence) {
-                if (enemyMonsterCard.getCardEffect().getType() == MONSTER_FLIP && shouldFlipSummonOccur){
+                if (enemyMonsterCard.getCardEffect().getType() == MONSTER_FLIP && shouldFlipSummonOccur) {
                     enemyMonsterCard.getCardEffect().activateEffect(enemyMonsterCard, Update.getInstance());
                 }
                 return "no card is destroyed";
@@ -82,11 +85,28 @@ public class BattlePhaseController {
                 int damage = enemyMonsterDefence - myMonsterAttack;
                 int myLife = duelWithUser.getMyBoard().getLP();
                 duelWithUser.getMyBoard().setLP(myLife - damage);
-                if (enemyMonsterCard.getCardEffect().getType() == MONSTER_FLIP && shouldFlipSummonOccur){
+                if (enemyMonsterCard.getCardEffect().getType() == MONSTER_FLIP && shouldFlipSummonOccur) {
                     enemyMonsterCard.getCardEffect().activateEffect(enemyMonsterCard, Update.getInstance());
                 }
                 return "no card is destroyed and you received " + damage + " battle damage";
             }
+        }
+    }
+
+    public String exploderDragonEffect(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        int myMonsterAttack = monsterCard.getFinalAttack();
+        int enemyMonsterAttack = enemyMonsterCard.getFinalAttack();
+        if (enemyMonsterCard.getIsInAttackPosition() && enemyMonsterAttack > myMonsterAttack) {
+            int damage = enemyMonsterAttack - myMonsterAttack;
+            int myLife = duelWithUser.getMyBoard().getLP();
+            duelWithUser.getMyBoard().setLP(myLife - damage);
+            destroyMyCard(monsterCard);
+            return "Your monster card is destroyed and you received " + damage + " battle damage";
+        } else {
+            destroyMyCard(monsterCard);
+            destroyEnemyCard(address);
+            return "both you and your opponent monster cards are destroyed and no one receives damage";
         }
     }
 
