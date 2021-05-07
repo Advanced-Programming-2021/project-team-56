@@ -23,6 +23,7 @@ public class DuelWithUser {
     private int turnCounter = 1;
     private static DuelWithUser duelWithUserController;
     private Board[] boards = new Board[2];
+    private String numberOfRounds;
 
     private DuelWithUser() {
     }
@@ -34,6 +35,8 @@ public class DuelWithUser {
     }
 
     public void run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
+        //TODO Explaining -> added the drawPhase No cards game ending
+        this.numberOfRounds = rounds;
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
             int numberOfWinsPlayer2 = 0;
@@ -61,12 +64,12 @@ public class DuelWithUser {
     }
 
     public int phaseCaller() {
+        //TODO What should this method return ? 42, 55: phaseCaller() == 1
         while (true) {
             switch (phaseCounter) {
                 case 1:
                     ////////TOdo
                     if (!DrawPhaseView.getInstance().run()) {
-
                     }
                     break;
                 case 2:
@@ -110,6 +113,7 @@ public class DuelWithUser {
     }
 
     public Board getMyBoard() {
+        //TODO Determine the firstPlayer for the right getMyBoard or getEnemyBoard
         return boards[turnCounter % 2];
     }
 
@@ -342,8 +346,8 @@ public class DuelWithUser {
     public int getTurnCounter() {
         return turnCounter;
     }
-
-    private void oneRoundWin(String winnerSideUsername, String loserSideUsername) {
+    //TODO Explaining -> changed the endGameStuff
+    private String oneRoundWin(String winnerSideUsername, String loserSideUsername) {
         User winner = User.getUserByUsername(winnerSideUsername);
         winner.increaseScore(1000);
         winner.increaseMoney(winner.getMaxLP() + 1000);
@@ -351,9 +355,11 @@ public class DuelWithUser {
         User loser = User.getUserByUsername(loserSideUsername);
         loser.increaseMoney(100);
         loser.clearLP();
+        //TODO What is Score-1 o Score-2 page 42 phase1
+        return winnerSideUsername + " won the whole match with score: ";
     }
 
-    private void threeRoundWinner(String winnerSideUsername, String loserSideUsername) {
+    private String threeRoundWinner(String winnerSideUsername, String loserSideUsername) {
         User winner = User.getUserByUsername(winnerSideUsername);
         winner.increaseScore(3000);
         winner.increaseMoney(3000 + 3 * winner.getMaxLP());
@@ -361,5 +367,7 @@ public class DuelWithUser {
         User loser = User.getUserByUsername(loserSideUsername);
         loser.clearLP();
         loser.increaseMoney(300);
+        //TODO What is Score-1 o Score-2 page 42 phase1
+        return winnerSideUsername + " won the whole match with score: ";
     }
 }
