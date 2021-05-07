@@ -50,6 +50,12 @@ public class BattlePhaseController {
             theCalculatorEffect(enemyMonsterCard);
         }
         monsterCard.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
+        if (enemyMonsterCard.getName().equals("Texchanger")){
+            if (enemyMonsterCard.getStartEffectTurn() != duelWithUser.getTurnCounter()){
+                enemyMonsterCard.setStartEffectTurn(duelWithUser.getTurnCounter());
+                return "your attack was blocked";
+            }
+        }
         int myMonsterAttack = monsterCard.getFinalAttack();
         if (enemyMonsterCard.getName().equals("Exploder Dragon")) {
             return exploderDragonEffect(address);
@@ -65,6 +71,10 @@ public class BattlePhaseController {
                 int enemyLife = duelWithUser.getEnemyBoard().getLP();
                 duelWithUser.getEnemyBoard().setLP(enemyLife - damage);
                 destroyEnemyCard(address);
+                if (enemyMonsterCard.getName().equals("Yomi Ship")) {
+                    destroyMyCard(monsterCard);
+                    return "both you and your opponent monster cards are destroyed and you receive" + damage + " damage";
+                }
                 return "your opponent’s monster is destroyed and your opponent receives " + damage + " battle damage";
             } else {
                 int damage = enemyMonsterAttack - myMonsterAttack;
@@ -81,6 +91,10 @@ public class BattlePhaseController {
                 destroyEnemyCard(address);
                 if (enemyMonsterCard.getCardEffect().getType() == MONSTER_FLIP && shouldFlipSummonOccur) {
                     enemyMonsterCard.getCardEffect().activateEffect(enemyMonsterCard, Update.getInstance());
+                }
+                if (enemyMonsterCard.getName().equals("Yomi Ship")) {
+                    destroyMyCard(monsterCard);
+                    return "both you and your opponent monster cards are destroyed and no one receives damage";
                 }
                 return "the defense position monster is destroyed";
             } else if (myMonsterAttack == enemyMonsterDefence) {
