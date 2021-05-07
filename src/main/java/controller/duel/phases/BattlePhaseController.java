@@ -1,6 +1,7 @@
 package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
+import model.Board;
 import model.Card;
 import model.MonsterCard;
 import model.Update;
@@ -35,12 +36,18 @@ public class BattlePhaseController {
             return "you can’t attack with this card";
         }
         monsterCard = (MonsterCard) card;
+        if (monsterCard.getName().equals("The Calculator")) {
+            theCalculatorEffect(monsterCard);
+        }
         if (monsterCard.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
             return "this card already attacked";
         }
         enemyMonsterCard = duelWithUser.getEnemyBoard().getMonsterTerritory().get(address);
         if (enemyMonsterCard == null) {
             return "there is no card to attack here";
+        }
+        if (enemyMonsterCard.getName().equals("The Calculator")) {
+            theCalculatorEffect(enemyMonsterCard);
         }
         monsterCard.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         int myMonsterAttack = monsterCard.getFinalAttack();
@@ -166,5 +173,54 @@ public class BattlePhaseController {
         monsterTerritory.put(address, null);
     }
 
+    public void beforeBattleEffects() {
+        commandKnightEffect();
+    }
 
+    private void commandKnightEffect() {
+        Board board1 = DuelWithUser.getInstance().getMyBoard();
+        Board board2 = DuelWithUser.getInstance().getEnemyBoard();
+        for (int i = 1; i <= 5; i++) {
+            if (board1.getMonsterTerritory().get(i) != null && board1.getMonsterTerritory().get(i).getName().equals("Command Knight") && board1.getMonsterTerritory().get(i).getIsFacedUp()) {
+                for (int j = 1; j <= 5; j++) {
+                    if (j != i && board1.getMonsterTerritory().get(j) != null) {
+                        board1.getMonsterTerritory().get(j).increaseFinalAttack(400);
+                    }
+                }
+            }
+            if (board2.getMonsterTerritory().get(i) != null && board2.getMonsterTerritory().get(i).getName().equals("Command Knight") && board2.getMonsterTerritory().get(i).getIsFacedUp()) {
+                for (int j = 1; j <= 5; j++) {
+                    if (j != i && board2.getMonsterTerritory().get(j) != null) {
+                        board2.getMonsterTerritory().get(j).increaseFinalAttack(400);
+                    }
+                }
+            }
+        }
+    }
+
+    public void afterBattleEffects() {
+        Board board1 = DuelWithUser.getInstance().getMyBoard();
+        Board board2 = DuelWithUser.getInstance().getEnemyBoard();
+        for (int i = 1; i <= 5; i++) {
+            if (board1.getMonsterTerritory().get(i) != null) {
+                board1.getMonsterTerritory().get(i).setFinalAttack(board1.getMonsterTerritory().get(i).getAttack());
+                board1.getMonsterTerritory().get(i).setFinalDefence(board1.getMonsterTerritory().get(i).getDefence());
+            }
+            if (board2.getMonsterTerritory().get(i) != null) {
+                board2.getMonsterTerritory().get(i).setFinalAttack(board1.getMonsterTerritory().get(i).getAttack());
+                board2.getMonsterTerritory().get(i).setFinalDefence(board1.getMonsterTerritory().get(i).getDefence());
+            }
+        }
+    }
+
+    private void theCalculatorEffect(MonsterCard monsterCard) {
+        int sumOfLevels = 0;
+        for (int i = 1; i <= 5; i++) {
+            MonsterCard monsterCard1 = monsterCard.getCurrentBoard().getMonsterTerritory().get(i);
+            if (monsterCard1 != null && monsterCard1 != monsterCard && monsterCard1.getIsFacedUp()) {
+                sumOfLevels += monsterCard1.getLevel();
+            }
+        }
+        monsterCard.setFinalAttack(300 * sumOfLevels);
+    }
 }

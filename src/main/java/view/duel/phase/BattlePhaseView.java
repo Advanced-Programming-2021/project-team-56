@@ -24,6 +24,7 @@ public class BattlePhaseView {
     }
 
     public String run() {
+        BattlePhaseController.getInstance().beforeBattleEffects();
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: battle phase");
         while (true) {
@@ -84,6 +85,7 @@ public class BattlePhaseView {
             }
             System.out.println("invalid command");
         }
+        BattlePhaseController.getInstance().afterBattleEffects();
         return "the game continues";
     }
 
