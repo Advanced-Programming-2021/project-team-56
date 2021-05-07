@@ -59,27 +59,38 @@ public class MainPhase1View {
                 continue;
             }
             matcher = attack.matcher(command);
-            if (matcher.find()){
+            if (matcher.find()) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            if (command.equals("attack direct")){
+            if (command.equals("attack direct")) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            if (command.startsWith("select")){
+            if (command.startsWith("select")) {
                 System.out.println(duelWithUser.selectCard(command));
                 continue;
             }
-            if (command.equals("card show --selected")){
+            if (command.equals("ritual summon")) {
+
+            }
+            if (command.equals("special summon")) {
+                System.out.println(MainPhase1Controller.getInstance().specialSummon());
+            }
+            if (command.equals("card show --selected")) {
                 System.out.println(duelWithUser.showSelectedCard());
                 continue;
             }
-            if (command.equals("show graveyard")){
+            if (command.equals("show graveyard")) {
                 System.out.print(duelWithUser.showGraveYard());
                 continue;
             }
             System.out.println("invalid command");
         }
+    }
+
+    public int getAddress(){
+        System.out.println("Give an address for monster location");
+        return Integer.parseInt(LoginMenuView.scan.nextLine().trim());
     }
 }

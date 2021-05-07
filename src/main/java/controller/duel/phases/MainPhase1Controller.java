@@ -6,6 +6,7 @@ import model.EffectType;
 import model.MonsterCard;
 import model.Update;
 import view.LoginMenuView;
+import view.duel.phase.MainPhase1View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class MainPhase1Controller {
 
     public String summon() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        MainPhase1View mainPhase1View = MainPhase1View.getInstance();
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return "no card is selected yet";
         }
@@ -44,12 +46,12 @@ public class MainPhase1Controller {
             normalSummon(monsterCard);
             return "summoned successfully";
         }
-        if (!areThereEnoughCardsToTribute()) {
-            return "there are not enough cards for tribute";
-        }
         if (monsterCard.getLevel() < 7) {
-            int firstAddress = Integer.parseInt(LoginMenuView.scan.nextLine().trim());
-            if (firstAddress < 1 || firstAddress > 5){
+            if (!areThereEnoughCardsToTribute(1)) {
+                return "there are not enough cards for tribute";
+            }
+            int firstAddress = mainPhase1View.getAddress();
+            if (firstAddress < 1 || firstAddress > 5) {
                 return "invalid selection";
             }
             if (!isAddressValid(firstAddress)) {
@@ -60,12 +62,15 @@ public class MainPhase1Controller {
                 return "summoned successfully";
             }
         } else {
-            int firstAddress = Integer.parseInt(LoginMenuView.scan.nextLine().trim());
-            if (firstAddress < 1 || firstAddress > 5){
+            if (!areThereEnoughCardsToTribute(2)) {
+                return "there are not enough cards for tribute";
+            }
+            int firstAddress = mainPhase1View.getAddress();
+            if (firstAddress < 1 || firstAddress > 5) {
                 return "invalid selection";
             }
-            int secondAddress = Integer.parseInt(LoginMenuView.scan.nextLine().trim());
-            if (secondAddress < 1 || secondAddress > 5){
+            int secondAddress = mainPhase1View.getAddress();
+            if (secondAddress < 1 || secondAddress > 5) {
                 return "invalid selection";
             }
             if (firstAddress == secondAddress) {
@@ -170,7 +175,7 @@ public class MainPhase1Controller {
         monsterCard.setFacedUp(true);
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
         duelWithUser.getMyBoard().setSelectedCard(null);
-        if (monsterCard.getCardEffect().getType() == EffectType.MONSTER_FLIP){
+        if (monsterCard.getCardEffect().getType() == EffectType.MONSTER_FLIP) {
             monsterCard.getCardEffect().activateEffect(monsterCard, Update.getInstance());
         }
         return "flip summoned successfully";
@@ -185,14 +190,8 @@ public class MainPhase1Controller {
         return true;
     }
 
-    private boolean areThereEnoughCardsToTribute() {
+    private boolean areThereEnoughCardsToTribute(int tributes) {
         MonsterCard monster = (MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard();
-        int tributes;
-        if (monster.getLevel() > 6) {
-            tributes = 2;
-        } else {
-            tributes = 1;
-        }
         for (int i = 1; i < 6; i++) {
             if (DuelWithUser.getInstance().getMyBoard().getMonsterTerritory().get(i) != null) {
                 tributes--;
@@ -214,6 +213,95 @@ public class MainPhase1Controller {
         }
         //todo
         return true;
+    }
+
+    public String ritualSummon() {
+        return "";
+    }
+
+    public String specialSummon() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        Card card = duelWithUser.getMyBoard().getSelectedCard();
+        if (card == null) {
+            return "no card is selected yet";
+        }
+        if (!canThisCardBeSummoned()) {
+            return "this card can't be special summoned";
+        }
+        MonsterCard monsterCard = (MonsterCard) card;
+        if (monsterCard.getName().equals("The Tricky")) {
+            return specialSummonTheTricky();
+        }
+        if (monsterCard.getName().equals("Gate Guardian")) {
+            return specialSummonGateGuardian();
+        }
+        return "";
+    }
+
+    private String specialSummonGateGuardian() {
+        MainPhase1View mainPhase1View = MainPhase1View.getInstance();
+        if (!areThereEnoughCardsToTribute(3)) {
+            return "there is no way you could special summon a monster";
+        }
+        int firstAddress = mainPhase1View.getAddress();
+        if (firstAddress < 1 || firstAddress > 5){
+            return "invalid selection";
+        }
+        int secondAddress = mainPhase1View.getAddress();
+        if (secondAddress < 1 || secondAddress > 5){
+            return "invalid selection";
+        }
+        int thirdAddress = mainPhase1View.getAddress();
+        if (thirdAddress < 1 || thirdAddress > 5){
+            return "invalid selection";
+        }
+        if (firstAddress == secondAddress || secondAddress == thirdAddress || thirdAddress == firstAddress){
+            return "invalid selection";
+        }
+        tribute(firstAddress);
+        tribute(secondAddress);
+        tribute(thirdAddress);
+        normalSummon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard());
+        return "special summon of Gate Guardian was successful";
+    }
+
+    private String specialSummonTheTricky() {
+        MainPhase1View mainPhase1View = MainPhase1View.getInstance();
+        if (!isThereAnyOtherCard()) {
+            return "there is no way you could special summon a monster";
+        }
+        int address = mainPhase1View.getAddress();
+        if (address < 1 || address > 6) {
+            return "invalid selection";
+        }
+        if (!isItAnotherCard(address)) {
+            return "there is no card on the address";
+        }
+        tributeFromHand(address);
+        specialSummon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard());
+        return "special summon of The Tricky was successful";
+    }
+
+    private boolean isItAnotherCard(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        if (playerHand.get(address - 1) != monsterCard) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isThereAnyOtherCard() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        for (int i = 0; i < playerHand.size(); i++) {
+            if (playerHand.get(i) != monsterCard) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isCardInMyHand(Card card) {
@@ -257,6 +345,16 @@ public class MainPhase1Controller {
         monsterCard.setFacedUp(true);
     }
 
+    private void specialSummon(MonsterCard monsterCard) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        placeMonsterOnTheField(monsterCard);
+        drawCardFromPlayerHand(monsterCard);
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
+        monsterCard.setInAttackPosition(true);
+        monsterCard.setFacedUp(true);
+    }
+
     private boolean isAddressValid(int address) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
@@ -273,6 +371,14 @@ public class MainPhase1Controller {
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         graveyard.add(monsterTerritory.get(address));
         monsterTerritory.put(address, null);
+    }
+
+    private void tributeFromHand(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
+        graveyard.add(playerHand.get(address - 1));
+        playerHand.remove(address - 1);
     }
 
     public boolean isCardInMyMonsterTerritory() {
