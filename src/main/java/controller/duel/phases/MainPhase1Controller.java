@@ -270,10 +270,7 @@ public class MainPhase1Controller {
             return "there is no way you could special summon a monster";
         }
         int address = mainPhase1View.getAddress();
-        if (address < 1 || address > 6) {
-            return "invalid selection";
-        }
-        if (address > duelWithUser.getMyBoard().getPlayerHand().size()){
+        if (address > duelWithUser.getMyBoard().getPlayerHand().size() || address < 1){
             return "invalid selection";
         }
         if (!isItAnotherCard(address)) {
