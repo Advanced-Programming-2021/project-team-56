@@ -41,7 +41,10 @@ public class Effect {
             for (MonsterCard monsterCard : card.getCurrentBoard().getMonsterTerritory().values()) {
                 int changed = 0;
                 for (Card effectedMonsterCard : card.getEffectedCards()) {
-                    if (monsterCard == effectedMonsterCard) changed = 1;
+                    if (monsterCard == effectedMonsterCard) {
+                        changed = 1;
+                        break;
+                    }
                 }
                 if (changed == 0) {
                     monsterCard.increaseFinalAttack(400);
@@ -57,6 +60,7 @@ public class Effect {
 
         @Override
         public boolean canDeActive(Card card, Update update) {
+            /////////////////////TOdo
             return card.getCurrentBoard().getGraveyard().contains(card);
         }
 
