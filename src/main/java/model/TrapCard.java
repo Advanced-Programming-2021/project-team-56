@@ -47,4 +47,12 @@ public class TrapCard extends Card {
     public String getIcon() {
         return icon;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + this.getName() + "\n" +
+                "Trap" + "\n" +
+                "Type" + this.getType() + "\n" +
+                "Description: " + this.getDescription();
+    }
 }

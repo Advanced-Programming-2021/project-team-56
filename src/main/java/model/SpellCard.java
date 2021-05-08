@@ -48,4 +48,12 @@ public class SpellCard extends Card {
     public String getIcon() {
         return icon;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + this.getName() + "\n" +
+                "Spell" + "\n" +
+                "Type" + this.getType() + "\n" +
+                "Description: " + this.getDescription();
+    }
 }
