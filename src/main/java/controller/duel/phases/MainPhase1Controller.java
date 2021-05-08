@@ -41,6 +41,14 @@ public class MainPhase1Controller {
             return "you already summoned/set on this turn";
         }
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
+        if (!canThisCardBeNormalSummoned(monsterCard.getName())) {
+            return "this card can't be normal summoned";
+        }
+        if (monsterCard.getName().equals("Beast King Barbaros")){
+            monsterCard.setAttack(1900);
+            summon(monsterCard, false);
+            return "summoned successfully";
+        }
         if (monsterCard.getName().equals("Terratiger, the Empowered Warrior")) {
             return terraTigerTheEmpoweredWarrior();
         }
@@ -96,6 +104,7 @@ public class MainPhase1Controller {
         }
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card instanceof MonsterCard) {
+            MonsterCard monsterCard = (MonsterCard) card;
             if (isMonsterTerritoryFull()) {
                 return "monster card zone is full";
             }
@@ -184,8 +193,9 @@ public class MainPhase1Controller {
     }
 
     private boolean isMonsterTerritoryFull() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         for (int i = 1; i < 6; i++) {
-            if (DuelWithUser.getInstance().getMyBoard().getMonsterTerritory().get(i) == null) {
+            if (duelWithUser.getMyBoard().getMonsterTerritory().get(i) == null) {
                 return false;
             }
         }
@@ -193,8 +203,9 @@ public class MainPhase1Controller {
     }
 
     private boolean areThereEnoughCardsToTribute(int tributes) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         for (int i = 1; i < 6; i++) {
-            if (DuelWithUser.getInstance().getMyBoard().getMonsterTerritory().get(i) != null) {
+            if (duelWithUser.getMyBoard().getMonsterTerritory().get(i) != null) {
                 tributes--;
             }
         }
@@ -213,6 +224,19 @@ public class MainPhase1Controller {
             return false;
         }
         //todo
+        return true;
+    }
+
+    private boolean canThisCardBeNormalSummoned(String name) {
+        if (name.equals("Gate Guardian")) {
+            return false;
+        }
+        if (name.equals("Skull Guardian")) {
+            return false;
+        }
+        if (name.equals("Crab Turtle")) {
+            return false;
+        }
         return true;
     }
 
@@ -317,7 +341,8 @@ public class MainPhase1Controller {
     }
 
     private void placeMonsterOnTheField(MonsterCard monsterCard) {
-        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) == null) {
                 monsterTerritory.put(i, monsterCard);

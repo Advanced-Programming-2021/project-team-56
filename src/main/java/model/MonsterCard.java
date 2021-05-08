@@ -150,4 +150,5 @@ public class MonsterCard extends Card {
     public void setLastTimeAttackedTurn(int lastTimeAttackedTurn) {
         this.lastTimeAttackedTurn = lastTimeAttackedTurn;
     }
+
 }
