@@ -9,6 +9,7 @@ public class Card {
     private int startEffectTurn = -1;
     private int price;
     private static ArrayList<Card> cards = new ArrayList<>();
+    private boolean isItScanner;
 
     //TODO set IEffectID for monster cards without effect 0 in CSV File and with Effects, their own effectID and set it here
     private Board currentBoard;
@@ -119,6 +120,14 @@ public class Card {
 
     public void setFacedUp(boolean isFacedUp) {
         this.isFacedUp = isFacedUp;
+    }
+
+    public void setItScanner(boolean isItScanner){
+        this.isItScanner = isItScanner;
+    }
+
+    public boolean getItScanner(){
+        return isItScanner;
     }
 
 }

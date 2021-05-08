@@ -35,12 +35,15 @@ public class ShopController {
         if (!isThereAnyCardWithThisName(cardName)) {
             return "there is no card with this name";
         }
-        int priceOfCard = Card.getCardByName(cardName).getPrice();
-        if (priceOfCard > User.getUserByUsername(customer).getMoney()) {
+        Card card = Card.getCardByName(cardName);
+        if (card.getPrice() > User.getUserByUsername(customer).getMoney()) {
             return "not enough money";
         }
-        User.getUserByUsername(customer).decreaseMoney(priceOfCard);
-        User.getUserByUsername(customer).addCardToUserAllCards(Card.getCardByName(cardName));
+        if (card.getName().equals("Scanner")){
+            card.setItScanner(true);
+        }
+        User.getUserByUsername(customer).decreaseMoney(card.getPrice());
+        User.getUserByUsername(customer).addCardToUserAllCards(card);
         return "";
     }
 
