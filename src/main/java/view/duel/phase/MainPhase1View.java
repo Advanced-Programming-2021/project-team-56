@@ -95,11 +95,16 @@ public class MainPhase1View {
     }
 
     public int teressaTigerInputOutput() {
-        System.out.println("would you to activate the effect of this card");
-        if (LoginMenuView.scan.nextLine().trim().equals("yes")) {
-            return getAddress();
-        } else {
-            return -100;
+        while (true) {
+            System.out.println("would you like to activate the effect of this card?");
+            String result = LoginMenuView.scan.nextLine().trim();
+            if (result.equals("yes")) {
+                return getAddress();
+            } else if (result.equals("no")) {
+                return -100;
+            } else {
+                System.out.println("invalid command");
+            }
         }
     }
 }
