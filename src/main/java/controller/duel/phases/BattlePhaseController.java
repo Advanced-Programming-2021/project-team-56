@@ -88,16 +88,16 @@ public class BattlePhaseController {
             if (myMonsterAttack > enemyMonsterDefence) {
                 destroyEnemyCard(address);
                 if (enemyMonsterCard.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
-
+                    duelWithUser.manEaterBugEffect(true);
                 }
-                if (enemyMonsterCard.getName().equals("Yomi Ship")) {
+                else if (enemyMonsterCard.getName().equals("Yomi Ship")) {
                     destroyMyCard(monsterCard);
                     return "both you and your opponent monster cards are destroyed and no one receives damage";
                 }
                 return "the defense position monster is destroyed";
             } else if (myMonsterAttack == enemyMonsterDefence) {
                 if (enemyMonsterCard.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
-
+                    duelWithUser.manEaterBugEffect(true);
                 }
                 return "no card is destroyed";
             } else {
@@ -105,7 +105,7 @@ public class BattlePhaseController {
                 int myLife = duelWithUser.getMyBoard().getLP();
                 duelWithUser.getMyBoard().setLP(myLife - damage);
                 if (enemyMonsterCard.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
-                    duelWithUser.manEaterBugEffect()
+                    duelWithUser.manEaterBugEffect(true);
                 }
                 return "no card is destroyed and you received " + damage + " battle damage";
             }

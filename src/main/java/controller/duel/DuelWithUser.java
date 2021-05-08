@@ -375,7 +375,7 @@ public class DuelWithUser {
         return winnerSideUsername + " won the whole match with score: ";
     }
 
-    public int manEaterBugEffect() {
+    public int manEaterBugEffect(boolean isItUnderAttack) {
         if (!canManEaterBugEffectsBeActivated()) {
             System.out.println("this card effect can't be activated");
             return -100;
