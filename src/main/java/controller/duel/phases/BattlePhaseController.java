@@ -173,6 +173,10 @@ public class BattlePhaseController {
         }
     }
 
+    private void kjkj(){
+
+    }
+
     public String attackUser() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         Card card = duelWithUser.getMyBoard().getSelectedCard();
