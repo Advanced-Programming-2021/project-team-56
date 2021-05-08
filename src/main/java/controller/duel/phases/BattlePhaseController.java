@@ -56,7 +56,7 @@ public class BattlePhaseController {
         }
         int myMonsterAttack = monsterCard.getFinalAttack();
         if (enemyMonsterCard.getName().equals("Exploder Dragon")) {
-            return exploderDragonEffect();
+            return exploderDragonEffectUnderAttack(address);
         }
         if (enemyMonsterCard.getIsInAttackPosition()) {
             int enemyMonsterAttack = enemyMonsterCard.getFinalAttack();
@@ -112,7 +112,7 @@ public class BattlePhaseController {
         }
     }
 
-    public String exploderDragonEffectUnderAttack() {
+    public String exploderDragonEffectUnderAttack(int address) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         int myMonsterAttack = monsterCard.getFinalAttack();
         int enemyMonsterAttack = enemyMonsterCard.getFinalAttack();
