@@ -101,13 +101,10 @@ public class BattlePhaseController {
                         return "no card is destroyed";
                     }
                     if (enemyMonster.getName().equals("Yomi Ship")) {
-                        int damage = myMonsterAttack - enemyMonsterDefence;
-                        int enemyLife = duelWithUser.getEnemyBoard().getLP();
-                        duelWithUser.getEnemyBoard().setLP(enemyLife - damage);
                         destroyEnemyMonster(address);
                         destroyMyMonster(myMonster);
                         duelWithUser.getMyBoard().setSelectedCard(null);
-                        return "both you and your opponent monster cards are destroyed and opponent receives " + damage + "damage";
+                        return "both you and your opponent monster cards are destroyed and opponent receives damage";
                     }
                     //todo man eater
                 }
