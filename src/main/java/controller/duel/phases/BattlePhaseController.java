@@ -90,47 +90,7 @@ public class BattlePhaseController {
             boolean shouldFlipSummonOccur = !enemyMonster.getIsFacedUp();
             enemyMonster.setFacedUp(true);
             if (myMonsterAttack > enemyMonsterDefence) {
-                if (myMonster.getName().equals("Marshmallon")) {
-                    if (enemyMonster.getName().equals("Marshmallon")) {
-                        duelWithUser.getMyBoard().setSelectedCard(null);
-                        if (shouldFlipSummonOccur) {
-                            int myLife = duelWithUser.getMyBoard().getLP();
-                            duelWithUser.getMyBoard().setLP(myLife - 1000);
-                            return "no card is destroyed and you received " + 1000 + "damage";
-                        }
-                        return "no card is destroyed";
-                    }
-                    if (enemyMonster.getName().equals("Yomi Ship")) {
-                        destroyEnemyMonster(address);
-                        destroyMyMonster(myMonster);
-                        duelWithUser.getMyBoard().setSelectedCard(null);
-                        return "both you and your opponent monster cards are destroyed and opponent receives damage";
-                    }
-                    //todo man eater
-                }
-                if (myMonster.getName().equals("Exploder Dragon")) {
-
-                }
-                if (enemyMonster.getName().equals("Marshmallon")) {
-                    if (shouldFlipSummonOccur) {
-                        int myLife = duelWithUser.getMyBoard().getLP();
-                        duelWithUser.getMyBoard().setLP(myLife - 1000);
-                        duelWithUser.getMyBoard().setSelectedCard(null);
-                        return "opponent’s monster was Marshmallon and no card is destroyed and you receive 1000 damage";
-                    }
-                    duelWithUser.getMyBoard().setSelectedCard(null);
-                    return "no card is destroyed";
-                }
-                destroyEnemyMonster(address);
-                if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
-                    duelWithUser.manEaterBugEffect(true);
-                } else if (enemyMonster.getName().equals("Yomi Ship")) {
-                    destroyMyMonster(myMonster);
-                    duelWithUser.getMyBoard().setSelectedCard(null);
-                    return "both you and your opponent monster cards are destroyed and no one receives damage";
-                }
-                duelWithUser.getMyBoard().setSelectedCard(null);
-                return "the defense position monster is destroyed";
+                return myAttackIsHigherThanEnemyDefence(address, shouldFlipSummonOccur);
             } else if (myMonsterAttack == enemyMonsterDefence) {
                 return myAttackIsEqualToEnemyDefence(shouldFlipSummonOccur);
             } else {
@@ -296,14 +256,6 @@ public class BattlePhaseController {
         return false;
     }
 
-    private String marshmelloAgainstDragonOrShip(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
-        destroyEnemyMonster(address);
-        destroyMyMonster(myMonster);
-        duelWithUser.getMyBoard().setSelectedCard(null);
-        return "both you and your opponent monster cards are destroyed and no one receives damage";
-    }
-
     private String bothSideHaveEqualAttack(int address) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (myMonster.getName().equals("Marshmallon") && enemyMonster.getName().equals("Marshmallon")) {
@@ -376,8 +328,49 @@ public class BattlePhaseController {
         }
     }
 
-    private String myAttackIsHigherThanEnemyDefence() {
-
+    private String myAttackIsHigherThanEnemyDefence(int address, boolean shouldFlipSummonOccur) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (myMonster.getName().equals("Marshmallon")) {
+            if (enemyMonster.getName().equals("Marshmallon")) {
+                return marshmelloFlipSummons(shouldFlipSummonOccur);
+            }
+            if (enemyMonster.getName().equals("Yomi Ship")) {
+                return yomishipDestroyedInDefencePosition(address);
+            }
+            if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
+                duelWithUser.manEaterBugEffect(true);
+            }
+        }
+        if (myMonster.getName().equals("Exploder Dragon")) {
+            if (enemyMonster.getName().equals("Marshmallon")) {
+                return marshmelloFlipSummons(shouldFlipSummonOccur);
+            }
+            if (enemyMonster.getName().equals("Yomi Ship")) {
+                return yomishipDestroyedInDefencePosition(address);
+            }
+            if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
+                duelWithUser.manEaterBugEffect(true);
+            }
+        }
+        if (enemyMonster.getName().equals("Marshmallon")) {
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            if (shouldFlipSummonOccur) {
+                int myLife = duelWithUser.getMyBoard().getLP();
+                duelWithUser.getMyBoard().setLP(myLife - 1000);
+                return "no card is destroyed and you received 1000 damage";
+            }
+            return "no card is destroyed";
+        }
+        destroyEnemyMonster(address);
+        if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
+            duelWithUser.manEaterBugEffect(true);
+        } else if (enemyMonster.getName().equals("Yomi Ship")) {
+            destroyMyMonster(myMonster);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "both you and your opponent monster cards are destroyed and no one receives damage";
+        }
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return "the defense position monster is destroyed";
     }
 
     private String myAttackIsEqualToEnemyDefence(boolean shouldFlipSummonOccur) {
@@ -419,6 +412,33 @@ public class BattlePhaseController {
             return "no card is destroyed and you received " + damage + "damage";
         }
         return "no card is destroyed and you received " + damage + " battle damage";
+    }
+
+    private String yomishipDestroyedInDefencePosition(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        destroyEnemyMonster(address);
+        destroyMyMonster(myMonster);
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return "both you and your opponent monster cards are destroyed and no one receives damage";
+    }
+
+    private String marshmelloFlipSummons(boolean shouldFlipSummonOccur) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        if (shouldFlipSummonOccur) {
+            int myLife = duelWithUser.getMyBoard().getLP();
+            duelWithUser.getMyBoard().setLP(myLife - 1000);
+            return "no card is destroyed and you received " + 1000 + "damage";
+        }
+        return "no card is destroyed";
+    }
+
+    private String marshmelloAgainstDragonOrShip(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        destroyEnemyMonster(address);
+        destroyMyMonster(myMonster);
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return "both you and your opponent monster cards are destroyed and no one receives damage";
     }
 
 }
