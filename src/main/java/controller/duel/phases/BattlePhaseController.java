@@ -102,19 +102,50 @@ public class BattlePhaseController {
     private String exploderDragonEffectUnderAttack(int address) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         int myMonsterAttack = myMonster.getFinalAttack();
-        int enemyMonsterAttack = enemyMonster.getFinalAttack();
-        if (enemyMonster.getIsInAttackPosition() && enemyMonsterAttack > myMonsterAttack) {
-            int damage = enemyMonsterAttack - myMonsterAttack;
-            int myLife = duelWithUser.getMyBoard().getLP();
-            duelWithUser.getMyBoard().setLP(myLife - damage);
-            if (myMonster.getName().equals("Marshmallon")) {
+        if (enemyMonster.getIsInAttackPosition()) {
+            int enemyMonsterAttack = enemyMonster.getFinalAttack();
+            if (enemyMonsterAttack > myMonsterAttack) {
+                if (myMonster.getName().equals("Exploder Dragon")) {
+                    destroyMyMonster(myMonster);
+                    destroyEnemyMonster(address);
+                    duelWithUser.getMyBoard().setSelectedCard(null);
+                    return "both you and your opponent monster cards are destroyed and no one receives damage";
+                }
+                int damage = enemyMonsterAttack - myMonsterAttack;
+                int myLife = duelWithUser.getMyBoard().getLP();
+                duelWithUser.getMyBoard().setLP(myLife - damage);
+                if (myMonster.getName().equals("Marshmallon")) {
+                    duelWithUser.getMyBoard().setSelectedCard(null);
+                    return "no card is destroyed";
+                }
+                destroyMyMonster(myMonster);
+                duelWithUser.getMyBoard().setSelectedCard(null);
+                return "Your monster card is destroyed and you received " + damage + " battle damage";
+            }else {
+                destroyMyMonster(myMonster);
+                destroyEnemyMonster(address);
+                duelWithUser.getMyBoard().setSelectedCard(null);
+                return "both you and your opponent monster cards are destroyed and no one receives damage";
+            }
+        } else {
+            enemyMonster.setFacedUp(true);
+            int enemyMonsterDefence = enemyMonster.getFinalDefence();
+            if (enemyMonsterDefence > myMonsterAttack){
+                if (myMonster.getName().equals("Exploder Dragon")){
+                    duelWithUser.getMyBoard().setSelectedCard(null);
+                    return "both you and your opponent monster cards are destroyed and no one receives damage";
+                }
+                duelWithUser.getMyBoard().setSelectedCard(null);
+                int damage = enemyMonsterDefence - myMonsterAttack;
+                int myLife = duelWithUser.getMyBoard().getLP();
+                duelWithUser.getMyBoard().setLP(myLife - damage);
+            }else if (enemyMonsterDefence == myMonsterAttack){
+                duelWithUser.getMyBoard().setSelectedCard(null);
                 return "no card is destroyed";
             }
             destroyMyMonster(myMonster);
-            return "Your monster card is destroyed and you received " + damage + " battle damage";
-        } else {
-            destroyMyMonster(myMonster);
             destroyEnemyMonster(address);
+            duelWithUser.getMyBoard().setSelectedCard(null);
             return "both you and your opponent monster cards are destroyed and no one receives damage";
         }
     }
