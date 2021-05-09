@@ -6,6 +6,7 @@ import model.Card;
 import model.MonsterCard;
 import model.User;
 import view.LoginMenuView;
+import view.duel.DuelWithUserView;
 import view.duel.FirstToGoDeterminerView;
 import view.duel.phase.*;
 
@@ -42,6 +43,7 @@ public class DuelWithUser {
 
     public void run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
         //TODO Explaining -> added the drawPhase No cards game ending
+        DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
         this.numberOfRounds = rounds;
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
@@ -50,21 +52,23 @@ public class DuelWithUser {
                 setUpGame(firstPlayerUsername, secondPlayerUsername);
                 if (phaseCaller() == 1) {
                     numberOfWinsPlayer1++;
+                    duelWithUserView.print(singleRoundWin(firstPlayerUsername));
                 } else {
                     numberOfWinsPlayer2++;
+                    duelWithUserView.print(singleRoundWin(secondPlayerUsername));
                 }
             }
             if (numberOfWinsPlayer1 == 2) {
-                threeRoundWinner(firstPlayerUsername, secondPlayerUsername);
+                duelWithUserView.print(threeRoundWinner(firstPlayerUsername, secondPlayerUsername));
             } else {
-                threeRoundWinner(secondPlayerUsername, firstPlayerUsername);
+                duelWithUserView.print(threeRoundWinner(secondPlayerUsername, firstPlayerUsername));
             }
         } else {
             setUpGame(firstPlayerUsername, secondPlayerUsername);
             if (phaseCaller() == 1) {
-                oneRoundWin(firstPlayerUsername, secondPlayerUsername);
+                duelWithUserView.print(oneRoundWin(firstPlayerUsername, secondPlayerUsername));
             } else {
-                oneRoundWin(secondPlayerUsername, firstPlayerUsername);
+                duelWithUserView.print(oneRoundWin(secondPlayerUsername, firstPlayerUsername));
             }
         }
     }
@@ -378,6 +382,10 @@ public class DuelWithUser {
 
     public int getTurnCounter() {
         return turnCounter;
+    }
+
+    private String singleRoundWin(String winnerUsername) {
+        return winnerUsername + " won the game and the score is: ";
     }
 
     //TODO Explaining -> changed the endGameStuff
