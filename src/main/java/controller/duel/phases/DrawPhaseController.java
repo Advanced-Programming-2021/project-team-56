@@ -26,13 +26,14 @@ public class DrawPhaseController {
         if (mainDeck.size() == 0) {
             return "No cards is in your deck";
         }
-        if (playerHand.size() == 6){
+        //TODO Why mainDeck.size() - 1 ?
+        if (playerHand.size() == 6) {
             graveyard.add(mainDeck.get(mainDeck.size() - 1));
             mainDeck.remove(mainDeck.size() - 1);
             return "Your hand is full";
         }
         playerHand.add(mainDeck.get(mainDeck.size() - 1));
         mainDeck.remove(mainDeck.size() - 1);
-        return "new card added to the hand : " + playerHand.get(playerHand.size()-1).getName();
+        return "new card added to the hand : " + playerHand.get(playerHand.size() - 1).getName();
     }
 }

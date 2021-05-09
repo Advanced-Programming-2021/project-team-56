@@ -21,6 +21,7 @@ public class DuelWithUser {
     static Pattern selectOpponentSpellOrTrap1 = Pattern.compile("^select --spell (\\d+) --opponent$");
     static Pattern selectOpponentSpellOrTrap2 = Pattern.compile("^select --opponent --spell (\\d+)$");
     static Pattern selectMyHandCard = Pattern.compile("^select --hand (\\d+)$");
+    static Pattern selectFieldCard = Pattern.compile("^select (?:--opponent --field|--field --opponent|--field)$");
 
     private int phaseCounter = 1;
     private int turnCounter = 1;
@@ -151,32 +152,17 @@ public class DuelWithUser {
         }
         matcher = selectMyHandCard.matcher(command);
         if (matcher.find()) {
-            if (Integer.parseInt(matcher.group(1)) > getMyBoard().getPlayerHand().size()) {
-                return "invalid selection";
-            }
-            getMyBoard().setSelectedCard(getMyBoard().getPlayerHand().get(Integer.parseInt(matcher.group(1)) - 1));
-            return "card selected";
+            return selectMyHandCard(matcher);
         }
-        if (command.equals("select --field")) {
-            if (getMyBoard().getFieldSpell() == null) {
-                return "no card found in the given position";
-            }
-            getMyBoard().setSelectedCard(getMyBoard().getFieldSpell());
-            return "card selected";
-        }
-        if (command.equals("select --field --opponent") || command.equals("select --opponent --field")) {
-            if (getEnemyBoard().getFieldSpell() == null) {
-                return "no card found in the given position";
-            }
-            getMyBoard().setSelectedCard(getEnemyBoard().getFieldSpell());
-            return "card selected";
+        if (selectFieldCard.matcher(command).find()) {
+            return selectFieldCard(command);
         }
         return "invalid command";
     }
 
     private String selectMonster(Matcher matcher, String whichPlayer) {
         int monsterNumber = Integer.parseInt(matcher.group(1));
-        if (monsterNumber > 5) {
+        if (monsterNumber > 5 || monsterNumber == 0) {
             return "invalid selection";
         }
         if (whichPlayer.equals("me")) {
@@ -195,7 +181,7 @@ public class DuelWithUser {
 
     private String selectSpellOrTrap(Matcher matcher, String whichPlayer) {
         int spellOrTrapNumber = Integer.parseInt(matcher.group(1));
-        if (spellOrTrapNumber > 5) {
+        if (spellOrTrapNumber > 5 || spellOrTrapNumber  == 0) {
             return "invalid selection";
         }
         if (whichPlayer.equals("me")) {
@@ -210,6 +196,41 @@ public class DuelWithUser {
         }
         getMyBoard().setSelectedCard(getEnemyBoard().getSpellAndTrapTerritory().get(spellOrTrapNumber));
         return "card selected";
+    }
+
+    private String selectMyHandCard(Matcher matcher) {
+        int myHandCardsAddress = Integer.parseInt(matcher.group(1));
+        if (myHandCardsAddress > getMyBoard().getPlayerHand().size() || myHandCardsAddress == 0) {
+            return "invalid selection";
+        }
+        getMyBoard().setSelectedCard(getMyBoard().getPlayerHand().get(myHandCardsAddress - 1));
+        return "card selected";
+    }
+
+    private String selectFieldCard(String command) {
+        if (command.equals("select --field")) {
+            if (getMyBoard().getFieldSpell() == null) {
+                return "no card found in the given position";
+            }
+            getMyBoard().setSelectedCard(getMyBoard().getFieldSpell());
+            return "card selected";
+        }
+        if (command.equals("select --field --opponent") || command.equals("select --opponent --field")) {
+            if (getEnemyBoard().getFieldSpell() == null) {
+                return "no card found in the given position";
+            }
+            getMyBoard().setSelectedCard(getEnemyBoard().getFieldSpell());
+            return "card selected";
+        }
+        return "this is never going to be returned";
+    }
+
+    public String deselectCard() {
+        if (getMyBoard().getSelectedCard() == null) {
+            return "no card is selected yet";
+        }
+        getMyBoard().setSelectedCard(null);
+        return "card deselected";
     }
 
     public String showField() {
