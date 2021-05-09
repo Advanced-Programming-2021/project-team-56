@@ -6,6 +6,8 @@ import model.Card;
 import model.MonsterCard;
 import model.User;
 import view.LoginMenuView;
+import view.duel.DuelWithUserView;
+import view.duel.FirstToGoDeterminerView;
 import view.duel.phase.*;
 
 import java.util.HashMap;
@@ -23,10 +25,9 @@ public class DuelWithUser {
     static Pattern selectOpponentSpellOrTrap2 = Pattern.compile("^select --opponent --spell (\\d+)$");
     static Pattern selectMyHandCard = Pattern.compile("^select --hand (\\d+)$");
     static Pattern selectFieldCard = Pattern.compile("^select (?:--opponent --field|--field --opponent|--field)$");
-    static Pattern RockPaperScissors = Pattern.compile("^(rock|paper|scissors)$");
 
     private int phaseCounter = 1;
-    private int turnCounter = 1;
+    private int turnCounter;
     private static DuelWithUser duelWithUserController;
     private Board[] boards = new Board[2];
     private String numberOfRounds;
@@ -42,6 +43,7 @@ public class DuelWithUser {
 
     public void run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
         //TODO Explaining -> added the drawPhase No cards game ending
+        DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
         this.numberOfRounds = rounds;
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
@@ -50,21 +52,23 @@ public class DuelWithUser {
                 setUpGame(firstPlayerUsername, secondPlayerUsername);
                 if (phaseCaller() == 1) {
                     numberOfWinsPlayer1++;
+                    duelWithUserView.print(singleRoundWin(firstPlayerUsername));
                 } else {
                     numberOfWinsPlayer2++;
+                    duelWithUserView.print(singleRoundWin(secondPlayerUsername));
                 }
             }
             if (numberOfWinsPlayer1 == 2) {
-                threeRoundWinner(firstPlayerUsername, secondPlayerUsername);
+                duelWithUserView.print(threeRoundWinner(firstPlayerUsername, secondPlayerUsername));
             } else {
-                threeRoundWinner(secondPlayerUsername, firstPlayerUsername);
+                duelWithUserView.print(threeRoundWinner(secondPlayerUsername, firstPlayerUsername));
             }
         } else {
             setUpGame(firstPlayerUsername, secondPlayerUsername);
             if (phaseCaller() == 1) {
-                oneRoundWin(firstPlayerUsername, secondPlayerUsername);
+                duelWithUserView.print(oneRoundWin(firstPlayerUsername, secondPlayerUsername));
             } else {
-                oneRoundWin(secondPlayerUsername, firstPlayerUsername);
+                duelWithUserView.print(oneRoundWin(secondPlayerUsername, firstPlayerUsername));
             }
         }
     }
@@ -111,68 +115,22 @@ public class DuelWithUser {
 
     public void setUpGame(String firstPlayerUsername, String secondPlayerUsername) {
         //TODO First the deck game cards are shuffled then we will decide the first player to go page 33 game doc
-        //TODO Find the right viewClass for determineFirstPlayerToGo
-        String firstPlayerToGoUsername = determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername);
         boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
         boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
         boards[0].setCardsOpponentBoard(boards[1]);
         boards[1].setCardsOpponentBoard(boards[0]);
+        String firstPlayerToGoUsername = FirstToGoDeterminerView
+                .getInstance().determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername);
+        if (firstPlayerToGoUsername.equals(firstPlayerUsername)) {
+            turnCounter = 0;
+        } else {
+            turnCounter = 1;
+        }
         boards[0].setPlayerHand();
         boards[1].setPlayerHand();
     }
 
-    private String determineFirstPlayerToGo(String firstPlayerUsername, String secondPlayerUsername) {
-        String firstPlayerNickname = User.getUserByUsername(firstPlayerUsername).getNickname();
-        String secondPlayerNickname = User.getUserByUsername(secondPlayerUsername).getNickname();
-        while (true) {
-            System.out.println(firstPlayerNickname + ", please choose between Rock, Paper or Scissors:");
-            outer:
-            while (true) {
-                String firstPlayerCommand = LoginMenuView.scan.nextLine().toLowerCase(Locale.ROOT).trim();
-                Matcher matcher = RockPaperScissors.matcher(firstPlayerCommand);
-                if (matcher.find()) {
-                    System.out.println(secondPlayerNickname + ", please choose between Rock, Paper or Scissors:");
-                    while (true) {
-                        String secondPlayerCommand = LoginMenuView.scan.nextLine().toLowerCase(Locale.ROOT).trim();
-                        matcher = RockPaperScissors.matcher(secondPlayerCommand);
-                        if (matcher.find()) {
-                            if (firstPlayerCommand.equals(secondPlayerCommand)) {
-                                break outer;
-                            }
-                            String winnerCommand = getWinnerCommand(firstPlayerCommand, secondPlayerCommand);
-                            if (winnerCommand.equals(firstPlayerCommand)) {
-                                return firstPlayerUsername;
-                            }
-                            return secondPlayerUsername;
-                        } else System.out.println("invalid command");
-                    }
-                } else System.out.println("invalid command");
-            }
-            System.out.println("Draw, please try again");
-        }
-    }
-
-    private String getWinnerCommand(String firstPlayerCommand, String secondPlayerCommand) {
-        if (firstPlayerCommand.equals("rock")) {
-            if (secondPlayerCommand.equals("scissors")) {
-                return firstPlayerCommand;
-            }
-            return secondPlayerCommand;
-        }
-        if (firstPlayerCommand.equals("paper")) {
-            if (secondPlayerCommand.equals("rock")) {
-                return firstPlayerCommand;
-            }
-            return secondPlayerCommand;
-        }
-        if (secondPlayerCommand.equals("paper")) {
-            return firstPlayerCommand;
-        }
-        return secondPlayerCommand;
-    }
-
     public Board getMyBoard() {
-        //TODO Determine the firstPlayer for the right getMyBoard or getEnemyBoard
         return boards[turnCounter % 2];
     }
 
@@ -424,6 +382,10 @@ public class DuelWithUser {
 
     public int getTurnCounter() {
         return turnCounter;
+    }
+
+    private String singleRoundWin(String winnerUsername) {
+        return winnerUsername + " won the game and the score is: ";
     }
 
     //TODO Explaining -> changed the endGameStuff
