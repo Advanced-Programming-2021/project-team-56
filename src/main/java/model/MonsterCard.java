@@ -151,4 +151,13 @@ public class MonsterCard extends Card {
         this.lastTimeAttackedTurn = lastTimeAttackedTurn;
     }
 
+    @Override
+    public String toString() {
+        return "Name: " + this.getName() + "\n" +
+                "Level: " + this.getLevel() + "\n" +
+                "Type: " + this.getCardType() + "\n" +
+                "ATK: " + this.getAttack() + "\n" +
+                "DEF: " + this.getDefence() + "\n" +
+                "Description: " + this.getDescription();
+    }
 }

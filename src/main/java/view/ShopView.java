@@ -23,6 +23,10 @@ public class ShopView {
     public void run(String username) {
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
+            if (command.startsWith("card show ")) {
+                System.out.println(ShopController.getInstance().checkCardShowCommand(command));
+                continue;
+            }
             if (command.equals("shop show --all")) {
                 System.out.print(ShopController.getInstance().showAllCards());
                 continue;

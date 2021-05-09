@@ -1,6 +1,7 @@
 package view;
 
 import controller.DeckMenuController;
+import controller.ShopController;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,6 +59,10 @@ public class DeckMenuView {
             }
             if (command.startsWith("deck")) {
                 checkDeckCommands(command, username);
+                continue;
+            }
+            if (command.startsWith("card show ")) {
+                System.out.println(ShopController.getInstance().checkCardShowCommand(command));
                 continue;
             }
             System.out.println("invalid command");
