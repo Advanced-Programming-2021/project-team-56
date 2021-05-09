@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 public class BattlePhaseController {
     private static BattlePhaseController battlePhase;
-    public MonsterCard monsterCard;
-    public MonsterCard enemyMonsterCard;
+    public MonsterCard myMonster;
+    public MonsterCard enemyMonster;
 
     private BattlePhaseController() {
     }
@@ -34,141 +34,130 @@ public class BattlePhaseController {
         if (!mainPhase1Controller.isCardInMyMonsterTerritory()) {
             return "you can’t attack with this card";
         }
-        monsterCard = (MonsterCard) card;
-        if (monsterCard.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
+        myMonster = (MonsterCard) card;
+        if (!myMonster.getIsInAttackPosition()) {
+            return "this card is not in attack position";
+        }
+        if (myMonster.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
             return "this card already attacked";
         }
-        monsterCard.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
-        if (monsterCard.getName().equals("The Calculator")) {
-            theCalculatorEffect(monsterCard);
-        }
-        enemyMonsterCard = duelWithUser.getEnemyBoard().getMonsterTerritory().get(address);
-        if (enemyMonsterCard == null) {
+        enemyMonster = duelWithUser.getEnemyBoard().getMonsterTerritory().get(address);
+        if (enemyMonster == null) {
             return "there is no card to attack here";
         }
-        if (enemyMonsterCard.getName().equals("Suijin")) {
+        if (enemyMonster.getName().equals("Command knight")) {
+            if (isThereAnyOtherCardOnMonsterTerritory()) {
+                return "you can't attack this card while there are other monsters on the combat";
+            }
+        }
+        //till this line we check whether
+        // selected card can attack or not
+        // (generally)
+        myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
+        if (myMonster.getName().equals("The Calculator")) {
+            theCalculatorEffect(myMonster);
+        }
+        if (enemyMonster.getName().equals("Suijin")) {
             suijinEffect();
         }
-        if (enemyMonsterCard.getName().equals("The Calculator")) {
-            theCalculatorEffect(enemyMonsterCard);
+        if (enemyMonster.getName().equals("The Calculator")) {
+            theCalculatorEffect(enemyMonster);
         }
-        if (enemyMonsterCard.getName().equals("Texchanger")) {
-            if (enemyMonsterCard.getStartEffectTurn() != duelWithUser.getTurnCounter()) {
-                enemyMonsterCard.setStartEffectTurn(duelWithUser.getTurnCounter());
-                return "your attack was blocked";
-            }
+        if (enemyMonster.getName().equals("Texchanger") && texchangerEffect()) {
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "your attack was blocked";
         }
-        int myMonsterAttack = monsterCard.getFinalAttack();
-        if (enemyMonsterCard.getName().equals("Exploder Dragon")) {
-            return exploderDragonEffectUnderAttack(address);
+        //till this line the effects
+        // just effect the final damage
+        //(before damage calculation)
+        int myMonsterAttack = myMonster.getFinalAttack();
+        if (enemyMonster.getName().equals("Exploder Dragon")) {
+            String result = exploderDragonEffectUnderAttack(address);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return result;
         }
-        if (enemyMonsterCard.getIsInAttackPosition()) {
-            int enemyMonsterAttack = enemyMonsterCard.getFinalAttack();
+        if (enemyMonster.getIsInAttackPosition()) {
+            int enemyMonsterAttack = enemyMonster.getFinalAttack();
             if (enemyMonsterAttack == myMonsterAttack) {
-                if (monsterCard.getName().equals("Marshmallon") && enemyMonsterCard.getName().equals("Marshmallon")) {
-                    return "no card is destroyed";
-                }
-                if (monsterCard.getName().equals("Marshmallon")) {
-                    return "your opponent’s monster is destroyed and no one receives damage";
-                }
-                if (enemyMonsterCard.getName().equals("Marshmallon")) {
-                    return "your monster card is destroyed and no one receives damage";
-                }
-                destroyMyCard(monsterCard);
-                destroyEnemyCard(address);
-                return "both you and your opponent monster cards are destroyed and no one receives damage";
+                return bothSideHaveEqualAttack(address);
             } else if (myMonsterAttack > enemyMonsterAttack) {
-                int damage = myMonsterAttack - enemyMonsterAttack;
-                int enemyLife = duelWithUser.getEnemyBoard().getLP();
-                duelWithUser.getEnemyBoard().setLP(enemyLife - damage);
-                if (enemyMonsterCard.getName().equals("Marshmallon")) {
-                    return "no card is destroyed and your opponent receives " + damage + " battle damage";
-                }
-                destroyEnemyCard(address);
-                if (enemyMonsterCard.getName().equals("Yomi Ship")) {
-                    destroyMyCard(monsterCard);
-                    return "both you and your opponent monster cards are destroyed and you receive" + damage + " damage";
-                }
-                return "your opponent’s monster is destroyed and your opponent receives " + damage + " battle damage";
+                return myAttackIsHigherThanEnemyAttack(address);
             } else {
-                if (!monsterCard.getName().equals("Exploder Dragon")) {
-                    int damage = enemyMonsterAttack - myMonsterAttack;
-                    int myLife = duelWithUser.getMyBoard().getLP();
-                    duelWithUser.getMyBoard().setLP(myLife - damage);
-                    if (monsterCard.getName().equals("Marshmallon")) {
-                        return "no card is destroyed and you received " + damage + " battle damage";
-                    }
-                    destroyMyCard(monsterCard);
-                    return "Your monster card is destroyed and you received " + damage + " battle damage";
-                } else {
-                    destroyMyCard(monsterCard);
-                    destroyEnemyCard(address);
-                    return "both you and your opponent monster cards are destroyed and no one receives damage";
-                }
+                return myAttackIsLowerThanEnemyAttack(address);
             }
         } else {
-            int enemyMonsterDefence = enemyMonsterCard.getFinalDefence();
-            boolean shouldFlipSummonOccur = !enemyMonsterCard.getIsFacedUp();
-            enemyMonsterCard.setFacedUp(true);
+            int enemyMonsterDefence = enemyMonster.getFinalDefence();
+            boolean shouldFlipSummonOccur = !enemyMonster.getIsFacedUp();
+            enemyMonster.setFacedUp(true);
             if (myMonsterAttack > enemyMonsterDefence) {
-                if (enemyMonsterCard.getName().equals("Marshmallon")) {
+                if (myMonster.getName().equals("Marshmallon")) {
+                    if (enemyMonster.getName().equals("Marshmallon")) {
+                        duelWithUser.getMyBoard().setSelectedCard(null);
+                        if (shouldFlipSummonOccur) {
+                            int myLife = duelWithUser.getMyBoard().getLP();
+                            duelWithUser.getMyBoard().setLP(myLife - 1000);
+                            return "no card is destroyed and you received " + 1000 + "damage";
+                        }
+                        return "no card is destroyed";
+                    }
+                    if (enemyMonster.getName().equals("Yomi Ship")) {
+                        int damage = myMonsterAttack - enemyMonsterDefence;
+                        int enemyLife = duelWithUser.getEnemyBoard().getLP();
+                        duelWithUser.getEnemyBoard().setLP(enemyLife - damage);
+                        destroyEnemyMonster(address);
+                        destroyMyMonster(myMonster);
+                        duelWithUser.getMyBoard().setSelectedCard(null);
+                        return "both you and your opponent monster cards are destroyed and opponent receives " + damage + "damage";
+                    }
+                    //todo man eater
+                }
+                if (myMonster.getName().equals("Exploder Dragon")) {
+
+                }
+                if (enemyMonster.getName().equals("Marshmallon")) {
                     if (shouldFlipSummonOccur) {
                         int myLife = duelWithUser.getMyBoard().getLP();
                         duelWithUser.getMyBoard().setLP(myLife - 1000);
+                        duelWithUser.getMyBoard().setSelectedCard(null);
                         return "opponent’s monster was Marshmallon and no card is destroyed and you receive 1000 damage";
                     }
+                    duelWithUser.getMyBoard().setSelectedCard(null);
                     return "no card is destroyed";
                 }
-                destroyEnemyCard(address);
-                if (enemyMonsterCard.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
+                destroyEnemyMonster(address);
+                if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
                     duelWithUser.manEaterBugEffect(true);
-                } else if (enemyMonsterCard.getName().equals("Yomi Ship")) {
-                    destroyMyCard(monsterCard);
+                } else if (enemyMonster.getName().equals("Yomi Ship")) {
+                    destroyMyMonster(myMonster);
+                    duelWithUser.getMyBoard().setSelectedCard(null);
                     return "both you and your opponent monster cards are destroyed and no one receives damage";
                 }
+                duelWithUser.getMyBoard().setSelectedCard(null);
                 return "the defense position monster is destroyed";
             } else if (myMonsterAttack == enemyMonsterDefence) {
-                if (enemyMonsterCard.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
-                    duelWithUser.manEaterBugEffect(true);
-                }
-                return "no card is destroyed";
+                return myAttackIsEqualToEnemyDefence(shouldFlipSummonOccur);
             } else {
-                if (monsterCard.getName().equals("Exploder Dragon")) {
-                    if (enemyMonsterCard.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
-                        duelWithUser.manEaterBugEffect(true);
-                    }
-                    return "no one receives damage";
-                }
-                int damage = enemyMonsterDefence - myMonsterAttack;
-                int myLife = duelWithUser.getMyBoard().getLP();
-                duelWithUser.getMyBoard().setLP(myLife - damage);
-                if (enemyMonsterCard.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
-                    duelWithUser.manEaterBugEffect(true);
-                }
-                if (enemyMonsterCard.getName().equals("Marshmallon") && shouldFlipSummonOccur) {
-                    int myLife1 = duelWithUser.getMyBoard().getLP();
-                    duelWithUser.getMyBoard().setLP(myLife1 - 1000);
-                    damage += 1000;
-                    return "no card is destroyed and you received " + damage + "damage";
-                }
-                return "no card is destroyed and you received " + damage + " battle damage";
+                return myAttackIsLowerThanEnemyDefence(shouldFlipSummonOccur);
             }
         }
     }
 
     private String exploderDragonEffectUnderAttack(int address) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
-        int myMonsterAttack = monsterCard.getFinalAttack();
-        int enemyMonsterAttack = enemyMonsterCard.getFinalAttack();
-        if (enemyMonsterCard.getIsInAttackPosition() && enemyMonsterAttack > myMonsterAttack) {
+        int myMonsterAttack = myMonster.getFinalAttack();
+        int enemyMonsterAttack = enemyMonster.getFinalAttack();
+        if (enemyMonster.getIsInAttackPosition() && enemyMonsterAttack > myMonsterAttack) {
             int damage = enemyMonsterAttack - myMonsterAttack;
             int myLife = duelWithUser.getMyBoard().getLP();
             duelWithUser.getMyBoard().setLP(myLife - damage);
-            destroyMyCard(monsterCard);
+            if (myMonster.getName().equals("Marshmallon")) {
+                return "no card is destroyed";
+            }
+            destroyMyMonster(myMonster);
             return "Your monster card is destroyed and you received " + damage + " battle damage";
         } else {
-            destroyMyCard(monsterCard);
-            destroyEnemyCard(address);
+            destroyMyMonster(myMonster);
+            destroyEnemyMonster(address);
             return "both you and your opponent monster cards are destroyed and no one receives damage";
         }
     }
@@ -207,7 +196,7 @@ public class BattlePhaseController {
         return true;
     }
 
-    private void destroyEnemyCard(int address) {
+    private void destroyEnemyMonster(int address) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
@@ -215,18 +204,17 @@ public class BattlePhaseController {
         monsterTerritory.put(address, null);
     }
 
-    private void destroyMyCard(MonsterCard monsterCard) {
+    private void destroyMyMonster(MonsterCard monsterCard) {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        int address = 1;
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) == monsterCard) {
-                address = i;
+                graveyard.add(monsterTerritory.get(i));
+                monsterTerritory.put(i, null);
+                return;
             }
         }
-        graveyard.add(monsterTerritory.get(address));
-        monsterTerritory.put(address, null);
     }
 
     public void beforeBattleEffects() {
@@ -237,16 +225,18 @@ public class BattlePhaseController {
         Board board1 = DuelWithUser.getInstance().getMyBoard();
         Board board2 = DuelWithUser.getInstance().getEnemyBoard();
         for (int i = 1; i <= 5; i++) {
-            if (board1.getMonsterTerritory().get(i) != null && board1.getMonsterTerritory().get(i).getName().equals("Command Knight") && board1.getMonsterTerritory().get(i).getIsFacedUp()) {
+            MonsterCard myMonster = board1.getMonsterTerritory().get(i);
+            if (myMonster != null && myMonster.getName().equals("Command Knight") && myMonster.getIsFacedUp()) {
                 for (int j = 1; j <= 5; j++) {
-                    if (j != i && board1.getMonsterTerritory().get(j) != null) {
+                    if (board1.getMonsterTerritory().get(j) != null) {
                         board1.getMonsterTerritory().get(j).increaseFinalAttack(400);
                     }
                 }
             }
-            if (board2.getMonsterTerritory().get(i) != null && board2.getMonsterTerritory().get(i).getName().equals("Command Knight") && board2.getMonsterTerritory().get(i).getIsFacedUp()) {
+            MonsterCard enemyMonster = board2.getMonsterTerritory().get(i);
+            if (enemyMonster != null && enemyMonster.getName().equals("Command Knight") && enemyMonster.getIsFacedUp()) {
                 for (int j = 1; j <= 5; j++) {
-                    if (j != i && board2.getMonsterTerritory().get(j) != null) {
+                    if (board2.getMonsterTerritory().get(j) != null) {
                         board2.getMonsterTerritory().get(j).increaseFinalAttack(400);
                     }
                 }
@@ -258,13 +248,15 @@ public class BattlePhaseController {
         Board board1 = DuelWithUser.getInstance().getMyBoard();
         Board board2 = DuelWithUser.getInstance().getEnemyBoard();
         for (int i = 1; i <= 5; i++) {
-            if (board1.getMonsterTerritory().get(i) != null) {
-                board1.getMonsterTerritory().get(i).setFinalAttack(board1.getMonsterTerritory().get(i).getAttack());
-                board1.getMonsterTerritory().get(i).setFinalDefence(board1.getMonsterTerritory().get(i).getDefence());
+            MonsterCard myMonster = board1.getMonsterTerritory().get(i);
+            if (myMonster != null) {
+                myMonster.setFinalAttack(myMonster.getAttack());
+                myMonster.setFinalDefence(myMonster.getDefence());
             }
-            if (board2.getMonsterTerritory().get(i) != null) {
-                board2.getMonsterTerritory().get(i).setFinalAttack(board1.getMonsterTerritory().get(i).getAttack());
-                board2.getMonsterTerritory().get(i).setFinalDefence(board1.getMonsterTerritory().get(i).getDefence());
+            MonsterCard enemyMonster = board2.getMonsterTerritory().get(i);
+            if (enemyMonster != null) {
+                enemyMonster.setFinalAttack(enemyMonster.getAttack());
+                enemyMonster.setFinalDefence(enemyMonster.getDefence());
             }
         }
     }
@@ -273,7 +265,7 @@ public class BattlePhaseController {
         int sumOfLevels = 0;
         for (int i = 1; i <= 5; i++) {
             MonsterCard monsterCard1 = monsterCard.getCurrentBoard().getMonsterTerritory().get(i);
-            if (monsterCard1 != null && monsterCard1 != monsterCard && monsterCard1.getIsFacedUp()) {
+            if (monsterCard1 != null && monsterCard1.getIsFacedUp()) {
                 sumOfLevels += monsterCard1.getLevel();
             }
         }
@@ -281,9 +273,155 @@ public class BattlePhaseController {
     }
 
     private void suijinEffect() {
-        if (enemyMonsterCard.getStartEffectTurn() == -1 && enemyMonsterCard.getIsFacedUp()) {
-            enemyMonsterCard.setStartEffectTurn(DuelWithUser.getInstance().getTurnCounter());
-            monsterCard.setFinalAttack(0);
+        if (enemyMonster.getStartEffectTurn() == -1) {
+            enemyMonster.setStartEffectTurn(0);
+            myMonster.setFinalAttack(0);
         }
     }
+
+    private boolean texchangerEffect() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (enemyMonster.getStartEffectTurn() != duelWithUser.getTurnCounter()) {
+            enemyMonster.setStartEffectTurn(duelWithUser.getTurnCounter());
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isThereAnyOtherCardOnMonsterTerritory() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (monsterTerritory.get(i) != enemyMonster && monsterTerritory.get(i) != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String marshmelloAgainstDragonOrShip(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        destroyEnemyMonster(address);
+        destroyMyMonster(myMonster);
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return "both you and your opponent monster cards are destroyed and no one receives damage";
+    }
+
+    private String bothSideHaveEqualAttack(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (myMonster.getName().equals("Marshmallon") && enemyMonster.getName().equals("Marshmallon")) {
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "no card is destroyed";
+        }
+        if (myMonster.getName().equals("Marshmallon")) {
+            if (enemyMonster.getName().equals("Yomi Ship")) {
+                return marshmelloAgainstDragonOrShip(address);
+            }
+            destroyEnemyMonster(address);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "your opponent’s monster is destroyed and no one receives damage";
+        }
+        if (enemyMonster.getName().equals("Marshmallon")) {
+            if (myMonster.getName().equals("Exploder Dragon")) {
+                return marshmelloAgainstDragonOrShip(address);
+            }
+            destroyMyMonster(myMonster);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "your monster card is destroyed and no one receives damage";
+        }
+        destroyMyMonster(myMonster);
+        destroyEnemyMonster(address);
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return "both you and your opponent monster cards are destroyed and no one receives damage";
+    }
+
+    private String myAttackIsHigherThanEnemyAttack(int address) {
+        int myMonsterAttack = myMonster.getFinalAttack();
+        int enemyMonsterAttack = enemyMonster.getFinalAttack();
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        int damage = myMonsterAttack - enemyMonsterAttack;
+        int enemyLife = duelWithUser.getEnemyBoard().getLP();
+        duelWithUser.getEnemyBoard().setLP(enemyLife - damage);
+        if (enemyMonster.getName().equals("Marshmallon")) {
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "no card is destroyed and your opponent receives " + damage + " battle damage";
+        }
+        destroyEnemyMonster(address);
+        if (enemyMonster.getName().equals("Yomi Ship")) {
+            destroyMyMonster(myMonster);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "both you and your opponent monster cards are destroyed and opponent receives" + damage + " damage";
+        }
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return "your opponent’s monster is destroyed and your opponent receives " + damage + " battle damage";
+    }
+
+    private String myAttackIsLowerThanEnemyAttack(int address) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        int myMonsterAttack = myMonster.getFinalAttack();
+        int enemyMonsterAttack = enemyMonster.getFinalAttack();
+        if (myMonster.getName().equals("Exploder Dragon")) {
+            destroyMyMonster(myMonster);
+            destroyEnemyMonster(address);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "both you and your opponent monster cards are destroyed and no one receives damage";
+        } else {
+            int damage = enemyMonsterAttack - myMonsterAttack;
+            int myLife = duelWithUser.getMyBoard().getLP();
+            duelWithUser.getMyBoard().setLP(myLife - damage);
+            if (myMonster.getName().equals("Marshmallon")) {
+                duelWithUser.getMyBoard().setSelectedCard(null);
+                return "no card is destroyed and you received " + damage + " battle damage";
+            }
+            destroyMyMonster(myMonster);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "Your monster card is destroyed and you received " + damage + " battle damage";
+        }
+    }
+
+    private String myAttackIsHigherThanEnemyDefence() {
+
+    }
+
+    private String myAttackIsEqualToEnemyDefence(boolean shouldFlipSummonOccur) {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
+            duelWithUser.manEaterBugEffect(true);
+        }
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return "no card is destroyed";
+    }
+
+    private String myAttackIsLowerThanEnemyDefence(boolean shouldFlipSummonOccur) {
+        int enemyMonsterDefence = enemyMonster.getFinalDefence();
+        int myMonsterAttack = myMonster.getFinalAttack();
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        if (myMonster.getName().equals("Exploder Dragon")) {
+            if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
+                duelWithUser.manEaterBugEffect(true);
+            }
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            if (enemyMonster.getName().equals("Marshmallon") && shouldFlipSummonOccur) {
+                int myLife = duelWithUser.getMyBoard().getLP();
+                duelWithUser.getMyBoard().setLP(myLife - 1000);
+                return "no card is destroyed and you received " + 1000 + "damage";
+            }
+            return "no one receives damage";
+        }
+        int damage = enemyMonsterDefence - myMonsterAttack;
+        int myLife = duelWithUser.getMyBoard().getLP();
+        duelWithUser.getMyBoard().setLP(myLife - damage);
+        if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
+            duelWithUser.manEaterBugEffect(true);
+        }
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        if (enemyMonster.getName().equals("Marshmallon") && shouldFlipSummonOccur) {
+            int myLife1 = duelWithUser.getMyBoard().getLP();
+            duelWithUser.getMyBoard().setLP(myLife1 - 1000);
+            damage += 1000;
+            return "no card is destroyed and you received " + damage + "damage";
+        }
+        return "no card is destroyed and you received " + damage + " battle damage";
+    }
+
 }

@@ -293,7 +293,7 @@ public class MainPhase1Controller {
     private String specialSummonTheTricky() {
         MainPhase1View mainPhase1View = MainPhase1View.getInstance();
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
-        if (!isThereAnyOtherCard()) {
+        if (!isThereAnyOtherCardOnHand()) {
             return "there is no way you could special summon a monster";
         }
         int address = mainPhase1View.getAddress();
@@ -318,7 +318,7 @@ public class MainPhase1Controller {
         return false;
     }
 
-    private boolean isThereAnyOtherCard() {
+    private boolean isThereAnyOtherCardOnHand() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
