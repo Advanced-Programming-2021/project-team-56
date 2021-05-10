@@ -4,7 +4,6 @@ import controller.duel.DuelWithUser;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
-import view.LoginMenuView;
 import view.duel.phase.BattlePhaseView;
 import view.duel.phase.MainPhase1View;
 

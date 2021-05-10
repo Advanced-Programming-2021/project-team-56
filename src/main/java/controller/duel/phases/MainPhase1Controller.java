@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 public class MainPhase1Controller {
     private static MainPhase1Controller mainPhase1;
+    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
 
     private MainPhase1Controller() {
@@ -25,7 +26,6 @@ public class MainPhase1Controller {
     }
 
     public String summon() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         MainPhase1View mainPhase1View = MainPhase1View.getInstance();
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return "no card is selected yet";
@@ -98,7 +98,6 @@ public class MainPhase1Controller {
     }
 
     public String set() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return "no card is selected yet";
         }
@@ -120,7 +119,6 @@ public class MainPhase1Controller {
     }
 
     public String changeToAttackPosition() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return "no card is selected yet";
         }
@@ -139,7 +137,6 @@ public class MainPhase1Controller {
     }
 
     public String changeToDefencePosition() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return "no card is selected yet";
         }
@@ -161,7 +158,6 @@ public class MainPhase1Controller {
     }
 
     private void changePosition(boolean position) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         monsterCard.setInAttackPosition(position);
         monsterCard.setLastTimeChangedPositionTurn(duelWithUser.getTurnCounter());
@@ -169,7 +165,6 @@ public class MainPhase1Controller {
     }
 
     public String flipSummon() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return "no card is selected yet";
         }
@@ -193,7 +188,6 @@ public class MainPhase1Controller {
     }
 
     private boolean isMonsterTerritoryFull() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         for (int i = 1; i < 6; i++) {
             if (duelWithUser.getMyBoard().getMonsterTerritory().get(i) == null) {
                 return false;
@@ -203,7 +197,6 @@ public class MainPhase1Controller {
     }
 
     private boolean areThereEnoughCardsToTribute(int tributes) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         for (int i = 1; i < 6; i++) {
             if (duelWithUser.getMyBoard().getMonsterTerritory().get(i) != null) {
                 tributes--;
@@ -216,14 +209,13 @@ public class MainPhase1Controller {
     }
 
     private boolean canThisCardBeSummoned() {
-        Card card = DuelWithUser.getInstance().getMyBoard().getSelectedCard();
+        Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (!isCardInMyHand(card)) {
             return false;
         }
         if (!(card instanceof MonsterCard)) {
             return false;
         }
-        //todo
         return true;
     }
 
@@ -245,7 +237,6 @@ public class MainPhase1Controller {
     }
 
     public String specialSummon() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card == null) {
             return "no card is selected yet";
@@ -286,13 +277,12 @@ public class MainPhase1Controller {
         tribute(firstAddress);
         tribute(secondAddress);
         tribute(thirdAddress);
-        summon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard(), true);
+        summon((MonsterCard) duelWithUser.getMyBoard().getSelectedCard(), true);
         return "special summon of Gate Guardian was successful";
     }
 
     private String specialSummonTheTricky() {
         MainPhase1View mainPhase1View = MainPhase1View.getInstance();
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (!isThereAnyOtherCardOnHand()) {
             return "there is no way you could special summon a monster";
         }
@@ -309,7 +299,6 @@ public class MainPhase1Controller {
     }
 
     private boolean isItAnotherCard(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         if (playerHand.get(address - 1) != monsterCard) {
@@ -319,7 +308,6 @@ public class MainPhase1Controller {
     }
 
     private boolean isThereAnyOtherCardOnHand() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         for (int i = 0; i < playerHand.size(); i++) {
@@ -331,7 +319,7 @@ public class MainPhase1Controller {
     }
 
     private boolean isCardInMyHand(Card card) {
-        ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         for (int i = 0; i < playerHand.size(); i++) {
             if (playerHand.get(i) == card) {
                 return true;
@@ -341,7 +329,6 @@ public class MainPhase1Controller {
     }
 
     private void placeMonsterOnTheField(MonsterCard monsterCard) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) == null) {
@@ -352,7 +339,7 @@ public class MainPhase1Controller {
     }
 
     private void drawCardFromPlayerHand(MonsterCard monsterCard) {
-        ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         for (int i = 0; i < playerHand.size(); i++) {
             if (playerHand.get(i) == monsterCard) {
                 playerHand.remove(i);
@@ -362,7 +349,6 @@ public class MainPhase1Controller {
     }
 
     private void summon(MonsterCard monsterCard, boolean isSpecialSummon) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         placeMonsterOnTheField(monsterCard);
         drawCardFromPlayerHand(monsterCard);
         duelWithUser.getMyBoard().setSelectedCard(null);
@@ -375,7 +361,6 @@ public class MainPhase1Controller {
     }
 
     private boolean isAddressValid(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         if (monsterTerritory.get(address) != null) {
             return true;
@@ -385,7 +370,6 @@ public class MainPhase1Controller {
     }
 
     private void tribute(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         graveyard.add(monsterTerritory.get(address));
@@ -393,7 +377,6 @@ public class MainPhase1Controller {
     }
 
     private void tributeFromHand(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         graveyard.add(playerHand.get(address - 1));
@@ -401,7 +384,6 @@ public class MainPhase1Controller {
     }
 
     public boolean isCardInMyMonsterTerritory() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         for (int i = 1; i < 6; i++) {
@@ -425,7 +407,6 @@ public class MainPhase1Controller {
                 battlePhaseView.output("ok");
                 return;
             } else if (result.equals("yes")) {
-                DuelWithUser duelWithUser = DuelWithUser.getInstance();
                 ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
                 int address = MainPhase1View.getInstance().getAddress();
                 if (address > playerHand.size() || address < 1) {
@@ -449,7 +430,6 @@ public class MainPhase1Controller {
     }
 
     private boolean canTigerEffectBeActivated() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         for (int i = 0; i < playerHand.size(); i++) {
             if ((playerHand.get(i) instanceof MonsterCard)) {
