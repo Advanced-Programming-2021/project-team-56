@@ -13,6 +13,7 @@ public class BattlePhaseController {
     private static BattlePhaseController battlePhase;
     public MonsterCard myMonster;
     public MonsterCard enemyMonster;
+    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private BattlePhaseController() {
     }
@@ -25,7 +26,46 @@ public class BattlePhaseController {
     }
 
     public String attackCard(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        String result = isTargetingMonsterPossible(address);
+        if (!result.equals("continue the process")) {
+            return result;
+        }
+        //till this line we check whether
+        // selected card can attack or not
+        // (generally)
+        effectFinalDamage();
+        if (enemyMonster.getName().equals("Texchanger") && texchangerEffect()) {
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "your attack was blocked";
+        }
+        //till this line the effects
+        // just effect the final damage
+        //(before damage calculation)
+        if (enemyMonster.getName().equals("Exploder Dragon")) {
+            result = exploderDragonEffectUnderAttack(address);
+        } else if (enemyMonster.getIsInAttackPosition()) {
+            result = isEnemyMonsterInAttackPosition(address);
+        } else if (!enemyMonster.getIsInAttackPosition()) {
+            result = isEnemyMonsterInDefencePosition(address);
+        }
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return result;
+    }
+
+    private void effectFinalDamage(){
+        myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
+        if (myMonster.getName().equals("The Calculator")) {
+            theCalculatorEffect(myMonster);
+        }
+        if (enemyMonster.getName().equals("The Calculator")) {
+            theCalculatorEffect(enemyMonster);
+        }
+        if (enemyMonster.getName().equals("Suijin")) {
+            suijinEffect();
+        }
+    }
+
+    private String isTargetingMonsterPossible(int address) {
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
         if (card == null) {
@@ -50,69 +90,42 @@ public class BattlePhaseController {
                 return "you can't attack this card while there are other monsters on the combat";
             }
         }
-        //till this line we check whether
-        // selected card can attack or not
-        // (generally)
-        myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
-        if (myMonster.getName().equals("The Calculator")) {
-            theCalculatorEffect(myMonster);
-        }
-        if (enemyMonster.getName().equals("Suijin")) {
-            suijinEffect();
-        }
-        if (enemyMonster.getName().equals("The Calculator")) {
-            theCalculatorEffect(enemyMonster);
-        }
-        if (enemyMonster.getName().equals("Texchanger") && texchangerEffect()) {
-            duelWithUser.getMyBoard().setSelectedCard(null);
-            return "your attack was blocked";
-        }
-        //till this line the effects
-        // just effect the final damage
-        //(before damage calculation)
+        return "continue the process";
+    }
+
+    private String isEnemyMonsterInAttackPosition(int address) {
         int myMonsterAttack = myMonster.getFinalAttack();
-        if (enemyMonster.getName().equals("Exploder Dragon")) {
-            String result = exploderDragonEffectUnderAttack(address);
+        int enemyMonsterAttack = enemyMonster.getFinalAttack();
+        if (enemyMonsterAttack == myMonsterAttack) {
+            return bothSideHaveEqualAttack(address);
+        } else if (myMonsterAttack > enemyMonsterAttack) {
+            return myAttackIsHigherThanEnemyAttack(address);
+        } else {
+            return myAttackIsLowerThanEnemyAttack(address);
+        }
+    }
+
+    private String isEnemyMonsterInDefencePosition(int address) {
+        int myMonsterAttack = myMonster.getFinalAttack();
+        int enemyMonsterDefence = enemyMonster.getFinalDefence();
+        boolean shouldFlipSummonOccur = !enemyMonster.getIsFacedUp();
+        enemyMonster.setFacedUp(true);
+        if (myMonsterAttack > enemyMonsterDefence) {
+            String result = myAttackIsHigherThanEnemyDefence(address, shouldFlipSummonOccur);
             duelWithUser.getMyBoard().setSelectedCard(null);
             return result;
-        }
-        if (enemyMonster.getIsInAttackPosition()) {
-            int enemyMonsterAttack = enemyMonster.getFinalAttack();
-            if (enemyMonsterAttack == myMonsterAttack) {
-                String result = bothSideHaveEqualAttack(address);
-                duelWithUser.getMyBoard().setSelectedCard(null);
-                return result;
-            } else if (myMonsterAttack > enemyMonsterAttack) {
-                String result = myAttackIsHigherThanEnemyAttack(address);
-                duelWithUser.getMyBoard().setSelectedCard(null);
-                return result;
-            } else {
-                String result = myAttackIsLowerThanEnemyAttack(address);
-                duelWithUser.getMyBoard().setSelectedCard(null);
-                return result;
-            }
+        } else if (myMonsterAttack == enemyMonsterDefence) {
+            String result = myAttackIsEqualToEnemyDefence(shouldFlipSummonOccur);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return result;
         } else {
-            int enemyMonsterDefence = enemyMonster.getFinalDefence();
-            boolean shouldFlipSummonOccur = !enemyMonster.getIsFacedUp();
-            enemyMonster.setFacedUp(true);
-            if (myMonsterAttack > enemyMonsterDefence) {
-                String result = myAttackIsHigherThanEnemyDefence(address, shouldFlipSummonOccur);
-                duelWithUser.getMyBoard().setSelectedCard(null);
-                return result;
-            } else if (myMonsterAttack == enemyMonsterDefence) {
-                String result = myAttackIsEqualToEnemyDefence(shouldFlipSummonOccur);
-                duelWithUser.getMyBoard().setSelectedCard(null);
-                return result;
-            } else {
-                String result = myAttackIsLowerThanEnemyDefence(shouldFlipSummonOccur);
-                duelWithUser.getMyBoard().setSelectedCard(null);
-                return result;
-            }
+            String result = myAttackIsLowerThanEnemyDefence(shouldFlipSummonOccur);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return result;
         }
     }
 
     private String exploderDragonEffectUnderAttack(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         int myMonsterAttack = myMonster.getFinalAttack();
         if (enemyMonster.getIsInAttackPosition()) {
             int enemyMonsterAttack = enemyMonster.getFinalAttack();
@@ -156,7 +169,6 @@ public class BattlePhaseController {
     }
 
     public String attackUser() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card == null) {
             return "no card is selected yet";
@@ -179,7 +191,6 @@ public class BattlePhaseController {
     }
 
     private boolean isEnemyMonsterTerritoryEmpty() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) != null) {
@@ -190,7 +201,6 @@ public class BattlePhaseController {
     }
 
     private void destroyEnemyMonster(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         graveyard.add(monsterTerritory.get(address));
@@ -198,7 +208,6 @@ public class BattlePhaseController {
     }
 
     private void destroyMyMonster(MonsterCard monsterCard) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
@@ -215,8 +224,8 @@ public class BattlePhaseController {
     }
 
     private void commandKnightEffect() {
-        Board board1 = DuelWithUser.getInstance().getMyBoard();
-        Board board2 = DuelWithUser.getInstance().getEnemyBoard();
+        Board board1 = duelWithUser.getMyBoard();
+        Board board2 = duelWithUser.getEnemyBoard();
         for (int i = 1; i <= 5; i++) {
             MonsterCard myMonster = board1.getMonsterTerritory().get(i);
             if (myMonster != null && myMonster.getName().equals("Command Knight") && myMonster.getIsFacedUp()) {
@@ -238,8 +247,8 @@ public class BattlePhaseController {
     }
 
     public void afterBattleEffects() {
-        Board board1 = DuelWithUser.getInstance().getMyBoard();
-        Board board2 = DuelWithUser.getInstance().getEnemyBoard();
+        Board board1 = duelWithUser.getMyBoard();
+        Board board2 = duelWithUser.getEnemyBoard();
         for (int i = 1; i <= 5; i++) {
             MonsterCard myMonster = board1.getMonsterTerritory().get(i);
             if (myMonster != null) {
@@ -273,7 +282,6 @@ public class BattlePhaseController {
     }
 
     private boolean texchangerEffect() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (enemyMonster.getStartEffectTurn() != duelWithUser.getTurnCounter()) {
             enemyMonster.setStartEffectTurn(duelWithUser.getTurnCounter());
             return true;
@@ -282,7 +290,6 @@ public class BattlePhaseController {
     }
 
     private boolean isThereAnyOtherCardOnMonsterTerritory() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) != enemyMonster && monsterTerritory.get(i) != null) {
@@ -318,7 +325,6 @@ public class BattlePhaseController {
     private String myAttackIsHigherThanEnemyAttack(int address) {
         int myMonsterAttack = myMonster.getFinalAttack();
         int enemyMonsterAttack = enemyMonster.getFinalAttack();
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         int damage = myMonsterAttack - enemyMonsterAttack;
         int enemyLife = duelWithUser.getEnemyBoard().getLP();
         duelWithUser.getEnemyBoard().setLP(enemyLife - damage);
@@ -334,7 +340,6 @@ public class BattlePhaseController {
     }
 
     private String myAttackIsLowerThanEnemyAttack(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         int myMonsterAttack = myMonster.getFinalAttack();
         int enemyMonsterAttack = enemyMonster.getFinalAttack();
         if (myMonster.getName().equals("Exploder Dragon")) {
@@ -354,7 +359,6 @@ public class BattlePhaseController {
     }
 
     private String myAttackIsHigherThanEnemyDefence(int address, boolean shouldFlipSummonOccur) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (myMonster.getName().equals("Marshmallon")) {
             if (enemyMonster.getName().equals("Marshmallon")) {
                 return marshmelloFlipSummons(shouldFlipSummonOccur);
@@ -378,12 +382,7 @@ public class BattlePhaseController {
             }
         }
         if (enemyMonster.getName().equals("Marshmallon")) {
-            if (shouldFlipSummonOccur) {
-                int myLife = duelWithUser.getMyBoard().getLP();
-                duelWithUser.getMyBoard().setLP(myLife - 1000);
-                return "no card is destroyed and you received 1000 damage";
-            }
-            return "no card is destroyed";
+            return marshmelloFlipSummons(shouldFlipSummonOccur);
         }
         destroyEnemyMonster(address);
         if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
@@ -396,7 +395,6 @@ public class BattlePhaseController {
     }
 
     private String myAttackIsEqualToEnemyDefence(boolean shouldFlipSummonOccur) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
             duelWithUser.manEaterBugEffect(true);
         }
@@ -406,7 +404,6 @@ public class BattlePhaseController {
     private String myAttackIsLowerThanEnemyDefence(boolean shouldFlipSummonOccur) {
         int enemyMonsterDefence = enemyMonster.getFinalDefence();
         int myMonsterAttack = myMonster.getFinalAttack();
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (myMonster.getName().equals("Exploder Dragon")) {
             if (enemyMonster.getName().equals("Man-Eater Bug") && shouldFlipSummonOccur) {
                 duelWithUser.manEaterBugEffect(true);
@@ -440,7 +437,6 @@ public class BattlePhaseController {
     }
 
     private String marshmelloFlipSummons(boolean shouldFlipSummonOccur) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         if (shouldFlipSummonOccur) {
             int myLife = duelWithUser.getMyBoard().getLP();
             duelWithUser.getMyBoard().setLP(myLife - 1000);
@@ -450,7 +446,6 @@ public class BattlePhaseController {
     }
 
     private String marshmelloAgainstDragonOrShip(int address) {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         destroyEnemyMonster(address);
         destroyMyMonster(myMonster);
         return "both you and your opponent monster cards are destroyed and no one receives damage";
