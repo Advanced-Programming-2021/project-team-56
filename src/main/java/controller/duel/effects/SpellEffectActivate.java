@@ -12,6 +12,7 @@ public class SpellEffectActivate {
     private static SpellEffectActivate spellEffectActivate;
     private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
     private EffectView effectView = EffectView.getInstance();
+    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private SpellEffectActivate() {
 
@@ -24,11 +25,11 @@ public class SpellEffectActivate {
     }
 
     public void yamiActivate() {
-        Board board1 = DuelWithUser.getInstance().getMyBoard();
-        Board board2 = DuelWithUser.getInstance().getEnemyBoard();
-        if (SpellEffectCanActivate.getInstance().yamiCanActivate(board1) || SpellEffectCanActivate.getInstance().yamiCanActivate(board2)) {
+        Board board1 = duelWithUser.getMyBoard();
+        Board board2 = duelWithUser.getEnemyBoard();
+        if (spellEffectCanActivate.yamiCanActivate(board1) || spellEffectCanActivate.yamiCanActivate(board2)) {
             int repeat;
-            if (SpellEffectCanActivate.getInstance().yamiCanActivate(board1) && SpellEffectCanActivate.getInstance().yamiCanActivate(board2))
+            if (spellEffectCanActivate.yamiCanActivate(board1) && spellEffectCanActivate.yamiCanActivate(board2))
                 repeat = 2;
             else repeat = 1;
             for (int i = 1; i <= 5; i++) {
@@ -50,8 +51,6 @@ public class SpellEffectActivate {
             }
         }
     }
-        return spellEffectActivate;
-    }
 
     public void advancedRitualArt() {
         int output = spellEffectCanActivate.canAdvancedRitualArtActivate();
@@ -59,14 +58,20 @@ public class SpellEffectActivate {
             effectView.output("preparations of this spell are not done yet");
         }
         effectView.showDeck();
-        if (output == 1){
+        if (output == 1) {
+
+        }
+        if (output == 2) {
+
+        }
+    }
 
     public void forestActivate() {
-        Board board1 = DuelWithUser.getInstance().getMyBoard();
-        Board board2 = DuelWithUser.getInstance().getEnemyBoard();
-        if (SpellEffectCanActivate.getInstance().forestCanActivate(board1) || SpellEffectCanActivate.getInstance().forestCanActivate(board2)) {
+        Board board1 = duelWithUser.getMyBoard();
+        Board board2 = duelWithUser.getEnemyBoard();
+        if (spellEffectCanActivate.forestCanActivate(board1) || spellEffectCanActivate.forestCanActivate(board2)) {
             int repeat;
-            if (SpellEffectCanActivate.getInstance().forestCanActivate(board1) && SpellEffectCanActivate.getInstance().forestCanActivate(board2))
+            if (spellEffectCanActivate.forestCanActivate(board1) && spellEffectCanActivate.forestCanActivate(board2))
                 repeat = 2;
             else repeat = 1;
             for (int i = 1; i <= 5; i++) {
@@ -86,13 +91,13 @@ public class SpellEffectActivate {
     }
 
     public void closedForestActivate() {
-        Board board1 = DuelWithUser.getInstance().getMyBoard();
-        Board board2 = DuelWithUser.getInstance().getEnemyBoard();
+        Board board1 = duelWithUser.getMyBoard();
+        Board board2 = duelWithUser.getEnemyBoard();
         for (int i = 1; i <= 2; i++) {
             Board board;
             if (i == 1) board = board1;
             else board = board2;
-            if (SpellEffectCanActivate.getInstance().closedForestCanActivate(board)) {
+            if (spellEffectCanActivate.closedForestCanActivate(board)) {
                 int monstersInGraveYardCount = 0;
                 for (Card card : board.getGraveyard()) {
                     if (card instanceof MonsterCard) monstersInGraveYardCount++;
@@ -108,11 +113,11 @@ public class SpellEffectActivate {
     }
 
     public void umiirukaActivate() {
-        Board board1 = DuelWithUser.getInstance().getMyBoard();
-        Board board2 = DuelWithUser.getInstance().getEnemyBoard();
-        if (SpellEffectCanActivate.getInstance().umiirukaCanActive(board1) || SpellEffectCanActivate.getInstance().umiirukaCanActive(board2)) {
+        Board board1 = duelWithUser.getMyBoard();
+        Board board2 = duelWithUser.getEnemyBoard();
+        if (spellEffectCanActivate.umiirukaCanActive(board1) || spellEffectCanActivate.umiirukaCanActive(board2)) {
             int repeat;
-            if (SpellEffectCanActivate.getInstance().umiirukaCanActive(board1) && SpellEffectCanActivate.getInstance().umiirukaCanActive(board2))
+            if (spellEffectCanActivate.umiirukaCanActive(board1) && spellEffectCanActivate.umiirukaCanActive(board2))
                 repeat = 2;
             else repeat = 1;
             for (int i = 1; i <= 5; i++) {
@@ -129,8 +134,6 @@ public class SpellEffectActivate {
                 }
             }
         }
-        }else {
-
-        }
     }
 }
+
