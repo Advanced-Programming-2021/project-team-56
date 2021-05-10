@@ -11,7 +11,7 @@ public class Board {
     private HashMap<Integer, MonsterCard> monsterTerritory = new HashMap<>();
     private ArrayList<Card> playerHand = new ArrayList<>();
     private User user;
-    private Card fieldSpell;
+    private SpellCard fieldSpell;
     private Card selectedCard;
     private int LP = 8000;
     private int lastSummonedOrSetTurn;
@@ -54,10 +54,6 @@ public class Board {
         }
     }
 
-    public void addCardToGraveyard(Card card) {
-
-    }
-
     public Card getSelectedCard() {
         return selectedCard;
     }
@@ -66,8 +62,12 @@ public class Board {
         return user;
     }
 
-    public Card getFieldSpell() {
+    public SpellCard getFieldSpell() {
         return fieldSpell;
+    }
+
+    public void setFieldSpell(SpellCard fieldSpell) {
+        this.fieldSpell = fieldSpell;
     }
 
     public int getLP() {
@@ -84,10 +84,6 @@ public class Board {
 
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
-    }
-
-    public void addCardToMonsterTerritory(Card card) {
-
     }
 
     public ArrayList<Card> getMainDeck() {

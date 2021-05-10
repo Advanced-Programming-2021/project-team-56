@@ -11,6 +11,7 @@ public class BattlePhaseView {
     private static BattlePhaseView battlePhase;
     static Pattern setPosition = Pattern.compile("^set -- position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
+    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private BattlePhaseView() {
 
@@ -25,7 +26,6 @@ public class BattlePhaseView {
 
     public String run() {
         BattlePhaseController.getInstance().beforeBattleEffects();
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: battle phase");
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
@@ -51,6 +51,10 @@ public class BattlePhaseView {
             }
             if (command.equals("flip-summon")) {
                 System.out.println("you can’t do this action in this phase");
+                continue;
+            }
+            if (command.equals("activate effect")){
+                System.out.println("you can’t activate an effect on this turn");
                 continue;
             }
             matcher = attack.matcher(command);
@@ -97,13 +101,5 @@ public class BattlePhaseView {
             return true;
         }
         return false;
-    }
-
-    public void output(String string){
-        System.out.println(string);
-    }
-
-    public String input(){
-        return LoginMenuView.scan.nextLine().trim();
     }
 }

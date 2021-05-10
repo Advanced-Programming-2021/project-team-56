@@ -4,6 +4,7 @@ import controller.duel.DuelWithUser;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
+import view.duel.EffectView;
 import view.duel.phase.BattlePhaseView;
 import view.duel.phase.MainPhase1View;
 
@@ -457,17 +458,17 @@ public class BattlePhaseController {
     }
 
     public void manEaterBugEffect(boolean isItUnderAttack) {
-        BattlePhaseView battlePhaseView = BattlePhaseView.getInstance();
+        EffectView effectView = EffectView.getInstance();
         if (!canManEaterBugEffectsBeActivated()) {
-            battlePhaseView.output("this card effect can't be activated");
+            effectView.output("this card effect can't be activated");
         } else {
             while (true) {
-                battlePhaseView.output("do you want to activate this card effect?");
-                String result = battlePhaseView.input();
+                effectView.output("do you want to activate this card effect?");
+                String result = effectView.input();
                 if (result.equals("yes")) {
                     int address = MainPhase1View.getInstance().getAddress();
                     if (address > 5 || address < 1) {
-                        battlePhaseView.output("invalid selection");
+                        effectView.output("invalid selection");
                         continue;
                     }
                     MonsterCard monsterCard;
@@ -477,7 +478,7 @@ public class BattlePhaseController {
                         monsterCard = duelWithUser.getEnemyBoard().getMonsterTerritory().get(address);
                     }
                     if (monsterCard == null) {
-                        battlePhaseView.output("there is no monster on the address");
+                        effectView.output("there is no monster on the address");
                         continue;
                     }
                     if (isItUnderAttack) {
@@ -485,13 +486,13 @@ public class BattlePhaseController {
                     } else {
                         destroyEnemyMonster(address);
                     }
-                    battlePhaseView.output("Man-Eater Bug destroyed " + monsterCard.getName());
+                    effectView.output("Man-Eater Bug destroyed " + monsterCard.getName());
                     return;
                 } else if (result.equals("cancel")) {
-                    battlePhaseView.output("ok");
+                    effectView.output("ok");
                     return;
                 } else {
-                    battlePhaseView.output("invalid command");
+                    effectView.output("invalid command");
                     continue;
                 }
             }

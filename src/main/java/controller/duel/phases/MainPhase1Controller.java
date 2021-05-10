@@ -3,6 +3,8 @@ package controller.duel.phases;
 import controller.duel.DuelWithUser;
 import model.Card;
 import model.MonsterCard;
+import model.SpellCard;
+import view.duel.EffectView;
 import view.duel.phase.BattlePhaseView;
 import view.duel.phase.MainPhase1View;
 
@@ -395,36 +397,36 @@ public class MainPhase1Controller {
     }
 
     private void terraTigerTheEmpoweredWarrior() {
-        BattlePhaseView battlePhaseView = BattlePhaseView.getInstance();
+        EffectView effectView = EffectView.getInstance();
         if (!canTigerEffectBeActivated()) {
-            battlePhaseView.output("there is no way you could special summon a monster");
+            effectView.output("there is no way you could special summon a monster");
             return;
         }
         while (true) {
-            battlePhaseView.output("do you want to activate this card effect?");
-            String result = battlePhaseView.input();
+            effectView.output("do you want to activate this card effect?");
+            String result = effectView.input();
             if (result.equals("cancel")) {
-                battlePhaseView.output("ok");
+                effectView.output("ok");
                 return;
             } else if (result.equals("yes")) {
                 ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
                 int address = MainPhase1View.getInstance().getAddress();
                 if (address > playerHand.size() || address < 1) {
-                    battlePhaseView.output("invalid selection");
+                    effectView.output("invalid selection");
                 } else {
                     if (playerHand.get(address) instanceof MonsterCard) {
                         MonsterCard monsterCard = (MonsterCard) playerHand.get(address);
                         if (monsterCard.getLevel() <= 4) {
                             summon(monsterCard, true);
                             monsterCard.setInAttackPosition(false);
-                            battlePhaseView.output("special summon of" + monsterCard.getName() + "was successful");
+                            effectView.output("special summon of" + monsterCard.getName() + "was successful");
                             return;
                         }
                     }
-                    battlePhaseView.output("you can't special summon this card");
+                    effectView.output("you can't special summon this card");
                 }
             } else {
-                battlePhaseView.output("invalid command");
+                effectView.output("invalid command");
             }
         }
     }
@@ -441,4 +443,41 @@ public class MainPhase1Controller {
         }
         return false;
     }
+
+    public String activateSpell() {
+        Card card = duelWithUser.getMyBoard().getSelectedCard();
+        if (card == null) {
+            return "no card is selected yet";
+        }
+        if (!(card instanceof SpellCard)) {
+            return "activate effect is only for spell cards.";
+        }
+        SpellCard spellCard = (SpellCard) card;
+        if (!spellCard.getIsFacedUp()) {
+            return "you have already activated this card";
+        }
+        if (spellCard.getIcon().equals("Field")) {
+            SpellCard fieldSpell = duelWithUser.getMyBoard().getFieldSpell();
+            if (fieldSpell != null) {
+                duelWithUser.getMyBoard().getGraveyard().add(fieldSpell);
+            }
+            duelWithUser.getMyBoard().setFieldSpell(spellCard);
+            spellCard.setFacedUp(true);
+        } else {
+            if (isMySpellAndTrapTerritoryFull()) {
+                return "spell card zone is full";
+            }
+        }
+        return "";
+    }
+
+    private boolean isMySpellAndTrapTerritoryFull() {
+        for (int i = 1; i < 6; i++) {
+            if (duelWithUser.getMyBoard().getSpellAndTrapTerritory().get(i) == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

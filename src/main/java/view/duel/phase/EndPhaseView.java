@@ -30,41 +30,45 @@ public class EndPhaseView {
             if (command.equals("next phase")) {
                 break;
             }
-            if (command.equals("summon")){
+            if (command.equals("activate effect")) {
+                System.out.println("you can’t activate an effect on this turn");
+                continue;
+            }
+            if (command.equals("summon")) {
                 System.out.println("action not allowed in this phase");
                 continue;
             }
-            if (command.equals("set")){
+            if (command.equals("set")) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
             Matcher matcher = setPosition.matcher(command);
-            if (matcher.find()){
+            if (matcher.find()) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            if (command.equals("flip-summon")){
+            if (command.equals("flip-summon")) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
             matcher = attack.matcher(command);
-            if (matcher.find()){
+            if (matcher.find()) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            if (command.equals("attack direct")){
+            if (command.equals("attack direct")) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            if (command.startsWith("select")){
+            if (command.startsWith("select")) {
                 System.out.println(duelWithUser.selectCard(command));
                 continue;
             }
-            if (command.equals("card show --selected")){
+            if (command.equals("card show --selected")) {
                 System.out.println(duelWithUser.showSelectedCard());
                 continue;
             }
-            if (command.equals("show graveyard")){
+            if (command.equals("show graveyard")) {
                 System.out.print(duelWithUser.showGraveYard());
                 continue;
             }

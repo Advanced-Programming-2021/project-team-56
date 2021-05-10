@@ -43,6 +43,11 @@ public class MainPhase1View {
                 System.out.print(duelWithUser.showField());
                 continue;
             }
+            if (command.equals("activate effect")) {
+                System.out.println(mainPhase1Controller.activateSpell());
+                System.out.print(duelWithUser.showField());
+                continue;
+            }
             Matcher matcher = setPosition.matcher(command);
             if (matcher.find()) {
                 if (matcher.group(1).equals("attack")) {

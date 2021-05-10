@@ -55,6 +55,10 @@ public class DrawPhaseView {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
+            if (command.equals("activate effect")) {
+                System.out.println("you can’t activate an effect on this turn");
+                continue;
+            }
             matcher = attack.matcher(command);
             if (matcher.find()) {
                 System.out.println("you can’t do this action in this phase");
