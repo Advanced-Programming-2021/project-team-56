@@ -2,9 +2,7 @@ package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
 import model.Card;
-import model.EffectType;
 import model.MonsterCard;
-import model.Update;
 import view.duel.phase.MainPhase1View;
 
 import java.util.ArrayList;
