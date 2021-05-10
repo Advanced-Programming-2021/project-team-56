@@ -1,7 +1,6 @@
 package view.duel.phase;
 
 import controller.duel.DuelWithUser;
-import controller.duel.phases.DrawPhaseController;
 import view.LoginMenuView;
 
 import java.util.regex.Matcher;

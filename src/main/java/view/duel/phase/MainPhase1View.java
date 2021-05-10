@@ -90,20 +90,13 @@ public class MainPhase1View {
     }
 
     public int getAddress() {
-        System.out.println("Give an address for monster location");
-        return Integer.parseInt(LoginMenuView.scan.nextLine().trim());
-    }
-
-    public int teressaTigerInputOutput() {
         while (true) {
-            System.out.println("would you like to activate the effect of this card?");
+            System.out.println("Give an address for monster location");
             String result = LoginMenuView.scan.nextLine().trim();
-            if (result.equals("yes")) {
-                return getAddress();
-            } else if (result.equals("no")) {
-                return -100;
-            } else {
-                System.out.println("invalid command");
+            Pattern number = Pattern.compile("[\\d]+");
+            Matcher matcher = number.matcher(result);
+            if (matcher.find()) {
+                return Integer.parseInt(result);
             }
         }
     }

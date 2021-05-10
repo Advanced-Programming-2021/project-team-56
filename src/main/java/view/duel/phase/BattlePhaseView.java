@@ -98,4 +98,12 @@ public class BattlePhaseView {
         }
         return false;
     }
+
+    public void output(String string){
+        System.out.println(string);
+    }
+
+    public String input(){
+        return LoginMenuView.scan.nextLine().trim();
+    }
 }
