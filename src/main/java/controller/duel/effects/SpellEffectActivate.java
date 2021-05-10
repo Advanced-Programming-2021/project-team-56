@@ -8,6 +8,7 @@ import model.MonsterCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SpellEffectActivate {
 
@@ -24,6 +25,18 @@ public class SpellEffectActivate {
         if (spellEffectActivate == null)
             spellEffectActivate = new SpellEffectActivate();
         return spellEffectActivate;
+    }
+
+    public String spellCaller(String spellName){
+        switch (spellName){
+            case "Advanced Ritual Art":
+                if (advancedRitualArt()){
+                    return "spell activated";
+                }else {
+                    return "preparations of this spell are not done yet";
+                }
+        }
+        return "";
     }
 
     public void yamiActivate() {
@@ -54,17 +67,25 @@ public class SpellEffectActivate {
         }
     }
 
-    public void advancedRitualArt() {
+    public boolean advancedRitualArt() {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (monsterTerritory.get(i) == null) {
+                break;
+            }
+            if (i == 5) {
+                return false;
+            }
+        }
         int output = spellEffectCanActivate.canAdvancedRitualArtActivate();
         if (output == 0) {
             effectView.output("there is no way you could ritual summon a monster");
-            return;
+            return false;
         }
         effectView.output("you should ritual summon right now");
         if (output == 1) {
             payingTributeForRitualSummon(8);
-        }
-        if (output == 2) {
+        } else {
             payingTributeForRitualSummon(7);
         }
         effectView.output("summoned successfully");
@@ -81,6 +102,7 @@ public class SpellEffectActivate {
                 input.equals("invalid command");
             }
         }
+        return true;
     }
 
     private void ritualSummon(boolean attackPosition, int addrese) {
@@ -99,6 +121,12 @@ public class SpellEffectActivate {
                     monsterCard = (MonsterCard) playerHand.get(i);
                     playerHand.remove(i);
                 }
+            }
+        }
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (monsterTerritory.get(i) == null) {
+                monsterTerritory.put(i, monsterCard);
             }
         }
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());

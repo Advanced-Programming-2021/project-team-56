@@ -1,6 +1,7 @@
 package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
+import controller.duel.effects.SpellEffectActivate;
 import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
@@ -233,10 +234,6 @@ public class MainPhase1Controller {
         return true;
     }
 
-    public String ritualSummon() {
-        return "";
-    }
-
     public String specialSummon() {
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card == null) {
@@ -459,12 +456,14 @@ public class MainPhase1Controller {
             }
             duelWithUser.getMyBoard().setFieldSpell(spellCard);
             spellCard.setFacedUp(true);
+            return "spell activated";
         } else {
             if (isMySpellAndTrapTerritoryFull()) {
                 return "spell card zone is full";
+            } else {
+                return SpellEffectActivate.getInstance().spellCaller(spellCard.getName());
             }
         }
-        return "";
     }
 
     private boolean isMySpellAndTrapTerritoryFull() {
