@@ -15,7 +15,6 @@ public class Card {
     private Board currentBoard;
     private Board opponentBoard;
     private int IEffectID;
-    private IEffect cardEffect;
     private ArrayList<Card> effectedCards = new ArrayList<>();
 
     public Card() {
@@ -33,10 +32,6 @@ public class Card {
 
     public ArrayList<Card> getEffectedCards() {
         return effectedCards;
-    }
-
-    public IEffect getCardEffect() {
-        return cardEffect;
     }
 
     public boolean getIsFacedUp() {
@@ -87,11 +82,6 @@ public class Card {
         this.opponentBoard = opponentBoard;
     }
 
-    public void setCardEffect() {
-        //TODO Amirali begir bzar to excel
-        cardEffect = Effect.getInstance().getAllEffects().get(IEffectID);
-    }
-
     public int getPrice() {
         return price;
     }
@@ -103,19 +93,6 @@ public class Card {
             }
         }
         return null;
-    }
-
-    public void activateEffectOfCard(Update update) {
-        if (this.cardEffect.canEffectActivate(this, update)) {
-            this.cardEffect.activateEffect(this, update);
-        }
-        if (this.cardEffect.canDeActive(this, update)) {
-            this.cardEffect.deActive(this, update);
-        }
-    }
-
-    public boolean canEffectOfCardActivate(Update update) {
-        return this.cardEffect.canEffectActivate(this, update);
     }
 
     public void setFacedUp(boolean isFacedUp) {

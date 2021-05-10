@@ -1,6 +1,5 @@
 package controller.duel;
 
-import controller.duel.phases.BattlePhaseController;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
@@ -11,7 +10,6 @@ import view.duel.FirstToGoDeterminerView;
 import view.duel.phase.*;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -413,44 +411,4 @@ public class DuelWithUser {
         return winnerSideUsername + " won the whole match with score: ";
     }
 
-    public int manEaterBugEffect(boolean isItUnderAttack) {
-        if (!canManEaterBugEffectsBeActivated()) {
-            System.out.println("this card effect can't be activated");
-            return -100;
-        } else {
-            while (true) {
-                System.out.println("do you want to activate this card effect?");
-                String result = LoginMenuView.scan.nextLine().trim();
-                if (result.equals("yes")) {
-                    int address = MainPhase1View.getInstance().getAddress();
-                    if (address > 5 || address < 1) {
-                        System.out.println("invalid selection");
-                        continue;
-                    }
-                    MonsterCard monsterCard = getEnemyBoard().getMonsterTerritory().get(address);
-                    if (monsterCard == null) {
-                        System.out.println("there is no monster on the address");
-                        continue;
-                    }
-                    return address;
-                } else if (result.equals("no")) {
-                    System.out.println("ok");
-                    return -100;
-                } else {
-                    System.out.println("invalid command");
-                }
-            }
-        }
-    }
-
-    private boolean canManEaterBugEffectsBeActivated() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
-        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
-        for (int i = 1; i < 6; i++) {
-            if (monsterTerritory.get(i) != null) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -3,6 +3,7 @@ package controller.duel.phases;
 import controller.duel.DuelWithUser;
 import model.Card;
 import model.MonsterCard;
+import view.duel.phase.BattlePhaseView;
 import view.duel.phase.MainPhase1View;
 
 import java.util.ArrayList;
@@ -42,13 +43,14 @@ public class MainPhase1Controller {
         if (!canThisCardBeNormalSummoned(monsterCard.getName())) {
             return "this card can't be normal summoned";
         }
-        if (monsterCard.getName().equals("Beast King Barbaros")){
+        if (monsterCard.getName().equals("Beast King Barbaros")) {
             monsterCard.setAttack(1900);
             summon(monsterCard, false);
             return "summoned successfully";
         }
         if (monsterCard.getName().equals("Terratiger, the Empowered Warrior")) {
-            return terraTigerTheEmpoweredWarrior();
+            terraTigerTheEmpoweredWarrior();
+            return "summoned successfully";
         }
         if (monsterCard.getLevel() < 5) {
             summon(monsterCard, false);
@@ -180,6 +182,9 @@ public class MainPhase1Controller {
         }
         if (monsterCard.getIsFacedUp()) {
             return "you can’t flip summon this card";
+        }
+        if (monsterCard.getName().equals("Man-Eater Bug")) {
+            BattlePhaseController.getInstance().manEaterBugEffect(false);
         }
         monsterCard.setFacedUp(true);
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
@@ -407,28 +412,38 @@ public class MainPhase1Controller {
         return false;
     }
 
-    private String terraTigerTheEmpoweredWarrior() {
+    private void terraTigerTheEmpoweredWarrior() {
+        BattlePhaseView battlePhaseView = BattlePhaseView.getInstance();
         if (!canTigerEffectBeActivated()) {
-            return "there is no way you could special summon a monster";
+            battlePhaseView.output("there is no way you could special summon a monster");
+            return;
         }
         while (true) {
-            int address = MainPhase1View.getInstance().teressaTigerInputOutput();
-            if (address == -100) {
-                return "ok";
-            } else {
+            battlePhaseView.output("do you want to activate this card effect?");
+            String result = battlePhaseView.input();
+            if (result.equals("cancel")) {
+                battlePhaseView.output("ok");
+                return;
+            } else if (result.equals("yes")) {
                 DuelWithUser duelWithUser = DuelWithUser.getInstance();
                 ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+                int address = MainPhase1View.getInstance().getAddress();
                 if (address > playerHand.size() || address < 1) {
-                    return "invalid selection";
+                    battlePhaseView.output("invalid selection");
                 } else {
-                    if ((playerHand.get(address) instanceof MonsterCard)) {
+                    if (playerHand.get(address) instanceof MonsterCard) {
                         MonsterCard monsterCard = (MonsterCard) playerHand.get(address);
                         if (monsterCard.getLevel() <= 4) {
                             summon(monsterCard, true);
-                            return "special summon of" + monsterCard.getName() + "was successful";
+                            monsterCard.setInAttackPosition(false);
+                            battlePhaseView.output("special summon of" + monsterCard.getName() + "was successful");
+                            return;
                         }
                     }
+                    battlePhaseView.output("you can't special summon this card");
                 }
+            } else {
+                battlePhaseView.output("invalid command");
             }
         }
     }
