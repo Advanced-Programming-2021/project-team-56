@@ -7,6 +7,8 @@ import model.MonsterCard;
 
 import view.duel.EffectView;
 
+import java.util.ArrayList;
+
 public class SpellEffectActivate {
 
     private static SpellEffectActivate spellEffectActivate;
@@ -55,15 +57,79 @@ public class SpellEffectActivate {
     public void advancedRitualArt() {
         int output = spellEffectCanActivate.canAdvancedRitualArtActivate();
         if (output == 0) {
-            effectView.output("preparations of this spell are not done yet");
+            effectView.output("there is no way you could ritual summon a monster");
+            return;
         }
-        effectView.showDeck();
+        effectView.output("you should ritual summon right now");
         if (output == 1) {
-
+            payingTributeForRitualSummon(8);
         }
         if (output == 2) {
-
+            payingTributeForRitualSummon(7);
         }
+        effectView.output("summoned successfully");
+        effectView.output("do you want to put it in attack position or defence position");
+        while (true) {
+            String input = effectView.input();
+            if (input.equals("attack position")) {
+                ritualSummon(true, output);
+                break;
+            } else if (input.equals("defence position")) {
+                ritualSummon(true, output);
+                break;
+            } else {
+                input.equals("invalid command");
+            }
+        }
+    }
+
+    private void ritualSummon(boolean attackPosition, int addrese) {
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        MonsterCard monsterCard = null;
+        if (addrese == 1) {
+            for (int i = 0; i < playerHand.size(); i++) {
+                if (playerHand.get(i).getName().equals("Crab Turtle")) {
+                    monsterCard = (MonsterCard) playerHand.get(i);
+                    playerHand.remove(i);
+                }
+            }
+        } else {
+            for (int i = 0; i < playerHand.size(); i++) {
+                if (playerHand.get(i).getName().equals("Skull Guardian")) {
+                    monsterCard = (MonsterCard) playerHand.get(i);
+                    playerHand.remove(i);
+                }
+            }
+        }
+        monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
+        monsterCard.setInAttackPosition(attackPosition);
+        monsterCard.setFacedUp(true);
+    }
+
+    private void payingTributeForRitualSummon(int totalLevel) {
+        ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
+        while (totalLevel < 8) {
+            effectView.showDeck();
+            int address = effectView.getAddress() - 1;
+            if (address < 0 || address >= mainDeck.size()) {
+                effectView.output("invalid selection");
+            } else if (!isItValidTribute(address)) {
+                effectView.output("selected card can't be tributed");
+            } else {
+                totalLevel += ((MonsterCard) mainDeck.get(address)).getLevel();
+                effectView.output(mainDeck.get(address).getName() + "was removed from deck");
+                duelWithUser.getMyBoard().getGraveyard().add(mainDeck.get(address));
+                mainDeck.remove(address);
+            }
+        }
+    }
+
+    private boolean isItValidTribute(int address) {
+        ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
+        if (mainDeck.get(address) instanceof MonsterCard) {
+            return true;
+        }
+        return false;
     }
 
     public void forestActivate() {

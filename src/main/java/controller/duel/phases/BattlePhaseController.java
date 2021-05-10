@@ -470,7 +470,7 @@ public class BattlePhaseController {
                 effectView.output("do you want to activate this card effect?");
                 String result = effectView.input();
                 if (result.equals("yes")) {
-                    int address = MainPhase1View.getInstance().getAddress();
+                    int address = effectView.getAddress();
                     if (address > 5 || address < 1) {
                         effectView.output("invalid selection");
                         continue;

@@ -93,16 +93,4 @@ public class MainPhase1View {
             System.out.println("invalid command");
         }
     }
-
-    public int getAddress() {
-        while (true) {
-            System.out.println("Give an address for monster location");
-            String result = LoginMenuView.scan.nextLine().trim();
-            Pattern number = Pattern.compile("[\\d]+");
-            Matcher matcher = number.matcher(result);
-            if (matcher.find()) {
-                return Integer.parseInt(result);
-            }
-        }
-    }
 }

@@ -5,7 +5,6 @@ import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
 import view.duel.EffectView;
-import view.duel.phase.BattlePhaseView;
 import view.duel.phase.MainPhase1View;
 
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import java.util.HashMap;
 public class MainPhase1Controller {
     private static MainPhase1Controller mainPhase1;
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private EffectView effectView = EffectView.getInstance();
 
 
     private MainPhase1Controller() {
@@ -28,7 +28,6 @@ public class MainPhase1Controller {
     }
 
     public String summon() {
-        MainPhase1View mainPhase1View = MainPhase1View.getInstance();
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return "no card is selected yet";
         }
@@ -62,7 +61,7 @@ public class MainPhase1Controller {
             if (!areThereEnoughCardsToTribute(1)) {
                 return "there are not enough cards for tribute";
             }
-            int firstAddress = mainPhase1View.getAddress();
+            int firstAddress = effectView.getAddress();
             if (firstAddress < 1 || firstAddress > 5) {
                 return "invalid selection";
             }
@@ -77,11 +76,11 @@ public class MainPhase1Controller {
             if (!areThereEnoughCardsToTribute(2)) {
                 return "there are not enough cards for tribute";
             }
-            int firstAddress = mainPhase1View.getAddress();
+            int firstAddress = effectView.getAddress();
             if (firstAddress < 1 || firstAddress > 5) {
                 return "invalid selection";
             }
-            int secondAddress = mainPhase1View.getAddress();
+            int secondAddress = effectView.getAddress();
             if (secondAddress < 1 || secondAddress > 5) {
                 return "invalid selection";
             }
@@ -257,19 +256,18 @@ public class MainPhase1Controller {
     }
 
     private String specialSummonGateGuardian() {
-        MainPhase1View mainPhase1View = MainPhase1View.getInstance();
         if (!areThereEnoughCardsToTribute(3)) {
             return "there is no way you could special summon a monster";
         }
-        int firstAddress = mainPhase1View.getAddress();
+        int firstAddress = effectView.getAddress();
         if (firstAddress < 1 || firstAddress > 5) {
             return "invalid selection";
         }
-        int secondAddress = mainPhase1View.getAddress();
+        int secondAddress = effectView.getAddress();
         if (secondAddress < 1 || secondAddress > 5) {
             return "invalid selection";
         }
-        int thirdAddress = mainPhase1View.getAddress();
+        int thirdAddress = effectView.getAddress();
         if (thirdAddress < 1 || thirdAddress > 5) {
             return "invalid selection";
         }
@@ -284,11 +282,10 @@ public class MainPhase1Controller {
     }
 
     private String specialSummonTheTricky() {
-        MainPhase1View mainPhase1View = MainPhase1View.getInstance();
         if (!isThereAnyOtherCardOnHand()) {
             return "there is no way you could special summon a monster";
         }
-        int address = mainPhase1View.getAddress();
+        int address = effectView.getAddress();
         if (address > duelWithUser.getMyBoard().getPlayerHand().size() || address < 1) {
             return "invalid selection";
         }
@@ -397,7 +394,6 @@ public class MainPhase1Controller {
     }
 
     private void terraTigerTheEmpoweredWarrior() {
-        EffectView effectView = EffectView.getInstance();
         if (!canTigerEffectBeActivated()) {
             effectView.output("there is no way you could special summon a monster");
             return;
@@ -410,7 +406,7 @@ public class MainPhase1Controller {
                 return;
             } else if (result.equals("yes")) {
                 ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-                int address = MainPhase1View.getInstance().getAddress();
+                int address = effectView.getAddress();
                 if (address > playerHand.size() || address < 1) {
                     effectView.output("invalid selection");
                 } else {
