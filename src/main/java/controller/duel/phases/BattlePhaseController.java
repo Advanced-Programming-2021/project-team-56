@@ -1,6 +1,7 @@
 package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
+import controller.duel.effects.SpellEffectActivate;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
@@ -227,6 +228,9 @@ public class BattlePhaseController {
 
     public void beforeBattleEffects() {
         commandKnightEffect();
+        SpellEffectActivate.getInstance().yamiActivate();
+        SpellEffectActivate.getInstance().forestActivate();
+        SpellEffectActivate.getInstance().closedForestActivate();
     }
 
     private void commandKnightEffect() {
