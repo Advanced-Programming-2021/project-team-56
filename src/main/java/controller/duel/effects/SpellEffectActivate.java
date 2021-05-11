@@ -8,6 +8,8 @@ import model.MonsterCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class SpellEffectActivate {
@@ -27,16 +29,25 @@ public class SpellEffectActivate {
         return spellEffectActivate;
     }
 
-    public String spellCaller(String spellName){
-        switch (spellName){
+    public String spellCaller(String spellName) {
+        switch (spellName) {
             case "Advanced Ritual Art":
-                if (advancedRitualArt()){
+                if (advancedRitualArt()) {
                     return "spell activated";
-                }else {
+                } else {
                     return "preparations of this spell are not done yet";
                 }
+            case "Terraforming":
+                if (terraformingActivate())
         }
         return "";
+    }
+
+    public boolean terraformingActivate(){
+        if (!spellEffectCanActivate.canTeraformingActivate()){
+
+        }
+        return true;
     }
 
     public void yamiActivate() {
@@ -88,7 +99,6 @@ public class SpellEffectActivate {
         } else {
             payingTributeForRitualSummon(7);
         }
-        effectView.output("summoned successfully");
         effectView.output("do you want to put it in attack position or defence position");
         while (true) {
             String input = effectView.input();
@@ -102,6 +112,8 @@ public class SpellEffectActivate {
                 input.equals("invalid command");
             }
         }
+        Collections.shuffle(duelWithUser.getMyBoard().getMainDeck());
+        effectView.output("summoned successfully");
         return true;
     }
 

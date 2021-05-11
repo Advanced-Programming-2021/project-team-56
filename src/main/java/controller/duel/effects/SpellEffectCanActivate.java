@@ -5,6 +5,7 @@ import model.Board;
 import controller.duel.DuelWithUser;
 import model.Card;
 import model.MonsterCard;
+import model.SpellCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -98,6 +99,18 @@ public class SpellEffectCanActivate {
         for (int i = 0; i < playerHand.size(); i++) {
             if (playerHand.get(i).getName().equals("Skull Guardian")) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean canTeraformingActivate() {
+        ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
+        for (int i = 0; i < mainDeck.size(); i++) {
+            if (mainDeck.get(i) instanceof SpellCard) {
+                if (((SpellCard) mainDeck.get(i)).getIcon().equals("Field")) {
+                    return true;
+                }
             }
         }
         return false;

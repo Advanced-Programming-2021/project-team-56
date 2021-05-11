@@ -6,8 +6,6 @@ import model.Board;
 import model.Card;
 import model.MonsterCard;
 import view.duel.EffectView;
-import view.duel.phase.BattlePhaseView;
-import view.duel.phase.MainPhase1View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +16,8 @@ public class BattlePhaseController {
     public MonsterCard myMonster;
     public MonsterCard enemyMonster;
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
+    private EffectView effectView = EffectView.getInstance();
 
     private BattlePhaseController() {
     }
@@ -228,9 +228,9 @@ public class BattlePhaseController {
 
     public void beforeBattleEffects() {
         commandKnightEffect();
-        SpellEffectActivate.getInstance().yamiActivate();
-        SpellEffectActivate.getInstance().forestActivate();
-        SpellEffectActivate.getInstance().closedForestActivate();
+        spellEffectActivate.yamiActivate();
+        spellEffectActivate.forestActivate();
+        spellEffectActivate.closedForestActivate();
     }
 
     private void commandKnightEffect() {
@@ -462,7 +462,6 @@ public class BattlePhaseController {
     }
 
     public void manEaterBugEffect(boolean isItUnderAttack) {
-        EffectView effectView = EffectView.getInstance();
         if (!canManEaterBugEffectsBeActivated()) {
             effectView.output("this card effect can't be activated");
         } else {

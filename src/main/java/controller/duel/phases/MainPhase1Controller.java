@@ -6,7 +6,6 @@ import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
 import view.duel.EffectView;
-import view.duel.phase.MainPhase1View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +14,8 @@ public class MainPhase1Controller {
     private static MainPhase1Controller mainPhase1;
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
     private EffectView effectView = EffectView.getInstance();
+    private BattlePhaseController battlePhaseController = BattlePhaseController.getInstance();
+    private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
 
 
     private MainPhase1Controller() {
@@ -181,9 +182,10 @@ public class MainPhase1Controller {
             return "you can’t flip summon this card";
         }
         if (monsterCard.getName().equals("Man-Eater Bug")) {
-            BattlePhaseController.getInstance().manEaterBugEffect(false);
+            battlePhaseController.manEaterBugEffect(false);
         }
         monsterCard.setFacedUp(true);
+        monsterCard.setInAttackPosition(true);
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
         duelWithUser.getMyBoard().setSelectedCard(null);
         return "flip summoned successfully";
@@ -461,7 +463,7 @@ public class MainPhase1Controller {
             if (isMySpellAndTrapTerritoryFull()) {
                 return "spell card zone is full";
             } else {
-                return SpellEffectActivate.getInstance().spellCaller(spellCard.getName());
+                return spellEffectActivate.spellCaller(spellCard.getName());
             }
         }
     }
