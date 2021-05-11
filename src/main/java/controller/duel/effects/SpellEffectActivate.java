@@ -90,6 +90,7 @@ public class SpellEffectActivate {
         }
         duelWithUser.getMyBoard().getGraveyard().add(duelWithUser.getEnemyBoard().getSelectedCard());
         duelWithUser.getMyBoard().setSelectedCard(null);
+        spellAbsorption();
         return "spell activated";
     }
 
@@ -438,19 +439,19 @@ public class SpellEffectActivate {
     }
 
     public void spellAbsorption() {
-        HashMap<Integer, Card> mySpellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritory();
-        HashMap<Integer, Card> enemySpellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritory();
-        int myLp = DuelWithUser.getInstance().getMyBoard().getLP();
-        int enemyLp = DuelWithUser.getInstance().getEnemyBoard().getLP();
+        HashMap<Integer, Card> mySpellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        HashMap<Integer, Card> enemySpellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        int myLp = duelWithUser.getMyBoard().getLP();
+        int enemyLp = duelWithUser.getEnemyBoard().getLP();
         for (int i = 1; i <= 5; i++) {
             if (mySpellAndTrapTerritory.get(i) != null) {
                 if (mySpellAndTrapTerritory.get(i).equals("Spell Absorption") && mySpellAndTrapTerritory.get(i).getIsFacedUp()) {
-                    DuelWithUser.getInstance().getMyBoard().setLP(myLp + 500);
+                    duelWithUser.getMyBoard().setLP(myLp + 500);
                 }
             }
             if (enemySpellAndTrapTerritory.get(i) != null) {
                 if (enemySpellAndTrapTerritory.get(i).equals("Spell Absorption") && enemySpellAndTrapTerritory.get(i).getIsFacedUp()) {
-                    DuelWithUser.getInstance().getEnemyBoard().setLP(enemyLp + 500);
+                    duelWithUser.getEnemyBoard().setLP(enemyLp + 500);
                 }
             }
         }

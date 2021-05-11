@@ -461,6 +461,7 @@ public class MainPhase1Controller {
             duelWithUser.getMyBoard().setFieldSpell(spellCard);
             spellCard.setFacedUp(true);
             duelWithUser.getMyBoard().setSelectedCard(null);
+            spellEffectActivate.spellAbsorption();
             return "spell activated";
         } else {
             if (isMySpellAndTrapTerritoryFull()) {
