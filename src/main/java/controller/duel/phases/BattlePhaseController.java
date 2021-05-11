@@ -35,7 +35,7 @@ public class BattlePhaseController {
             return result;
         }
         effectFinalDamage();
-        if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500){
+        if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
             return "you can't attack with this card due to the effect of messenger of peace";
         }
         myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
@@ -79,6 +79,9 @@ public class BattlePhaseController {
         if (!myMonster.getIsInAttackPosition()) {
             return "this card is not in attack position";
         }
+        if (isThereSwordOfRevealingLight()) {
+            return "you can't attack because of effect of swords of revealing light";
+        }
         if (myMonster.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
             return "this card already attacked";
         }
@@ -97,8 +100,20 @@ public class BattlePhaseController {
     private boolean doesEnemyTerritoryIncludeMessengerOfPeace() {
         HashMap<Integer, Card> spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
-            if (spellTerritory.get(i).getName().equals("Messenger of peace")){
-                if (spellTerritory.get(i).getIsFacedUp()){
+            if (spellTerritory.get(i).getName().equals("Messenger of peace")) {
+                if (spellTerritory.get(i).getIsFacedUp()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isThereSwordOfRevealingLight() {
+        HashMap<Integer, Card> spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (spellTerritory.get(i).getName().equals("Swords of Revealing Light")) {
+                if (spellTerritory.get(i).getIsFacedUp()) {
                     return true;
                 }
             }
@@ -199,6 +214,13 @@ public class BattlePhaseController {
         }
         if (!isEnemyMonsterTerritoryEmpty()) {
             return "you can’t attack the opponent directly";
+        }
+        if (isThereSwordOfRevealingLight()) {
+            return "you can't attack because of effect of swords of revealing light";
+        }
+        effectFinalDamage();
+        if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
+            return "you can't attack with this card due to the effect of messenger of peace";
         }
         int myMonsterAttack = monsterCard.getFinalAttack();
         int myEnemyLife = duelWithUser.getEnemyBoard().getLP();
