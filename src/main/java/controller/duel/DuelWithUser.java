@@ -119,7 +119,6 @@ public class DuelWithUser {
     }
 
     public void setUpGame(String firstPlayerUsername, String secondPlayerUsername) {
-        //TODO First the deck game cards are shuffled then we will decide the first player to go page 33 game doc
         boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
         boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
         boards[0].setCardsOpponentBoard(boards[1]);
@@ -256,19 +255,17 @@ public class DuelWithUser {
         for (int i = 0; i < getEnemyBoard().getPlayerHand().size(); i++) {
             field.append("\tc");
         }
-        field.append("\n");
-        ///////////////////number of main deck
+        field.append("\n").append(getEnemyBoard().getMainDeck().size()).append("\n");
         field = new StringBuilder(showCards(field.toString(), "enemy's spell and trap"));
         field.append("\n");
         field = new StringBuilder(showCards(field.toString(), "enemy's monster"));
-        field.append("\n");
-        field.append(getEnemyBoard().getGraveyard().size()).append("\t\t\t\t\t\t");
+        field.append("\n").append(getEnemyBoard().getGraveyard().size()).append("\t\t\t\t\t\t");
         if (getEnemyBoard().getFieldSpell() == null) {
-            field.append("E\n\n\n");
+            field.append("E\n\n");
         } else {
-            field.append("O\n\n\n");
+            field.append("O\n\n");
         }
-        field.append("--------------------------\n\n\n");
+        field.append("--------------------------\n\n");
         if (getMyBoard().getFieldSpell() == null) {
             field.append("E\t\t\t\t\t\t").append(getMyBoard().getGraveyard().size()).append("\n");
         } else {
@@ -277,8 +274,7 @@ public class DuelWithUser {
         field = new StringBuilder(showCards(field.toString(), "my monster"));
         field.append("\n");
         field = new StringBuilder(showCards(field.toString(), "my spell and trap"));
-        field.append("\n");
-        ///////////////////number of main deck
+        field.append("\n").append("\t\t\t\t\t\t").append(getMyBoard().getMainDeck().size());
         for (int i = 0; i < getMyBoard().getPlayerHand().size(); i++) {
             field.append("\tc");
         }
@@ -350,15 +346,15 @@ public class DuelWithUser {
     }
 
     public String showGraveYard() {
-        String graveYard = "";
+        StringBuilder graveYard = new StringBuilder();
         if (getMyBoard().getGraveyard().size() == 0) {
-            graveYard = "graveyard empty\n";
+            graveYard = new StringBuilder("graveyard empty\n");
         } else {
             for (Card card : getMyBoard().getGraveyard()) {
-                graveYard += card.getName() + ":" + card.getDescription() + "\n";
+                graveYard.append(card.getName()).append(":").append(card.getDescription()).append("\n");
             }
         }
-        return graveYard;
+        return graveYard.toString();
     }
 
     public String showSelectedCard() {
@@ -393,7 +389,6 @@ public class DuelWithUser {
         return winnerUsername + " won the game and the score is: " + winnerScore + "-" + looserScore;
     }
 
-    //TODO Explaining -> changed the endGameStuff
     private String oneRoundWin(String winnerSideUsername, String loserSideUsername) {
         User winner = User.getUserByUsername(winnerSideUsername);
         winner.increaseScore(1000);

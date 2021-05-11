@@ -32,7 +32,11 @@ public class BattlePhaseView {
             if (command.equals("next phase")) {
                 break;
             }
-            if (command.startsWith("select")){
+            if (command.equals("select -d")) {
+                System.out.println(duelWithUser.deselectCard());
+                continue;
+            }
+            if (command.startsWith("select")) {
                 System.out.println(duelWithUser.selectCard(command));
                 continue;
             }
@@ -53,7 +57,7 @@ public class BattlePhaseView {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            if (command.equals("activate effect")){
+            if (command.equals("activate effect")) {
                 System.out.println("you can’t activate an effect on this turn");
                 continue;
             }
@@ -63,6 +67,7 @@ public class BattlePhaseView {
                 System.out.println(battlePhase.attackCard(Integer.parseInt(matcher.group(1))));
                 System.out.print(duelWithUser.showField());
                 if (isGameOver()) {
+                    //TODO Ask amirali why didn't end the game here?
                     break;
                 }
                 continue;
@@ -79,11 +84,14 @@ public class BattlePhaseView {
                 }
                 continue;
             }
-            if (command.equals("card show --selected")){
+            if (command.equals("surrender")) {
+                return "I lost";
+            }
+            if (command.equals("card show --selected")) {
                 System.out.println(duelWithUser.showSelectedCard());
                 continue;
             }
-            if (command.equals("show graveyard")){
+            if (command.equals("show graveyard")) {
                 System.out.print(duelWithUser.showGraveYard());
                 continue;
             }
@@ -95,9 +103,7 @@ public class BattlePhaseView {
 
     private boolean isGameOver() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
-        if (duelWithUser.getEnemyBoard().getLP() <= 0) {
-            return true;
-        } else if (duelWithUser.getMyBoard().getLP() <= 0) {
+        if (duelWithUser.getEnemyBoard().getLP() <= 0 || duelWithUser.getMyBoard().getLP() <= 0) {
             return true;
         }
         return false;
