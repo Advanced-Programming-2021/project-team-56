@@ -4,12 +4,10 @@ import model.Board;
 import model.Card;
 import model.MonsterCard;
 import model.User;
-import view.LoginMenuView;
 import view.duel.DuelWithUserView;
 import view.duel.FirstToGoDeterminerView;
 import view.duel.phase.*;
 
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +26,6 @@ public class DuelWithUser {
     private int turnCounter;
     private static DuelWithUser duelWithUserController;
     private Board[] boards = new Board[2];
-    private String numberOfRounds;
 
     private DuelWithUser() {
     }
@@ -40,44 +37,48 @@ public class DuelWithUser {
     }
 
     public void run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
-        //TODO Explaining -> added the drawPhase No cards game ending
         DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
-        this.numberOfRounds = rounds;
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
             int numberOfWinsPlayer2 = 0;
             while (numberOfWinsPlayer1 != 2 && numberOfWinsPlayer2 != 2) {
                 setUpGame(firstPlayerUsername, secondPlayerUsername);
-                if (phaseCaller() == 1) {
+                if (phaseCaller(firstPlayerUsername) == 1) {
                     numberOfWinsPlayer1++;
-                    duelWithUserView.print(singleRoundWin(firstPlayerUsername));
+                    duelWithUserView.printEndMessage(singleRoundWin(firstPlayerUsername,
+                            numberOfWinsPlayer1, numberOfWinsPlayer2));
                 } else {
                     numberOfWinsPlayer2++;
-                    duelWithUserView.print(singleRoundWin(secondPlayerUsername));
+                    duelWithUserView.printEndMessage(singleRoundWin(secondPlayerUsername,
+                            numberOfWinsPlayer2, numberOfWinsPlayer1));
                 }
             }
             if (numberOfWinsPlayer1 == 2) {
-                duelWithUserView.print(threeRoundWinner(firstPlayerUsername, secondPlayerUsername));
+                duelWithUserView.printEndMessage(threeRoundWinner(firstPlayerUsername,
+                        secondPlayerUsername, numberOfWinsPlayer1, numberOfWinsPlayer2));
             } else {
-                duelWithUserView.print(threeRoundWinner(secondPlayerUsername, firstPlayerUsername));
+                duelWithUserView.printEndMessage(threeRoundWinner(secondPlayerUsername,
+                        firstPlayerUsername, numberOfWinsPlayer2, numberOfWinsPlayer1));
             }
         } else {
             setUpGame(firstPlayerUsername, secondPlayerUsername);
-            if (phaseCaller() == 1) {
-                duelWithUserView.print(oneRoundWin(firstPlayerUsername, secondPlayerUsername));
+            if (phaseCaller(firstPlayerUsername) == 1) {
+                duelWithUserView.printEndMessage(oneRoundWin(firstPlayerUsername, secondPlayerUsername));
             } else {
-                duelWithUserView.print(oneRoundWin(secondPlayerUsername, firstPlayerUsername));
+                duelWithUserView.printEndMessage(oneRoundWin(secondPlayerUsername, firstPlayerUsername));
             }
         }
     }
 
-    public int phaseCaller() {
-        //TODO What should this method return ? 42, 55: phaseCaller() == 1
+    public int phaseCaller(String firstPlayerUsername) {
         while (true) {
             switch (phaseCounter) {
                 case 1:
-                    ////////TOdo
                     if (!DrawPhaseView.getInstance().run()) {
+                        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
+                            return 2;
+                        }
+                        return 1;
                     }
                     break;
                 case 2:
@@ -90,10 +91,16 @@ public class DuelWithUser {
                     String result = BattlePhaseView.getInstance().run();
                     if (result.equals("I won")) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
+                        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
+                            return 1;
+                        }
+                        return 2;
                     } else if (result.equals("I lost")) {
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
-                    } else {
-
+                        if (getEnemyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
+                            return 1;
+                        }
+                        return 2;
                     }
                     break;
                 case 5:
@@ -382,8 +389,8 @@ public class DuelWithUser {
         return turnCounter;
     }
 
-    private String singleRoundWin(String winnerUsername) {
-        return winnerUsername + " won the game and the score is: ";
+    private String singleRoundWin(String winnerUsername, int winnerScore, int looserScore) {
+        return winnerUsername + " won the game and the score is: " + winnerScore + "-" + looserScore;
     }
 
     //TODO Explaining -> changed the endGameStuff
@@ -395,20 +402,18 @@ public class DuelWithUser {
         User loser = User.getUserByUsername(loserSideUsername);
         loser.increaseMoney(100);
         loser.clearLP();
-        //TODO What is Score-1 o Score-2 page 42 phase1
-        return winnerSideUsername + " won the whole match with score: ";
+        return winnerSideUsername + " won the whole match";
     }
 
-    private String threeRoundWinner(String winnerSideUsername, String loserSideUsername) {
-        User winner = User.getUserByUsername(winnerSideUsername);
+    private String threeRoundWinner(String winnerUsername, String looserUsername, int winnerScore, int looserScore) {
+        User winner = User.getUserByUsername(winnerUsername);
         winner.increaseScore(3000);
         winner.increaseMoney(3000 + 3 * winner.getMaxLP());
         winner.clearLP();
-        User loser = User.getUserByUsername(loserSideUsername);
+        User loser = User.getUserByUsername(looserUsername);
         loser.clearLP();
         loser.increaseMoney(300);
-        //TODO What is Score-1 o Score-2 page 42 phase1
-        return winnerSideUsername + " won the whole match with score: ";
+        return winnerUsername + " won the whole match with score: " + winnerScore + "-" + looserScore;
     }
 
 }

@@ -14,7 +14,7 @@ public class DuelWithUserView {
         return duelWithUserView;
     }
 
-    public void print(String output) {
+    public void printEndMessage(String output) {
         System.out.println(output);
     }
 }
