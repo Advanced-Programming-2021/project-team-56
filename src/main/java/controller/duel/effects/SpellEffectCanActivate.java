@@ -149,16 +149,4 @@ public class SpellEffectCanActivate {
         return false;
     }
 
-    public boolean swordsOfRevealingLightCanActivate() {
-        ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
-        HashMap<Integer, Card> spellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritory();
-        if (playerHand.contains(DuelWithUser.getInstance().getMyBoard().getSelectedCard())) {
-            for (int i = 1; i <= 5; i++) {
-                if (spellAndTrapTerritory.get(i) == null) return true;
-            }
-            return false;
-        }
-        return true;
-    }
-
 }

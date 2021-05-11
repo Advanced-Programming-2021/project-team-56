@@ -74,11 +74,8 @@ public class SpellEffectActivate {
                     return "preparations of this spell are not done yet";
                 }
             case "Swords of Revealing Light":
-                if (swordsOfRevealingLightActivate()) {
-                    return "spell activated";
-                } else {
-                    return "preparations of this spell are not done yet";
-                }
+                swordsOfRevealingLightActivate();
+                return "spell activated";
         }
         return "";
     }
@@ -97,7 +94,7 @@ public class SpellEffectActivate {
     }
 
     private boolean changeOfHeartActivate() {
-        if (!spellEffectCanActivate.raigekiCanActivate()){
+        if (!spellEffectCanActivate.raigekiCanActivate()) {
             return false;
         }
         return true;
@@ -387,10 +384,7 @@ public class SpellEffectActivate {
         return true;
     }
 
-    public boolean swordsOfRevealingLightActivate() {
-        if (!spellEffectCanActivate.swordsOfRevealingLightCanActivate()) {
-            return false;
-        }
+    public void swordsOfRevealingLightActivate() {
         ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
         HashMap<Integer, Card> spellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritory();
         SpellCard spellCard = (SpellCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard();
@@ -412,8 +406,25 @@ public class SpellEffectActivate {
                 opponentMonsterTerritory.get(i).setFacedUp(true);
             }
         }
-        return true;
     }
 
+    public void spellAbsorption() {
+        HashMap<Integer, Card> mySpellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritory();
+        HashMap<Integer, Card> enemySpellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritory();
+        int myLp = DuelWithUser.getInstance().getMyBoard().getLP();
+        int enemyLp = DuelWithUser.getInstance().getEnemyBoard().getLP();
+        for (int i = 1; i <= 5; i++) {
+            if (mySpellAndTrapTerritory.get(i) != null) {
+                if (mySpellAndTrapTerritory.get(i).equals("Spell Absorption") && mySpellAndTrapTerritory.get(i).getIsFacedUp()) {
+                    DuelWithUser.getInstance().getMyBoard().setLP(myLp + 500);
+                }
+            }
+            if (enemySpellAndTrapTerritory.get(i) != null) {
+                if (enemySpellAndTrapTerritory.get(i).equals("Spell Absorption") && enemySpellAndTrapTerritory.get(i).getIsFacedUp()) {
+                    DuelWithUser.getInstance().getEnemyBoard().setLP(enemyLp + 500);
+                }
+            }
+        }
+    }
 }
 

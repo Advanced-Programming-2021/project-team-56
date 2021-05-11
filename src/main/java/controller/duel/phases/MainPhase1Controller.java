@@ -479,5 +479,4 @@ public class MainPhase1Controller {
         }
         return true;
     }
-
 }
