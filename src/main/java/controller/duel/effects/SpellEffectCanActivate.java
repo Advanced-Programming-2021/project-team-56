@@ -119,13 +119,13 @@ public class SpellEffectCanActivate {
     }
 
     public boolean potOfGreedCanActivate() {
-        ArrayList<Card> mainDeck = DuelWithUser.getInstance().getMyBoard().getMainDeck();
+        ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
         if (mainDeck.size() >= 2) return true;
         return false;
     }
 
     public boolean raigekiCanActivate() {
-        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
             if (monsterTerritory.get(i) != null) return true;
         }
@@ -133,7 +133,7 @@ public class SpellEffectCanActivate {
     }
 
     public boolean harpiesFeatherDusterCanActivate() {
-        HashMap<Integer, Card> spellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritory();
+        HashMap<Integer, Card> spellAndTrapTerritory =  duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i <= 5; i++) {
             if (spellAndTrapTerritory.get(i) != null) return true;
         }
@@ -141,8 +141,8 @@ public class SpellEffectCanActivate {
     }
 
     public boolean darkHoleCanActivate() {
-        HashMap<Integer, MonsterCard> monsterTerritory1 = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
-        HashMap<Integer, MonsterCard> monsterTerritory2 = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> monsterTerritory1 = duelWithUser.getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> monsterTerritory2 = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
             if (monsterTerritory1.get(i) != null || monsterTerritory2.get(i) != null) return true;
         }

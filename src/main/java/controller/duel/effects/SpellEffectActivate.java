@@ -9,7 +9,6 @@ import model.SpellCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -34,45 +33,43 @@ public class SpellEffectActivate {
         switch (spellName) {
             case "Advanced Ritual Art":
                 if (advancedRitualArt()) {
-                    duelWithUser.getMyBoard().getGraveyard().add(duelWithUser.getEnemyBoard().getSelectedCard());
-                    duelWithUser.getMyBoard().setSelectedCard(null);
-                    return "spell activated";
+                    return getRidOfSpell();
                 } else {
                     return "preparations of this spell are not done yet";
                 }
             case "Terraforming":
                 if (terraformingActivate()) {
-                    duelWithUser.getMyBoard().getGraveyard().add(duelWithUser.getEnemyBoard().getSelectedCard());
-                    duelWithUser.getMyBoard().setSelectedCard(null);
-                    return "spell activated";
+                    return getRidOfSpell();
                 } else {
                     return "preparations of this spell are not done yet";
                 }
-            case "Pot of Greed":
-                if (spellEffectCanActivate.potOfGreedCanActivate()) {
-                    potOfGreedActivate();
-                    return "spell activated";
+            case "Change of Heart":
+                if (changeOfHeartActivate()) {
+                    return getRidOfSpell();
+                } else {
+                    return "preparations of this spell are not done yet";
+                }
+            case "Harpie’s Feather Duster":
+                if (harpiesFeatherDusterActivate()) {
+                    return getRidOfSpell();
                 } else {
                     return "preparations of this spell are not done yet";
                 }
             case "Raigeki":
-                if (spellEffectCanActivate.raigekiCanActivate()) {
-                    raigekiActivate();
-                    return "spell activated";
+                if (raigekiActivate()) {
+                    return getRidOfSpell();
                 } else {
                     return "preparations of this spell are not done yet";
                 }
-            case "Harpie's Feather Duster":
-                if (spellEffectCanActivate.harpiesFeatherDusterCanActivate()) {
-                    harpiesFeatherDusterActivate();
-                    return "spell activated";
+            case "Pot of Greed":
+                if (potOfGreedActivate()) {
+                    return getRidOfSpell();
                 } else {
                     return "preparations of this spell are not done yet";
                 }
             case "Dark Hole":
-                if (spellEffectCanActivate.darkHoleCanActivate()) {
-                    darkHoleActivate();
-                    return "spell activated";
+                if (darkHoleActivate()) {
+                    return getRidOfSpell();
                 } else {
                     return "preparations of this spell are not done yet";
                 }
@@ -80,7 +77,27 @@ public class SpellEffectActivate {
         return "";
     }
 
-    public boolean terraformingActivate() {
+    private String getRidOfSpell() {
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        for (int i = 0; i < playerHand.size(); i++) {
+            if (playerHand.get(i) == duelWithUser.getMyBoard().getSelectedCard()) {
+                playerHand.remove(i);
+                break;
+            }
+        }
+        duelWithUser.getMyBoard().getGraveyard().add(duelWithUser.getEnemyBoard().getSelectedCard());
+        duelWithUser.getMyBoard().setSelectedCard(null);
+        return "spell activated";
+    }
+
+    private boolean changeOfHeartActivate() {
+        if (!spellEffectCanActivate.raigekiCanActivate()){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean terraformingActivate() {
         if (!spellEffectCanActivate.canTeraformingActivate()) {
             return false;
         }
@@ -95,11 +112,11 @@ public class SpellEffectActivate {
             } else if (!((SpellCard) mainDeck.get(address)).getIcon().equals("Field")) {
                 effectView.output("selected card isn't a field spell ");
             } else {
-                if (duelWithUser.getMyBoard().getFieldSpell())
-                duelWithUser.getMyBoard().setFieldSpell((SpellCard) mainDeck.get(address));
+                duelWithUser.getMyBoard().getPlayerHand().add(mainDeck.get(address));
+                effectView.output("selected card successfully");
+                return true;
             }
         }
-        return true;
     }
 
     public void yamiActivate() {
@@ -130,7 +147,7 @@ public class SpellEffectActivate {
         }
     }
 
-    public boolean advancedRitualArt() {
+    private boolean advancedRitualArt() {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) == null) {
@@ -151,7 +168,6 @@ public class SpellEffectActivate {
         } else {
             payingTributeForRitualSummon(7);
         }
-        effectView.output("summoned successfully");
         effectView.output("do you want to put it in attack position or defence position");
         while (true) {
             String input = effectView.input();
@@ -295,10 +311,13 @@ public class SpellEffectActivate {
         }
     }
 
-    public void potOfGreedActivate() {
-        ArrayList<Card> mainDeck = DuelWithUser.getInstance().getMyBoard().getMainDeck();
-        ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
-        ArrayList<Card> graveYard = DuelWithUser.getInstance().getMyBoard().getGraveyard();
+    public boolean potOfGreedActivate() {
+        if (!spellEffectCanActivate.potOfGreedCanActivate()) {
+            return false;
+        }
+        ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        ArrayList<Card> graveYard = duelWithUser.getMyBoard().getGraveyard();
         for (int i = 1; i <= 2; i++) {
             if (playerHand.size() < 6) {
                 playerHand.add(mainDeck.get(mainDeck.size() - 1));
@@ -308,35 +327,47 @@ public class SpellEffectActivate {
                 mainDeck.remove(mainDeck.size() - 1);
             }
         }
+        return true;
     }
 
-    public void raigekiActivate() {
-        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
-        ArrayList<Card> graveYard = DuelWithUser.getInstance().getEnemyBoard().getGraveyard();
+    public boolean raigekiActivate() {
+        if (!spellEffectCanActivate.raigekiCanActivate()) {
+            return false;
+        }
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+        ArrayList<Card> graveYard = duelWithUser.getEnemyBoard().getGraveyard();
         for (int i = 1; i <= 5; i++) {
             if (monsterTerritory.get(i) != null) {
                 graveYard.add(monsterTerritory.get(i));
                 monsterTerritory.put(i, null);
             }
         }
+        return true;
     }
 
-    public void harpiesFeatherDusterActivate() {
-        HashMap<Integer, Card> spellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritory();
-        ArrayList<Card> graveYard = DuelWithUser.getInstance().getEnemyBoard().getGraveyard();
+    public boolean harpiesFeatherDusterActivate() {
+        if (!spellEffectCanActivate.harpiesFeatherDusterCanActivate()) {
+            return false;
+        }
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        ArrayList<Card> graveYard = duelWithUser.getEnemyBoard().getGraveyard();
         for (int i = 1; i <= 5; i++) {
             if (spellAndTrapTerritory.get(i) != null) {
                 graveYard.add(spellAndTrapTerritory.get(i));
                 spellAndTrapTerritory.put(i, null);
             }
         }
+        return true;
     }
 
-    public void darkHoleActivate() {
-        HashMap<Integer, MonsterCard> myMonsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
-        HashMap<Integer, MonsterCard> enemyMonsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
-        ArrayList<Card> myGraveYard = DuelWithUser.getInstance().getMyBoard().getGraveyard();
-        ArrayList<Card> enemyGraveYard = DuelWithUser.getInstance().getEnemyBoard().getGraveyard();
+    public boolean darkHoleActivate() {
+        if (!spellEffectCanActivate.darkHoleCanActivate()) {
+            return false;
+        }
+        HashMap<Integer, MonsterCard> myMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> enemyMonsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+        ArrayList<Card> myGraveYard = duelWithUser.getMyBoard().getGraveyard();
+        ArrayList<Card> enemyGraveYard = duelWithUser.getEnemyBoard().getGraveyard();
         for (int i = 1; i <= 5; i++) {
             if (myMonsterTerritory.get(i) != null) {
                 myGraveYard.add(myMonsterTerritory.get(i));
@@ -347,6 +378,7 @@ public class SpellEffectActivate {
                 enemyMonsterTerritory.put(i, null);
             }
         }
+        return true;
     }
 }
 

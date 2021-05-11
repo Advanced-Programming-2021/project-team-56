@@ -15,6 +15,7 @@ public class MonsterCard extends Card {
     private int summonedTurn;
     private String cardType;
     private String monsterType;
+    private boolean isItControlledByChangeOfHeart;
 
     public MonsterCard() {
 
