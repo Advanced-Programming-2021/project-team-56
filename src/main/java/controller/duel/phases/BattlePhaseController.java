@@ -231,6 +231,7 @@ public class BattlePhaseController {
         spellEffectActivate.yamiActivate();
         spellEffectActivate.forestActivate();
         spellEffectActivate.closedForestActivate();
+        spellEffectActivate.umiirukaActivate();
     }
 
     private void commandKnightEffect() {

@@ -48,6 +48,34 @@ public class SpellEffectActivate {
                 } else {
                     return "preparations of this spell are not done yet";
                 }
+            case "Pot of Greed":
+                if (spellEffectCanActivate.potOfGreedCanActivate()) {
+                    potOfGreedActivate();
+                    return "spell activated";
+                } else {
+                    return "preparations of this spell are not done yet";
+                }
+            case "Raigeki":
+                if (spellEffectCanActivate.raigekiCanActivate()) {
+                    raigekiActivate();
+                    return "spell activated";
+                } else {
+                    return "preparations of this spell are not done yet";
+                }
+            case "Harpie's Feather Duster":
+                if (spellEffectCanActivate.harpiesFeatherDusterCanActivate()) {
+                    harpiesFeatherDusterActivate();
+                    return "spell activated";
+                } else {
+                    return "preparations of this spell are not done yet";
+                }
+            case "Dark Hole":
+                if (spellEffectCanActivate.darkHoleCanActivate()) {
+                    darkHoleActivate();
+                    return "spell activated";
+                } else {
+                    return "preparations of this spell are not done yet";
+                }
         }
         return "";
     }
@@ -123,6 +151,7 @@ public class SpellEffectActivate {
         } else {
             payingTributeForRitualSummon(7);
         }
+        effectView.output("summoned successfully");
         effectView.output("do you want to put it in attack position or defence position");
         while (true) {
             String input = effectView.input();
@@ -262,6 +291,60 @@ public class SpellEffectActivate {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public void potOfGreedActivate() {
+        ArrayList<Card> mainDeck = DuelWithUser.getInstance().getMyBoard().getMainDeck();
+        ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
+        ArrayList<Card> graveYard = DuelWithUser.getInstance().getMyBoard().getGraveyard();
+        for (int i = 1; i <= 2; i++) {
+            if (playerHand.size() < 6) {
+                playerHand.add(mainDeck.get(mainDeck.size() - 1));
+                mainDeck.remove(mainDeck.size() - 1);
+            } else {
+                graveYard.add(mainDeck.get(mainDeck.size() - 1));
+                mainDeck.remove(mainDeck.size() - 1);
+            }
+        }
+    }
+
+    public void raigekiActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        ArrayList<Card> graveYard = DuelWithUser.getInstance().getEnemyBoard().getGraveyard();
+        for (int i = 1; i <= 5; i++) {
+            if (monsterTerritory.get(i) != null) {
+                graveYard.add(monsterTerritory.get(i));
+                monsterTerritory.put(i, null);
+            }
+        }
+    }
+
+    public void harpiesFeatherDusterActivate() {
+        HashMap<Integer, Card> spellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritory();
+        ArrayList<Card> graveYard = DuelWithUser.getInstance().getEnemyBoard().getGraveyard();
+        for (int i = 1; i <= 5; i++) {
+            if (spellAndTrapTerritory.get(i) != null) {
+                graveYard.add(spellAndTrapTerritory.get(i));
+                spellAndTrapTerritory.put(i, null);
+            }
+        }
+    }
+
+    public void darkHoleActivate() {
+        HashMap<Integer, MonsterCard> myMonsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> enemyMonsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        ArrayList<Card> myGraveYard = DuelWithUser.getInstance().getMyBoard().getGraveyard();
+        ArrayList<Card> enemyGraveYard = DuelWithUser.getInstance().getEnemyBoard().getGraveyard();
+        for (int i = 1; i <= 5; i++) {
+            if (myMonsterTerritory.get(i) != null) {
+                myGraveYard.add(myMonsterTerritory.get(i));
+                myMonsterTerritory.put(i, null);
+            }
+            if (enemyMonsterTerritory.get(i) != null) {
+                enemyGraveYard.add(enemyMonsterTerritory.get(i));
+                enemyMonsterTerritory.put(i, null);
             }
         }
     }
