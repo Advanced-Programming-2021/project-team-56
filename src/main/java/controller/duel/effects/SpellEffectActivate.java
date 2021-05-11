@@ -73,6 +73,12 @@ public class SpellEffectActivate {
                 } else {
                     return "preparations of this spell are not done yet";
                 }
+            case "Swords of Revealing Light":
+                if (swordsOfRevealingLightActivate()) {
+                    return "spell activated";
+                } else {
+                    return "preparations of this spell are not done yet";
+                }
         }
         return "";
     }
@@ -380,5 +386,34 @@ public class SpellEffectActivate {
         }
         return true;
     }
+
+    public boolean swordsOfRevealingLightActivate() {
+        if (!spellEffectCanActivate.swordsOfRevealingLightCanActivate()) {
+            return false;
+        }
+        ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
+        HashMap<Integer, Card> spellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritory();
+        SpellCard spellCard = (SpellCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard();
+        if (playerHand.contains(spellCard)) {
+            playerHand.remove(spellCard);
+            for (int i = 1; i <= 5; i++) {
+                if (spellAndTrapTerritory.get(i) == null) {
+                    spellAndTrapTerritory.put(i, spellCard);
+                    spellCard.setFacedUp(true);
+                }
+            }
+        } else {
+            spellCard.setFacedUp(true);
+        }
+        spellCard.setStartEffectTurn(DuelWithUser.getInstance().getTurnCounter());
+        HashMap<Integer, MonsterCard> opponentMonsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (opponentMonsterTerritory.get(i) != null) {
+                opponentMonsterTerritory.get(i).setFacedUp(true);
+            }
+        }
+        return true;
+    }
+
 }
 
