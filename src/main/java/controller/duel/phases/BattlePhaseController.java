@@ -34,17 +34,15 @@ public class BattlePhaseController {
         if (!result.equals("continue the process")) {
             return result;
         }
-        //till this line we check whether
-        // selected card can attack or not
-        // (generally)
         effectFinalDamage();
+        if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500){
+            return "you can't attack with this card due to the effect of messenger of peace";
+        }
+        myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (enemyMonster.getName().equals("Texchanger") && texchangerEffect()) {
             duelWithUser.getMyBoard().setSelectedCard(null);
             return "your attack was blocked";
         }
-        //till this line the effects
-        // just effect the final damage
-        //(before damage calculation)
         if (enemyMonster.getName().equals("Exploder Dragon")) {
             result = exploderDragonEffectUnderAttack(address);
         } else if (enemyMonster.getIsInAttackPosition()) {
@@ -57,7 +55,6 @@ public class BattlePhaseController {
     }
 
     private void effectFinalDamage() {
-        myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (myMonster.getName().equals("The Calculator")) {
             theCalculatorEffect(myMonster);
         }
@@ -96,6 +93,19 @@ public class BattlePhaseController {
         }
         return "continue the process";
     }
+
+    private boolean doesEnemyTerritoryIncludeMessengerOfPeace() {
+        HashMap<Integer, Card> spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (spellTerritory.get(i).getName().equals("Messenger of peace")){
+                if (spellTerritory.get(i).getIsFacedUp()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     private String isEnemyMonsterInAttackPosition(int address) {
         int myMonsterAttack = myMonster.getFinalAttack();

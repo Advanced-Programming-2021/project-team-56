@@ -97,6 +97,35 @@ public class SpellEffectActivate {
         if (!spellEffectCanActivate.raigekiCanActivate()) {
             return false;
         }
+        HashMap<Integer, MonsterCard> enemyMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> myMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6 ; i++) {
+            if (myMonsterTerritory.get(i) == null){
+                break;
+            }
+            if (i == 5){
+                return false;
+            }
+        }
+        while (true) {
+            effectView.output("which monster would you mind to takeover?");
+            int address = effectView.getAddress();
+            if (address > 5 || address < 1){
+                effectView.output("invalid selection");
+            }else if (enemyMonsterTerritory.get(address) == null){
+                effectView.output("there is no monster on the address");
+            }else {
+                MonsterCard monsterCard = enemyMonsterTerritory.get(address);
+                monsterCard.setItControlledByChangeOfHeart(true);
+                for (int i = 1; i < 6 ; i++) {
+                    if (myMonsterTerritory.get(i) == null){
+                        myMonsterTerritory.put(i, monsterCard);
+                    }
+                }
+                enemyMonsterTerritory.put(address, null);
+                break;
+            }
+        }
         return true;
     }
 

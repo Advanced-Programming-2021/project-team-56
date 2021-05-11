@@ -1,5 +1,6 @@
 package view.duel.phase;
 
+import controller.duel.phases.StandByPhaseController;
 import view.LoginMenuView;
 
 public class StandByPhaseView {
@@ -18,6 +19,7 @@ public class StandByPhaseView {
 
     public void run() {
         System.out.println("phase: standby phase view");
+        StandByPhaseController.getInstance().run();
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("activate effect")) {

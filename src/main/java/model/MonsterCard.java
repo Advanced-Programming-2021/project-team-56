@@ -34,6 +34,14 @@ public class MonsterCard extends Card {
         setFinalDefence(this.defence);
     }
 
+    public boolean isItControlledByChangeOfHeart() {
+        return isItControlledByChangeOfHeart;
+    }
+
+    public void setItControlledByChangeOfHeart(boolean itControlledByChangeOfHeart) {
+        isItControlledByChangeOfHeart = itControlledByChangeOfHeart;
+    }
+
     private static ArrayList<MonsterCard> monsterCards = new ArrayList<>();
 
     public static ArrayList<MonsterCard> getMonsterCards() {
