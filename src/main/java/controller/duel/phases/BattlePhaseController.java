@@ -231,6 +231,7 @@ public class BattlePhaseController {
         SpellEffectActivate.getInstance().yamiActivate();
         SpellEffectActivate.getInstance().forestActivate();
         SpellEffectActivate.getInstance().closedForestActivate();
+        SpellEffectActivate.getInstance().umiirukaActivate();
     }
 
     private void commandKnightEffect() {

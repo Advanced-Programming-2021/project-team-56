@@ -8,6 +8,7 @@ import model.MonsterCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SpellEffectCanActivate {
 
@@ -99,6 +100,37 @@ public class SpellEffectCanActivate {
             if (playerHand.get(i).getName().equals("Skull Guardian")) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean potOfGreedCanActivate() {
+        ArrayList<Card> mainDeck = DuelWithUser.getInstance().getMyBoard().getMainDeck();
+        if (mainDeck.size() >= 2) return true;
+        return false;
+    }
+
+    public boolean raigekiCanActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (monsterTerritory.get(i) != null) return true;
+        }
+        return false;
+    }
+
+    public boolean harpiesFeatherDusterCanActivate() {
+        HashMap<Integer, Card> spellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (spellAndTrapTerritory.get(i) != null) return true;
+        }
+        return false;
+    }
+
+    public boolean darkHoleCanActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory1 = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> monsterTerritory2 = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (monsterTerritory1.get(i) != null || monsterTerritory2.get(i) != null) return true;
         }
         return false;
     }
