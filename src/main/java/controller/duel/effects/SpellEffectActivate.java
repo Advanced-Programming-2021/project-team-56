@@ -5,6 +5,7 @@ import model.Board;
 import model.Card;
 import model.MonsterCard;
 
+import model.SpellCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -33,15 +34,19 @@ public class SpellEffectActivate {
         switch (spellName) {
             case "Advanced Ritual Art":
                 if (advancedRitualArt()) {
+                    duelWithUser.getMyBoard().getGraveyard().add(duelWithUser.getEnemyBoard().getSelectedCard());
+                    duelWithUser.getMyBoard().setSelectedCard(null);
                     return "spell activated";
                 } else {
                     return "preparations of this spell are not done yet";
                 }
             case "Terraforming":
                 if (terraformingActivate()) {
-
+                    duelWithUser.getMyBoard().getGraveyard().add(duelWithUser.getEnemyBoard().getSelectedCard());
+                    duelWithUser.getMyBoard().setSelectedCard(null);
+                    return "spell activated";
                 } else {
-
+                    return "preparations of this spell are not done yet";
                 }
         }
         return "";
@@ -49,7 +54,22 @@ public class SpellEffectActivate {
 
     public boolean terraformingActivate() {
         if (!spellEffectCanActivate.canTeraformingActivate()) {
-
+            return false;
+        }
+        ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
+        while (true) {
+            effectView.showDeck();
+            int address = effectView.getAddress() - 1;
+            if (address < 0 || address >= mainDeck.size()) {
+                effectView.output("invalid selection");
+            } else if (!(mainDeck.get(address) instanceof SpellCard)) {
+                effectView.output("selected card isn't a spell card");
+            } else if (!((SpellCard) mainDeck.get(address)).getIcon().equals("Field")) {
+                effectView.output("selected card isn't a field spell ");
+            } else {
+                if (duelWithUser.getMyBoard().getFieldSpell())
+                duelWithUser.getMyBoard().setFieldSpell((SpellCard) mainDeck.get(address));
+            }
         }
         return true;
     }

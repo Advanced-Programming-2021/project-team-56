@@ -451,6 +451,8 @@ public class MainPhase1Controller {
         if (!spellCard.getIsFacedUp()) {
             return "you have already activated this card";
         }
+        //till this line we check possibility of
+        //activating spell card (generally)
         if (spellCard.getIcon().equals("Field")) {
             SpellCard fieldSpell = duelWithUser.getMyBoard().getFieldSpell();
             if (fieldSpell != null) {
@@ -458,6 +460,7 @@ public class MainPhase1Controller {
             }
             duelWithUser.getMyBoard().setFieldSpell(spellCard);
             spellCard.setFacedUp(true);
+            duelWithUser.getMyBoard().setSelectedCard(null);
             return "spell activated";
         } else {
             if (isMySpellAndTrapTerritoryFull()) {
