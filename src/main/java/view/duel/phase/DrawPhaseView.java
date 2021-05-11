@@ -28,7 +28,6 @@ public class DrawPhaseView {
         System.out.println("phase: draw phase");
         String result = DrawPhaseController.getInstance().run();
         System.out.println(result);
-        //TODO Check showField Method
         System.out.print(duelWithUser.showField());
         if (result.equals("No cards is in your deck")) {
             return false;
@@ -67,6 +66,9 @@ public class DrawPhaseView {
             if (command.equals("attack direct")) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
+            }
+            if (command.equals("surrender")) {
+                return false;
             }
             if (command.equals("select -d")) {
                 System.out.println(duelWithUser.deselectCard());

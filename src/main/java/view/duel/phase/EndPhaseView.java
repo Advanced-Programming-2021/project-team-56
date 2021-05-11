@@ -60,6 +60,10 @@ public class EndPhaseView {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
+            if (command.equals("select -d")) {
+                System.out.println(duelWithUser.deselectCard());
+                continue;
+            }
             if (command.startsWith("select")) {
                 System.out.println(duelWithUser.selectCard(command));
                 continue;
