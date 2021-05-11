@@ -415,9 +415,9 @@ public class SpellEffectActivate {
     }
 
     public void swordsOfRevealingLightActivate() {
-        ArrayList<Card> playerHand = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
-        HashMap<Integer, Card> spellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritory();
-        SpellCard spellCard = (SpellCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard();
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        SpellCard spellCard = (SpellCard) duelWithUser.getMyBoard().getSelectedCard();
         if (playerHand.contains(spellCard)) {
             playerHand.remove(spellCard);
             for (int i = 1; i <= 5; i++) {
@@ -429,8 +429,8 @@ public class SpellEffectActivate {
         } else {
             spellCard.setFacedUp(true);
         }
-        spellCard.setStartEffectTurn(DuelWithUser.getInstance().getTurnCounter());
-        HashMap<Integer, MonsterCard> opponentMonsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        spellCard.setStartEffectTurn(duelWithUser.getTurnCounter());
+        HashMap<Integer, MonsterCard> opponentMonsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
             if (opponentMonsterTerritory.get(i) != null) {
                 opponentMonsterTerritory.get(i).setFacedUp(true);
