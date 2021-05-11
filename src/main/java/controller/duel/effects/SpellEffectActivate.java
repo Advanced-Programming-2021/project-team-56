@@ -38,13 +38,17 @@ public class SpellEffectActivate {
                     return "preparations of this spell are not done yet";
                 }
             case "Terraforming":
-                if (terraformingActivate())
+                if (terraformingActivate()) {
+
+                } else {
+
+                }
         }
         return "";
     }
 
-    public boolean terraformingActivate(){
-        if (!spellEffectCanActivate.canTeraformingActivate()){
+    public boolean terraformingActivate() {
+        if (!spellEffectCanActivate.canTeraformingActivate()) {
 
         }
         return true;

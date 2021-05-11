@@ -48,6 +48,8 @@ public class EffectView {
             Matcher matcher = number.matcher(result);
             if (matcher.find()) {
                 return Integer.parseInt(result);
+            }else {
+                System.out.println("invalid selection");
             }
         }
     }
