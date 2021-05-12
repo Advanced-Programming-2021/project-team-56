@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 public class EndPhaseView {
     private static EndPhaseView endPhase;
-    static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
@@ -42,8 +41,7 @@ public class EndPhaseView {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            Matcher matcher = setPosition.matcher(command);
-            if (matcher.find()) {
+            if (command.equals("set --position attack") || command.equals("set --position defence")) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
@@ -51,7 +49,7 @@ public class EndPhaseView {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            matcher = attack.matcher(command);
+            Matcher matcher = attack.matcher(command);
             if (matcher.find()) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
