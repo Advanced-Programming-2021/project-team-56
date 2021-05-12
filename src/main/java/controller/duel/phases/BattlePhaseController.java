@@ -55,6 +55,7 @@ public class BattlePhaseController {
     }
 
     private void effectFinalDamage() {
+        beforeBattleEffects();
         if (myMonster.getName().equals("The Calculator")) {
             theCalculatorEffect(myMonster);
         }
@@ -64,7 +65,6 @@ public class BattlePhaseController {
         if (enemyMonster.getName().equals("Suijin")) {
             suijinEffect();
         }
-        beforeBattleEffects();
     }
 
     private String isTargetingMonsterPossible(int address) {
