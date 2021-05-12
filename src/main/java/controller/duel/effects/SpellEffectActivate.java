@@ -457,5 +457,23 @@ public class SpellEffectActivate {
         }
     }
 
+
+    public void supplySquadEffect(int player) {
+        HashMap<Integer, Card> spellTerritory;
+        if (player == 1) {
+            spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        } else {
+            spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        }
+        for (int i = 1; i < 6; i++) {
+            Card card = spellTerritory.get(i);
+            if (card.getName().equals("Supply Squad")) {
+                if (card.getIsFacedUp()) {
+                    card.setStartEffectTurn(duelWithUser.getTurnCounter());
+                }
+            }
+        }
+    }
+
 }
 

@@ -3,19 +3,12 @@ package model;
 import java.util.ArrayList;
 
 public class Deck {
-    private ArrayList<Card> mainDeck;
-    private ArrayList<Card> sideDeck;
-    private ArrayList<Card> deckCards;
-    private ArrayList<Card> userCards;
+    private ArrayList<Card> mainDeck = new ArrayList<>();
+    private ArrayList<Card> sideDeck = new ArrayList<>();
+    private ArrayList<Card> deckCards = new ArrayList<>();
+    private ArrayList<Card> userCards = new ArrayList<>();
     private boolean isActivated = false;
     private String deckName;
-
-    {
-        mainDeck = new ArrayList<>();
-        sideDeck = new ArrayList<>();
-        deckCards = new ArrayList<>();
-        userCards = new ArrayList<>();
-    }
 
     public Deck(String deckName) {
         this.deckName = deckName;
@@ -23,8 +16,9 @@ public class Deck {
 
     public Deck() {
     }
-//////////////?
-    public Deck(Deck deck){
+
+    //////////////?
+    public Deck(Deck deck) {
         mainDeck.addAll(deck.getMainDeck());
         sideDeck.addAll(deck.getSideDeck());
     }
