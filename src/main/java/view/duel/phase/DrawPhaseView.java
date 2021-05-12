@@ -78,7 +78,6 @@ public class DrawPhaseView {
                 System.out.println(duelWithUser.selectCard(command));
                 continue;
             }
-            //TODO check the following methods
             if (command.equals("card show --selected")) {
                 System.out.println(duelWithUser.showSelectedCard());
                 continue;

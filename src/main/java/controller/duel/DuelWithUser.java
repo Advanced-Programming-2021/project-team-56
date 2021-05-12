@@ -82,20 +82,27 @@ public class DuelWithUser {
                     }
                     break;
                 case 2:
-                    StandByPhaseView.getInstance().run();
+                    String result1 = StandByPhaseView.getInstance().run();
+                    if (result1.equals("I lost")) {
+                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
+                        if (getEnemyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
+                            return 1;
+                        }
+                        return 2;
+                    }
                     break;
                 case 3:
                     MainPhase1View.getInstance().run();
                     break;
                 case 4:
-                    String result = BattlePhaseView.getInstance().run();
-                    if (result.equals("I won")) {
+                    String result2 = BattlePhaseView.getInstance().run();
+                    if (result2.equals("I won")) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
                             return 1;
                         }
                         return 2;
-                    } else if (result.equals("I lost")) {
+                    } else if (result2.equals("I lost")) {
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getEnemyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
                             return 1;

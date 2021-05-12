@@ -67,8 +67,11 @@ public class BattlePhaseView {
                 System.out.println(battlePhase.attackCard(Integer.parseInt(matcher.group(1))));
                 System.out.print(duelWithUser.showField());
                 if (isGameOver()) {
-                    //TODO Ask amirali why didn't end the game here?
-                    break;
+                    if (duelWithUser.getMyBoard().getLP() <= 0) {
+                        return "I lost";
+                    } else {
+                        return "I won";
+                    }
                 }
                 continue;
             }
