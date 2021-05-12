@@ -10,13 +10,19 @@ public class Card {
     private int price;
     private static ArrayList<Card> cards = new ArrayList<>();
     private boolean isItScanner;
-    private static int equipID = 1;
+    private int equipID;
+    public static int id;
+
 
     //TODO set IEffectID for monster cards without effect 0 in CSV File and with Effects, their own effectID and set it here
     private Board currentBoard;
     private Board opponentBoard;
 
     public Card() {
+    }
+
+    public void setEquipID(int equipID) {
+        this.equipID = equipID;
     }
 
     public Card(String name, String description, int price) {
@@ -94,19 +100,16 @@ public class Card {
         this.isFacedUp = isFacedUp;
     }
 
-    public void setItScanner(boolean isItScanner){
+    public void setItScanner(boolean isItScanner) {
         this.isItScanner = isItScanner;
     }
 
-    public boolean getItScanner(){
+    public boolean getItScanner() {
         return isItScanner;
     }
 
-    public static int getEquipID() {
+    public int getEquipID() {
         return equipID;
     }
 
-    public static void increaseEquipID(){
-        equipID++;
-    }
 }

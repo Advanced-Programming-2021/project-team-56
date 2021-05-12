@@ -249,6 +249,9 @@ public class BattlePhaseController {
         if (spellEffectCanActivate.isThereSupplySquad(2)) {
             supplySquadEffect(2);
         }
+        if (enemyMonster.getEquipID() != 0){
+
+        }
     }
 
     private void destroyMyMonster(MonsterCard monsterCard) {
@@ -263,6 +266,9 @@ public class BattlePhaseController {
         }
         if (spellEffectCanActivate.isThereSupplySquad(1)) {
             supplySquadEffect(1);
+        }
+        if (monsterCard.getEquipID() != 0){
+
         }
     }
 
