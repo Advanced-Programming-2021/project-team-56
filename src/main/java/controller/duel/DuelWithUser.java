@@ -1,5 +1,7 @@
 package controller.duel;
 
+import controller.duel.effects.SpellEffectActivate;
+import controller.duel.effects.SpellEffectCanActivate;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
@@ -21,6 +23,8 @@ public class DuelWithUser {
     static Pattern selectOpponentSpellOrTrap2 = Pattern.compile("^select --opponent --spell (\\d+)$");
     static Pattern selectMyHandCard = Pattern.compile("^select --hand (\\d+)$");
     static Pattern selectFieldCard = Pattern.compile("^select (?:--opponent --field|--field --opponent|--field)$");
+    private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+    private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
 
     private int phaseCounter = 1;
     private int turnCounter;
@@ -422,6 +426,21 @@ public class DuelWithUser {
         loser.clearLP();
         loser.increaseMoney(300);
         return winnerUsername + " won the whole match with score: " + winnerScore + "-" + looserScore;
+    }
+
+    public void afterDeathEffect(int player, MonsterCard monsterCard){
+        if (player == 1) {
+            if (spellEffectCanActivate.isThereSupplySquad(1)) {
+                spellEffectActivate.supplySquadEffect(1);
+            }
+        }else {
+            if (spellEffectCanActivate.isThereSupplySquad(2)) {
+                spellEffectActivate.supplySquadEffect(2);
+            }
+        }
+        if (monsterCard.getEquipID() != 0){
+
+        }
     }
 
 }

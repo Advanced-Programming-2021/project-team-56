@@ -2,7 +2,6 @@ package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
-import controller.duel.effects.SpellEffectCanActivate;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
@@ -19,7 +18,6 @@ public class BattlePhaseController {
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
     private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private EffectView effectView = EffectView.getInstance();
-    private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
 
     private BattlePhaseController() {
     }
@@ -57,6 +55,7 @@ public class BattlePhaseController {
     }
 
     private void effectFinalDamage() {
+        beforeBattleEffects();
         if (myMonster.getName().equals("The Calculator")) {
             theCalculatorEffect(myMonster);
         }
@@ -66,7 +65,6 @@ public class BattlePhaseController {
         if (enemyMonster.getName().equals("Suijin")) {
             suijinEffect();
         }
-        beforeBattleEffects();
     }
 
     private String isTargetingMonsterPossible(int address) {
@@ -245,14 +243,10 @@ public class BattlePhaseController {
     private void destroyEnemyMonster(int address) {
         ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
-        graveyard.add(monsterTerritory.get(address));
+        MonsterCard monsterCard = monsterTerritory.get(address);
+        graveyard.add(monsterCard);
         monsterTerritory.put(address, null);
-        if (spellEffectCanActivate.isThereSupplySquad(2)) {
-            supplySquadEffect(2);
-        }
-        if (enemyMonster.getEquipID() != 0){
-
-        }
+        duelWithUser.afterDeathEffect(2, monsterCard);
     }
 
     private void destroyMyMonster(MonsterCard monsterCard) {
@@ -265,29 +259,7 @@ public class BattlePhaseController {
                 return;
             }
         }
-        if (spellEffectCanActivate.isThereSupplySquad(1)) {
-            supplySquadEffect(1);
-        }
-        if (monsterCard.getEquipID() != 0){
-
-        }
-    }
-
-    private void supplySquadEffect(int player) {
-        HashMap<Integer, Card> spellTerritory;
-        if (player == 1) {
-            spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-        } else {
-            spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
-        }
-        for (int i = 1; i < 6; i++) {
-            Card card = spellTerritory.get(i);
-            if (card.getName().equals("Supply Squad")) {
-                if (card.getIsFacedUp()) {
-                    card.setStartEffectTurn(duelWithUser.getTurnCounter());
-                }
-            }
-        }
+        duelWithUser.afterDeathEffect(1, monsterCard);
     }
 
     public void beforeBattleEffects() {
@@ -296,6 +268,10 @@ public class BattlePhaseController {
         spellEffectActivate.forestActivate();
         spellEffectActivate.closedForestActivate();
         spellEffectActivate.umiirukaActivate();
+        spellEffectActivate.swordOfDarkDestructionActivate2();
+        spellEffectActivate.blackPendantActivate();
+        spellEffectActivate.unitedWeStandActivate();
+        spellEffectActivate.magnumShieldActivate2();
     }
 
     private void commandKnightEffect() {

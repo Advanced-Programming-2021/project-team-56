@@ -133,7 +133,7 @@ public class SpellEffectCanActivate {
     }
 
     public boolean harpiesFeatherDusterCanActivate() {
-        HashMap<Integer, Card> spellAndTrapTerritory =  duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i <= 5; i++) {
             if (spellAndTrapTerritory.get(i) != null) return true;
         }
@@ -167,4 +167,50 @@ public class SpellEffectCanActivate {
         return false;
     }
 
+    public boolean isThereMonsterInGraveyard(int player) {
+        ArrayList<Card> graveyard;
+        if (player == 1) {
+            graveyard = duelWithUser.getMyBoard().getGraveyard();
+        }else {
+            graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        }
+        for (int i = 0; i < graveyard.size(); i++) {
+            if (graveyard.get(i) instanceof MonsterCard) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean swordOfDarkDestructionCanActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (monsterTerritory.get(i) != null) {
+                if (monsterTerritory.get(i).getMonsterType().equals("Fiend") || monsterTerritory.get(i).getMonsterType().equals("Spellcaster")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean blackPendantAndUnitedWeStandCanActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (monsterTerritory.get(i) != null) return true;
+        }
+        return false;
+    }
+
+    public boolean magnumShieldCanActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (monsterTerritory.get(i) != null) {
+                if (monsterTerritory.get(i).getMonsterType().equals("Warrior")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

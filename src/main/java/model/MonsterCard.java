@@ -15,6 +15,7 @@ public class MonsterCard extends Card {
     private int summonedTurn;
     private String cardType;
     private String monsterType;
+    private ArrayList<Integer> equipId;
     private boolean isItControlledByChangeOfHeart;
 
     public MonsterCard() {
@@ -102,6 +103,10 @@ public class MonsterCard extends Card {
 
     public int getFinalDefence() {
         return finalDefence;
+    }
+
+    public ArrayList<Integer> getEquipId() {
+        return equipId;
     }
 
     public int getFinalAttack() {

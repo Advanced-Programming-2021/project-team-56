@@ -11,7 +11,7 @@ public class Card {
     private static ArrayList<Card> cards = new ArrayList<>();
     private boolean isItScanner;
     private int equipID;
-    public static int id;
+    public static int id = 0;
 
 
     //TODO set IEffectID for monster cards without effect 0 in CSV File and with Effects, their own effectID and set it here

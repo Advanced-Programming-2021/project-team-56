@@ -12,6 +12,7 @@ public class StandByPhaseView {
     private static StandByPhaseView standByPhase;
     static Pattern setPosition = Pattern.compile("^set --position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
+    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
 
 
@@ -27,7 +28,6 @@ public class StandByPhaseView {
     }
 
     public String run() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: standby phase view");
         String result = StandByPhaseController.getInstance().run();
         if (!result.equals("the game continuous")){
@@ -39,7 +39,6 @@ public class StandByPhaseView {
                 break;
             }
             if (command.equals("activate effect")) {
-                //TODO QuickPlay Spells and TrapCards
                 System.out.println("you can’t activate an effect on this turn");
                 continue;
             }
