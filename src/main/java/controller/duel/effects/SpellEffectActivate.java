@@ -73,6 +73,12 @@ public class SpellEffectActivate {
                 } else {
                     return "preparations of this spell are not done yet";
                 }
+            case "Monster Reborn":
+                if (monsterRebornActivate()) {
+                    return getRidOfSpell();
+                } else {
+                    return "preparations of this spell are not done yet";
+                }
             case "Swords of Revealing Light":
                 swordsOfRevealingLightActivate();
                 return "spell activated";
@@ -94,34 +100,98 @@ public class SpellEffectActivate {
         return "spell activated";
     }
 
+    private boolean monsterRebornActivate() {
+        ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
+        ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        boolean myMonster = spellEffectCanActivate.isThereMonsterInGraveyard(1);
+        boolean enemyMonster = spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        MonsterCard monsterCard;
+        int address;
+        if (myMonster && enemyMonster) {
+            effectView.showGraveyardForMonsterReborn(true, true);
+            address = effectView.getAddress();
+            if (address > myGraveyard.size()) {
+                address -= myGraveyard.size();
+                monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
+                enemyGraveyard.remove(address - 1);
+            } else {
+                monsterCard = (MonsterCard) myGraveyard.get(address - 1);
+                myGraveyard.remove(address - 1);
+            }
+        } else if (myMonster) {
+            effectView.showGraveyardForMonsterReborn(true, false);
+            address = effectView.getAddress();
+            monsterCard = (MonsterCard) myGraveyard.get(address - 1);
+            myGraveyard.remove(address - 1);
+        } else if (enemyMonster) {
+            effectView.showGraveyardForMonsterReborn(false, true);
+            address = effectView.getAddress();
+            monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
+            enemyGraveyard.remove(address - 1);
+        } else {
+            return false;
+        }
+        monsterReborn(monsterCard);
+        return true;
+    }
+
+    private void monsterReborn(MonsterCard monsterCard) {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        monsterCard.setFacedUp(true);
+        monsterCard.setItControlledByChangeOfHeart(false);
+        monsterCard.setStartEffectTurn(-1);
+        monsterCard.setLastTimeAttackedTurn(0);
+        monsterCard.setSummonedTurn(0);
+        monsterCard.setLastTimeChangedPositionTurn(0);
+        monsterCard.setItScanner(false);
+        effectView.output("do you want to summon it in attack position or defence position?");
+        while (true) {
+            String input = effectView.input();
+            if (input.equals("attack position")) {
+                monsterCard.setInAttackPosition(true);
+                break;
+            } else if (input.equals("defence position")) {
+                monsterCard.setInAttackPosition(false);
+                break;
+            } else {
+                effectView.output("invalid command");
+            }
+        }
+        for (int i = 1; i < 6; i++) {
+            if (monsterTerritory.get(i) == null) {
+                monsterTerritory.put(i, monsterCard);
+                break;
+            }
+        }
+        effectView.output("summoned successfully");
+    }
+
     private boolean changeOfHeartActivate() {
         if (!spellEffectCanActivate.raigekiCanActivate()) {
             return false;
         }
         HashMap<Integer, MonsterCard> enemyMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         HashMap<Integer, MonsterCard> myMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        for (int i = 1; i < 6 ; i++) {
-            if (myMonsterTerritory.get(i) == null){
+        for (int i = 1; i < 6; i++) {
+            if (myMonsterTerritory.get(i) == null) {
                 break;
             }
-            if (i == 5){
+            if (i == 5) {
                 return false;
             }
         }
         while (true) {
             effectView.output("which monster would you mind to takeover?");
             int address = effectView.getAddress();
-            if (address > 5 || address < 1){
+            if (address > 5 || address < 1) {
                 effectView.output("invalid selection");
-            }else if (enemyMonsterTerritory.get(address) == null){
+            } else if (enemyMonsterTerritory.get(address) == null) {
                 effectView.output("there is no monster on the address");
-            }else {
+            } else {
                 MonsterCard monsterCard = enemyMonsterTerritory.get(address);
                 monsterCard.setItControlledByChangeOfHeart(true);
-                for (int i = 1; i < 6 ; i++) {
-                    if (myMonsterTerritory.get(i) == null){
-                        myMonsterTerritory.put(i, monsterCard);
-                    }
+                for (int i = 1; i < 6; i++) {
+                    myMonsterTerritory.putIfAbsent(i, monsterCard);
                 }
                 enemyMonsterTerritory.put(address, null);
                 break;
@@ -241,6 +311,7 @@ public class SpellEffectActivate {
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) == null) {
                 monsterTerritory.put(i, monsterCard);
+                break;
             }
         }
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
@@ -371,6 +442,7 @@ public class SpellEffectActivate {
         ArrayList<Card> graveYard = duelWithUser.getEnemyBoard().getGraveyard();
         for (int i = 1; i <= 5; i++) {
             if (monsterTerritory.get(i) != null) {
+                duelWithUser.afterDeathEffect(i, monsterTerritory.get(i));
                 graveYard.add(monsterTerritory.get(i));
                 monsterTerritory.put(i, null);
             }
@@ -403,10 +475,12 @@ public class SpellEffectActivate {
         ArrayList<Card> enemyGraveYard = duelWithUser.getEnemyBoard().getGraveyard();
         for (int i = 1; i <= 5; i++) {
             if (myMonsterTerritory.get(i) != null) {
+                duelWithUser.afterDeathEffect(i, myMonsterTerritory.get(i));
                 myGraveYard.add(myMonsterTerritory.get(i));
                 myMonsterTerritory.put(i, null);
             }
             if (enemyMonsterTerritory.get(i) != null) {
+                duelWithUser.afterDeathEffect(i, enemyMonsterTerritory.get(i));
                 enemyGraveYard.add(enemyMonsterTerritory.get(i));
                 enemyMonsterTerritory.put(i, null);
             }

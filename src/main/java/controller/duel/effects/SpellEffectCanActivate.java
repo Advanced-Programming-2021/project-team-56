@@ -133,7 +133,7 @@ public class SpellEffectCanActivate {
     }
 
     public boolean harpiesFeatherDusterCanActivate() {
-        HashMap<Integer, Card> spellAndTrapTerritory =  duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i <= 5; i++) {
             if (spellAndTrapTerritory.get(i) != null) return true;
         }
@@ -162,6 +162,21 @@ public class SpellEffectCanActivate {
                 if (card.getIsFacedUp()) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    public boolean isThereMonsterInGraveyard(int player) {
+        ArrayList<Card> graveyard;
+        if (player == 1) {
+            graveyard = duelWithUser.getMyBoard().getGraveyard();
+        }else {
+            graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        }
+        for (int i = 0; i < graveyard.size(); i++) {
+            if (graveyard.get(i) instanceof MonsterCard) {
+                return true;
             }
         }
         return false;
