@@ -81,7 +81,7 @@ public class StandByPhaseController {
             if (player == 1) {
                 return "I lost";
             } else {
-                return "I win";
+                return "I won";
             }
         }
         playerHand.add(mainDeck.get(mainDeck.size() - 1));

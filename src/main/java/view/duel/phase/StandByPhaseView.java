@@ -35,6 +35,9 @@ public class StandByPhaseView {
         }
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
+            if (command.equals("next phase")) {
+                break;
+            }
             if (command.equals("activate effect")) {
                 //TODO QuickPlay Spells and TrapCards
                 System.out.println("you can’t activate an effect on this turn");
