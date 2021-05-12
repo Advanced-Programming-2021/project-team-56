@@ -10,6 +10,7 @@ public class EndPhaseView {
     private static EndPhaseView endPhase;
     static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
+    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private EndPhaseView() {
 
@@ -23,7 +24,6 @@ public class EndPhaseView {
     }
 
     public void run() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: End Phase");
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
@@ -81,4 +81,5 @@ public class EndPhaseView {
         String nickname = duelWithUser.getEnemyBoard().getUser().getNickname();
         System.out.println("its " + nickname + "’s turn");
     }
+
 }

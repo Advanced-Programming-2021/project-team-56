@@ -29,7 +29,10 @@ public class StandByPhaseView {
     public String run() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: standby phase view");
-        StandByPhaseController.getInstance().run();
+        String result = StandByPhaseController.getInstance().run();
+        if (!result.equals("the game continuous")){
+            return result;
+        }
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("activate effect")) {
@@ -83,5 +86,6 @@ public class StandByPhaseView {
             }
             System.out.println("invalid command");
         }
+        return "the game continuous";
     }
 }

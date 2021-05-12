@@ -132,6 +132,9 @@ public class MainPhase1Controller {
         if (monsterCard.getIsInAttackPosition()) {
             return "this card is already in the wanted position";
         }
+        if (!monsterCard.getIsFacedUp()){
+            return "this card is faced down so you can't change its position";
+        }
         if (duelWithUser.getTurnCounter() == monsterCard.getLastTimeChangedPositionTurn()) {
             return "you already changed this card position in this turn";
         }

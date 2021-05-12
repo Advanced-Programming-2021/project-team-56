@@ -2,6 +2,7 @@ package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
+import controller.duel.effects.SpellEffectCanActivate;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
@@ -18,6 +19,7 @@ public class BattlePhaseController {
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
     private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private EffectView effectView = EffectView.getInstance();
+    private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
 
     private BattlePhaseController() {
     }
@@ -64,6 +66,7 @@ public class BattlePhaseController {
         if (enemyMonster.getName().equals("Suijin")) {
             suijinEffect();
         }
+        beforeBattleEffects();
     }
 
     private String isTargetingMonsterPossible(int address) {
@@ -244,6 +247,12 @@ public class BattlePhaseController {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         graveyard.add(monsterTerritory.get(address));
         monsterTerritory.put(address, null);
+        if (spellEffectCanActivate.isThereSupplySquad(2)) {
+            supplySquadEffect(2);
+        }
+        if (enemyMonster.getEquipID() != 0){
+
+        }
     }
 
     private void destroyMyMonster(MonsterCard monsterCard) {
@@ -254,6 +263,29 @@ public class BattlePhaseController {
                 graveyard.add(monsterTerritory.get(i));
                 monsterTerritory.put(i, null);
                 return;
+            }
+        }
+        if (spellEffectCanActivate.isThereSupplySquad(1)) {
+            supplySquadEffect(1);
+        }
+        if (monsterCard.getEquipID() != 0){
+
+        }
+    }
+
+    private void supplySquadEffect(int player) {
+        HashMap<Integer, Card> spellTerritory;
+        if (player == 1) {
+            spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        } else {
+            spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        }
+        for (int i = 1; i < 6; i++) {
+            Card card = spellTerritory.get(i);
+            if (card.getName().equals("Supply Squad")) {
+                if (card.getIsFacedUp()) {
+                    card.setStartEffectTurn(duelWithUser.getTurnCounter());
+                }
             }
         }
     }
@@ -536,7 +568,6 @@ public class BattlePhaseController {
     }
 
     private boolean canManEaterBugEffectsBeActivated() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) != null) {
