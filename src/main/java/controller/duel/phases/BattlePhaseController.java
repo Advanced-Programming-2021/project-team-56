@@ -270,6 +270,10 @@ public class BattlePhaseController {
         spellEffectActivate.forestActivate();
         spellEffectActivate.closedForestActivate();
         spellEffectActivate.umiirukaActivate();
+        spellEffectActivate.swordOfDarkDestructionActivate2();
+        spellEffectActivate.blackPendantActivate();
+        spellEffectActivate.unitedWeStandActivate();
+        spellEffectActivate.magnumShieldActivate2();
     }
 
     private void commandKnightEffect() {
