@@ -794,6 +794,5 @@ public class SpellEffectActivate {
             }
         }
     }
-
 }
 
