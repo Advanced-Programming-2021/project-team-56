@@ -296,6 +296,8 @@ public class BattlePhaseController {
         spellEffectActivate.forestActivate();
         spellEffectActivate.closedForestActivate();
         spellEffectActivate.umiirukaActivate();
+        spellEffectActivate.swordOfDarkDestructionActivate2();
+        spellEffectActivate.blackPendantActivate2();
     }
 
     private void commandKnightEffect() {

@@ -167,4 +167,24 @@ public class SpellEffectCanActivate {
         return false;
     }
 
+    public boolean swordOfDarkDestructionCanActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (monsterTerritory.get(i) != null) {
+                if (monsterTerritory.get(i).getMonsterType().equals("Fiend") || monsterTerritory.get(i).getMonsterType().equals("Spellcaster")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean blackPendantCanActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (monsterTerritory.get(i) != null) return true;
+        }
+        return false;
+    }
+
 }
