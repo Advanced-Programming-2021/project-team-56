@@ -2,7 +2,6 @@ package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
-import controller.duel.effects.SpellEffectCanActivate;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
@@ -19,7 +18,6 @@ public class BattlePhaseController {
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
     private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private EffectView effectView = EffectView.getInstance();
-    private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
 
     private BattlePhaseController() {
     }
