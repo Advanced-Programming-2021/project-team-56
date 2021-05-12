@@ -25,9 +25,9 @@ public class BattlePhaseView {
     }
 
     public String run() {
-        BattlePhaseController.getInstance().beforeBattleEffects();
         System.out.println("phase: battle phase");
         while (true) {
+            BattlePhaseController.getInstance().afterBattleEffects();
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("next phase")) {
                 break;
@@ -97,7 +97,6 @@ public class BattlePhaseView {
             }
             System.out.println("invalid command");
         }
-        BattlePhaseController.getInstance().afterBattleEffects();
         return "the game continues";
     }
 

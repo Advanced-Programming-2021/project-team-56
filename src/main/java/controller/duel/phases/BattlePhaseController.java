@@ -66,6 +66,7 @@ public class BattlePhaseController {
         if (enemyMonster.getName().equals("Suijin")) {
             suijinEffect();
         }
+        beforeBattleEffects();
     }
 
     private String isTargetingMonsterPossible(int address) {
