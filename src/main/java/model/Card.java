@@ -10,12 +10,11 @@ public class Card {
     private int price;
     private static ArrayList<Card> cards = new ArrayList<>();
     private boolean isItScanner;
+    private static int equipID = 1;
 
     //TODO set IEffectID for monster cards without effect 0 in CSV File and with Effects, their own effectID and set it here
     private Board currentBoard;
     private Board opponentBoard;
-    private int IEffectID;
-    private ArrayList<Card> effectedCards = new ArrayList<>();
 
     public Card() {
     }
@@ -28,10 +27,6 @@ public class Card {
 
     public static ArrayList<Card> getCards() {
         return cards;
-    }
-
-    public ArrayList<Card> getEffectedCards() {
-        return effectedCards;
     }
 
     public boolean getIsFacedUp() {
@@ -107,4 +102,11 @@ public class Card {
         return isItScanner;
     }
 
+    public static int getEquipID() {
+        return equipID;
+    }
+
+    public static void increaseEquipID(){
+        equipID++;
+    }
 }

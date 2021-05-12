@@ -456,5 +456,6 @@ public class SpellEffectActivate {
             }
         }
     }
+
 }
 
