@@ -1,6 +1,7 @@
 package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
+import controller.duel.effects.SpellEffectCanActivate;
 import model.Card;
 import model.MonsterCard;
 import view.duel.EffectView;
@@ -12,6 +13,7 @@ public class StandByPhaseController {
     private static StandByPhaseController standByPhase;
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
     private EffectView effectView = EffectView.getInstance();
+    private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
 
     private StandByPhaseController() {
 
@@ -24,12 +26,70 @@ public class StandByPhaseController {
         return standByPhase;
     }
 
-    public void run(){
+    public void run() {
         askWhetherMessengerOfPeaceContinues();
         bringBackMyMonsters();
+        supplySquad();
     }
 
-    public void askWhetherMessengerOfPeaceContinues() {
+    private String supplySquad() {
+        if (spellEffectCanActivate.isThereSupplySquad(1)) {
+            if (didAnyCardDestroyed(1)) {
+                return supplySquadDrawCard(1);
+            }
+        }
+        if (spellEffectCanActivate.isThereSupplySquad(2)) {
+            if (didAnyCardDestroyed(2)) {
+                return supplySquadDrawCard(2);
+            }
+        }
+        return "the game continuous";
+    }
+
+    private boolean didAnyCardDestroyed(int player) {
+        HashMap<Integer, Card> spellTerritory;
+        if (player == 1) {
+            spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        } else {
+            spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        }
+        for (int i = 1; i < 6; i++) {
+            Card card = spellTerritory.get(i);
+            if (card.getName().equals("Supply Squad")) {
+                if (card.getIsFacedUp()) {
+                    if (card.getStartEffectTurn() != -1) {
+                        card.setStartEffectTurn(-1);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private String supplySquadDrawCard(int player) {
+        ArrayList<Card> playerHand;
+        ArrayList<Card> mainDeck;
+        if (player == 1) {
+            playerHand = duelWithUser.getMyBoard().getPlayerHand();
+            mainDeck = duelWithUser.getMyBoard().getMainDeck();
+        } else {
+            playerHand = duelWithUser.getEnemyBoard().getPlayerHand();
+            mainDeck = duelWithUser.getEnemyBoard().getMainDeck();
+        }
+        if (mainDeck.size() == 0) {
+            if (player == 1) {
+                return "I lost";
+            } else {
+                return "I win";
+            }
+        }
+        playerHand.add(mainDeck.get(mainDeck.size() - 1));
+        mainDeck.remove(mainDeck.size() - 1);
+        return "the game continuous";
+    }
+
+    private void askWhetherMessengerOfPeaceContinues() {
         if (doIHaveItOnMyField()) {
             if (duelWithUser.getMyBoard().getLP() > 100) {
                 while (true) {
