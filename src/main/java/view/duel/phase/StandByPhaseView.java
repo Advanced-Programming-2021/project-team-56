@@ -17,15 +17,22 @@ public class StandByPhaseView {
         return standByPhase;
     }
 
-    public void run() {
+    public String run() {
         System.out.println("phase: standby phase view");
-        StandByPhaseController.getInstance().run();
+        String result = StandByPhaseController.getInstance().run();
+        if (!result.equals("the game continuous")){
+            return result;
+        }
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("activate effect")) {
                 System.out.println("you can’t activate an effect on this turn");
                 continue;
             }
+            if (command.equals("next phase")) {
+                break;
+            }
         }
+        return "the game continuous";
     }
 }

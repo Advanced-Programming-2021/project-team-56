@@ -26,10 +26,10 @@ public class StandByPhaseController {
         return standByPhase;
     }
 
-    public void run() {
+    public String run() {
         askWhetherMessengerOfPeaceContinues();
         bringBackMyMonsters();
-        supplySquad();
+        return supplySquad();
     }
 
     private String supplySquad() {
