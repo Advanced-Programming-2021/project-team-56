@@ -179,7 +179,7 @@ public class SpellEffectCanActivate {
         return false;
     }
 
-    public boolean blackPendantCanActivate() {
+    public boolean blackPendantAndUnitedWeStandCanActivate() {
         HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
             if (monsterTerritory.get(i) != null) return true;
@@ -187,4 +187,15 @@ public class SpellEffectCanActivate {
         return false;
     }
 
+    public boolean magnumShieldCanActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (monsterTerritory.get(i) != null) {
+                if (monsterTerritory.get(i).getMonsterType().equals("Warrior")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

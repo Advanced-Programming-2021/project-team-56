@@ -83,11 +83,20 @@ public class SpellEffectActivate {
                     return "preparations of this spell are not done yet";
                 }
             case "Black Pendant":
-                if (blackPendantActivate1()) {
+            case "United We Stand":
+                if (blackPendantAndUnitedWeStandActivate()) {
                     return "spell activated";
                 } else {
                     return "preparations of this spell are not done yet";
                 }
+            case "Magnum Shield":
+                if (magnumShieldActivate1()) {
+                    return "spell activated";
+                } else {
+                    return "preparations of this spell are not done yet";
+                }
+
+
         }
         return "";
     }
@@ -484,7 +493,7 @@ public class SpellEffectActivate {
                 } else {
                     if (!monsterTerritory.get(address).getMonsterType().equals("Fiend") && !monsterTerritory.get(address).getMonsterType().equals("Spellcaster")) {
                         effectView.output("the monster's type is not fiend or spellcaster");
-                    } else {//TOdo
+                    } else {
                         DuelWithUser.getInstance().getMyBoard().getSelectedCard().setFacedUp(true);
                         DuelWithUser.getInstance().getMyBoard().getSelectedCard().setEquipID(Card.id);
                         monsterTerritory.get(address).getEquipId().add(Card.id);
@@ -530,8 +539,8 @@ public class SpellEffectActivate {
         }
     }
 
-    public boolean blackPendantActivate1() {
-        if (!spellEffectCanActivate.blackPendantCanActivate()) {
+    public boolean blackPendantAndUnitedWeStandActivate() {
+        if (!spellEffectCanActivate.blackPendantAndUnitedWeStandCanActivate()) {
             return false;
         }
         HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
@@ -543,7 +552,6 @@ public class SpellEffectActivate {
                 if (monsterTerritory.get(address) == null) {
                     effectView.output("there is no monster on the address");
                 } else {
-                    //TOdo
                     DuelWithUser.getInstance().getMyBoard().getSelectedCard().setFacedUp(true);
                     DuelWithUser.getInstance().getMyBoard().getSelectedCard().setEquipID(Card.id);
                     monsterTerritory.get(address).getEquipId().add(Card.id);
@@ -555,7 +563,7 @@ public class SpellEffectActivate {
         return true;
     }
 
-    public void blackPendantActivate2() {
+    public void blackPendantActivate() {
         HashMap<Integer, MonsterCard> myMonsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
         HashMap<Integer, MonsterCard> enemyMonsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
         HashMap<Integer, Card> mySpellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritory();
@@ -585,5 +593,112 @@ public class SpellEffectActivate {
             }
         }
     }
+
+    public void unitedWeStandActivate() {
+        HashMap<Integer, MonsterCard> myMonsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> enemyMonsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        HashMap<Integer, Card> mySpellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritory();
+        HashMap<Integer, Card> enemySpellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (mySpellAndTrapTerritory.get(i) != null) {
+                if (mySpellAndTrapTerritory.get(i).getName().equals("United We Stand") && myMonsterTerritory.get(i).getIsFacedUp()) {
+                    for (int j = 1; j <= 5; j++) {
+                        if (myMonsterTerritory.get(j) != null) {
+                            if (myMonsterTerritory.get(j).getEquipId().contains(mySpellAndTrapTerritory.get(i).getEquipID())) {
+                                int numberOfMonsters = 0;
+                                for (int k = 1; k <= 5; k++) {
+                                    if (myMonsterTerritory.get(k) != null) numberOfMonsters++;
+                                }
+                                myMonsterTerritory.get(j).increaseFinalAttack(numberOfMonsters * 800);
+                            }
+                        }
+                    }
+                }
+            }
+            if (enemySpellAndTrapTerritory.get(i) != null) {
+                if (enemySpellAndTrapTerritory.get(i).getName().equals("United We Stand") && enemyMonsterTerritory.get(i).getIsFacedUp()) {
+                    for (int j = 1; j <= 5; j++) {
+                        if (enemyMonsterTerritory.get(j) != null) {
+                            if (enemyMonsterTerritory.get(j).getEquipId().contains(enemySpellAndTrapTerritory.get(i).getEquipID())) {
+                                int numberOfMonsters = 0;
+                                for (int k = 1; k <= 5; k++) {
+                                    if (enemyMonsterTerritory.get(k) != null) numberOfMonsters++;
+                                }
+                                enemyMonsterTerritory.get(j).increaseFinalAttack(numberOfMonsters * 800);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean magnumShieldActivate1() {
+        if (!spellEffectCanActivate.magnumShieldCanActivate()) {
+            return false;
+        }
+        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        while (true) {
+            int address = effectView.getAddress();
+            if (address > 5 || address < 1) {
+                effectView.output("invalid selection");
+            } else {
+                if (monsterTerritory.get(address) == null) {
+                    effectView.output("there is no monster on the address");
+                } else {
+                    if (!monsterTerritory.get(address).getMonsterType().equals("Warrior")) {
+                        effectView.output("the monster's type is not warrior");
+                    } else {
+                        DuelWithUser.getInstance().getMyBoard().getSelectedCard().setFacedUp(true);
+                        DuelWithUser.getInstance().getMyBoard().getSelectedCard().setEquipID(Card.id);
+                        monsterTerritory.get(address).getEquipId().add(Card.id);
+                        Card.id++;
+                        break;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public void magnumShieldActivate2() {
+        HashMap<Integer, MonsterCard> myMonsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> enemyMonsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritory();
+        HashMap<Integer, Card> mySpellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritory();
+        HashMap<Integer, Card> enemySpellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i <= 5; i++) {
+            if (mySpellAndTrapTerritory.get(i) != null) {
+                if (mySpellAndTrapTerritory.get(i).getName().equals("Magnum Shield") && myMonsterTerritory.get(i).getIsFacedUp()) {
+                    for (int j = 1; j <= 5; j++) {
+                        if (myMonsterTerritory.get(j) != null) {
+                            if (myMonsterTerritory.get(j).getEquipId().contains(mySpellAndTrapTerritory.get(i).getEquipID())) {
+                                if (myMonsterTerritory.get(j).getIsInAttackPosition()) {
+                                    myMonsterTerritory.get(j).increaseFinalAttack(myMonsterTerritory.get(j).getFinalDefence());
+                                } else {
+                                    myMonsterTerritory.get(j).increaseFinalDefence(myMonsterTerritory.get(j).getFinalAttack());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (enemySpellAndTrapTerritory.get(i) != null) {
+                if (enemySpellAndTrapTerritory.get(i).getName().equals("United We Stand") && enemyMonsterTerritory.get(i).getIsFacedUp()) {
+                    for (int j = 1; j <= 5; j++) {
+                        if (enemyMonsterTerritory.get(j) != null) {
+                            if (enemyMonsterTerritory.get(j).getEquipId().contains(enemySpellAndTrapTerritory.get(i).getEquipID())) {
+                                if (enemyMonsterTerritory.get(j).getIsInAttackPosition()) {
+                                    enemyMonsterTerritory.get(j).increaseFinalAttack(enemyMonsterTerritory.get(j).getFinalDefence());
+                                } else {
+                                    enemyMonsterTerritory.get(j).increaseFinalDefence(enemyMonsterTerritory.get(j).getFinalAttack());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
 
