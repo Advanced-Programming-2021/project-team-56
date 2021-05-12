@@ -18,7 +18,7 @@ public class BattlePhaseController {
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
     private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private EffectView effectView = EffectView.getInstance();
-    private int loserId = 1;
+    private int loserId;
 
     private BattlePhaseController() {
     }
