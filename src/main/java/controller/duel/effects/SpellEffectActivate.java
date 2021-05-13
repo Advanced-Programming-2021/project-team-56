@@ -15,9 +15,9 @@ import java.util.HashMap;
 public class SpellEffectActivate {
 
     private static SpellEffectActivate spellEffectActivate;
-    private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-    private EffectView effectView = EffectView.getInstance();
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+    private final EffectView effectView = EffectView.getInstance();
+    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private SpellEffectActivate() {
 
@@ -110,9 +110,7 @@ public class SpellEffectActivate {
     private String getRidOfSpell() {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         Card spell = duelWithUser.getMyBoard().getSelectedCard();
-        if (playerHand.contains(spell)) {
-            playerHand.remove(spell);
-        }
+        playerHand.remove(spell);
         duelWithUser.getMyBoard().getGraveyard().add(spell);
         duelWithUser.getMyBoard().setSelectedCard(null);
         spellAbsorption();
@@ -300,10 +298,10 @@ public class SpellEffectActivate {
                 ritualSummon(true, output);
                 break;
             } else if (input.equals("defence position")) {
-                ritualSummon(true, output);
+                ritualSummon(false, output);
                 break;
             } else {
-                input.equals("invalid command");
+                effectView.output("invalid command");
             }
         }
         Collections.shuffle(duelWithUser.getMyBoard().getMainDeck());
@@ -311,14 +309,15 @@ public class SpellEffectActivate {
         return true;
     }
 
-    private void ritualSummon(boolean attackPosition, int addrese) {
+    private void ritualSummon(boolean attackPosition, int address) {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         MonsterCard monsterCard = null;
-        if (addrese == 1) {
+        if (address == 1) {
             for (int i = 0; i < playerHand.size(); i++) {
                 if (playerHand.get(i).getName().equals("Crab Turtle")) {
                     monsterCard = (MonsterCard) playerHand.get(i);
                     playerHand.remove(i);
+                    break;
                 }
             }
         } else {
@@ -326,6 +325,7 @@ public class SpellEffectActivate {
                 if (playerHand.get(i).getName().equals("Skull Guardian")) {
                     monsterCard = (MonsterCard) playerHand.get(i);
                     playerHand.remove(i);
+                    break;
                 }
             }
         }
@@ -361,10 +361,7 @@ public class SpellEffectActivate {
 
     private boolean isItValidTribute(int address) {
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
-        if (mainDeck.get(address) instanceof MonsterCard) {
-            return true;
-        }
-        return false;
+        return mainDeck.get(address) instanceof MonsterCard;
     }
 
     public void forestActivate() {
@@ -443,15 +440,9 @@ public class SpellEffectActivate {
         }
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        ArrayList<Card> graveYard = duelWithUser.getMyBoard().getGraveyard();
         for (int i = 1; i <= 2; i++) {
-            if (playerHand.size() < 6) {
-                playerHand.add(mainDeck.get(mainDeck.size() - 1));
-                mainDeck.remove(mainDeck.size() - 1);
-            } else {
-                graveYard.add(mainDeck.get(mainDeck.size() - 1));
-                mainDeck.remove(mainDeck.size() - 1);
-            }
+            playerHand.add(mainDeck.get(mainDeck.size() - 1));
+            mainDeck.remove(mainDeck.size() - 1);
         }
         return true;
     }
@@ -542,13 +533,13 @@ public class SpellEffectActivate {
         for (int i = 1; i <= 5; i++) {
             Card mySpell = mySpellAndTrapTerritory.get(i);
             if (mySpell != null) {
-                if (mySpell.equals("Spell Absorption") && mySpell.getIsFacedUp()) {
+                if (mySpell.getName().equals("Spell Absorption") && mySpell.getIsFacedUp()) {
                     duelWithUser.getMyBoard().setLP(myLp + 500);
                 }
             }
             Card enemySpell = enemySpellAndTrapTerritory.get(i);
             if (enemySpell != null) {
-                if (enemySpell.equals("Spell Absorption") && enemySpell.getIsFacedUp()) {
+                if (enemySpell.getName().equals("Spell Absorption") && enemySpell.getIsFacedUp()) {
                     duelWithUser.getEnemyBoard().setLP(enemyLp + 500);
                 }
             }
@@ -603,39 +594,34 @@ public class SpellEffectActivate {
     }
 
     public void swordOfDarkDestructionActivate2() {
-        HashMap<Integer, MonsterCard> myMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        HashMap<Integer, MonsterCard> enemyMonsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
-        HashMap<Integer, Card> mySpellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-        HashMap<Integer, Card> enemySpellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i <= 5; i++) {
-            if (mySpellAndTrapTerritory.get(i) != null) {
-                Card mySpell = mySpellAndTrapTerritory.get(i);
-                if (mySpell.getName().equals("Sword of Dark Destruction") && mySpell.getIsFacedUp()) {
-                    for (int j = 1; j <= 5; j++) {
-                        MonsterCard myMonster = myMonsterTerritory.get(j);
-                        if (myMonster != null) {
-                            if (myMonster.getEquipId().contains(mySpell.getEquipID())) {
-                                myMonster.increaseFinalAttack(400);
-                                myMonster.decreaseFinalDefence(200);
+        int counter = 1;
+        while (counter <= 2) {
+            HashMap<Integer, MonsterCard> monsterTerritory;
+            HashMap<Integer, Card> spellTerritory;
+            if (counter == 1) {
+                monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+                spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+            } else {
+                monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+                spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+            }
+            for (int i = 1; i <= 5; i++) {
+                Card spell = spellTerritory.get(i);
+                if (spellTerritory.get(i) != null) {
+                    if (spell.getName().equals("Sword of Dark Destruction") && spell.getIsFacedUp()) {
+                        for (int j = 1; j <= 5; j++) {
+                            MonsterCard monster = monsterTerritory.get(j);
+                            if (monster != null) {
+                                if (monster.getEquipId().contains(spell.getEquipID())) {
+                                    monster.increaseFinalAttack(400);
+                                    monster.decreaseFinalDefence(200);
+                                }
                             }
                         }
                     }
                 }
             }
-            Card enemySpell = enemySpellAndTrapTerritory.get(i);
-            if (enemySpell != null) {
-                if (enemySpell.getName().equals("Sword of DarkDestruction") && enemySpell.getIsFacedUp()) {
-                    for (int j = 1; j <= 5; j++) {
-                        MonsterCard enemyMonster = enemyMonsterTerritory.get(j);
-                        if (enemyMonster != null) {
-                            if (enemyMonster.getEquipId().contains(enemySpellAndTrapTerritory.get(i).getEquipID())) {
-                                enemyMonster.increaseFinalAttack(400);
-                                enemyMonster.decreaseFinalDefence(200);
-                            }
-                        }
-                    }
-                }
-            }
+            counter++;
         }
     }
 
