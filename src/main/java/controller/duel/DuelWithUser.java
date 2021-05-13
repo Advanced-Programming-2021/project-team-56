@@ -10,6 +10,8 @@ import view.duel.DuelWithUserView;
 import view.duel.FirstToGoDeterminerView;
 import view.duel.phase.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,25 +25,24 @@ public class DuelWithUser {
     static Pattern selectOpponentSpellOrTrap2 = Pattern.compile("^select --opponent --spell (\\d+)$");
     static Pattern selectMyHandCard = Pattern.compile("^select --hand (\\d+)$");
     static Pattern selectFieldCard = Pattern.compile("^select (?:--opponent --field|--field --opponent|--field)$");
-    private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-    private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
-
+    private final SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+    private final SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private int phaseCounter = 1;
     private int turnCounter;
-    private static DuelWithUser duelWithUserController;
+    private static DuelWithUser duelWithUser;
+    private final static DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
     private Board[] boards = new Board[2];
 
     private DuelWithUser() {
     }
 
     public static DuelWithUser getInstance() {
-        if (duelWithUserController == null)
-            duelWithUserController = new DuelWithUser();
-        return duelWithUserController;
+        if (duelWithUser == null)
+            duelWithUser = new DuelWithUser();
+        return duelWithUser;
     }
 
     public void run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
-        DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
             int numberOfWinsPlayer2 = 0;
@@ -428,18 +429,39 @@ public class DuelWithUser {
         return winnerUsername + " won the whole match with score: " + winnerScore + "-" + looserScore;
     }
 
-    public void afterDeathEffect(int player, MonsterCard monsterCard){
+    public void afterDeathEffect(int player, MonsterCard monsterCard) {
         if (player == 1) {
             if (spellEffectCanActivate.isThereSupplySquad(1)) {
                 spellEffectActivate.supplySquadEffect(1);
             }
-        }else {
+        } else {
             if (spellEffectCanActivate.isThereSupplySquad(2)) {
                 spellEffectActivate.supplySquadEffect(2);
             }
         }
-        if (monsterCard.getEquipID() != 0){
-
+        if (monsterCard.getEquipId().size() != 0) {
+            int counter = 1;
+            while (counter <= 2){
+                HashMap<Integer, Card> spellTerritory;
+                ArrayList<Card> graveyard;
+                if (counter == 1){
+                    spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+                    graveyard = duelWithUser.getMyBoard().getGraveyard();
+                }else {
+                    spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+                    graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+                }
+                for (int i = 1; i < 6 ; i++) {
+                    Card spell = spellTerritory.get(i);
+                    if (spell != null) {
+                        if (monsterCard.getEquipId().contains(spell.getEquipID())){
+                            graveyard.add(spell);
+                            spellTerritory.put(i, null);
+                        }
+                    }
+                }
+                counter++;
+            }
         }
     }
 
