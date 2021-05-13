@@ -13,9 +13,6 @@ public class Card {
     private int equipID;
     public static int id = 0;
 
-
-    //TODO set IEffectID for monster cards without effect 0 in CSV File and with Effects, their own effectID and set it here
-
     public Card() {
     }
 
