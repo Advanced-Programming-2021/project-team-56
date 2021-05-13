@@ -110,7 +110,7 @@ public class SpellEffectActivate {
     private String getRidOfSpell() {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         Card spell = duelWithUser.getMyBoard().getSelectedCard();
-        if (playerHand.contains(spell)){
+        if (playerHand.contains(spell)) {
             playerHand.remove(spell);
         }
         duelWithUser.getMyBoard().getGraveyard().add(spell);
@@ -577,16 +577,17 @@ public class SpellEffectActivate {
         if (!spellEffectCanActivate.swordOfDarkDestructionCanActivate()) {
             return false;
         }
-        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         while (true) {
             int address = effectView.getAddress();
             if (address > 5 || address < 1) {
                 effectView.output("invalid selection");
             } else {
-                if (monsterTerritory.get(address) == null) {
+                MonsterCard monster = monsterTerritory.get(address);
+                if (monster == null) {
                     effectView.output("there is no monster on the address");
                 } else {
-                    if (!monsterTerritory.get(address).getMonsterType().equals("Fiend") && !monsterTerritory.get(address).getMonsterType().equals("Spellcaster")) {
+                    if (!monster.getMonsterType().equals("Fiend") && !monster.getMonsterType().equals("Spellcaster")) {
                         effectView.output("the monster's type is not fiend or spellcaster");
                     } else {
                         duelWithUser.getMyBoard().getSelectedCard().setFacedUp(true);

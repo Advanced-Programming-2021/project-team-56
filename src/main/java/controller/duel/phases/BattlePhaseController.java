@@ -275,21 +275,21 @@ public class BattlePhaseController {
     }
 
     private void commandKnightEffect() {
-        Board myBoard = duelWithUser.getMyBoard();
-        Board enemyBoard = duelWithUser.getEnemyBoard();
-        for (int i = 1; i <= 5; i++) {
-            MonsterCard myMonster = myBoard.getMonsterTerritory().get(i);
-            if (myMonster != null &&
-                    myMonster.getName().equals("Command Knight") &&
-                    myMonster.getIsFacedUp()) {
-                activateCommandKnightEffectOnBoardMonsters(myBoard);
+        int counter = 1;
+        while (counter <= 2) {
+            Board board;
+            if (counter == 1) {
+                board = duelWithUser.getMyBoard();
+            } else {
+                board = duelWithUser.getEnemyBoard();
             }
-            MonsterCard enemyMonster = enemyBoard.getMonsterTerritory().get(i);
-            if (enemyMonster != null &&
-                    enemyMonster.getName().equals("Command Knight") &&
-                    enemyMonster.getIsFacedUp()) {
-                activateCommandKnightEffectOnBoardMonsters(enemyBoard);
+            for (int i = 1; i <= 5; i++) {
+                MonsterCard monster = board.getMonsterTerritory().get(i);
+                if (monster != null && monster.getName().equals("Command Knight") && monster.getIsFacedUp()) {
+                    activateCommandKnightEffectOnBoardMonsters(board);
+                }
             }
+            counter++;
         }
     }
 
