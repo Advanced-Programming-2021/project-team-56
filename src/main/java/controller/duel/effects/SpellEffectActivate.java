@@ -162,7 +162,7 @@ public class SpellEffectActivate {
         monsterCard.setLastTimeAttackedTurn(0);
         monsterCard.setSummonedTurn(0);
         monsterCard.setLastTimeChangedPositionTurn(0);
-        monsterCard.setItScanner(false);
+        monsterCard.setItScanner(monsterCard.getName().equals("Scanner"));
         effectView.output("do you want to summon it in attack position or defence position?");
         while (true) {
             String input = effectView.input();
