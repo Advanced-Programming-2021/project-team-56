@@ -275,29 +275,35 @@ public class BattlePhaseController {
     }
 
     private void commandKnightEffect() {
-        Board board1 = duelWithUser.getMyBoard();
-        Board board2 = duelWithUser.getEnemyBoard();
+        Board myBoard = duelWithUser.getMyBoard();
+        Board enemyBoard = duelWithUser.getEnemyBoard();
         for (int i = 1; i <= 5; i++) {
-            MonsterCard myMonster = board1.getMonsterTerritory().get(i);
-            if (myMonster != null && myMonster.getName().equals("Command Knight") && myMonster.getIsFacedUp()) {
-                for (int j = 1; j <= 5; j++) {
-                    if (board1.getMonsterTerritory().get(j) != null) {
-                        board1.getMonsterTerritory().get(j).increaseFinalAttack(400);
-                    }
-                }
+            MonsterCard myMonster = myBoard.getMonsterTerritory().get(i);
+            if (myMonster != null &&
+                    myMonster.getName().equals("Command Knight") &&
+                    myMonster.getIsFacedUp()) {
+                activateCommandKnightEffectOnBoardMonsters(myBoard);
             }
-            MonsterCard enemyMonster = board2.getMonsterTerritory().get(i);
-            if (enemyMonster != null && enemyMonster.getName().equals("Command Knight") && enemyMonster.getIsFacedUp()) {
-                for (int j = 1; j <= 5; j++) {
-                    if (board2.getMonsterTerritory().get(j) != null) {
-                        board2.getMonsterTerritory().get(j).increaseFinalAttack(400);
-                    }
-                }
+            MonsterCard enemyMonster = enemyBoard.getMonsterTerritory().get(i);
+            if (enemyMonster != null &&
+                    enemyMonster.getName().equals("Command Knight") &&
+                    enemyMonster.getIsFacedUp()) {
+                activateCommandKnightEffectOnBoardMonsters(enemyBoard);
+            }
+        }
+    }
+
+    private void activateCommandKnightEffectOnBoardMonsters(Board board) {
+        for (int i = 1; i <= 5; i++) {
+            MonsterCard boardMonster = board.getMonsterTerritory().get(i);
+            if (boardMonster != null) {
+                boardMonster.increaseFinalAttack(400);
             }
         }
     }
 
     public void afterBattleEffects() {
+        //sets all the monsters ATK & DEF to default before giving any commands (e.g. attack / attack direct)
         Board board1 = duelWithUser.getMyBoard();
         Board board2 = duelWithUser.getEnemyBoard();
         for (int i = 1; i <= 5; i++) {

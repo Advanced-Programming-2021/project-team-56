@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 public class DrawPhaseView {
     private static DrawPhaseView drawPhase;
-    static Pattern setPosition = Pattern.compile("^set --position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     private DrawPhaseView() {
@@ -45,8 +44,7 @@ public class DrawPhaseView {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
-            Matcher matcher = setPosition.matcher(command);
-            if (matcher.find()) {
+            if (command.equals("set --position attack") || command.equals("set --position defence")) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
             }
@@ -58,7 +56,7 @@ public class DrawPhaseView {
                 System.out.println("you can’t activate an effect on this turn");
                 continue;
             }
-            matcher = attack.matcher(command);
+            Matcher matcher = attack.matcher(command);
             if (matcher.find()) {
                 System.out.println("you can’t do this action in this phase");
                 continue;
