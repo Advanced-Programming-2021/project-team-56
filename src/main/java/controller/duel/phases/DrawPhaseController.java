@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class DrawPhaseController {
     private static DrawPhaseController drawPhase;
+    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private DrawPhaseController() {
     }
@@ -19,18 +20,10 @@ public class DrawPhaseController {
     }
 
     public String run() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         if (mainDeck.size() == 0) {
             return "No cards is in your deck";
-        }
-        //TODO Why mainDeck.size() - 1 ?
-        if (playerHand.size() == 6) {
-            graveyard.add(mainDeck.get(mainDeck.size() - 1));
-            mainDeck.remove(mainDeck.size() - 1);
-            return "Your hand is full";
         }
         playerHand.add(mainDeck.get(mainDeck.size() - 1));
         mainDeck.remove(mainDeck.size() - 1);

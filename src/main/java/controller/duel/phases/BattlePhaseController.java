@@ -15,9 +15,9 @@ public class BattlePhaseController {
     private static BattlePhaseController battlePhase;
     public MonsterCard myMonster;
     public MonsterCard enemyMonster;
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
-    private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
-    private EffectView effectView = EffectView.getInstance();
+    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
+    private final EffectView effectView = EffectView.getInstance();
 
     private BattlePhaseController() {
     }
@@ -57,10 +57,10 @@ public class BattlePhaseController {
     private void effectFinalDamage() {
         beforeBattleEffects();
         if (myMonster.getName().equals("The Calculator")) {
-            theCalculatorEffect(myMonster);
+            theCalculatorEffect(1);
         }
         if (enemyMonster.getName().equals("The Calculator")) {
-            theCalculatorEffect(enemyMonster);
+            theCalculatorEffect(2);
         }
         if (enemyMonster.getName().equals("Suijin")) {
             suijinEffect();
@@ -170,7 +170,6 @@ public class BattlePhaseController {
             int myLife = duelWithUser.getMyBoard().getLP();
             duelWithUser.getMyBoard().setLP(myLife - damage);
             if (myMonster.getName().equals("Marshmallon")) {
-                ;
                 return "no card is destroyed";
             }
             destroyMyMonster(myMonster);
@@ -320,15 +319,25 @@ public class BattlePhaseController {
         }
     }
 
-    private void theCalculatorEffect(MonsterCard monsterCard) {
+    private void theCalculatorEffect(int player) {
+        HashMap<Integer, MonsterCard> monsterTerritory;
+        if (player == 1) {
+            monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        } else {
+            monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+        }
         int sumOfLevels = 0;
         for (int i = 1; i <= 5; i++) {
-            MonsterCard monsterCard1 = monsterCard.getCurrentBoard().getMonsterTerritory().get(i);
-            if (monsterCard1 != null && monsterCard1.getIsFacedUp()) {
-                sumOfLevels += monsterCard1.getLevel();
+            MonsterCard monster = monsterTerritory.get(i);
+            if (monster != null && monster.getIsFacedUp()) {
+                sumOfLevels += monster.getLevel();
             }
         }
-        monsterCard.setFinalAttack(300 * sumOfLevels);
+        if (player == 1) {
+            myMonster.setFinalAttack(300 * sumOfLevels);
+        }else {
+            enemyMonster.setFinalAttack(300 * sumOfLevels);
+        }
     }
 
     private void suijinEffect() {
@@ -543,7 +552,6 @@ public class BattlePhaseController {
                     return;
                 } else {
                     effectView.output("invalid command");
-                    continue;
                 }
             }
         }

@@ -15,8 +15,6 @@ public class Card {
 
 
     //TODO set IEffectID for monster cards without effect 0 in CSV File and with Effects, their own effectID and set it here
-    private Board currentBoard;
-    private Board opponentBoard;
 
     public Card() {
     }
@@ -47,16 +45,8 @@ public class Card {
         return description;
     }
 
-    public Board getCurrentBoard() {
-        return currentBoard;
-    }
-
     public int getStartEffectTurn() {
         return startEffectTurn;
-    }
-
-    public Board getOpponentBoard() {
-        return opponentBoard;
     }
 
     public void setName(String name) {
@@ -73,14 +63,6 @@ public class Card {
 
     public void setStartEffectTurn(int startEffectTurn) {
         this.startEffectTurn = startEffectTurn;
-    }
-
-    public void setBoard(Board board) {
-        this.currentBoard = board;
-    }
-
-    public void setOpponentBoard(Board opponentBoard) {
-        this.opponentBoard = opponentBoard;
     }
 
     public int getPrice() {

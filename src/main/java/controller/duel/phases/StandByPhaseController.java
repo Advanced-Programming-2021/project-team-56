@@ -29,6 +29,7 @@ public class StandByPhaseController {
     public String run() {
         askWhetherMessengerOfPeaceContinues();
         bringBackMyMonsters();
+
         return supplySquad();
     }
 
@@ -134,7 +135,7 @@ public class StandByPhaseController {
         return false;
     }
 
-    public void bringBackMyMonsters() {
+    private void bringBackMyMonsters() {
         HashMap<Integer, MonsterCard> enemyMonsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         HashMap<Integer, MonsterCard> myMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
@@ -152,5 +153,41 @@ public class StandByPhaseController {
                 }
             }
         }
+    }
+
+    private void heraldOfCreationEffect() {
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
+        if (canHeraldOfCreationPickUpAMonster()) {
+            while (true) {
+                effectView.output("do you want to pick up a monster from your graveyard?");
+                String input = effectView.input();
+                if (input.equals("yes")) {
+                    effectView.output("chose which card do you want to tribute");
+                    int address = effectView.getAddress();
+                    if (address > playerHand.size() || address < 1){
+                        effectView.output("invalid selection");
+                    }else{
+
+                    }
+                } else if (input.equals("cancel")) {
+                    break;
+                } else {
+                    effectView.output("invalid command");
+                }
+            }
+        }
+    }
+
+    private boolean canHeraldOfCreationPickUpAMonster() {
+        ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
+        for (int i = 0; i < graveyard.size(); i++) {
+            if (graveyard.get(i) instanceof MonsterCard) {
+                if (((MonsterCard) graveyard.get(i)).getLevel() >= 7) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
