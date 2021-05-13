@@ -462,6 +462,9 @@ public class DuelWithUser {
                 }
                 counter++;
             }
+            for (int i = 0; i < monsterCard.getEquipId().size(); i++) {
+                monsterCard.getEquipId().remove(0);
+            }
         }
     }
 
