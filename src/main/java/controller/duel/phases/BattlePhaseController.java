@@ -38,6 +38,7 @@ public class BattlePhaseController {
         if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
             return "you can't attack with this card due to the effect of messenger of peace";
         }
+        //TODO First two trap cards effect should be checked here!
         myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (enemyMonster.getName().equals("Texchanger") && texchangerEffect()) {
             duelWithUser.getMyBoard().setSelectedCard(null);

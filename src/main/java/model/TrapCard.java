@@ -7,6 +7,7 @@ public class TrapCard extends Card {
     private String icon;
     private String status;
     private String type;
+    private int setTurn;
 
     public TrapCard() {
 
@@ -36,6 +37,10 @@ public class TrapCard extends Card {
         this.status = status;
     }
 
+    public void setSetTurn(int turn) {
+        this.setTurn = turn;
+    }
+
     public String getType() {
         return type;
     }
@@ -46,6 +51,10 @@ public class TrapCard extends Card {
 
     public String getIcon() {
         return icon;
+    }
+
+    public int getSetTurn() {
+        return this.setTurn;
     }
 
     @Override

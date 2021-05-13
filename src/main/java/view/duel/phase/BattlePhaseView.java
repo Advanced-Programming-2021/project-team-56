@@ -56,6 +56,7 @@ public class BattlePhaseView {
                 continue;
             }
             if (command.equals("activate effect")) {
+                //TODO
                 System.out.println("you can’t activate an effect on this turn");
                 continue;
             }
