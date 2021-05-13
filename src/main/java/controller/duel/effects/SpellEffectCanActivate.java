@@ -15,8 +15,8 @@ import java.util.HashMap;
 public class SpellEffectCanActivate {
 
     private static SpellEffectCanActivate spellEffectCanActivate;
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
-    private EffectView effectView = EffectView.getInstance();
+    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final EffectView effectView = EffectView.getInstance();
 
     private SpellEffectCanActivate() {
 
@@ -80,10 +80,7 @@ public class SpellEffectCanActivate {
                 totalLevel -= ((MonsterCard) mainDeck.get(i)).getLevel();
             }
         }
-        if (totalLevel <= 0) {
-            return true;
-        }
-        return false;
+        return totalLevel <= 0;
     }
 
     private boolean doseHandIncludeCrabTurtle() {
@@ -120,14 +117,15 @@ public class SpellEffectCanActivate {
 
     public boolean potOfGreedCanActivate() {
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
-        if (mainDeck.size() >= 2) return true;
-        return false;
+        return mainDeck.size() >= 2;
     }
 
     public boolean raigekiCanActivate() {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
-            if (monsterTerritory.get(i) != null) return true;
+            if (monsterTerritory.get(i) != null) {
+                return true;
+            }
         }
         return false;
     }
