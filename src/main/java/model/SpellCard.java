@@ -6,7 +6,6 @@ public class SpellCard extends Card {
     private String type;
     private String icon;
     private String status;
-    private ArrayList<Card> effectedCards;
     private static ArrayList<SpellCard> spellCards = new ArrayList<>();
 
     public SpellCard() {

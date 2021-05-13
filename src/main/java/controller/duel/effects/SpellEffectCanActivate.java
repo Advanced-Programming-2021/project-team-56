@@ -171,7 +171,7 @@ public class SpellEffectCanActivate {
         ArrayList<Card> graveyard;
         if (player == 1) {
             graveyard = duelWithUser.getMyBoard().getGraveyard();
-        }else {
+        } else {
             graveyard = duelWithUser.getEnemyBoard().getGraveyard();
         }
         for (int i = 0; i < graveyard.size(); i++) {
@@ -183,10 +183,11 @@ public class SpellEffectCanActivate {
     }
 
     public boolean swordOfDarkDestructionCanActivate() {
-        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
-            if (monsterTerritory.get(i) != null) {
-                if (monsterTerritory.get(i).getMonsterType().equals("Fiend") || monsterTerritory.get(i).getMonsterType().equals("Spellcaster")) {
+            MonsterCard myMonster = monsterTerritory.get(i);
+            if (myMonster != null) {
+                if (myMonster.getMonsterType().equals("Fiend") || myMonster.getMonsterType().equals("Spellcaster")) {
                     return true;
                 }
             }
@@ -195,15 +196,17 @@ public class SpellEffectCanActivate {
     }
 
     public boolean blackPendantAndUnitedWeStandCanActivate() {
-        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
-            if (monsterTerritory.get(i) != null) return true;
+            if (monsterTerritory.get(i) != null) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean magnumShieldCanActivate() {
-        HashMap<Integer, MonsterCard> monsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritory();
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
             if (monsterTerritory.get(i) != null) {
                 if (monsterTerritory.get(i).getMonsterType().equals("Warrior")) {

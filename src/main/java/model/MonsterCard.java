@@ -15,7 +15,7 @@ public class MonsterCard extends Card {
     private int summonedTurn;
     private String cardType;
     private String monsterType;
-    private ArrayList<Integer> equipId;
+    private ArrayList<Integer> equipId = new ArrayList<>();
     private boolean isItControlledByChangeOfHeart;
 
     public MonsterCard() {
