@@ -33,7 +33,6 @@ public class StandByPhaseController {
     }
 
     private String supplySquad() {
-        //TODO Ask whats the logic of didAnyCardDestroyed (which code is not related to the name)
         if (spellEffectCanActivate.isThereSupplySquad(1)) {
             if (didAnyCardDestroyed(1)) {
                 return supplySquadDrawCard(1);
@@ -135,21 +134,17 @@ public class StandByPhaseController {
     }
 
     public void bringBackMyMonsters() {
-        //TODO Bug both were getMyBoard
         HashMap<Integer, MonsterCard> enemyMonsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         HashMap<Integer, MonsterCard> myMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             if (enemyMonsterTerritory.get(i).isItControlledByChangeOfHeart()) {
                 MonsterCard monsterCard = enemyMonsterTerritory.get(i);
-                //TODO Bug fixed here in foreach!
-                //TODO What if the monsterTerritory was full where does the goddamn card go? i put it in the graveYard
                 for (int j = 1; j < 6; j++) {
                     if (myMonsterTerritory.get(j) == null) {
                         monsterCard.setItControlledByChangeOfHeart(false);
                         myMonsterTerritory.put(j, monsterCard);
                     }
                 }
-                //duelWithUser.getMyBoard().getGraveyard().add(monsterCard);
                 enemyMonsterTerritory.put(i, null);
             }
         }
