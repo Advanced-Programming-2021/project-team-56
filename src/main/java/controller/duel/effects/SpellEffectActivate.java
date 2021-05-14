@@ -120,12 +120,12 @@ public class SpellEffectActivate {
     private boolean monsterRebornActivate() {
         ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
         ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
-        boolean myMonster = spellEffectCanActivate.isThereMonsterInGraveyard(1);
-        boolean enemyMonster = spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
         MonsterCard monsterCard;
         int address;
-        if (myMonster && enemyMonster) {
-            effectView.showGraveyardForMonsterReborn(true, true);
+        if (isMyGraveyardEmpty && isEnemyGraveyardEmpty) {
+            effectView.showGraveyardForMonsterRebornAndScanner(true, true);
             address = effectView.getAddress();
             if (address > myGraveyard.size()) {
                 address -= myGraveyard.size();
@@ -135,13 +135,13 @@ public class SpellEffectActivate {
                 monsterCard = (MonsterCard) myGraveyard.get(address - 1);
                 myGraveyard.remove(address - 1);
             }
-        } else if (myMonster) {
-            effectView.showGraveyardForMonsterReborn(true, false);
+        } else if (isMyGraveyardEmpty) {
+            effectView.showGraveyardForMonsterRebornAndScanner(true, false);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) myGraveyard.get(address - 1);
             myGraveyard.remove(address - 1);
-        } else if (enemyMonster) {
-            effectView.showGraveyardForMonsterReborn(false, true);
+        } else if (isEnemyGraveyardEmpty) {
+            effectView.showGraveyardForMonsterRebornAndScanner(false, true);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
             enemyGraveyard.remove(address - 1);

@@ -29,12 +29,12 @@ public class StandByPhaseController {
     public String run() {
         askWhetherMessengerOfPeaceContinues();
         bringBackMyMonsters();
-
+        heraldOfCreationEffect();
+        scannerEffect();
         return supplySquad();
     }
 
     private String supplySquad() {
-        //TODO Ask whats the logic of didAnyCardDestroyed (which code is not related to the name)
         if (spellEffectCanActivate.isThereSupplySquad(1)) {
             if (didAnyCardDestroyed(1)) {
                 return supplySquadDrawCard(1);
@@ -165,16 +165,42 @@ public class StandByPhaseController {
                 if (input.equals("yes")) {
                     effectView.output("chose which card do you want to tribute");
                     int address = effectView.getAddress();
-                    if (address > playerHand.size() || address < 1){
+                    if (address > playerHand.size() || address < 1) {
                         effectView.output("invalid selection");
-                    }else{
-
+                    } else {
+                        graveyard.add(playerHand.get(address - 1));
+                        playerHand.remove(address - 1);
+                        break;
                     }
                 } else if (input.equals("cancel")) {
-                    break;
+                    return;
                 } else {
                     effectView.output("invalid command");
                 }
+            }
+        }
+        heraldOfCreationCardChoosing();
+    }
+
+    private void heraldOfCreationCardChoosing() {
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
+        while (true) {
+            effectView.showGraveyardForMonsterRebornAndScanner(true, false);
+            int address = effectView.getAddress();
+            if (address < 1 || address > graveyard.size()) {
+                effectView.output("invalid selection");
+                continue;
+            }
+            Card card = (graveyard.get(address - 1));
+            if (!(card instanceof MonsterCard)) {
+                effectView.output("chosen card is not a monster");
+            } else if (((MonsterCard) card).getLevel() < 7) {
+                effectView.output("the level of monster must be 7 or higher");
+            } else {
+                playerHand.add(card);
+                graveyard.remove(address - 1);
+                return;
             }
         }
     }
@@ -186,6 +212,65 @@ public class StandByPhaseController {
                 if (((MonsterCard) graveyard.get(i)).getLevel() >= 7) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    private void scannerEffect() {
+        if (!isThereScannerAny()) {
+            return;
+        }
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
+        ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        int address;
+        MonsterCard monsterCard;
+        if (isMyGraveyardEmpty && isEnemyGraveyardEmpty) {
+            effectView.showGraveyardForMonsterRebornAndScanner(true, true);
+            address = effectView.getAddress();
+            if (address > myGraveyard.size()) {
+                address -= myGraveyard.size();
+                monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
+            } else {
+                monsterCard = (MonsterCard) myGraveyard.get(address - 1);
+            }
+        } else if (isMyGraveyardEmpty) {
+            effectView.showGraveyardForMonsterRebornAndScanner(true, false);
+            address = effectView.getAddress();
+            monsterCard = (MonsterCard) myGraveyard.get(address - 1);
+        } else if (isEnemyGraveyardEmpty) {
+            effectView.showGraveyardForMonsterRebornAndScanner(false, true);
+            address = effectView.getAddress();
+            monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
+        } else {
+            return;
+        }
+        scanTheAttributesForScanner(monsterCard);
+    }
+
+    private void scanTheAttributesForScanner(MonsterCard monsterCard) {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            MonsterCard scanner = monsterTerritory.get(i);
+            if (scanner.getItScanner()){
+                scanner.setName(monsterCard.getName());
+                scanner.setAttack(monsterCard.getAttack());
+                scanner.setDefence(monsterCard.getDefence());
+                scanner.setAttribute(monsterCard.getAttribute());
+                scanner.setCardType(monsterCard.getCardType());
+                scanner.setLevel(monsterCard.getLevel());
+                scanner.setDescription(monsterCard.getDescription());
+            }
+        }
+    }
+
+    private boolean isThereScannerAny() {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (monsterTerritory.get(i).getItScanner()) {
+                return true;
             }
         }
         return false;

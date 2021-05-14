@@ -54,7 +54,7 @@ public class EffectView {
         }
     }
 
-    public void showGraveyardForMonsterReborn(boolean player1, boolean player2) {
+    public void showGraveyardForMonsterRebornAndScanner(boolean player1, boolean player2) {
         ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
         ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
         int j = 1;
