@@ -8,10 +8,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static view.duel.phase.BattlePhaseView.increaseLP;
+import static view.duel.phase.BattlePhaseView.setWinner;
 
 public class DrawPhaseView {
     private static DrawPhaseView drawPhase;
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
+    static Pattern forceDraw1 = Pattern.compile("^select --hand ([\\S][\\S ]*) --force$");
+    static Pattern forceDraw2 = Pattern.compile("^select --force --hand ([\\S][\\S ]*)$");
 
     private DrawPhaseView() {
 
@@ -91,8 +94,34 @@ public class DrawPhaseView {
             if (matcher.find()) {
                 System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
             }
+            matcher = setWinner.matcher(command);
+            if (matcher.find()) {
+                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
+                    return duelWithUser.setWinner(matcher.group(1));
+                }
+                System.out.println("invalid nickname");
+                continue;
+            }
+            if (command.startsWith("select --hand") || command.startsWith("select --force")) {
+                checkForceDrawCommand(command);
+                continue;
+            }
             System.out.println("invalid command");
         }
         return "the game continues";
+    }
+
+    private void checkForceDrawCommand(String command) {
+        Matcher matcher = forceDraw1.matcher(command);
+        if (matcher.find()) {
+            System.out.println(DrawPhaseController.getInstance().forceDraw(matcher.group(1)));
+            return;
+        }
+        matcher = forceDraw2.matcher(command);
+        if (matcher.find()) {
+            System.out.println(DrawPhaseController.getInstance().forceDraw(matcher.group(1)));
+            return;
+        }
+        System.out.println("invalid command");
     }
 }

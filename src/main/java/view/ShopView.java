@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class ShopView {
 
     private static ShopView shopView;
-    static Pattern buyCard = Pattern.compile("^shop buy ([\\S]+)$");
+    static Pattern buyCard = Pattern.compile("^shop buy ([\\S][\\S ]*)$");
     static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
     static Pattern increaseMoneyCheat = Pattern.compile("^increase --money (\\d+)$");
 

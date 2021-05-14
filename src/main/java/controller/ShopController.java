@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class ShopController {
 
     private static ShopController shopController;
-    static Pattern cardShow = Pattern.compile("^card show [\\S][\\S ]*$");
+    static Pattern cardShow = Pattern.compile("^card show ([\\S][\\S ]*)$");
 
     private ShopController() {
     }
@@ -80,3 +80,5 @@ public class ShopController {
         return "your money increased by the value of " + amount + "!";
     }
 }
+
+

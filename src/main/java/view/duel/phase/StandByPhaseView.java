@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static view.duel.phase.BattlePhaseView.increaseLP;
+import static view.duel.phase.BattlePhaseView.setWinner;
 
 public class StandByPhaseView {
 
@@ -92,6 +93,14 @@ public class StandByPhaseView {
             matcher = increaseLP.matcher(command);
             if (matcher.find()) {
                 System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
+            }
+            matcher = setWinner.matcher(command);
+            if (matcher.find()) {
+                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
+                    return duelWithUser.setWinner(matcher.group(1));
+                }
+                System.out.println("invalid nickname");
+                continue;
             }
             System.out.println("invalid command");
         }
