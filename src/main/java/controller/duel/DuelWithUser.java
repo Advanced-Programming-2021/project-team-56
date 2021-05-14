@@ -139,8 +139,6 @@ public class DuelWithUser {
     public void setUpGame(String firstPlayerUsername, String secondPlayerUsername) {
         boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
         boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
-        boards[0].setCardsOpponentBoard(boards[1]);
-        boards[1].setCardsOpponentBoard(boards[0]);
         String firstPlayerToGoUsername = FirstToGoDeterminerView
                 .getInstance().determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername);
         if (firstPlayerToGoUsername.equals(firstPlayerUsername)) {
