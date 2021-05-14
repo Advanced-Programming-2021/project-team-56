@@ -86,7 +86,7 @@ public class DuelMenuView {
         String result = DuelMenuController.getInstance().canUsersDuel(firstPlayerUsername, secondPlayerUsername, numberOfRounds);
         if (result.equals("duel is valid")) {
             //TODO Add RockPaperScissors or TossCoin for determination of the first and second Player
-            DuelWithUser.getInstance().run(firstPlayerUsername, secondPlayerUsername, numberOfRounds);
+            System.out.println(DuelWithUser.getInstance().run(firstPlayerUsername, secondPlayerUsername, numberOfRounds));
             return;
         }
         System.out.println(result);

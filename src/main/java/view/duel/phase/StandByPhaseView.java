@@ -7,6 +7,8 @@ import view.LoginMenuView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static view.duel.phase.BattlePhaseView.increaseLP;
+
 public class StandByPhaseView {
 
     private static StandByPhaseView standByPhase;
@@ -86,6 +88,10 @@ public class StandByPhaseView {
             if (command.equals("show graveyard")) {
                 System.out.print(duelWithUser.showGraveYard());
                 continue;
+            }
+            matcher = increaseLP.matcher(command);
+            if (matcher.find()) {
+                System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
             }
             System.out.println("invalid command");
         }

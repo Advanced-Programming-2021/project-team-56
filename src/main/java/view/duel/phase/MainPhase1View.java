@@ -7,6 +7,8 @@ import view.LoginMenuView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static view.duel.phase.BattlePhaseView.increaseLP;
+
 public class MainPhase1View {
     private static MainPhase1View mainPhase1;
     static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
@@ -93,6 +95,10 @@ public class MainPhase1View {
             if (command.equals("show graveyard")) {
                 System.out.print(duelWithUser.showGraveYard());
                 continue;
+            }
+            matcher = increaseLP.matcher(command);
+            if (matcher.find()) {
+                System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
             }
             System.out.println("invalid command");
         }

@@ -7,6 +7,8 @@ import view.LoginMenuView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static view.duel.phase.BattlePhaseView.increaseLP;
+
 public class DrawPhaseView {
     private static DrawPhaseView drawPhase;
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
@@ -22,14 +24,14 @@ public class DrawPhaseView {
         return drawPhase;
     }
 
-    public boolean run() {
+    public String run() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: draw phase");
         String result = DrawPhaseController.getInstance().run();
         System.out.println(result);
         System.out.print(duelWithUser.showField());
         if (result.equals("No cards is in your deck")) {
-            return false;
+            return "I lost";
         }
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
@@ -67,7 +69,7 @@ public class DrawPhaseView {
                 continue;
             }
             if (command.equals("surrender")) {
-                return false;
+                return "I lost";
             }
             if (command.equals("select -d")) {
                 System.out.println(duelWithUser.deselectCard());
@@ -85,8 +87,12 @@ public class DrawPhaseView {
                 System.out.print(duelWithUser.showGraveYard());
                 continue;
             }
+            matcher = increaseLP.matcher(command);
+            if (matcher.find()) {
+                System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
+            }
             System.out.println("invalid command");
         }
-        return true;
+        return "the game continues";
     }
 }

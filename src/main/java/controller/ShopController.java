@@ -72,4 +72,11 @@ public class ShopController {
         }
         return false;
     }
+
+    public String increaseMoney(String username, String amount) {
+        int moneyAmount = Integer.parseInt(amount);
+        User user = User.getUserByUsername(username);
+        user.increaseMoney(moneyAmount);
+        return "your money increased by the value of " + amount + "!";
+    }
 }

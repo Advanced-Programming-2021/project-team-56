@@ -34,7 +34,6 @@ public class StandByPhaseController {
     }
 
     private String supplySquad() {
-        //TODO Ask whats the logic of didAnyCardDestroyed (which code is not related to the name)
         if (spellEffectCanActivate.isThereSupplySquad(1)) {
             if (didAnyCardDestroyed(1)) {
                 return supplySquadDrawCard(1);

@@ -42,7 +42,7 @@ public class DuelWithUser {
         return duelWithUser;
     }
 
-    public void run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
+    public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
             int numberOfWinsPlayer2 = 0;
@@ -59,27 +59,31 @@ public class DuelWithUser {
                 }
             }
             if (numberOfWinsPlayer1 == 2) {
-                duelWithUserView.printEndMessage(threeRoundWinner(firstPlayerUsername,
+                return (threeRoundWinner(firstPlayerUsername,
                         secondPlayerUsername, numberOfWinsPlayer1, numberOfWinsPlayer2));
             } else {
-                duelWithUserView.printEndMessage(threeRoundWinner(secondPlayerUsername,
+                return (threeRoundWinner(secondPlayerUsername,
                         firstPlayerUsername, numberOfWinsPlayer2, numberOfWinsPlayer1));
             }
         } else {
             setUpGame(firstPlayerUsername, secondPlayerUsername);
             if (phaseCaller(firstPlayerUsername) == 1) {
-                duelWithUserView.printEndMessage(oneRoundWin(firstPlayerUsername, secondPlayerUsername));
+                return (oneRoundWin(firstPlayerUsername, secondPlayerUsername));
             } else {
-                duelWithUserView.printEndMessage(oneRoundWin(secondPlayerUsername, firstPlayerUsername));
+                return (oneRoundWin(secondPlayerUsername, firstPlayerUsername));
             }
         }
     }
 
     public int phaseCaller(String firstPlayerUsername) {
+        String result;
         while (true) {
             switch (phaseCounter) {
                 case 1:
-                    if (!DrawPhaseView.getInstance().run()) {
+                    result = DrawPhaseView.getInstance().run();
+                    if (result.equals("I lost")) {
+                        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
+                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
                             return 2;
                         }
@@ -87,14 +91,16 @@ public class DuelWithUser {
                     }
                     break;
                 case 2:
-                    String result1 = StandByPhaseView.getInstance().run();
-                    if (result1.equals("I won")) {
+                    result = StandByPhaseView.getInstance().run();
+                    if (result.equals("I won")) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
+                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
                             return 1;
                         }
                         return 2;
-                    } else if (result1.equals("I lost")) {
+                    } else if (result.equals("I lost")) {
+                        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getEnemyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
                             return 1;
@@ -106,15 +112,17 @@ public class DuelWithUser {
                     MainPhase1View.getInstance().run();
                     break;
                 case 4:
-                    String result2 = BattlePhaseView.getInstance().run();
-                    if (result2.equals("I won")) {
+                    result = BattlePhaseView.getInstance().run();
+                    if (result.equals("I won")) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
+                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
                             return 1;
                         }
                         return 2;
-                    } else if (result2.equals("I lost")) {
+                    } else if (result.equals("I lost")) {
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
+                        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         if (getEnemyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
                             return 1;
                         }
@@ -139,8 +147,6 @@ public class DuelWithUser {
     public void setUpGame(String firstPlayerUsername, String secondPlayerUsername) {
         boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
         boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
-        boards[0].setCardsOpponentBoard(boards[1]);
-        boards[1].setCardsOpponentBoard(boards[0]);
         String firstPlayerToGoUsername = FirstToGoDeterminerView
                 .getInstance().determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername);
         if (firstPlayerToGoUsername.equals(firstPlayerUsername)) {
@@ -466,6 +472,29 @@ public class DuelWithUser {
                 monsterCard.getEquipId().remove(0);
             }
         }
+    }
+
+    public String increaseMyLP(String amount) {
+        int amountOfLP = Integer.parseInt(amount);
+        getMyBoard().increaseLP(amountOfLP);
+        return "LP of " + getMyBoard().getUser().getNickname() + " increased by " + amountOfLP;
+    }
+
+    public String setWinner(String nickname) {
+        if (nickname.equals(getMyBoard().getUser().getNickname())) {
+            return "I won";
+        }
+        return "I lost";
+    }
+
+    public String isNicknameValid(String nickname) {
+        if (getMyBoard().getUser().getNickname().equals(nickname)) {
+            return "yes";
+        }
+        if (getEnemyBoard().getUser().getNickname().equals(nickname)) {
+            return "yes";
+        }
+        return "no";
     }
 
 }
