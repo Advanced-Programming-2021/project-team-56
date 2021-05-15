@@ -13,4 +13,6 @@ public class TrapEffectActivate {
             trapEffectActivate = new TrapEffectActivate();
         return trapEffectActivate;
     }
+
+
 }

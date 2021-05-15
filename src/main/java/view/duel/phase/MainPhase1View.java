@@ -44,7 +44,7 @@ public class MainPhase1View {
                 continue;
             }
             if (command.equals("activate effect")) {
-                System.out.println(mainPhase1Controller.activateSpell());
+                mainPhase1Controller.activateSpell();
                 System.out.print(duelWithUser.showField());
                 continue;
             }

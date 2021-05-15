@@ -108,12 +108,17 @@ public class SpellEffectActivate {
     }
 
     private String getRidOfSpell() {
-        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
         Card spell = duelWithUser.getMyBoard().getSelectedCard();
-        playerHand.remove(spell);
+        for (int i = 1; i < 6; i++) {
+            if (spellAndTrapTerritory.get(i) == spell){
+                spellAndTrapTerritory.put(i, null);
+                break;
+            }
+        }
+        spellEffectActivate.spellAbsorption();
         duelWithUser.getMyBoard().getGraveyard().add(spell);
         duelWithUser.getMyBoard().setSelectedCard(null);
-        spellAbsorption();
         return "spell activated";
     }
 

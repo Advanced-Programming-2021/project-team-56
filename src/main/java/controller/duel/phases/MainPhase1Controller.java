@@ -18,6 +18,7 @@ public class MainPhase1Controller {
     private BattlePhaseController battlePhaseController = BattlePhaseController.getInstance();
     private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+    private SpellCard spell;
 
 
     private MainPhase1Controller() {
@@ -114,11 +115,34 @@ public class MainPhase1Controller {
                 return "you already summoned/set on this turn";
             }
         } else {
-            if (isMonsterTerritoryFull()) {
-                return "monster card zone is full";
+            if (!isCardInMyHand(card)) {
+                return "you can’t set this card";
             }
+            if (isMySpellAndTrapTerritoryFull()) {
+                return "spell card zone is full";
+            }
+            dropSpellAndTrapOnTheGround(card);
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            return "set successfully";
         }
         return "";
+    }
+
+    private void dropSpellAndTrapOnTheGround(Card card) {
+        HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (spellTerritory.get(i) == null) {
+                spellTerritory.put(i, card);
+                break;
+            }
+        }
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        for (int i = 1; i < playerHand.size(); i++) {
+            if (playerHand.get(i) == card){
+                playerHand.remove(i);
+                break;
+            }
+        }
     }
 
     public String changeToAttackPosition() {
@@ -451,36 +475,65 @@ public class MainPhase1Controller {
         return false;
     }
 
-    public String activateSpell() {
+    public void activateSpell() {
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card == null) {
-            return "no card is selected yet";
+            effectView.output("no card is selected yet");
         }
         if (!(card instanceof SpellCard)) {
-            return "activate effect is only for spell cards.";
+            effectView.output("activate effect is only for spell cards.");
         }
-        SpellCard spellCard = (SpellCard) card;
-        if (!spellCard.getIsFacedUp()) {
-            return "you have already activated this card";
+        spell = (SpellCard) card;
+        if (isSpellInMyHand()) {
+            activateSpellFromHand();
+        } else {
+            activateSpellFromGround();
         }
         //till this line we check possibility of
         //activating spell card (generally)
-        if (spellCard.getIcon().equals("Field")) {
+    }
+
+    private void activateSpellFromHand() {
+        if (spell.getIcon().equals("Field")) {
             SpellCard fieldSpell = duelWithUser.getMyBoard().getFieldSpell();
             if (fieldSpell != null) {
                 duelWithUser.getMyBoard().getGraveyard().add(fieldSpell);
             }
-            duelWithUser.getMyBoard().setFieldSpell(spellCard);
-            spellCard.setFacedUp(true);
+            duelWithUser.getMyBoard().setFieldSpell(spell);
+            spell.setFacedUp(true);
             duelWithUser.getMyBoard().setSelectedCard(null);
             spellEffectActivate.spellAbsorption();
-            return "spell activated";
+            effectView.output("spell activated");
+            duelWithUser.increaseTempTurnCounter();
+            effectView.output("now it will be " + duelWithUser.getMyBoard().getUser().getUsername() + "’s turn");
+            effectView.output(duelWithUser.showField());
         } else {
             if (isMySpellAndTrapTerritoryFull()) {
-                return "spell card zone is full";
+                effectView.output("spell card zone is full");
             } else {
-                return spellEffectActivate.spellCaller(spellCard.getName());
+                HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+                for (int i = 1; i < 5; i++) {
+                    if (spellTerritory.get(i) == null) {
+                        spellTerritory.put(i, spell);
+                        break;
+                    }
+                }
+                effectView.output(spellEffectActivate.spellCaller(spell.getName()));
             }
+        }
+    }
+
+    private void activateSpellFromGround() {
+        if (!spell.getIsFacedUp()) {
+            effectView.output("you have already activated this card");
+        }
+        spell.setFacedUp(true);
+        if (spell.getIcon().equals("Field")) {
+            duelWithUser.getMyBoard().setSelectedCard(null);
+            spellEffectActivate.spellAbsorption();
+            effectView.output("spell activated");
+        } else {
+            effectView.output(spellEffectActivate.spellCaller(spell.getName()));
         }
     }
 
@@ -491,6 +544,16 @@ public class MainPhase1Controller {
             }
         }
         return true;
+    }
+
+    private boolean isSpellInMyHand() {
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        for (int i = 0; i < playerHand.size(); i++) {
+            if (playerHand.get(i) == spell) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private String beastKingBarbaros() {
@@ -537,7 +600,7 @@ public class MainPhase1Controller {
         return "summoned successfully";
     }
 
-    private String summoneBeastKingBarbarosWithThreeTribute(MonsterCard monsterCard){
+    private String summoneBeastKingBarbarosWithThreeTribute(MonsterCard monsterCard) {
         if (!areThereEnoughCardsToTribute(3)) {
             return "there is no way you could summon this monster";
         }
@@ -564,8 +627,8 @@ public class MainPhase1Controller {
         tribute(thirdAddress);
         summon(monsterCard, false);
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
-        for (int i = 1; i < 6 ; i++) {
-            if (monsterTerritory.get(i) != null){
+        for (int i = 1; i < 6; i++) {
+            if (monsterTerritory.get(i) != null) {
                 duelWithUser.afterDeathEffect(2, monsterTerritory.get(i));
             }
         }

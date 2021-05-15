@@ -29,6 +29,7 @@ public class DuelWithUser {
     private final SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private int phaseCounter = 1;
     private int turnCounter;
+    private int tempTurnCounter;
     private static DuelWithUser duelWithUser;
     private final static DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
     private Board[] boards = new Board[2];
@@ -151,11 +152,11 @@ public class DuelWithUser {
     }
 
     public Board getMyBoard() {
-        return boards[turnCounter % 2];
+        return boards[(turnCounter + tempTurnCounter) % 2];
     }
 
     public Board getEnemyBoard() {
-        return boards[(turnCounter + 1) % 2];
+        return boards[(turnCounter + 1 + tempTurnCounter) % 2];
     }
 
     public String selectCard(String command) {
@@ -460,10 +461,40 @@ public class DuelWithUser {
                 }
                 counter++;
             }
-            for (int i = 0; i < monsterCard.getEquipId().size(); i++) {
-                monsterCard.getEquipId().remove(0);
+            if (monsterCard.getEquipId().size() > 0) {
+                monsterCard.getEquipId().subList(0, monsterCard.getEquipId().size()).clear();
             }
         }
+    }
+
+    public boolean canOpponentActivateSpaceTyphoon(){
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i < 6; i++) {
+            Card spell = spellAndTrapTerritory.get(i);
+            if (spell.getName().equals("Mystical space typhoon") ){
+                if (doIHaveSpellOnMyTerritory()){
+                    return true;
+                }
+            }
+        }
+    }
+
+//    private boolean isSpeedOfCardHigherThanTwo(String name){
+//        if (name.equals(""))
+//    }
+
+    private boolean doIHaveSpellOnMyTerritory(){
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (spellAndTrapTerritory.get(i) != null){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void increaseTempTurnCounter(){
+        tempTurnCounter++;
     }
 
 }
