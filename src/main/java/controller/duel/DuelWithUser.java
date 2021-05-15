@@ -475,33 +475,6 @@ public class DuelWithUser {
         }
     }
 
-    public boolean canOpponentActivateSpaceTyphoon(){
-        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i < 6; i++) {
-            Card spell = spellAndTrapTerritory.get(i);
-            if (spell.getName().equals("Mystical space typhoon") ){
-                if (doIHaveSpellOnMyTerritory()){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-//    private boolean isSpeedOfCardHigherThanTwo(String name){
-//        if (name.equals(""))
-//    }
-
-    private boolean doIHaveSpellOnMyTerritory(){
-        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i < 6; i++) {
-            if (spellAndTrapTerritory.get(i) != null){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void increaseTempTurnCounter(){
         tempTurnCounter++;
     }

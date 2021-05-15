@@ -19,6 +19,7 @@ public class MainPhase1Controller {
     private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
     private SpellCard spell;
+    private OpponentPhase opponentPhase = OpponentPhase.getInstance();
 
 
     private MainPhase1Controller() {
@@ -138,7 +139,7 @@ public class MainPhase1Controller {
         }
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         for (int i = 1; i < playerHand.size(); i++) {
-            if (playerHand.get(i) == card){
+            if (playerHand.get(i) == card) {
                 playerHand.remove(i);
                 break;
             }
@@ -504,9 +505,7 @@ public class MainPhase1Controller {
             duelWithUser.getMyBoard().setSelectedCard(null);
             spellEffectActivate.spellAbsorption();
             effectView.output("spell activated");
-            duelWithUser.increaseTempTurnCounter();
-            effectView.output("now it will be " + duelWithUser.getMyBoard().getUser().getUsername() + "’s turn");
-            effectView.output(duelWithUser.showField());
+            opponentPhase.run();
         } else {
             if (isMySpellAndTrapTerritoryFull()) {
                 effectView.output("spell card zone is full");
@@ -518,7 +517,8 @@ public class MainPhase1Controller {
                         break;
                     }
                 }
-                effectView.output(spellEffectActivate.spellCaller(spell.getName()));
+                opponentPhase.getChainLink().add(spell);
+                opponentPhase.run();
             }
         }
     }
@@ -533,7 +533,8 @@ public class MainPhase1Controller {
             spellEffectActivate.spellAbsorption();
             effectView.output("spell activated");
         } else {
-            effectView.output(spellEffectActivate.spellCaller(spell.getName()));
+            opponentPhase.getChainLink().add(spell);
+            opponentPhase.run();
         }
     }
 

@@ -28,6 +28,10 @@ public class EffectView {
         System.out.println(string);
     }
 
+    public void output1(String string) {
+        System.out.print(string);
+    }
+
     public String input() {
         return LoginMenuView.scan.nextLine().trim();
     }
@@ -42,7 +46,7 @@ public class EffectView {
 
     public int getAddress() {
         while (true) {
-            System.out.println("Give an address for monster location");
+            System.out.println("Give an address");
             String result = LoginMenuView.scan.nextLine().trim();
             Pattern number = Pattern.compile("[\\d]+");
             Matcher matcher = number.matcher(result);
