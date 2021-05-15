@@ -34,7 +34,7 @@ public class ShopController {
             }
             return "card with this name, could not be found!";
         }
-        return "invalid card name";
+        return "invalid command";
     }
 
     public String showAllCards() {

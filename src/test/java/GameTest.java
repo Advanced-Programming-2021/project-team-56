@@ -1,21 +1,18 @@
-package login;
-
 import controller.LoginMenuController;
 import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import view.LoginMenuView;
-import view.MainMenuView;
-import view.ProfileView;
+import view.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginMenuTest {
+public class GameTest {
 
     @BeforeEach
     public void createUsers() {
@@ -30,6 +27,11 @@ class LoginMenuTest {
         }
     }
 
+    @BeforeEach
+    public void excelRun() throws IOException {
+        ExcelUtils.getInstance().run();
+    }
+
     @Test
     public void viewTest() {
         StringBuilder commands = new StringBuilder();
@@ -38,15 +40,21 @@ class LoginMenuTest {
         loginViewIOAppender(commands, validOutputs);
         mainMenuViewIOAppender(commands, validOutputs);
         profileViewIOAppender(commands, validOutputs);
+        duelMenuViewIOAppender(commands, validOutputs);
+        deckMenuViewIOAppender(commands, validOutputs);
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(commands.toString().getBytes());
         System.setIn(inputStream);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
+
         LoginMenuView.getInstance().run();
         MainMenuView.getInstance().run("Mehrshad");
         MainMenuView.getInstance().run("Mehrshad");
         ProfileView.getInstance().run("Mehrshad");
+        DuelMenuView.getInstance().run("Mehrshad");
+        DeckMenuView.getInstance().run("Mehrshad");
+
         String output = (outputStream.toString());
 
         assertEquals(validOutputs.toString(), output);
@@ -93,7 +101,7 @@ class LoginMenuTest {
                 "profile change --current 0000 --new 0000 --password\n" +
                 "profile change --password --new 0000 --current 0000\n" +
                 "profile change --new 0000 --password --current 0000\n" +
-                "profile change --new 0000 --current 0000 --password\ninvalid command\nmenu exit");
+                "profile change --new 0000 --current 0000 --password\ninvalid command\nmenu exit\n");
 
 
         outputStringBuilder.append("Profile Menu\r\nmenu navigation is not possible\r\n" +
@@ -105,6 +113,27 @@ class LoginMenuTest {
                 "current password is invalid\r\npassword changed successfully\r\npassword changed successfully\r\n" +
                 "please enter a new password\r\nplease enter a new password\r\nplease enter a new password\r\n" +
                 "please enter a new password\r\ninvalid command\r\n");
+    }
+
+    private void duelMenuViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        //TODO Enters the duel(optional)
+        inputStringBuilder.append("menu show-current\nmenu enter Duel\nmenu enter Deck\nmenu enter Shop\n" +
+                "menu enter Scoreboard\nmenu enter Profile\nmenu enter Import/Export\nduel invalid\n" +
+                "invalid\n" +
+                "menu exit\n");
+
+        outputStringBuilder.append("Duel Menu\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\ninvalid command\r\ninvalid command\r\n");
+    }
+
+    private void deckMenuViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("menu show-current\nmenu enter Duel\ninvalid\ndeck invalid\ncard show  aa\n" +
+                "menu exit");
+
+        outputStringBuilder.append("Deck Menu\r\nmenu navigation is not possible\r\ninvalid command\r\n" +
+                "invalid command\r\ninvalid command\r\n");
     }
 
     @Test

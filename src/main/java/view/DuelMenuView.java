@@ -49,9 +49,12 @@ public class DuelMenuView {
             if (command.startsWith("duel")) {
                 if (command.contains("--ai") && (!command.contains("--second-player"))) {
                     checkDuelWithAICommand(command, username);
-                } else {
+                    continue;
+                } else if (command.contains("--second-player")){
                     checkDuelWithUserCommand(command, username);
+                    continue;
                 }
+                System.out.println("invalid command");
                 continue;
             }
             System.out.println("invalid command");
