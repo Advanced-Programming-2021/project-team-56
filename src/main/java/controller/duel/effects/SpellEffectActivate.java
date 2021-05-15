@@ -29,87 +29,98 @@ public class SpellEffectActivate {
         return spellEffectActivate;
     }
 
-    public String spellCaller(String spellName) {
+    public void spellCaller(String spellName) {
         switch (spellName) {
             case "Advanced Ritual Art":
                 if (advancedRitualArt()) {
-                    return getRidOfSpell();
+                    effectView.output(getRidOfSpell());
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Terraforming":
                 if (terraformingActivate()) {
-                    return getRidOfSpell();
+                    effectView.output(getRidOfSpell());
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Change of Heart":
                 if (changeOfHeartActivate()) {
-                    return getRidOfSpell();
+                    effectView.output(getRidOfSpell());
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Harpie’s Feather Duster":
                 if (harpiesFeatherDusterActivate()) {
-                    return getRidOfSpell();
+                    effectView.output(getRidOfSpell());
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Raigeki":
                 if (raigekiActivate()) {
-                    return getRidOfSpell();
+                    effectView.output(getRidOfSpell());
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Pot of Greed":
                 if (potOfGreedActivate()) {
-                    return getRidOfSpell();
+                    effectView.output(getRidOfSpell());
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Dark Hole":
                 if (darkHoleActivate()) {
-                    return getRidOfSpell();
+                    effectView.output(getRidOfSpell());
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Monster Reborn":
                 if (monsterRebornActivate()) {
-                    return getRidOfSpell();
+                    effectView.output(getRidOfSpell());
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Swords of Revealing Light":
                 swordsOfRevealingLightActivate();
-                return "spell activated";
+                effectView.output("spell activated");
+                break;
             case "Sword of Dark Destruction":
                 if (swordOfDarkDestructionActivate1()) {
-                    return "spell activated";
+                    effectView.output("spell activated");
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Black Pendant":
             case "United We Stand":
                 if (blackPendantAndUnitedWeStandActivate()) {
-                    return "spell activated";
+                    effectView.output("spell activated");
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
             case "Magnum Shield":
                 if (magnumShieldActivate1()) {
-                    return "spell activated";
+                    effectView.output("spell activated");
                 } else {
-                    return "preparations of this spell are not done yet";
+                    effectView.output("preparations of this spell are not done yet");
                 }
+                break;
         }
-        return "";
     }
 
     private String getRidOfSpell() {
         HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
         Card spell = duelWithUser.getMyBoard().getSelectedCard();
         for (int i = 1; i < 6; i++) {
-            if (spellAndTrapTerritory.get(i) == spell){
+            if (spellAndTrapTerritory.get(i) == spell) {
                 spellAndTrapTerritory.put(i, null);
                 break;
             }

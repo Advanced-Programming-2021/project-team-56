@@ -12,6 +12,7 @@ public class Card {
     private boolean isItScanner;
     private int equipID;
     public static int id = 0;
+    private boolean isItInChainLink;
 
     public Card() {
     }
@@ -24,6 +25,14 @@ public class Card {
         this.name = name;
         this.description = description;
         this.price = price;
+    }
+
+    public boolean isItInChainLink() {
+        return isItInChainLink;
+    }
+
+    public void setItInChainLink(boolean itInChainLink) {
+        isItInChainLink = itInChainLink;
     }
 
     public static ArrayList<Card> getCards() {

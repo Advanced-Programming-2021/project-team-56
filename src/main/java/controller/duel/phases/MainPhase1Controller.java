@@ -517,8 +517,11 @@ public class MainPhase1Controller {
                         break;
                     }
                 }
+                spellEffectActivate.spellAbsorption();
+                spell.setItInChainLink(true);
                 opponentPhase.getChainLink().add(spell);
                 opponentPhase.run();
+                opponentPhase.resolveTheChainLink();
             }
         }
     }
@@ -533,8 +536,11 @@ public class MainPhase1Controller {
             spellEffectActivate.spellAbsorption();
             effectView.output("spell activated");
         } else {
+            spellEffectActivate.spellAbsorption();
+            spell.setItInChainLink(true);
             opponentPhase.getChainLink().add(spell);
             opponentPhase.run();
+            opponentPhase.resolveTheChainLink();
         }
     }
 
