@@ -2,6 +2,8 @@ package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
 import model.Card;
+import model.SpellCard;
+import model.TrapCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -11,8 +13,8 @@ import java.util.regex.Pattern;
 
 public class OpponentPhase {
     private static OpponentPhase opponentPhase;
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
-    private EffectView effectView = EffectView.getInstance();
+    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final EffectView effectView = EffectView.getInstance();
     private ArrayList<Card> chainLink = new ArrayList<>();
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
@@ -85,7 +87,11 @@ public class OpponentPhase {
                 continue;
             }
             if (command.equals("activate effect")) {
-
+                if (activateEffect()){
+                    return;
+                }else {
+                    continue;
+                }
             }
             effectView.output("invalid command");
         }
@@ -104,6 +110,32 @@ public class OpponentPhase {
         return false;
     }
 
+    private boolean activateEffect() {
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        int address = effectView.getAddress();
+        if (address > 5 || address < 1) {
+            effectView.output("invalid selection");
+            return false;
+        }
+        Card card = spellAndTrapTerritory.get(address - 1);
+        if (card == null){
+            effectView.output("there is no spell or trap on this address");
+            return false;
+        }
+        if (card instanceof SpellCard){
+            SpellCard spell = (SpellCard) card;
+            if (!spell.getIcon().equals("quickPlay")){
+                effectView.output("this card can't be played in opponent turn");
+            }
+            if (canIActivateSpaceTyphoonOrTwinTwister() || canIActivateRingOfDefence()){
+
+            }
+        }else {
+            TrapCard trap = (TrapCard) card;
+        }
+        return true;
+    }
+
     private boolean doEnemyHaveSpellOnMyTerritory() {
         HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
@@ -112,5 +144,9 @@ public class OpponentPhase {
             }
         }
         return false;
+    }
+
+    private boolean canIActivateRingOfDefence(){
+        return true;
     }
 }
