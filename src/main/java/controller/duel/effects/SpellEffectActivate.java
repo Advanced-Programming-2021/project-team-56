@@ -101,8 +101,6 @@ public class SpellEffectActivate {
                 } else {
                     return "preparations of this spell are not done yet";
                 }
-
-
         }
         return "";
     }
