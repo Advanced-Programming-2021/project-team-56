@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.LoginMenuView;
 import view.MainMenuView;
+import view.ProfileView;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -30,12 +31,13 @@ class LoginMenuTest {
     }
 
     @Test
-    public void loginViewTest() {
+    public void viewTest() {
         StringBuilder commands = new StringBuilder();
         StringBuilder validOutputs = new StringBuilder();
 
         loginViewIOAppender(commands, validOutputs);
         mainMenuViewIOAppender(commands, validOutputs);
+        profileViewIOAppender(commands, validOutputs);
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(commands.toString().getBytes());
         System.setIn(inputStream);
@@ -44,6 +46,7 @@ class LoginMenuTest {
         LoginMenuView.getInstance().run();
         MainMenuView.getInstance().run("Mehrshad");
         MainMenuView.getInstance().run("Mehrshad");
+        ProfileView.getInstance().run("Mehrshad");
         String output = (outputStream.toString());
 
         assertEquals(validOutputs.toString(), output);
@@ -72,9 +75,36 @@ class LoginMenuTest {
                 "menu enter Profile\nmenu exit\nmenu enter Import/Export\n" +
                 "menu enter invalidMenu\n" +
                 "user logout\n" +
-                "menu exit");
+                "menu exit\n");
         outputStringBuilder.append("invalid command\r\nMain Menu\r\ninvalid command\r\n" +
                 "user logged out successfully!\r\n");
+    }
+
+    private void profileViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("menu show-current\nmenu enter Duel\n" +
+                "menu enter Deck\nmenu enter Shop\nmenu enter Scoreboard\nmenu enter Profile\n" +
+                "menu enter Import/Export\nprofile change --nickname M k e\nprofile change --nickname AmirNick\n" +
+                "profile change --nickname MehrNick2\nprofile change --nickname MehrNick\n" +
+                "profile change --password --current m a --new m a\n" +
+                "profile change --password --current 0000 --new 0000\n" +
+                "profile change --password --current 1000 --new 0000\n" +
+                "profile change --password --current 0000 --new 1111\n" +
+                "profile change --current 1111 --password --new 0000\n" +
+                "profile change --current 0000 --new 0000 --password\n" +
+                "profile change --password --new 0000 --current 0000\n" +
+                "profile change --new 0000 --password --current 0000\n" +
+                "profile change --new 0000 --current 0000 --password\ninvalid command\nmenu exit");
+
+
+        outputStringBuilder.append("Profile Menu\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\ninvalid command\r\nuser with nickname AmirNick already exists\r\n" +
+                "nickname changed successfully\r\nnickname changed successfully\r\ninvalid command\r\n" +
+                "please enter a new password\r\n" +
+                "current password is invalid\r\npassword changed successfully\r\npassword changed successfully\r\n" +
+                "please enter a new password\r\nplease enter a new password\r\nplease enter a new password\r\n" +
+                "please enter a new password\r\ninvalid command\r\n");
     }
 
     @Test
