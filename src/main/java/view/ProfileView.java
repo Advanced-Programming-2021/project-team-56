@@ -43,7 +43,9 @@ public class ProfileView {
             }
             if (command.startsWith("profile change")) {
                 System.out.println(profileController.checkProfileChangePasswordCommand(username, command));
+                continue;
             }
+            System.out.println("invalid command");
         }
     }
 

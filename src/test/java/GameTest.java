@@ -1,20 +1,21 @@
-package login;
-
 import controller.LoginMenuController;
+import model.Card;
+import model.Deck;
 import model.User;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import view.LoginMenuView;
-import view.MainMenuView;
+import view.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginMenuTest {
+public class GameTest {
 
     @BeforeEach
     public void createUsers() {
@@ -29,21 +30,37 @@ class LoginMenuTest {
         }
     }
 
+    @BeforeEach
+    public void excelRun() throws IOException {
+        ExcelUtils.getInstance().run();
+    }
+
+    @BeforeEach
+    public void
+
     @Test
-    public void loginViewTest() {
+    public void viewTest() {
         StringBuilder commands = new StringBuilder();
         StringBuilder validOutputs = new StringBuilder();
 
         loginViewIOAppender(commands, validOutputs);
         mainMenuViewIOAppender(commands, validOutputs);
+        profileViewIOAppender(commands, validOutputs);
+        duelMenuViewIOAppender(commands, validOutputs);
+        deckMenuViewIOAppender(commands, validOutputs);
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(commands.toString().getBytes());
         System.setIn(inputStream);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
+
         LoginMenuView.getInstance().run();
         MainMenuView.getInstance().run("Mehrshad");
         MainMenuView.getInstance().run("Mehrshad");
+        ProfileView.getInstance().run("Mehrshad");
+        DuelMenuView.getInstance().run("Mehrshad");
+        DeckMenuView.getInstance().run("Mehrshad");
+
         String output = (outputStream.toString());
 
         assertEquals(validOutputs.toString(), output);
@@ -72,9 +89,57 @@ class LoginMenuTest {
                 "menu enter Profile\nmenu exit\nmenu enter Import/Export\n" +
                 "menu enter invalidMenu\n" +
                 "user logout\n" +
-                "menu exit");
+                "menu exit\n");
         outputStringBuilder.append("invalid command\r\nMain Menu\r\ninvalid command\r\n" +
                 "user logged out successfully!\r\n");
+    }
+
+    private void profileViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("menu show-current\nmenu enter Duel\n" +
+                "menu enter Deck\nmenu enter Shop\nmenu enter Scoreboard\nmenu enter Profile\n" +
+                "menu enter Import/Export\nprofile change --nickname M k e\nprofile change --nickname AmirNick\n" +
+                "profile change --nickname MehrNick2\nprofile change --nickname MehrNick\n" +
+                "profile change --password --current m a --new m a\n" +
+                "profile change --password --current 0000 --new 0000\n" +
+                "profile change --password --current 1000 --new 0000\n" +
+                "profile change --password --current 0000 --new 1111\n" +
+                "profile change --current 1111 --password --new 0000\n" +
+                "profile change --current 0000 --new 0000 --password\n" +
+                "profile change --password --new 0000 --current 0000\n" +
+                "profile change --new 0000 --password --current 0000\n" +
+                "profile change --new 0000 --current 0000 --password\ninvalid command\nmenu exit\n");
+
+
+        outputStringBuilder.append("Profile Menu\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\ninvalid command\r\nuser with nickname AmirNick already exists\r\n" +
+                "nickname changed successfully\r\nnickname changed successfully\r\ninvalid command\r\n" +
+                "please enter a new password\r\n" +
+                "current password is invalid\r\npassword changed successfully\r\npassword changed successfully\r\n" +
+                "please enter a new password\r\nplease enter a new password\r\nplease enter a new password\r\n" +
+                "please enter a new password\r\ninvalid command\r\n");
+    }
+
+    private void duelMenuViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        //TODO Enters the duel(optional)
+        inputStringBuilder.append("menu show-current\nmenu enter Duel\nmenu enter Deck\nmenu enter Shop\n" +
+                "menu enter Scoreboard\nmenu enter Profile\nmenu enter Import/Export\nduel invalid\n" +
+                "invalid\n" +
+                "menu exit\n");
+
+        outputStringBuilder.append("Duel Menu\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
+                "menu navigation is not possible\r\ninvalid command\r\ninvalid command\r\n");
+    }
+
+    private void deckMenuViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("menu show-current\nmenu enter Duel\ninvalid\ndeck invalid\ncard show  aa\n" +
+                "menu exit");
+
+        outputStringBuilder.append("Deck Menu\r\nmenu navigation is not possible\r\ninvalid command\r\n" +
+                "invalid command\r\ninvalid command\r\n");
     }
 
     @Test
@@ -116,6 +181,23 @@ class LoginMenuTest {
         String bothRepetitiveCommand = "user create --username bothRepetitive --nickname bothRepetitive --password 12345";
         String bothRepetitiveOutput = LoginMenuController.getInstance().createUser(bothRepetitiveCommand);
         assertEquals("user with username bothRepetitive already exists", bothRepetitiveOutput);
+    }
+
+    @Test
+    public void cardConstructorTest() {
+        //TODO Can put all set and gets on testCard
+        Card testCard = new Card("testCard", "testDescryption", 700);
+        int outputPrice = testCard.getPrice();
+        assertEquals(700, outputPrice);
+        Card outputCard = Card.getCardByName("testCard");
+        assertNull(outputCard);
+        Card realTestCard = Card.getCardByName("Battle OX");
+        assertNotNull(realTestCard);
+    }
+
+    public void deckControllerTest() {
+        Deck testDeck = new Deck("testDeckName");
+
     }
 
 
