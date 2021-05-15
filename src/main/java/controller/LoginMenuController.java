@@ -88,16 +88,20 @@ public class LoginMenuController {
     public void readFromJson() {
         try {
             String json = new String(Files.readAllBytes(Paths.get("json.json")));
-            ArrayList<User> users = new YaGson().fromJson(json,
-                    new TypeToken<List<User>>(){}.getType()
-            );
-            for (User user : users) {
-                User.getUsers().add(user);
+            if (json.length() > 0) {
+                ArrayList<User> users = new YaGson().fromJson(json,
+                        new TypeToken<List<User>>() {
+                        }.getType()
+                );
+                for (User user : users) {
+                    User.getUsers().add(user);
+                }
             }
         } catch (IOException e) {
             System.out.println("can't read from json");
         }
     }
+
 
     public void updateJson() {
         try {
