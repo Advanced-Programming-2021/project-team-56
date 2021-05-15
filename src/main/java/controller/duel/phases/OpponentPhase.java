@@ -2,6 +2,8 @@ package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
+import controller.duel.effects.TrapEffectActivate;
+import controller.duel.effects.TrapEffectCanActivate;
 import model.Card;
 import model.SpellCard;
 import model.TrapCard;
@@ -19,6 +21,8 @@ public class OpponentPhase {
     private ArrayList<Card> chainLink = new ArrayList<>();
     private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
+    private TrapEffectActivate trapEffectActivate = TrapEffectActivate.getInstance();
+    private TrapEffectCanActivate trapEffectCanActivate = TrapEffectCanActivate.getInstance();
 
     private OpponentPhase() {
 
@@ -37,8 +41,8 @@ public class OpponentPhase {
 
     public void run() {
         duelWithUser.increaseTempTurnCounter();
-        if (!canIActivateSpaceTyphoonOrTwinTwister()) {
-            //todo possible
+        if (!isItPossibleToAddACardToTheChain()) {
+            return;
         }
         effectView.output("now it will be " + duelWithUser.getMyBoard().getUser().getUsername() + "’s turn");
         effectView.output1(duelWithUser.showField());
@@ -48,7 +52,7 @@ public class OpponentPhase {
             if (input.equals("yes")) {
                 break;
             } else if (input.equals("no")) {
-                //todo possible
+                return;
             } else {
                 effectView.output("invalid command");
             }
@@ -97,25 +101,13 @@ public class OpponentPhase {
                     continue;
                 } else if (result == 1) {
                     run();
+                    break;
                 } else {
                     break;
                 }
             }
             effectView.output("invalid command");
         }
-    }
-
-    public boolean canIActivateSpaceTyphoonOrTwinTwister() {
-        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i < 6; i++) {
-            Card spell = spellAndTrapTerritory.get(i);
-            if (spell.getName().equals("Mystical space typhoon") || spell.getName().equals("Twin Twisters")) {
-                if (doEnemyHaveSpellOnTheGround()) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     private int activateEffect() {
@@ -140,20 +132,11 @@ public class OpponentPhase {
                 effectView.output("this card can't be played in opponent turn");
                 return 0;
             }
-            if (spell.getName().equals("Twin Twisters") || spell.getName().equals("Mystical space typhoon")) {
-                if (canIActivateSpaceTyphoonOrTwinTwister()) {
-                    spellEffectActivate.spellAbsorption();
-                    chainLink.add(spell);
-                    spell.setItInChainLink(true);
-                    return 1;
-                }
-            } else {
-                if (canIActivateRingOfDefence()) {
-                    spellEffectActivate.spellAbsorption();
-                    chainLink.add(spell);
-                    spell.setItInChainLink(true);
-                    return 1;
-                }
+            if (trapEffectCanActivate.checkSpellAndTrapPossibility(spell.getName())) {
+                spellEffectActivate.spellAbsorption();
+                chainLink.add(spell);
+                spell.setItInChainLink(true);
+                return 1;
             }
         } else {
             TrapCard trap = (TrapCard) card;
@@ -163,37 +146,29 @@ public class OpponentPhase {
         return 0;
     }
 
-    private boolean doEnemyHaveSpellOnTheGround() {
-        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i < 6; i++) {
-            if (spellAndTrapTerritory.get(i) != null) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean canIActivateRingOfDefence() {
-        return true;
-    }
-
     public void resolveTheChainLink() {
         while (chainLink.size() > 0) {
             Card card = chainLink.get(chainLink.size() - 1);
-            if (isSpellOrTrapStillAlive(card)) {
-                chainLink.remove(chainLink.size() -1);
+            chainLink.remove(chainLink.size() - 1);
+            if (!isSpellOrTrapStillAlive(card)) {
+                duelWithUser.decreaseTempTurnCounter();
                 continue;
             }
-            if ((card instanceof TrapCard)){
-
+            if ((card instanceof TrapCard)) {
+                trapEffectActivate.trapAndQuickSpellCaller(card.getName());
+                duelWithUser.decreaseTempTurnCounter();
+                continue;
             }
             SpellCard spell = (SpellCard) card;
-            if (spell.getIcon().equals("Quick-play")){
-
-            }else {
-
+            if (spell.getIcon().equals("Quick-play")) {
+                trapEffectActivate.trapAndQuickSpellCaller(spell.getName());
+                duelWithUser.decreaseTempTurnCounter();
+            } else {
+                duelWithUser.decreaseTempTurnCounter();
+                spellEffectActivate.spellCaller(spell.getName());
             }
         }
+        duelWithUser.setTempTurnCounter(0);
     }
 
     private boolean isSpellOrTrapStillAlive(Card card) {
@@ -201,6 +176,19 @@ public class OpponentPhase {
         for (int i = 1; i < 6; i++) {
             if (spellAndTrapTerritory.get(i) == card) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isItPossibleToAddACardToTheChain() {
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i < 5; i++) {
+            Card card = spellAndTrapTerritory.get(i);
+            if (card != null && !card.isItInChainLink()) {
+                if (trapEffectCanActivate.checkSpellAndTrapPossibility(card.getName())) {
+                    return true;
+                }
             }
         }
         return false;

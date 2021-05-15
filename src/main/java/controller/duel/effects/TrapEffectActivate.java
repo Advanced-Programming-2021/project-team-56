@@ -26,19 +26,21 @@ public class TrapEffectActivate {
     public void trapAndQuickSpellCaller(String name) {
         switch (name) {
             case "Twin Twisters":
-
+                destroySpell(2);
                 break;
             case "Mystical space typhoon":
-
+                destroySpell(1);
+                break;
+            case "Ring of Defense":
+                ringOfDefenceActivate();
                 break;
         }
     }
 
-    private void twinTwistersEffect() {
+    private void destroySpell(int counter) {
         HashMap<Integer, Card> spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
-        int counter = 1;
-        while (counter <= 2) {
+        while (counter > 0) {
             int address = effectView.getAddress();
             if (address > 5 || address < 1) {
                 effectView.output("invalid selection");
@@ -46,13 +48,15 @@ public class TrapEffectActivate {
             }
             Card card = spellTerritory.get(address);
             if (card == null) {
-                effectView.output("there is no monster on the address");
+                effectView.output("there is no card on the address");
                 continue;
             }
+            effectView.output("card " + card.getName() + "was destroyed");
             graveyard.add(card);
             spellTerritory.put(address, null);
-            while (counter < 2) {
-                counter++;
+            counter--;
+            if (!isThereAnyCardLeft()) {
+                break;
             }
         }
     }
@@ -65,5 +69,19 @@ public class TrapEffectActivate {
             }
         }
         return false;
+    }
+
+    private void ringOfDefenceActivate() {
+        HashMap<Integer, Card> trapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        for (int i = 1; i < 6; i++) {
+            Card trap = trapTerritory.get(i);
+            if (trap != null && trap.isItInChainLink() && trap.getName().equals("Magic Cylinder")) {
+                graveyard.add(trap);
+                trapTerritory.put(i, null);
+                effectView.output(trap.getName() + "was disabled");
+                break;
+            }
+        }
     }
 }

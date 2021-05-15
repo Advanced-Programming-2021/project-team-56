@@ -448,20 +448,20 @@ public class DuelWithUser {
         }
         if (monsterCard.getEquipId().size() != 0) {
             int counter = 1;
-            while (counter <= 2){
+            while (counter <= 2) {
                 HashMap<Integer, Card> spellTerritory;
                 ArrayList<Card> graveyard;
-                if (counter == 1){
+                if (counter == 1) {
                     spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
                     graveyard = duelWithUser.getMyBoard().getGraveyard();
-                }else {
+                } else {
                     spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
                     graveyard = duelWithUser.getEnemyBoard().getGraveyard();
                 }
-                for (int i = 1; i < 6 ; i++) {
+                for (int i = 1; i < 6; i++) {
                     Card spell = spellTerritory.get(i);
                     if (spell != null) {
-                        if (monsterCard.getEquipId().contains(spell.getEquipID())){
+                        if (monsterCard.getEquipId().contains(spell.getEquipID())) {
                             graveyard.add(spell);
                             spellTerritory.put(i, null);
                         }
@@ -475,8 +475,16 @@ public class DuelWithUser {
         }
     }
 
-    public void increaseTempTurnCounter(){
+    public void increaseTempTurnCounter() {
         tempTurnCounter++;
+    }
+
+    public void decreaseTempTurnCounter() {
+        tempTurnCounter--;
+    }
+
+    public void setTempTurnCounter(int tempTurnCounter) {
+        this.tempTurnCounter = tempTurnCounter;
     }
 
     public String increaseMyLP(String amount) {
