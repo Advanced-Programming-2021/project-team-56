@@ -24,7 +24,6 @@ public class LoginMenuView {
     public static Scanner scan = new Scanner(System.in);
 
     public void run() {
-        LoginMenuController.getInstance().readFromJson();
         String command;
         while (true) {
             command = scan.nextLine().trim();
@@ -41,7 +40,6 @@ public class LoginMenuView {
                 continue;
             }
             if (command.equals("menu exit")) {
-                LoginMenuController.getInstance().updateJson();
                 break;
             }
             Matcher matcher = menuEnter.matcher(command);
