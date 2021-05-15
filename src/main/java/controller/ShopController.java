@@ -48,19 +48,19 @@ public class ShopController {
         return cardsDemo.toString();
     }
 
-    public  String buyCard(String cardName, String customer) {
+    public  String buyCard(String cardName, String username) {
         if (!isThereAnyCardWithThisName(cardName)) {
             return "there is no card with this name";
         }
         Card card = Card.getCardByName(cardName);
-        if (card.getPrice() > User.getUserByUsername(customer).getMoney()) {
+        if (card.getPrice() > User.getUserByUsername(username).getMoney()) {
             return "not enough money";
         }
         if (card.getName().equals("Scanner")){
             card.setItScanner(true);
         }
-        User.getUserByUsername(customer).decreaseMoney(card.getPrice());
-        User.getUserByUsername(customer).addCardToUserAllCards(card);
+        User.getUserByUsername(username).decreaseMoney(card.getPrice());
+        User.getUserByUsername(username).addCardToUserAllCards(card);
         return "";
     }
 

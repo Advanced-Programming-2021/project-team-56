@@ -36,13 +36,14 @@ public class ShopView {
                 return;
             }
             if (command.equals("menu show-current")) {
-                System.out.println("shop menu");
+                System.out.println("Shop Menu");
                 continue;
             }
             Matcher matcher = buyCard.matcher(command);
             if (matcher.find()) {
-                if (!ShopController.getInstance().buyCard(matcher.group(1), username).equals("")) {
-                    System.out.println(ShopController.getInstance().buyCard(matcher.group(1), username));
+                String result = ShopController.getInstance().buyCard(matcher.group(1), username);
+                if (!result.equals("")) {
+                    System.out.println(result);
                 }
                 continue;
             }
