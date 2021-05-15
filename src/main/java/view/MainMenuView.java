@@ -66,7 +66,6 @@ public class MainMenuView {
             }
             if (menuName.equals("Import/Export")) {
                 //TODO Make a Import/Export Menu
-                System.out.println("not completed");
             }
         } else {
             System.out.println("invalid command");

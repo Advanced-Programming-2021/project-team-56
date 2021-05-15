@@ -5,13 +5,12 @@ import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.LoginMenuView;
+import view.MainMenuView;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,15 +31,50 @@ class LoginMenuTest {
 
     @Test
     public void loginViewTest() {
-        String command = "menu show-current\nmenu exit";
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(command.getBytes());
-            System.setIn(inputStream);
-//            Scanner scan = new Scanner(System.in);
-//            String input = scan.next();
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outputStream));
-            LoginMenuView.getInstance().run();
-            assertEquals("Login Menu\r\n", outputStream.toString());
+        StringBuilder commands = new StringBuilder();
+        StringBuilder validOutputs = new StringBuilder();
+
+        loginViewIOAppender(commands, validOutputs);
+        mainMenuViewIOAppender(commands, validOutputs);
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(commands.toString().getBytes());
+        System.setIn(inputStream);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        LoginMenuView.getInstance().run();
+        MainMenuView.getInstance().run("Mehrshad");
+        MainMenuView.getInstance().run("Mehrshad");
+        String output = (outputStream.toString());
+
+        assertEquals(validOutputs.toString(), output);
+    }
+
+    private void loginViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("menu show-current\n" +
+                "user create --username loginViewTest --nickname login --password 12345\n" +
+                "menu enter Duel\n" +
+                "invalid command\n" +
+                "user login --username loginViewTest --password 12345\nmenu exit\n" +
+                "user login --password 12345 --username loginViewTest\nmenu exit\n" +
+                "user login invalid command\n" +
+                "menu exit\n");
+        outputStringBuilder.append("Login Menu\r\n" +
+                "user created successfully!\r\n" +
+                "please login first\r\ninvalid command\r\n" +
+                "user logged in successfully!\r\nuser logged in successfully!\r\ninvalid command\r\n");
+    }
+
+    private void mainMenuViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("invalid command\n" +
+                "menu show-current\n" +
+                "menu enter Duel\nmenu exit\nmenu enter Deck\nmenu exit\n" +
+                "menu enter Shop\nmenu exit\nmenu enter Scoreboard\nmenu exit\n" +
+                "menu enter Profile\nmenu exit\nmenu enter Import/Export\n" +
+                "menu enter invalidMenu\n" +
+                "user logout\n" +
+                "menu exit");
+        outputStringBuilder.append("invalid command\r\nMain Menu\r\ninvalid command\r\n" +
+                "user logged out successfully!\r\n");
     }
 
     @Test
