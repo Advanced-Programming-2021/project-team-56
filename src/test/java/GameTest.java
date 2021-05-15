@@ -36,7 +36,9 @@ public class GameTest {
     }
 
     @BeforeEach
-    public void
+    public void addCardToPlayersDeck() {
+
+    }
 
     @Test
     public void viewTest() {
