@@ -1,5 +1,8 @@
 import controller.LoginMenuController;
+import model.Card;
+import model.Deck;
 import model.User;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.*;
@@ -31,6 +34,9 @@ public class GameTest {
     public void excelRun() throws IOException {
         ExcelUtils.getInstance().run();
     }
+
+    @BeforeEach
+    public void
 
     @Test
     public void viewTest() {
@@ -175,6 +181,23 @@ public class GameTest {
         String bothRepetitiveCommand = "user create --username bothRepetitive --nickname bothRepetitive --password 12345";
         String bothRepetitiveOutput = LoginMenuController.getInstance().createUser(bothRepetitiveCommand);
         assertEquals("user with username bothRepetitive already exists", bothRepetitiveOutput);
+    }
+
+    @Test
+    public void cardConstructorTest() {
+        //TODO Can put all set and gets on testCard
+        Card testCard = new Card("testCard", "testDescryption", 700);
+        int outputPrice = testCard.getPrice();
+        assertEquals(700, outputPrice);
+        Card outputCard = Card.getCardByName("testCard");
+        assertNull(outputCard);
+        Card realTestCard = Card.getCardByName("Battle OX");
+        assertNotNull(realTestCard);
+    }
+
+    public void deckControllerTest() {
+        Deck testDeck = new Deck("testDeckName");
+
     }
 
 
