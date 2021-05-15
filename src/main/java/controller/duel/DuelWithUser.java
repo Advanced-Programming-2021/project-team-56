@@ -477,6 +477,7 @@ public class DuelWithUser {
                 }
             }
         }
+        return false;
     }
 
 //    private boolean isSpeedOfCardHigherThanTwo(String name){
