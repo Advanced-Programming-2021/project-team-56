@@ -29,4 +29,16 @@ public class DrawPhaseController {
         mainDeck.remove(mainDeck.size() - 1);
         return "new card added to the hand : " + playerHand.get(playerHand.size() - 1).getName();
     }
+
+    public String forceDraw(String cardName) {
+        ArrayList<Card> mainDeckCards = duelWithUser.getMyBoard().getMainDeck();
+        for (Card mainDeckCard : mainDeckCards) {
+            if (mainDeckCard.getName().equals(cardName)) {
+                duelWithUser.getMyBoard().getPlayerHand().add(mainDeckCard);
+                mainDeckCards.remove(mainDeckCard);
+                return "card with name " + cardName + " got added to your hand";
+            }
+        }
+        return "card with name " + cardName + " does not exist in your deck cards";
+    }
 }

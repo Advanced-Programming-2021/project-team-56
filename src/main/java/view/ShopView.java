@@ -8,8 +8,9 @@ import java.util.regex.Pattern;
 public class ShopView {
 
     private static ShopView shopView;
-    static Pattern buyCard = Pattern.compile("^shop buy ([\\S]+)$");
+    static Pattern buyCard = Pattern.compile("^shop buy ([\\S][\\S ]*)$");
     static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
+    static Pattern increaseMoneyCheat = Pattern.compile("^increase --money (\\d+)$");
 
     private ShopView() {
     }
@@ -43,6 +44,11 @@ public class ShopView {
                 if (!ShopController.getInstance().buyCard(matcher.group(1), username).equals("")) {
                     System.out.println(ShopController.getInstance().buyCard(matcher.group(1), username));
                 }
+                continue;
+            }
+            matcher = increaseMoneyCheat.matcher(command);
+            if (matcher.find()) {
+                System.out.println(ShopController.getInstance().increaseMoney(username, matcher.group(1)));
                 continue;
             }
             matcher = menuEnter.matcher(command);

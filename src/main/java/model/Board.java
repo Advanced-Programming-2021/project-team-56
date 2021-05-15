@@ -95,4 +95,8 @@ public class Board {
     public void setLP(int LP) {
         this.LP = LP;
     }
+
+    public void increaseLP(int amount) {
+        this.LP += amount;
+    }
 }

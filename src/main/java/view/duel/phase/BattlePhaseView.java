@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 public class BattlePhaseView {
     private static BattlePhaseView battlePhase;
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
+    static Pattern increaseLP = Pattern.compile("^increase --LP (\\d+)$");
+    static Pattern setWinner = Pattern.compile("^duel set-winner (\\S+)$");
     private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private BattlePhaseView() {
@@ -95,6 +97,19 @@ public class BattlePhaseView {
             }
             if (command.equals("show graveyard")) {
                 System.out.print(duelWithUser.showGraveYard());
+                continue;
+            }
+            matcher = increaseLP.matcher(command);
+            if (matcher.find()) {
+                System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
+                continue;
+            }
+            matcher = setWinner.matcher(command);
+            if (matcher.find()) {
+                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
+                    return duelWithUser.setWinner(matcher.group(1));
+                }
+                System.out.println("invalid nickname");
                 continue;
             }
             System.out.println("invalid command");
