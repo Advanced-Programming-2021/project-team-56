@@ -1,4 +1,5 @@
 import controller.LoginMenuController;
+import controller.ShopController;
 import model.Card;
 import model.Deck;
 import model.User;
@@ -36,7 +37,19 @@ public class GameTest {
     }
 
     @BeforeEach
-    public void addCardToPlayersDeck() {
+    public void buyCardsForPlayers() {
+        String firstPlayer = "Mehrshad";
+        String secondPlayer = "AmirAli";
+
+        ShopController.getInstance().buyCard("Command Knight", firstPlayer);
+        ShopController.getInstance().buyCard("Command Knight", secondPlayer);
+        ShopController.getInstance().buyCard("Yomi Ship", firstPlayer);
+        ShopController.getInstance().buyCard("Yomi Ship", secondPlayer);
+        ShopController.getInstance().buyCard("Suijin", firstPlayer);
+        ShopController.getInstance().buyCard("Suijin", secondPlayer);
+        ShopController.getInstance().buyCard("Crab Turtle", firstPlayer);
+        ShopController.getInstance().buyCard("Crab Turtle", secondPlayer);
+
 
     }
 
