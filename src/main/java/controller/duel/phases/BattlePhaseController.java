@@ -18,6 +18,8 @@ public class BattlePhaseController {
     private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
     private final SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private final EffectView effectView = EffectView.getInstance();
+    private final MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
+    private final OpponentPhase opponentPhase = OpponentPhase.getInstance();
 
     private BattlePhaseController() {
     }
@@ -29,8 +31,81 @@ public class BattlePhaseController {
         return battlePhase;
     }
 
+    public String attackUser() {
+        String result = isTargetingMonsterOrUserPossible(0, true);
+        if (!result.equals("continue the process")) {
+            return result;
+        }
+        MonsterCard monster = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
+        if (!isEnemyMonsterTerritoryEmpty()) {
+            return "you can’t attack the opponent directly";
+        }
+        effectFinalDamage();
+        if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
+            return "you can't attack with this card due to the effect of messenger of peace";
+        }
+        opponentPhase.run();
+        if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
+            return magicCylinderConverseDamage(monster);
+        }
+        if (duelWithUser.getMyBoard().isItEffectedByMirrorFace()) {
+            duelWithUser.getMyBoard().setItEffectedByMirrorFace(false);
+            return "your faced up cards were destroyed";
+        }
+        monster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
+        if (duelWithUser.getMyBoard().isItAttackNegated()){
+            duelWithUser.getMyBoard().setItAttackNegated(false);
+            return "your attack was blocked";
+        }
+        int myMonsterAttack = monster.getFinalAttack();
+        int enemyLife = duelWithUser.getEnemyBoard().getLP();
+        duelWithUser.getEnemyBoard().setLP(enemyLife - myMonsterAttack);
+        return "your opponent receives " + myMonsterAttack + " battle damage";
+    }
+
+    private String magicCylinderConverseDamage(MonsterCard monster) {
+        int myMonsterAttack = monster.getFinalAttack();
+        monster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
+        duelWithUser.getMyBoard().setItEffectedByMagicCylinder(false);
+        int myLife = duelWithUser.getMyBoard().getLP();
+        duelWithUser.getEnemyBoard().setLP(myLife - myMonsterAttack);
+        return "you receive " + myMonsterAttack + " battle damage";
+    }
+
+    private String isTargetingMonsterOrUserPossible(int address, boolean isUserUnderAttack) {
+        Card card = duelWithUser.getMyBoard().getSelectedCard();
+        if (card == null) {
+            return "no card is selected yet";
+        }
+        if (!mainPhase1Controller.isCardInMyMonsterTerritory()) {
+            return "you can’t attack with this card";
+        }
+        myMonster = (MonsterCard) card;
+        if (!myMonster.getIsInAttackPosition()) {
+            return "this card is not in attack position";
+        }
+        if (isThereSwordOfRevealingLight()) {
+            return "you can't attack because of effect of swords of revealing light";
+        }
+        if (myMonster.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
+            return "this card already attacked";
+        }
+        if (!isUserUnderAttack) {
+            enemyMonster = duelWithUser.getEnemyBoard().getMonsterTerritory().get(address);
+            if (enemyMonster == null) {
+                return "there is no card to attack here";
+            }
+            if (enemyMonster.getName().equals("Command knight")) {
+                if (isThereAnyOtherCardOnMonsterTerritory()) {
+                    return "you can't attack this card while there are other monsters on the combat";
+                }
+            }
+        }
+        return "continue the process";
+    }
+
     public String attackCard(int address) {
-        String result = isTargetingMonsterPossible(address);
+        String result = isTargetingMonsterOrUserPossible(address, false);
         if (!result.equals("continue the process")) {
             return result;
         }
@@ -38,8 +113,27 @@ public class BattlePhaseController {
         if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
             return "you can't attack with this card due to the effect of messenger of peace";
         }
-        //TODO First two trap cards effect should be checked here!
+        opponentPhase.run();
+        if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
+            return magicCylinderConverseDamage(myMonster);
+        }
+        if (duelWithUser.getMyBoard().isItEffectedByMirrorFace()) {
+            duelWithUser.getMyBoard().setItEffectedByMirrorFace(false);
+            return "your faced up cards were destroyed";
+        }
+        opponentPhase.run();
+        if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
+            return magicCylinderConverseDamage(myMonster);
+        }
+        if (duelWithUser.getMyBoard().isItEffectedByMirrorFace()) {
+            duelWithUser.getMyBoard().setItEffectedByMirrorFace(false);
+            return "your faced up cards were destroyed";
+        }
         myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
+        if (duelWithUser.getMyBoard().isItAttackNegated()){
+            duelWithUser.getMyBoard().setItAttackNegated(false);
+            return "your attack was blocked";
+        }
         if (enemyMonster.getName().equals("Texchanger") && texchangerEffect()) {
             duelWithUser.getMyBoard().setSelectedCard(null);
             return "your attack was blocked";
@@ -68,37 +162,6 @@ public class BattlePhaseController {
         }
     }
 
-    private String isTargetingMonsterPossible(int address) {
-        Card card = duelWithUser.getMyBoard().getSelectedCard();
-        MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
-        if (card == null) {
-            return "no card is selected yet";
-        }
-        if (!mainPhase1Controller.isCardInMyMonsterTerritory()) {
-            return "you can’t attack with this card";
-        }
-        myMonster = (MonsterCard) card;
-        if (!myMonster.getIsInAttackPosition()) {
-            return "this card is not in attack position";
-        }
-        if (isThereSwordOfRevealingLight()) {
-            return "you can't attack because of effect of swords of revealing light";
-        }
-        if (myMonster.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
-            return "this card already attacked";
-        }
-        enemyMonster = duelWithUser.getEnemyBoard().getMonsterTerritory().get(address);
-        if (enemyMonster == null) {
-            return "there is no card to attack here";
-        }
-        if (enemyMonster.getName().equals("Command knight")) {
-            if (isThereAnyOtherCardOnMonsterTerritory()) {
-                return "you can't attack this card while there are other monsters on the combat";
-            }
-        }
-        return "continue the process";
-    }
-
     private boolean doesEnemyTerritoryIncludeMessengerOfPeace() {
         HashMap<Integer, Card> spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
@@ -122,7 +185,6 @@ public class BattlePhaseController {
         }
         return false;
     }
-
 
     private String isEnemyMonsterInAttackPosition(int address) {
         int myMonsterAttack = myMonster.getFinalAttack();
@@ -199,35 +261,6 @@ public class BattlePhaseController {
         destroyMyMonster(myMonster);
         destroyEnemyMonster(address);
         return "both you and your opponent monster cards are destroyed and no one receives damage";
-    }
-
-    public String attackUser() {
-        Card card = duelWithUser.getMyBoard().getSelectedCard();
-        if (card == null) {
-            return "no card is selected yet";
-        }
-        if (!MainPhase1Controller.getInstance().isCardInMyMonsterTerritory()) {
-            return "you can’t attack with this card";
-        }
-        MonsterCard monsterCard = (MonsterCard) card;
-        if (monsterCard.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
-            return "this card already attacked";
-        }
-        if (!isEnemyMonsterTerritoryEmpty()) {
-            return "you can’t attack the opponent directly";
-        }
-        if (isThereSwordOfRevealingLight()) {
-            return "you can't attack because of effect of swords of revealing light";
-        }
-        effectFinalDamage();
-        if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
-            return "you can't attack with this card due to the effect of messenger of peace";
-        }
-        int myMonsterAttack = monsterCard.getFinalAttack();
-        int myEnemyLife = duelWithUser.getEnemyBoard().getLP();
-        monsterCard.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
-        duelWithUser.getEnemyBoard().setLP(myEnemyLife - myMonsterAttack);
-        return "you opponent receives " + myMonsterAttack + " battle damage";
     }
 
     private boolean isEnemyMonsterTerritoryEmpty() {
@@ -336,7 +369,7 @@ public class BattlePhaseController {
         }
         if (player == 1) {
             myMonster.setFinalAttack(300 * sumOfLevels);
-        }else {
+        } else {
             enemyMonster.setFinalAttack(300 * sumOfLevels);
         }
     }

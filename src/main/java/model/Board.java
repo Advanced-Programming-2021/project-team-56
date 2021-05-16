@@ -15,10 +15,12 @@ public class Board {
     private Card selectedCard;
     private int LP = 8000;
     private int lastSummonedOrSetTurn;
+    private int startedTurn;
     private boolean isItEffectedByTimeSeal;
     private boolean isItEffectedByMagicCylinder;
-    private int startedTurn;
     private boolean isItAttackNegated;
+    private boolean isItEffectedByMirrorFace;
+
 
     public Board(User user) {
         this.playerDeck = new Deck(user.getActivatedDeck());
@@ -134,5 +136,13 @@ public class Board {
 
     public int getStartedTurn() {
         return startedTurn;
+    }
+
+    public boolean isItEffectedByMirrorFace() {
+        return isItEffectedByMirrorFace;
+    }
+
+    public void setItEffectedByMirrorFace(boolean itEffectedByMirrorFace) {
+        isItEffectedByMirrorFace = itEffectedByMirrorFace;
     }
 }

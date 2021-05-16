@@ -2,6 +2,7 @@ package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
 import model.Card;
+import model.MonsterCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -46,7 +47,9 @@ public class TrapEffectActivate {
             case "Mirror Force":
                 mirrorForceActivate();
                 break;
-
+            case "Negate Attack":
+                negateAttackActivate();
+                break;
         }
     }
 
@@ -56,16 +59,16 @@ public class TrapEffectActivate {
         while (counter > 0) {
             effectView.output("field zone/ spell zone?");
             String input = effectView.input();
-            if (input.equals("field zone")){
+            if (input.equals("field zone")) {
                 Card spellField = duelWithUser.getEnemyBoard().getFieldSpell();
-                if (spellField == null){
+                if (spellField == null) {
                     effectView.output("there is no card on the field zone");
                     continue;
                 }
                 effectView.output("card " + spellField.getName() + "was destroyed");
                 graveyard.add(spellField);
                 duelWithUser.getEnemyBoard().setFieldSpell(null);
-            }else if(input.equals("spell zone")) {
+            } else if (input.equals("spell zone")) {
                 int address = effectView.getAddress();
                 if (address > 5 || address < 1) {
                     effectView.output("invalid selection");
@@ -174,11 +177,25 @@ public class TrapEffectActivate {
         }
     }
 
-    private void magicCylinderActivate(){
+    private void magicCylinderActivate() {
         duelWithUser.getEnemyBoard().setItEffectedByMagicCylinder(true);
     }
 
-    private void mirrorForceActivate(){
+    private void negateAttackActivate() {
+        duelWithUser.getEnemyBoard().setItAttackNegated(true);
+    }
 
+    private void mirrorForceActivate() {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+        ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        for (int i = 1; i < 6; i++) {
+            MonsterCard monster = monsterTerritory.get(i);
+            if (monster != null && monster.getIsFacedUp()) {
+                graveyard.add(monster);
+                monsterTerritory.put(i, null);
+                duelWithUser.afterDeathEffect(2, monster);
+            }
+        }
+        duelWithUser.getEnemyBoard().setItEffectedByMirrorFace(true);
     }
 }
