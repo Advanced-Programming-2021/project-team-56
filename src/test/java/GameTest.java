@@ -36,6 +36,88 @@ public class GameTest {
     @BeforeEach
     public void excelRun() throws IOException {
         ExcelUtils.getInstance().run();
+
+        ArrayList<String> cardNames = new ArrayList<>();
+        cardNames.add("Battle OX");
+        cardNames.add("Axe Raider");
+        cardNames.add("Yomi Ship");
+        cardNames.add("Horn Imp");
+        cardNames.add("Silver Fang");
+        cardNames.add("Suijin");
+        cardNames.add("Fireyarou");
+        cardNames.add("Curtain of the dark ones");
+        cardNames.add("Feral Imp");
+        cardNames.add("Dark magician");
+        cardNames.add("Wattkid");
+        cardNames.add("Baby dragon");
+        cardNames.add("Hero of the east");
+        cardNames.add("Battle warrior");
+        cardNames.add("Crawling dragon");
+        cardNames.add("Flame manipulator");
+        cardNames.add("Blue-Eyes white dragon");
+        cardNames.add("Crab Turtle");
+        cardNames.add("Skull Guardian");
+        cardNames.add("Slot Machine");
+        cardNames.add("Haniwa");
+        cardNames.add("Man-Eater Bug");
+        cardNames.add("Gate Guardian");
+        cardNames.add("Scanner");
+        cardNames.add("Bitron");
+        cardNames.add("Marshmallon");
+        cardNames.add("Beast King Barbaros");
+        cardNames.add("Texchanger");
+        cardNames.add("Leotron ");
+        cardNames.add("The Calculator");
+        cardNames.add("Alexandrite Dragon");
+        cardNames.add("Mirage Dragon");
+        cardNames.add("Herald of Creation");
+        cardNames.add("Exploder Dragon");
+        cardNames.add("Warrior Dai Grepher");
+        cardNames.add("Dark Blade");
+        cardNames.add("Wattaildragon");
+        cardNames.add("Terratiger, the Empowered Warrior");
+        cardNames.add("The Tricky");
+        cardNames.add("Spiral Serpent");
+        cardNames.add("Command Knight");
+        cardNames.add("Trap Hole");
+        cardNames.add("Mirror Force");
+        cardNames.add("Magic Cylinder");
+        cardNames.add("Mind Crush");
+        cardNames.add("Torrential Tribute");
+        cardNames.add("Time Seal");
+        cardNames.add("Negate Attack");
+        cardNames.add("Solemn Warning");
+        cardNames.add("Magic Jamamer");
+        cardNames.add("Call of The Haunted");
+        cardNames.add("Vanity's Emptiness");
+        cardNames.add("Wall of Revealing Light");
+        cardNames.add("Monster Reborn");
+        cardNames.add("Terraforming");
+        cardNames.add("Pot of Greed");
+        cardNames.add("Raigeki");
+        cardNames.add("Change of Heart");
+        cardNames.add("Swords of Revealing Light");
+        cardNames.add("Harpie's Feather Duster");
+        cardNames.add("Dark Hole");
+        cardNames.add("Supply Squad");
+        cardNames.add("Spell Absorption");
+        cardNames.add("Messenger of peace");
+        cardNames.add("Twin Twisters");
+        cardNames.add("Mystical space typhoon");
+        cardNames.add("Ring of defense");
+        cardNames.add("Yami");
+        cardNames.add("Forest");
+        cardNames.add("Closed Forest");
+        cardNames.add("Umiiruka");
+        cardNames.add("Sword of dark destruction");
+        cardNames.add("Black Pendant");
+        cardNames.add("United We Stand");
+        cardNames.add("Magnum Shield");
+        cardNames.add("Advanced Ritual Art");
+
+        for (String cardName : cardNames) {
+            System.out.println(Card.getCardByName(cardName));
+        }
     }
 
     @BeforeEach
@@ -94,52 +176,7 @@ public class GameTest {
 //            System.out.println(Card.getCardByName(map.getKey()));
 //        }
 
-        ArrayList<String> monsterNames = new ArrayList<>();
-        monsterNames.add("Battle OX");
-        monsterNames.add("Axe Raider");
-        monsterNames.add("Yomi Ship");
-        monsterNames.add("Horn Imp");
-        monsterNames.add("Silver Fang");
-        monsterNames.add("Suijin");
-        monsterNames.add("Fireyarou");
-        monsterNames.add("Curtain of the dark ones");
-        monsterNames.add("Feral Imp");
-        monsterNames.add("Dark magician");
-        monsterNames.add("Wattkid");
-        monsterNames.add("Baby dragon");
-        monsterNames.add("Hero of the east");
-        monsterNames.add("Battle warrior");
-        monsterNames.add("Crawling dragon");
-        monsterNames.add("Flame manipulator");
-        monsterNames.add("Blue-Eyes white dragon");
-        monsterNames.add("Crab Turtle");
-        monsterNames.add("Skull Guardian");
-        monsterNames.add("Slot Machine");
-        monsterNames.add("Haniwa");
-        monsterNames.add("Man-Eater Bug");
-        monsterNames.add("Gate Guardian");
-        monsterNames.add("Scanner");
-        monsterNames.add("Bitron");
-        monsterNames.add("Marshmallon");
-        monsterNames.add("Beast King Barbaros");
-        monsterNames.add("Texchanger");
-        monsterNames.add("Leotron ");
-        monsterNames.add("The Calculator");
-        monsterNames.add("Alexandrite Dragon");
-        monsterNames.add("Mirage Dragon");
-        monsterNames.add("Herald of Creation");
-        monsterNames.add("Exploder Dragon");
-        monsterNames.add("Warrior Dai Grepher");
-        monsterNames.add("Dark Blade");
-        monsterNames.add("Wattaildragon");
-        monsterNames.add("Terratiger, the Empowered Warrior");
-        monsterNames.add("The Tricky");
-        monsterNames.add("Spiral Serpent");
-        monsterNames.add("Command Knight");
 
-        for (String cardName : monsterNames) {
-            System.out.println(Card.getCardByName(cardName));
-        }
 
 //        System.out.println(MoneyLeft);
 
