@@ -40,6 +40,13 @@ public class TrapEffectActivate {
             case "Magic Jammer":
                 magicJammerActivate();
                 break;
+            case "Magic Cylinder":
+                magicCylinderActivate();
+                break;
+            case "Mirror Force":
+                mirrorForceActivate();
+                break;
+
         }
     }
 
@@ -165,5 +172,13 @@ public class TrapEffectActivate {
                 break;
             }
         }
+    }
+
+    private void magicCylinderActivate(){
+        duelWithUser.getEnemyBoard().setItEffectedByMagicCylinder(true);
+    }
+
+    private void mirrorForceActivate(){
+
     }
 }

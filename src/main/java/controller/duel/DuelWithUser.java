@@ -151,10 +151,12 @@ public class DuelWithUser {
         String firstPlayerToGoUsername = FirstToGoDeterminerView
                 .getInstance().determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername);
         if (firstPlayerToGoUsername.equals(firstPlayerUsername)) {
-            turnCounter = 0;
+            turnCounter = 2;
         } else {
-            turnCounter = 1;
+            turnCounter = 3;
         }
+        boards[0].setStartedTurn(2);
+        boards[1].setStartedTurn(3);
         boards[0].setPlayerHand();
         boards[1].setPlayerHand();
     }
@@ -510,4 +512,7 @@ public class DuelWithUser {
         return "no";
     }
 
+    public int getPhaseCounter() {
+        return phaseCounter;
+    }
 }

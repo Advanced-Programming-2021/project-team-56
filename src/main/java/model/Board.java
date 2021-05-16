@@ -16,6 +16,9 @@ public class Board {
     private int LP = 8000;
     private int lastSummonedOrSetTurn;
     private boolean isItEffectedByTimeSeal;
+    private boolean isItEffectedByMagicCylinder;
+    private int startedTurn;
+    private boolean isItAttackNegated;
 
     public Board(User user) {
         this.playerDeck = new Deck(user.getActivatedDeck());
@@ -107,5 +110,29 @@ public class Board {
 
     public void setItEffectedByTimeSeal(boolean itEffectedByTimeSeal) {
         isItEffectedByTimeSeal = itEffectedByTimeSeal;
+    }
+
+    public boolean isItEffectedByMagicCylinder() {
+        return isItEffectedByMagicCylinder;
+    }
+
+    public void setItEffectedByMagicCylinder(boolean itEffectedByMagicCylinder) {
+        isItEffectedByMagicCylinder = itEffectedByMagicCylinder;
+    }
+
+    public boolean isItAttackNegated() {
+        return isItAttackNegated;
+    }
+
+    public void setItAttackNegated(boolean itAttackNegated) {
+        isItAttackNegated = itAttackNegated;
+    }
+
+    public void setStartedTurn(int startedTurn) {
+        this.startedTurn = startedTurn;
+    }
+
+    public int getStartedTurn() {
+        return startedTurn;
     }
 }

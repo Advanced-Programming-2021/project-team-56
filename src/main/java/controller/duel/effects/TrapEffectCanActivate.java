@@ -32,6 +32,10 @@ public class TrapEffectCanActivate {
                 return canIActivateTimeSeal();
             case "Magic Jammer":
                 return canIActivateMagicJammer();
+            case "Negate Attack":
+            case "Mirror Force":
+            case "Magic Cylinder":
+                return canIActivateMagicCylinderOrMirrorForceOrNegateAttack();
         }
         return false;
     }
@@ -82,4 +86,24 @@ public class TrapEffectCanActivate {
         }
         return false;
     }
+
+    private boolean canIActivateMagicCylinderOrMirrorForceOrNegateAttack() {
+        if (duelWithUser.getPhaseCounter() != 4) {
+            return false;
+        }
+        if (duelWithUser.getTurnCounter() % 2 == 0) {
+            if (duelWithUser.getMyBoard().getStartedTurn() == 3) {
+                return true;
+            }
+        } else {
+            if (duelWithUser.getMyBoard().getStartedTurn() == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+//    private boolean canIActivateCallOfHunted(){
+//
+//    }
 }
