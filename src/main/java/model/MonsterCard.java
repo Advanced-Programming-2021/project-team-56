@@ -3,6 +3,13 @@ package model;
 import java.util.ArrayList;
 
 public class MonsterCard extends Card {
+
+    private static ArrayList<MonsterCard> monsterCards;
+
+    static {
+        monsterCards = new ArrayList<>();
+    }
+
     private int level;
     private String attribute;
     private int attack;
@@ -42,8 +49,6 @@ public class MonsterCard extends Card {
     public void setItControlledByChangeOfHeart(boolean itControlledByChangeOfHeart) {
         isItControlledByChangeOfHeart = itControlledByChangeOfHeart;
     }
-
-    private static ArrayList<MonsterCard> monsterCards = new ArrayList<>();
 
     public static ArrayList<MonsterCard> getMonsterCards() {
         return monsterCards;

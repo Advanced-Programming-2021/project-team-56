@@ -3,15 +3,22 @@ package model;
 import java.util.ArrayList;
 
 public class Card {
+
+    private static ArrayList<Card> cards;
+    public static int id;
+
+    static {
+        cards = new ArrayList<>();
+        id = 0;
+    }
+
     private boolean isFacedUp;
     private String name;
     private String description;
     private int startEffectTurn = -1;
     private int price;
-    private static ArrayList<Card> cards = new ArrayList<>();
     private boolean isItScanner;
     private int equipID;
-    public static int id = 0;
 
     public Card() {
     }
