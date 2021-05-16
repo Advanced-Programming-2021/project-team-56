@@ -4,6 +4,7 @@ import model.Card;
 import model.Deck;
 import model.User;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.*;
@@ -20,177 +21,122 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
 
-    @BeforeEach
-    public void createUsers() {
+    @BeforeAll
+    public static void gameTest() throws IOException {
         ArrayList<String> userCreationCommands = new ArrayList<>();
-        userCreationCommands.add("user create --username repetitiveUsername --nickname cool --password 12345");
-        userCreationCommands.add("user create --username username --nickname repetitiveNickname --password 12345");
-        userCreationCommands.add("user create --username bothRepetitive --nickname bothRepetitive --password 12345");
         userCreationCommands.add("user create --username Mehrshad --nickname MehrNick --password 0000");
         userCreationCommands.add("user create --username AmirAli --nickname AmirNick --password 0000");
         for (String command : userCreationCommands) {
             LoginMenuController.getInstance().createUser(command);
         }
-    }
-
-    @BeforeEach
-    public void excelRun() throws IOException {
+        User.getUserByUsername("Mehrshad").setMoney(864300);
+        User.getUserByUsername("AmirAli").setMoney(864300);
         ExcelUtils.getInstance().run();
-
-        ArrayList<String> cardNames = new ArrayList<>();
-        cardNames.add("Battle OX");
-        cardNames.add("Axe Raider");
-        cardNames.add("Yomi Ship");
-        cardNames.add("Horn Imp");
-        cardNames.add("Silver Fang");
-        cardNames.add("Suijin");
-        cardNames.add("Fireyarou");
-        cardNames.add("Curtain of the dark ones");
-        cardNames.add("Feral Imp");
-        cardNames.add("Dark magician");
-        cardNames.add("Wattkid");
-        cardNames.add("Baby dragon");
-        cardNames.add("Hero of the east");
-        cardNames.add("Battle warrior");
-        cardNames.add("Crawling dragon");
-        cardNames.add("Flame manipulator");
-        cardNames.add("Blue-Eyes white dragon");
-        cardNames.add("Crab Turtle");
-        cardNames.add("Skull Guardian");
-        cardNames.add("Slot Machine");
-        cardNames.add("Haniwa");
-        cardNames.add("Man-Eater Bug");
-        cardNames.add("Gate Guardian");
-        cardNames.add("Scanner");
-        cardNames.add("Bitron");
-        cardNames.add("Marshmallon");
-        cardNames.add("Beast King Barbaros");
-        cardNames.add("Texchanger");
-        cardNames.add("Leotron ");
-        cardNames.add("The Calculator");
-        cardNames.add("Alexandrite Dragon");
-        cardNames.add("Mirage Dragon");
-        cardNames.add("Herald of Creation");
-        cardNames.add("Exploder Dragon");
-        cardNames.add("Warrior Dai Grepher");
-        cardNames.add("Dark Blade");
-        cardNames.add("Wattaildragon");
-        cardNames.add("Terratiger, the Empowered Warrior");
-        cardNames.add("The Tricky");
-        cardNames.add("Spiral Serpent");
-        cardNames.add("Command Knight");
-        cardNames.add("Trap Hole");
-        cardNames.add("Mirror Force");
-        cardNames.add("Magic Cylinder");
-        cardNames.add("Mind Crush");
-        cardNames.add("Torrential Tribute");
-        cardNames.add("Time Seal");
-        cardNames.add("Negate Attack");
-        cardNames.add("Solemn Warning");
-        cardNames.add("Magic Jamamer");
-        cardNames.add("Call of The Haunted");
-        cardNames.add("Vanity's Emptiness");
-        cardNames.add("Wall of Revealing Light");
-        cardNames.add("Monster Reborn");
-        cardNames.add("Terraforming");
-        cardNames.add("Pot of Greed");
-        cardNames.add("Raigeki");
-        cardNames.add("Change of Heart");
-        cardNames.add("Swords of Revealing Light");
-        cardNames.add("Harpie's Feather Duster");
-        cardNames.add("Dark Hole");
-        cardNames.add("Supply Squad");
-        cardNames.add("Spell Absorption");
-        cardNames.add("Messenger of peace");
-        cardNames.add("Twin Twisters");
-        cardNames.add("Mystical space typhoon");
-        cardNames.add("Ring of defense");
-        cardNames.add("Yami");
-        cardNames.add("Forest");
-        cardNames.add("Closed Forest");
-        cardNames.add("Umiiruka");
-        cardNames.add("Sword of dark destruction");
-        cardNames.add("Black Pendant");
-        cardNames.add("United We Stand");
-        cardNames.add("Magnum Shield");
-        cardNames.add("Advanced Ritual Art");
-
-        for (String cardName : cardNames) {
-            System.out.println(Card.getCardByName(cardName));
+        HashMap<String, Integer> cardsToBuy = new HashMap<>();
+        putMonsterCardsToBuy(cardsToBuy);
+        putSpellAndTrapCardsToBuy(cardsToBuy);
+        for (Map.Entry<String, Integer> map : cardsToBuy.entrySet()) {
+            String cardName = map.getKey();
+            for (int i = 0; i < map.getValue(); i++) {
+                ShopController.getInstance().buyCard(cardName, "Mehrshad");
+                ShopController.getInstance().buyCard(cardName, "AmirAli");
+            }
         }
     }
 
-    @BeforeEach
-    public void buyCardsForPlayers() {
-        String firstPlayer = "Mehrshad";
-        String secondPlayer = "AmirAli";
-
-        int MoneyLeft = 100000;
-
-//        HashMap<String, Integer> cardsToBuy = new HashMap<>();
-//
-//        cardsToBuy.put("Battle OX", 2);
-//        cardsToBuy.put("Axe Raider", 2);
-//        cardsToBuy.put("Yomi Ship", 2);
-//        cardsToBuy.put("Horn Imp", 2);
-//        cardsToBuy.put("Silver Fang", 2);
-//        cardsToBuy.put("Suijin", 2);
-//        cardsToBuy.put("Fireyarou", 2);
-//        cardsToBuy.put("Curtain of the dark ones", 2);
-//        cardsToBuy.put("Feral Imp", 2);
-//        cardsToBuy.put("Dark magician", 2);
-//        cardsToBuy.put("Wattkid", 2);
-//        cardsToBuy.put("Baby dragon", 2);
-//        cardsToBuy.put("Hero of the east", 2);
-//        cardsToBuy.put("Battle warrior", 2);
-//        cardsToBuy.put("Crawling dragon", 2);
-//        cardsToBuy.put("Flame manipulator", 2);
-//        cardsToBuy.put("Blue-Eyes white dragon", 2);
-//        cardsToBuy.put("Crab Turtle", 2);
-//        cardsToBuy.put("Skull Guardian", 2);
-//        cardsToBuy.put("Slot Machine", 2);
-//        cardsToBuy.put("Haniwa", 2);
-//        cardsToBuy.put("Man-Eater Bug", 2);
-//        cardsToBuy.put("Gate Guardian", 2);
-//        cardsToBuy.put("Scanner", 2);
-//        cardsToBuy.put("Bitron", 2);
-//        cardsToBuy.put("Marshmallon", 2);
-//        cardsToBuy.put("Beast King Barbaros", 2);
-//        cardsToBuy.put("Texchanger", 2);
-//        cardsToBuy.put("Leotron ", 2);
-//        cardsToBuy.put("The Calculator", 2);
-//        cardsToBuy.put("Alexandrite Dragon", 2);
-//        cardsToBuy.put("Mirage Dragon", 2);
-//        cardsToBuy.put("Herald of Creation", 2);
-//        cardsToBuy.put("Exploder Dragon", 2);
-//        cardsToBuy.put("Warrior Dai Grepher", 2);
-//        cardsToBuy.put("Dark Blade", 2);
-//        cardsToBuy.put("Wattaildragon", 2);
-//        cardsToBuy.put("Terratiger, the Empowered Warrior", 2);
-//        cardsToBuy.put("The Tricky", 2);
-//        cardsToBuy.put("Spiral Serpent", 2);
-//        cardsToBuy.put("Command Knight", 2);
-//
-//        for (Map.Entry<String, Integer> map : cardsToBuy.entrySet()) {
-////            MoneyLeft -= Card.getCardByName(map.getKey()).getPrice() * map.getValue();
-//            System.out.println(Card.getCardByName(map.getKey()));
-//        }
-
-
-
-//        System.out.println(MoneyLeft);
-
-//        ShopController.getInstance().buyCard("Command Knight", firstPlayer);
-//        ShopController.getInstance().buyCard("Command Knight", secondPlayer);
-//        ShopController.getInstance().buyCard("Yomi Ship", firstPlayer);
-//        ShopController.getInstance().buyCard("Yomi Ship", secondPlayer);
-//        ShopController.getInstance().buyCard("Suijin", firstPlayer);
-//        ShopController.getInstance().buyCard("Suijin", secondPlayer);
-//        ShopController.getInstance().buyCard("Crab Turtle", firstPlayer);
-//        ShopController.getInstance().buyCard("Crab Turtle", secondPlayer);
-
-
+    private static void putMonsterCardsToBuy(HashMap<String, Integer> cardsToBuy) {
+        cardsToBuy.put("Battle OX", 3);
+        cardsToBuy.put("Axe Raider", 3);
+        cardsToBuy.put("Yomi Ship", 3);
+        cardsToBuy.put("Horn Imp", 3);
+        cardsToBuy.put("Silver Fang", 3);
+        cardsToBuy.put("Suijin", 3);
+        cardsToBuy.put("Fireyarou", 3);
+        cardsToBuy.put("Curtain of the dark ones", 3);
+        cardsToBuy.put("Feral Imp", 3);
+        cardsToBuy.put("Dark magician", 3);
+        cardsToBuy.put("Wattkid", 3);
+        cardsToBuy.put("Baby dragon", 3);
+        cardsToBuy.put("Hero of the east", 3);
+        cardsToBuy.put("Battle warrior", 3);
+        cardsToBuy.put("Crawling dragon", 3);
+        cardsToBuy.put("Flame manipulator", 3);
+        cardsToBuy.put("Blue-Eyes white dragon", 3);
+        cardsToBuy.put("Crab Turtle", 3);
+        cardsToBuy.put("Skull Guardian", 3);
+        cardsToBuy.put("Slot Machine", 3);
+        cardsToBuy.put("Haniwa", 3);
+        cardsToBuy.put("Man-Eater Bug", 3);
+        cardsToBuy.put("Gate Guardian", 3);
+        cardsToBuy.put("Scanner", 3);
+        cardsToBuy.put("Bitron", 3);
+        cardsToBuy.put("Marshmallon", 3);
+        cardsToBuy.put("Beast King Barbaros", 3);
+        cardsToBuy.put("Texchanger", 3);
+        cardsToBuy.put("Leotron ", 3);
+        cardsToBuy.put("The Calculator", 3);
+        cardsToBuy.put("Alexandrite Dragon", 3);
+        cardsToBuy.put("Mirage Dragon", 3);
+        cardsToBuy.put("Herald of Creation", 3);
+        cardsToBuy.put("Exploder Dragon", 3);
+        cardsToBuy.put("Warrior Dai Grepher", 3);
+        cardsToBuy.put("Dark Blade", 3);
+        cardsToBuy.put("Wattaildragon", 3);
+        cardsToBuy.put("Terratiger, the Empowered Warrior", 3);
+        cardsToBuy.put("The Tricky", 3);
+        cardsToBuy.put("Spiral Serpent", 3);
+        cardsToBuy.put("Command Knight", 3);
     }
+
+    private static void putSpellAndTrapCardsToBuy(HashMap<String, Integer> cardsToBuy) {
+        cardsToBuy.put("Trap Hole", 3);
+        cardsToBuy.put("Mirror Force", 3);
+        cardsToBuy.put("Magic Cylinder", 3);
+        cardsToBuy.put("Mind Crush", 3);
+        cardsToBuy.put("Torrential Tribute", 3);
+        cardsToBuy.put("Time Seal", 3);
+        cardsToBuy.put("Negate Attack", 3);
+        cardsToBuy.put("Solemn Warning", 3);
+        cardsToBuy.put("Magic Jamamer", 3);
+        cardsToBuy.put("Call of The Haunted", 3);
+        cardsToBuy.put("Vanity's Emptiness", 3);
+        cardsToBuy.put("Wall of Revealing Light", 3);
+        cardsToBuy.put("Monster Reborn", 3);
+        cardsToBuy.put("Terraforming", 3);
+        cardsToBuy.put("Pot of Greed", 3);
+        cardsToBuy.put("Raigeki", 3);
+        cardsToBuy.put("Change of Heart", 3);
+        cardsToBuy.put("Swords of Revealing Light", 3);
+        cardsToBuy.put("Harpie's Feather Duster", 3);
+        cardsToBuy.put("Dark Hole", 3);
+        cardsToBuy.put("Supply Squad", 3);
+        cardsToBuy.put("Spell Absorption", 3);
+        cardsToBuy.put("Messenger of peace", 3);
+        cardsToBuy.put("Twin Twisters", 3);
+        cardsToBuy.put("Mystical space typhoon", 3);
+        cardsToBuy.put("Ring of defense", 3);
+        cardsToBuy.put("Yami", 3);
+        cardsToBuy.put("Forest", 3);
+        cardsToBuy.put("Closed Forest", 3);
+        cardsToBuy.put("Umiiruka", 3);
+        cardsToBuy.put("Sword of dark destruction", 3);
+        cardsToBuy.put("Black Pendant", 3);
+        cardsToBuy.put("United We Stand", 3);
+        cardsToBuy.put("Magnum Shield", 3);
+        cardsToBuy.put("Advanced Ritual Art", 3);
+    }
+
+    @BeforeAll
+    public static void createTestUsers() {
+        ArrayList<String> creatTestUserCommands = new ArrayList<>();
+        creatTestUserCommands.add("user create --username repetitiveUsername --nickname cool --password 12345");
+        creatTestUserCommands.add("user create --username username --nickname repetitiveNickname --password 12345");
+        creatTestUserCommands.add("user create --username bothRepetitive --nickname bothRepetitive --password 12345");
+        for (String createTestUserCommand : creatTestUserCommands) {
+            LoginMenuController.getInstance().createUser(createTestUserCommand);
+        }
+    }
+
 
     @Test
     public void viewTest() {
