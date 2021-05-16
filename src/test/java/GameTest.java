@@ -157,6 +157,8 @@ public class GameTest {
         mainMenuViewIOAppender(commands, validOutputs);
         profileViewIOAppender(commands, validOutputs);
         duelMenuViewIOAppender(commands, validOutputs);
+        scoreBoardMenuViewIOAppender(commands, validOutputs);
+        shopViewIOAppender(commands, validOutputs);
         deckMenuViewIOAppender(commands, validOutputs);
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(commands.toString().getBytes());
@@ -169,6 +171,8 @@ public class GameTest {
         MainMenuView.getInstance().run("Mehrshad");
         ProfileView.getInstance().run("Mehrshad");
         DuelMenuView.getInstance().run("Mehrshad");
+        ScoreBoardView.getInstance().run();
+        ShopView.getInstance().run("Mehrshad");
         DeckMenuView.getInstance().run("Mehrshad");
 
         String output = (outputStream.toString());
@@ -244,12 +248,72 @@ public class GameTest {
                 "menu navigation is not possible\r\ninvalid command\r\ninvalid command\r\n");
     }
 
+    private void scoreBoardMenuViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("menu show-current\nmenu enter Duel\ninvalid command\n" +
+                "scoreboard show\nmenu exit\n");
+
+
+        outputStringBuilder.append("Scoreboard\r\nmenu navigation is not possible\r\ninvalid command\r\n" +
+                "1- AmirNick: 0\n" +
+                "1- MehrNick: 0\n" +
+                "1- abbas: 0\n" +
+                "1- aliPalang: 0\n" +
+                "1- bothRepetitive: 0\n" +
+                "1- cool: 0\n" +
+                "1- login: 0\n" +
+                "1- mmd: 0\n" +
+                "1- mmdi: 0\n" +
+                "1- repetitiveNickname: 0\n" +
+                "1- rezaiii: 0\n" +
+                "1- rza: 0\n" +
+                "1- testNickname: 0\n");
+    }
+
+    private void shopViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("menu show-current\nmenu enter Duel\ninvalid command\ncard show aliabad\n" +
+                "card show Hero of the east\nincrease --money 0\nshop show --all\nshop buy not a card\n" +
+                "shop buy Dark Blade\nmenu exit\n");
+
+        outputStringBuilder.append("Shop Menu\r\nmenu navigation is not possible\r\ninvalid command\r\n" +
+                "card with this name, could not be found!\r\nName: Hero of the east\n" +
+                "Level: 3\nType: Normal\nATK: 1100\n" +
+                "DEF: 1000\nDescription: Feel da strength ah dis sword-swinging samurai from da Far East.\r\n" +
+                "your money increased by the value of 0!\r\n" +
+                "Advanced Ritual Art:3000\nAlexandrite Dragon:2600\nAxe Raider:3100\nBaby dragon:1600\n" +
+                "Battle OX:2900\nBattle warrior:1300\nBeast King Barbaros:9200\nBitron:1000\nBlack Pendant:4300\n" +
+                "Blue-Eyes white dragon:11300\nCall of The Haunted:3500\nChange of Heart:2500\nClosed Forest:4300\n" +
+                "Command Knight:2100\nCrab Turtle:10200\nCrawling dragon:3900\nCurtain of the dark ones:700\n" +
+                "Dark Blade:3500\nDark Hole:2500\nDark magician:8300\nExploder Dragon:1000\nFeral Imp:2800\n" +
+                "Fireyarou:2500\nFlame manipulator:1500\nForest:4300\nGate Guardian:20000\nHaniwa:600\n" +
+                "Harpie's Feather Duster:2500\nHerald of Creation:2700\nHero of the east:1700\nHorn Imp:2500\n" +
+                "Leotron :2500\nMagic Cylinder:2000\nMagic Jamamer:3000\nMagnum Shield:4300\nMan-Eater Bug:600\n" +
+                "Marshmallon:700\nMessenger of peace:4000\nMind Crush:2000\nMirage Dragon:2500\nMirror Force:2000\n" +
+                "Monster Reborn:2500\nMystical space typhoon:3500\nNegate Attack:3000\nPot of Greed:2500\n" +
+                "Raigeki:2500\nRing of defense:3500\nScanner:8000\nSilver Fang:1700\nSkull Guardian:7900\n" +
+                "Slot Machine:7500\nSolemn Warning:3000\nSpell Absorption:4000\nSpiral Serpent:11700\n" +
+                "Suijin:8700\nSupply Squad:4000\nSword of dark destruction:4300\nSwords of Revealing Light:2500\n" +
+                "Terraforming:2500\nTerratiger, the Empowered Warrior:3200\nTexchanger:200\nThe Calculator:8000\n" +
+                "The Tricky:4300\nTime Seal:2000\nTorrential Tribute:2000\nTrap Hole:2000\nTwin Twisters:3500\n" +
+                "Umiiruka:4300\nUnited We Stand:4300\nVanity's Emptiness:3500\nWall of Revealing Light:3500\n" +
+                "Warrior Dai Grepher:3400\nWattaildragon:5800\nWattkid:1300\nYami:4300\nYomi Ship:1700\n" +
+                "there is no card with this name\r\nnot enough money\r\n");
+    }
+
     private void deckMenuViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
         inputStringBuilder.append("menu show-current\nmenu enter Duel\ninvalid\ndeck invalid\ncard show  aa\n" +
+                "deck create invalid deckName\ndeck create mehrDeck\ndeck create testDeck\ndeck delete i n\n" +
+                "deck delete notExist\ndeck set-activate i n\ndeck set-activate notExist\n" +
+                "deck set-activate testDeck\ndeck show --all\n" +
+                "deck delete testDeck\n" +
                 "menu exit");
 
         outputStringBuilder.append("Deck Menu\r\nmenu navigation is not possible\r\ninvalid command\r\n" +
-                "invalid command\r\ninvalid command\r\n");
+                "invalid command\r\ninvalid command\r\ninvalid command\r\ndeck with name mehrDeck already exists\r\n" +
+                "deck created successfully!\r\ninvalid command\r\ndeck with name notExist does not exist\r\n" +
+                "invalid command\r\ndeck with name notExist does not exist\r\ndeck activated successfully\r\n" +
+                "Decks:\nActive deck:\ntestDeck: main deck 0, side deck 0, invalid\n" +
+                "Other decks:\nmehrDeck: main deck 0, side deck 0, invalid\n" +
+                "deck deleted successfully\r\n");
     }
 
     @Test
