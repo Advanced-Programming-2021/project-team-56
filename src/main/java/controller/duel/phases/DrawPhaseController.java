@@ -20,14 +20,19 @@ public class DrawPhaseController {
     }
 
     public String run() {
-        ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
-        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        if (mainDeck.size() == 0) {
-            return "No cards is in your deck";
+        if (!duelWithUser.getMyBoard().isItEffectedByTimeSeal()) {
+            ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
+            ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+            if (mainDeck.size() == 0) {
+                return "No cards is in your deck";
+            }
+            playerHand.add(mainDeck.get(mainDeck.size() - 1));
+            mainDeck.remove(mainDeck.size() - 1);
+            return "new card added to the hand : " + playerHand.get(playerHand.size() - 1).getName();
+        }else{
+            duelWithUser.getMyBoard().setItEffectedByTimeSeal(false);
+            return "this turn you could'n draw a card";
         }
-        playerHand.add(mainDeck.get(mainDeck.size() - 1));
-        mainDeck.remove(mainDeck.size() - 1);
-        return "new card added to the hand : " + playerHand.get(playerHand.size() - 1).getName();
     }
 
     public String forceDraw(String cardName) {

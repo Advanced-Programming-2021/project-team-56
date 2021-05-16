@@ -514,6 +514,7 @@ public class MainPhase1Controller {
                 for (int i = 1; i < 5; i++) {
                     if (spellTerritory.get(i) == null) {
                         spellTerritory.put(i, spell);
+                        spell.setFacedUp(true);
                         break;
                     }
                 }

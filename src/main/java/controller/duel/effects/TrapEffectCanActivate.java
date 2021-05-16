@@ -3,6 +3,7 @@ package controller.duel.effects;
 import controller.duel.DuelWithUser;
 import model.Card;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TrapEffectCanActivate {
@@ -27,6 +28,10 @@ public class TrapEffectCanActivate {
                 return canIActivateSpaceTyphoonOrTwinTwister();
             case "Ring of Defense":
                 return canIActivateRingOfDefence();
+            case "Time Seal":
+                return canIActivateTimeSeal();
+            case "Magic Jammer":
+                return canIActivateMagicJammer();
         }
         return false;
     }
@@ -43,26 +48,37 @@ public class TrapEffectCanActivate {
     }
 
     private boolean canIActivateSpaceTyphoonOrTwinTwister() {
-        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i < 6; i++) {
-            Card spell = spellAndTrapTerritory.get(i);
-            if (spell.getName().equals("Mystical space typhoon") || spell.getName().equals("Twin Twisters")) {
-                if (!spell.isItInChainLink()) {
-                    if (doEnemyHaveSpellOnTheGround()) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean doEnemyHaveSpellOnTheGround() {
         HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
             if (spellAndTrapTerritory.get(i) != null) {
                 return true;
             }
+        }
+        if (duelWithUser.getEnemyBoard().getFieldSpell() != null) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean canIActivateTimeSeal() {
+        return !duelWithUser.getEnemyBoard().isItEffectedByTimeSeal();
+    }
+
+    private boolean canIActivateMagicJammer() {
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        if (playerHand.size() == 0) {
+            return false;
+        }
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i < 6; i++) {
+            Card card = spellAndTrapTerritory.get(i);
+            if (card != null && card.getIsFacedUp()) {
+                return true;
+            }
+        }
+        Card fieldSpell = duelWithUser.getEnemyBoard().getFieldSpell();
+        if (fieldSpell != null && fieldSpell.getIsFacedUp()) {
+            return true;
         }
         return false;
     }

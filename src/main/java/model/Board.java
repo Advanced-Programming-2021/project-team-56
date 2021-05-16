@@ -15,6 +15,7 @@ public class Board {
     private Card selectedCard;
     private int LP = 8000;
     private int lastSummonedOrSetTurn;
+    private boolean isItEffectedByTimeSeal;
 
     public Board(User user) {
         this.playerDeck = new Deck(user.getActivatedDeck());
@@ -98,5 +99,13 @@ public class Board {
 
     public void increaseLP(int amount) {
         this.LP += amount;
+    }
+
+    public boolean isItEffectedByTimeSeal() {
+        return isItEffectedByTimeSeal;
+    }
+
+    public void setItEffectedByTimeSeal(boolean itEffectedByTimeSeal) {
+        isItEffectedByTimeSeal = itEffectedByTimeSeal;
     }
 }

@@ -162,11 +162,11 @@ public class OpponentPhase {
             SpellCard spell = (SpellCard) card;
             if (spell.getIcon().equals("Quick-play")) {
                 trapEffectActivate.trapAndQuickSpellCaller(spell.getName());
-                duelWithUser.decreaseTempTurnCounter();
+                getRidOfTrapOrQuickPlaySpell(spell);
             } else {
-                duelWithUser.decreaseTempTurnCounter();
                 spellEffectActivate.spellCaller(spell.getName());
             }
+            duelWithUser.decreaseTempTurnCounter();
         }
         duelWithUser.setTempTurnCounter(0);
     }
@@ -179,6 +179,16 @@ public class OpponentPhase {
             }
         }
         return false;
+    }
+
+    private void getRidOfTrapOrQuickPlaySpell(Card card){
+        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (spellAndTrapTerritory.get(i) == card){
+                spellAndTrapTerritory.put(i, null);
+            }
+        }
+        duelWithUser.getMyBoard().getGraveyard().add(card);
     }
 
     private boolean isItPossibleToAddACardToTheChain() {
