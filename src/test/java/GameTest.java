@@ -1,3 +1,4 @@
+import controller.DeckMenuController;
 import controller.LoginMenuController;
 import controller.ShopController;
 import model.Card;
@@ -42,6 +43,7 @@ public class GameTest {
                 ShopController.getInstance().buyCard(cardName, "AmirAli");
             }
         }
+        makeDeckForPlayers();
     }
 
     private static void putMonsterCardsToBuy(HashMap<String, Integer> cardsToBuy) {
@@ -124,6 +126,14 @@ public class GameTest {
         cardsToBuy.put("United We Stand", 3);
         cardsToBuy.put("Magnum Shield", 3);
         cardsToBuy.put("Advanced Ritual Art", 3);
+    }
+
+    private static void makeDeckForPlayers() {
+        User player1 = User.getUserByUsername("Mehrshad");
+        User player2 = User.getUserByUsername("AmirAli");
+        DeckMenuController.getInstance().createDeck("mehrDeck", "Mehrshad");
+        DeckMenuController.getInstance().createDeck("amirDeck", "AmirAli");
+
     }
 
     @BeforeAll
