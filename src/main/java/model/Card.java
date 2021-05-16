@@ -76,9 +76,9 @@ public class Card {
     }
 
     public static Card getCardByName(String cardName) {
-        for (int i = 0; i < cards.size(); i++) {
-            if (cards.get(i).getName().equals(cardName)) {
-                return cards.get(i);
+        for (Card card : cards) {
+            if (card.getName().equals(cardName)) {
+                return card;
             }
         }
         return null;
