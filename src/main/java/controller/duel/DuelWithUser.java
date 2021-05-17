@@ -22,8 +22,8 @@ public class DuelWithUser {
     static Pattern selectOpponentSpellOrTrap2 = Pattern.compile("^select --opponent --spell (\\d+)$");
     static Pattern selectMyHandCard = Pattern.compile("^select --hand (\\d+)$");
     static Pattern selectFieldCard = Pattern.compile("^select (?:--opponent --field|--field --opponent|--field)$");
-    private final SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-    private final SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
+    private SpellEffectCanActivate spellEffectCanActivate;
+    private SpellEffectActivate spellEffectActivate;
     private final MainPhase1View mainPhase1View = MainPhase1View.getInstance();
     private final FirstToGoDeterminerView firstToGoDeterminerView = FirstToGoDeterminerView.getInstance();
     private final DrawPhaseView drawPhaseView = DrawPhaseView.getInstance();
@@ -32,8 +32,8 @@ public class DuelWithUser {
     private int phaseCounter = 1;
     private int turnCounter;
     private int tempTurnCounter;
-    private static DuelWithUser duelWithUser;
-    private final static DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
+    private DuelWithUser duelWithUser;
+    private final DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
     private Board[] boards = new Board[2];
     private int startTurn;
 
@@ -47,6 +47,8 @@ public class DuelWithUser {
     }
 
     public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
+         spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+          spellEffectActivate = SpellEffectActivate.getInstance();
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
             int numberOfWinsPlayer2 = 0;

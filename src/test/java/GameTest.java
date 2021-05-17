@@ -486,11 +486,18 @@ public class GameTest {
     public void duelViewAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
         //TODO
         //traversing inside the menu
-        inputStringBuilder.append("duel invalid\nduel --second-player\n" +
+        inputStringBuilder.append("duel invalid\nduel --new --second-player AmirAli --rounds 1\n" +
+                "rock\nscissors\nMehrshad\nsurrender\n" +
                 "menu exit");
 
 
-        outputStringBuilder.append("invalid command\r\ninvalid command\r\n");
+        outputStringBuilder.append("invalid command\r\nMehrNick, please choose between Rock, Paper or Scissors:\r\n" +
+                "AmirNick, please choose between Rock, Paper or Scissors:\r\n" +
+                "MehrNick, please choose the first player to go: Mehrshad or AmirAli\r\nphase: draw phase\r\n" +
+                "new card added to the hand : Mirage Dragon\r\n" + //TODO
+                "AmirNick:8000\n\tc\tc\tc\tc\tc\n55\n\tE\tE\tE\tE\tE\n\tE\tE\tE\tE\tE\n0\t\t\t\t\t\tE\n" +
+                "\n--------------------------\n\nE\t\t\t\t\t\t0\n\tE\tE\tE\tE\tE\n\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\tc\tc\tc\tc\tc\tc\nMehrNick:8000\nAmirAli won the whole match\r\n");
     }
 
     @Test

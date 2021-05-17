@@ -5,14 +5,12 @@ import model.User;
 import view.LoginMenuView;
 
 import java.util.Locale;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FirstToGoDeterminerView {
 
     private static FirstToGoDeterminerView firstToGoDeterminerView;
     static Pattern rockPaperScissors = Pattern.compile("^(?:rock|paper|scissors)$");
-    static Pattern coinToss = Pattern.compile("^(?:heads|tails)$");
 
     private FirstToGoDeterminerView() {
 
@@ -26,12 +24,7 @@ public class FirstToGoDeterminerView {
 
     public String determineFirstPlayerToGo(String firstPlayerUsername, String secondPlayerUsername) {
         String winnerUsername;
-        String miniGameName = FirstToGoDeterminerController.getInstance().getRandomMiniGameName();
-        if (miniGameName.equals("CoinToss")) {
-            winnerUsername = coinToss(firstPlayerUsername, secondPlayerUsername);
-        } else {
-            winnerUsername = rockPaperScissors(firstPlayerUsername, secondPlayerUsername);
-        }
+        winnerUsername = rockPaperScissors(firstPlayerUsername, secondPlayerUsername);
         String WinnerNickname = User.getUserByUsername(winnerUsername).getNickname();
         System.out.println(WinnerNickname + ", please choose the first player to go: "
                 + firstPlayerUsername + " or " + secondPlayerUsername);
@@ -77,20 +70,4 @@ public class FirstToGoDeterminerView {
         }
     }
 
-    private String coinToss(String firstPlayerUsername, String secondPlayerUsername) {
-        String firstPlayerNickname = User.getUserByUsername(firstPlayerUsername).getNickname();
-        System.out.println(firstPlayerNickname + ", please choose between heads and tails:");
-        while (true) {
-            String firstPlayerCommand = LoginMenuView.scan.nextLine().toLowerCase(Locale.ROOT).trim();
-            if (coinToss.matcher(firstPlayerCommand).find()) {
-                String winnerCommand = FirstToGoDeterminerController.getInstance().getCoinTossWinnerCommand();
-                if (winnerCommand.equals(firstPlayerCommand)) {
-                    return firstPlayerUsername;
-                }
-                return secondPlayerUsername;
-            } else {
-                System.out.println("invalid command");
-            }
-        }
-    }
 }
