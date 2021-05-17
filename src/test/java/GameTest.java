@@ -4,9 +4,7 @@ import controller.ShopController;
 import model.Card;
 import model.Deck;
 import model.User;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.*;
 
@@ -138,7 +136,59 @@ public class GameTest {
 
     private static void putCardsInDeck() {
         DeckMenuController deckMenuController = DeckMenuController.getInstance();
-//        deckMenuController.addToDeck("mehrDeck", )
+        HashMap<String, Integer> cardsToAddToDeck = new HashMap<>();
+        cardsSetNO60Appender(cardsToAddToDeck);
+        for (Map.Entry<String, Integer> map : cardsToAddToDeck.entrySet()) {
+            String cardName = map.getKey();
+            for (int i = 0; i < map.getValue(); i++) {
+                deckMenuController.addToDeck("mehrDeck", cardName, "Mehrshad", false);
+            }
+        }
+
+    }
+
+    private static void cardsSetNO60Appender(HashMap<String, Integer> cardsToAdd) {
+        cardsToAdd.put("Yomi Ship", 1);
+        cardsToAdd.put("Suijin", 1);
+        cardsToAdd.put("Crab Turtle", 1);
+        cardsToAdd.put("Skull Guardian", 1);
+        cardsToAdd.put("Man-Eater Bug", 1);
+        cardsToAdd.put("Gate Guardian", 1);
+        cardsToAdd.put("Scanner", 1);
+        cardsToAdd.put("Marshmallon", 1);
+        cardsToAdd.put("Beast King Barbaros", 1);
+        cardsToAdd.put("Texchanger", 1);
+        cardsToAdd.put("The Calculator", 1);
+        cardsToAdd.put("Mirage Dragon", 1);
+        cardsToAdd.put("Herald of Creation", 1);
+        cardsToAdd.put("Exploder Dragon", 1);
+        cardsToAdd.put("Terratiger, the Empowered Warrior", 1);
+        cardsToAdd.put("The Tricky", 1);
+        cardsToAdd.put("Command Knight", 1);
+        cardsToAdd.put("Yami", 1);
+        cardsToAdd.put("Forest", 1);
+        cardsToAdd.put("Closed Forest", 1);
+        cardsToAdd.put("Umiiruka", 1);
+        cardsToAdd.put("Harpie's Feather Duster", 1);
+        cardsToAdd.put("Dark Hole", 1);
+        cardsToAdd.put("Mind Crush", 1);
+        cardsToAdd.put("Flame manipulator", 1);
+        cardsToAdd.put("Blue-Eyes white dragon", 1);
+        cardsToAdd.put("Advanced Ritual Art", 2);
+        cardsToAdd.put("Supply Squad", 2);
+        cardsToAdd.put("Spell Absorption", 2);
+        cardsToAdd.put("Messenger of peace", 2);
+        cardsToAdd.put("Trap Hole", 2);
+        cardsToAdd.put("Torrential Tribute", 2);
+        cardsToAdd.put("Magic Jamamer", 2);
+        cardsToAdd.put("Call of The Haunted", 2);
+        cardsToAdd.put("Pot of Greed", 2);
+        cardsToAdd.put("Raigeki", 2);
+        cardsToAdd.put("Battle OX", 2);
+        cardsToAdd.put("United We Stand", 3);
+        cardsToAdd.put("Mystical space typhoon", 3);
+        cardsToAdd.put("Monster Reborn", 3);
+        cardsToAdd.put("Change of Heart", 3);
     }
 
     @BeforeAll
@@ -317,7 +367,7 @@ public class GameTest {
                 "deck created successfully!\r\ninvalid command\r\ndeck with name notExist does not exist\r\n" +
                 "invalid command\r\ndeck with name notExist does not exist\r\ndeck activated successfully\r\n" +
                 "Decks:\nActive deck:\ntestDeck: main deck 0, side deck 0, invalid\n" +
-                "Other decks:\nmehrDeck: main deck 0, side deck 0, invalid\n" +
+                "Other decks:\nmehrDeck: main deck 60, side deck 0, valid\n" +
                 "deck deleted successfully\r\n");
     }
 
