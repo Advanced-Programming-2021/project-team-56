@@ -382,6 +382,7 @@ public class GameTest {
                 "deck rm-card --deck testDeck --card Battle OX\n" +
                 "deck rm-card --deck test --card Battle OX\n" +
                 "deck rm-card --deck testDeck -card Battle OX\n" +
+                "deck show --deck-name testDeck --side\n" + "deck show --side --deck-name testDeck\n" +
                 "deck delete testDeck\n" +
                 "menu exit");
 
@@ -398,7 +399,8 @@ public class GameTest {
                 "card removed from deck successfully\r\n" + "card removed from deck successfully\r\n" +
                 "card with name Yomi Ship does not exist in side deck\r\n" + "deck with name test does not exist\r\n" +
                 "card with name aaaaa does not exist in side deck\r\n" + "invalid command\r\n" + "card removed from deck successfully\r\n" +
-
+                "card with name Battle OX does not exist in main deck\r\n" + "deck with name test does not exist\r\n" +
+                "invalid command\r\n" +
                 "deck deleted successfully\r\n");
     }
 
