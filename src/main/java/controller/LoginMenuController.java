@@ -32,7 +32,6 @@ public class LoginMenuController {
         return loginMenuController;
     }
 
-
     public String logIn(String username, String password) {
         User user = User.getUserByUsername(username);
         if (user == null) {

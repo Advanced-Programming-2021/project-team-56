@@ -475,7 +475,7 @@ public class GameTest {
                 "card removed from deck successfully\r\n" +
                 "Deck: testDeck\nSide deck:\nMonsters:\n" +
                 "Axe Raider: An axe-wielding monster of tremendous strength and agility.\n" +
-                 "Axe Raider: An axe-wielding monster of tremendous strength and agility.\n" +
+                "Axe Raider: An axe-wielding monster of tremendous strength and agility.\n" +
                 "Battle OX: A monster with tremendous power, it destroys enemies with a swing of its axe.\nSpells and Traps:\n" +
                 "deck with name test does not exist\n" + "Deck: testDeck\nSide deck:\nMonsters:\n" +
                 "Yomi Ship: If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.\n" +
