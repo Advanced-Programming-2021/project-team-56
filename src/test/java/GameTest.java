@@ -486,7 +486,7 @@ public class GameTest {
     public void duelViewAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
         //TODO
         //traversing inside the menu
-        inputStringBuilder.append("duel invalid\nduel --second-player\n" +
+        inputStringBuilder.append("duel invalid\nduel --new --second-player AmirAli --rounds 1\n" +
                 "menu exit");
 
 
