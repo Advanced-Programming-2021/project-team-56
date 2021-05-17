@@ -31,7 +31,7 @@ public class DrawPhaseController {
             return "new card added to the hand : " + playerHand.get(playerHand.size() - 1).getName();
         }else{
             duelWithUser.getMyBoard().setItEffectedByTimeSeal(false);
-            return "this turn you could'n draw a card";
+            return "this turn you couldn't draw a card";
         }
     }
 

@@ -24,16 +24,16 @@ public class DuelWithUser {
     static Pattern selectFieldCard = Pattern.compile("^select (?:--opponent --field|--field --opponent|--field)$");
     private SpellEffectCanActivate spellEffectCanActivate;
     private SpellEffectActivate spellEffectActivate;
-    private final MainPhase1View mainPhase1View = MainPhase1View.getInstance();
-    private final FirstToGoDeterminerView firstToGoDeterminerView = FirstToGoDeterminerView.getInstance();
-    private final DrawPhaseView drawPhaseView = DrawPhaseView.getInstance();
-    private final StandByPhaseView standByPhaseView = StandByPhaseView.getInstance();
-    private final EndPhaseView endPhaseView = EndPhaseView.getInstance();
+    private MainPhase1View mainPhase1View = MainPhase1View.getInstance();
+    private FirstToGoDeterminerView firstToGoDeterminerView;
+    private DrawPhaseView drawPhaseView;
+    private StandByPhaseView standByPhaseView;
+    private EndPhaseView endPhaseView;
     private int phaseCounter = 1;
     private int turnCounter;
     private int tempTurnCounter;
-    private DuelWithUser duelWithUser;
-    private final DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
+    private static DuelWithUser duelWithUser;
+    private DuelWithUserView duelWithUserView;
     private Board[] boards = new Board[2];
     private int startTurn;
 
@@ -46,9 +46,18 @@ public class DuelWithUser {
         return duelWithUser;
     }
 
+    private void instantiate() {
+        drawPhaseView = DrawPhaseView.getInstance();
+        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+        spellEffectActivate = SpellEffectActivate.getInstance();
+        endPhaseView = EndPhaseView.getInstance();
+        standByPhaseView = StandByPhaseView.getInstance();
+        firstToGoDeterminerView = FirstToGoDeterminerView.getInstance();
+        mainPhase1View = MainPhase1View.getInstance();
+    }
+
     public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
-         spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-          spellEffectActivate = SpellEffectActivate.getInstance();
+        instantiate();
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
             int numberOfWinsPlayer2 = 0;
@@ -465,7 +474,7 @@ public class DuelWithUser {
         }
     }
 
-    private void equipSpellRemoval(MonsterCard monsterCard){
+    private void equipSpellRemoval(MonsterCard monsterCard) {
         int counter = 1;
         while (counter <= 2) {
             HashMap<Integer, Card> spellTerritory;
@@ -493,7 +502,7 @@ public class DuelWithUser {
         }
     }
 
-    private void callOfHuntedRemoval(MonsterCard monsterCard){
+    private void callOfHuntedRemoval(MonsterCard monsterCard) {
         int counter = 1;
         while (counter <= 2) {
             HashMap<Integer, Card> trapTerritory;
@@ -508,8 +517,8 @@ public class DuelWithUser {
             if (monsterCard.isItHunted() && !monsterCard.isItControlledByChangeOfHeart()) {
                 for (int i = 1; i < 6; i++) {
                     Card trap = trapTerritory.get(i);
-                    if (trap != null){
-                        if (trap.getName().equals("Call of the Haunted")){
+                    if (trap != null) {
+                        if (trap.getName().equals("Call of the Haunted")) {
                             graveyard.add(trap);
                             trapTerritory.put(i, null);
                             break;
