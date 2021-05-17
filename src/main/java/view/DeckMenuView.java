@@ -95,13 +95,13 @@ public class DeckMenuView {
             System.out.print(result);
             return;
         }
-        if (command.startsWith("deck show")) {
-            System.out.print(checkShowDeck(command, username));
-            return;
-        }
         if (command.equals("deck show --cards")) {
             String result = DeckMenuController.getInstance().showCards(username);
             System.out.print(result);
+            return;
+        }
+        if (command.startsWith("deck show")) {
+            System.out.print(checkShowDeck(command, username));
             return;
         }
         System.out.println("invalid command");

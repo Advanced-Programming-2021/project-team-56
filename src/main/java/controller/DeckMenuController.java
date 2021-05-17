@@ -144,7 +144,7 @@ public class DeckMenuController {
     public String showMainOrSideDeck(String deckName, String username, String mainOrSide) {
         User user = User.getUserByUsername(username);
         if (!user.isDeckWithThisNameExistent(deckName)) {
-            return "deck with name " + deckName + " does not exist";
+            return "deck with name " + deckName + " does not exist\n";
         }
         Deck deck = user.getDeckByDeckName(deckName);
         ArrayList<Card> cards;

@@ -403,7 +403,8 @@ public class GameTest {
                 "deck rm-card --deck testDeck --card Battle OX\n" +
                 "deck rm-card --deck test --card Battle OX\n" +
                 "deck rm-card --deck testDeck -card Battle OX\n" +
-                "deck show --deck-name testDeck --side\n" + "deck show --side --deck-name testDeck\n" +
+                "deck show --deck-name testDeck --side\n" + "deck show --side --deck-name test\n" + "deck show --deck-name testDeck\n" +
+                "deck show --ddeck-name testDeck\n" +
                 "deck delete testDeck\n" +
                 "menu exit");
 
@@ -413,7 +414,7 @@ public class GameTest {
                 "invalid command\r\ndeck with name notExist does not exist\r\ndeck activated successfully\r\n" +
                 "Decks:\nActive deck:\ntestDeck: main deck 0, side deck 0, invalid\n" +
                 "Other decks:\nmehrDeck: main deck 60, side deck 15, valid\n" +
-                "Other decks:\nmehrDeck: main deck 60, side deck 0, valid\n" + "card added successfully\r\n" +
+                "card added successfully\r\n" +
                 "card added successfully\r\n" + "card added successfully\r\n" + "card added successfully\r\n" +
                 "card added successfully\r\n" + "card added successfully\r\n" + "card with name Battle OX does not exists\r\n" +
                 "deck with name test does not exist\r\n" + "invalid command\r\n" + "card added successfully\r\n" +
@@ -422,7 +423,12 @@ public class GameTest {
                 "card with name Yomi Ship does not exist in side deck\r\n" + "deck with name test does not exist\r\n" +
                 "card with name aaaaa does not exist in side deck\r\n" + "invalid command\r\n" + "card removed from deck successfully\r\n" +
                 "card with name Battle OX does not exist in main deck\r\n" + "deck with name test does not exist\r\n" +
-                "invalid command\r\n" +
+                "invalid command\r\n" + "Deck: testDeck\nSide deck:\nMonsters:\nAxe Raider: An axe-wielding monster of tremendous strength and agility.\n" +
+                 "Axe Raider: An axe-wielding monster of tremendous strength and agility.\n" +
+                "Battle OX: A monster with tremendous power, it destroys enemies with a swing of its axe.\nSpells and Traps:\n" +
+                "deck with name test does not exist\n" + "Deck: testDeck\nSide deck:\nMonsters:\n" +
+                "Yomi Ship: If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.\n" +
+                "Spells and Traps:\n" + "invalid command\n" +
                 "deck deleted successfully\r\n");
     }
 
