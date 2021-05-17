@@ -28,8 +28,8 @@ public class GameTest {
         for (String command : userCreationCommands) {
             LoginMenuController.getInstance().createUser(command);
         }
-        User.getUserByUsername("Mehrshad").setMoney(864300);
-        User.getUserByUsername("AmirAli").setMoney(864300);
+        User.getUserByUsername("Mehrshad").setMoney(872300);
+        User.getUserByUsername("AmirAli").setMoney(872300);
         ExcelUtils.getInstance().run();
         HashMap<String, Integer> cardsToBuy = new HashMap<>();
         putMonsterCardsToBuy(cardsToBuy);
@@ -68,7 +68,7 @@ public class GameTest {
         cardsToBuy.put("Haniwa", 3);
         cardsToBuy.put("Man-Eater Bug", 3);
         cardsToBuy.put("Gate Guardian", 3);
-        cardsToBuy.put("Scanner", 3);
+        cardsToBuy.put("Scanner", 4);
         cardsToBuy.put("Bitron", 3);
         cardsToBuy.put("Marshmallon", 3);
         cardsToBuy.put("Beast King Barbaros", 3);
@@ -391,8 +391,10 @@ public class GameTest {
                 "deck add-card -card Battle OX --side --deck testDeck\n" +
                 "deck add-card --card Yomi Ship --deck testDeck\n" +
                 "deck add-card --deck testDeck --card Yomi Ship\n" +
+                "deck add-card --deck testDeck --card Scanner\ndeck add-card --deck testDeck --card Scanner\n" +
+                "deck add-card --deck testDeck --card Scanner\ndeck add-card --deck testDeck --card Scanner\n" +
                 "deck add-card --deck testDeck -card Yomi Ship\n" +
-                "deck rm-card --card Battle OX --deck testDeck --side\n" +
+                "deck rm-card --card Battle OX --deck testDeck --side\n" +//
                 "deck rm-card --card Battle OX --side --deck testDeck\n" +
                 "deck rm-card --side --card Command Knight --deck testDeck\n" +
                 "deck rm-card --deck testDeck --card Yomi Ship --side\n" +
@@ -400,10 +402,13 @@ public class GameTest {
                 "deck rm-card --side --deck testDeck --card aaaaa\n" +
                 "deck rm-card --side --deck testDeck -card aaaaa\n" +
                 "deck rm-card --card Yomi Ship --deck testDeck\n" +
-                "deck rm-card --deck testDeck --card Battle OX\n" +
+                "deck rm-card --deck testDeck --card Battle OX\n" +//
                 "deck rm-card --deck test --card Battle OX\n" +
-                "deck rm-card --deck testDeck -card Battle OX\n" +
-                "deck show --deck-name testDeck --side\n" + "deck show --side --deck-name test\n" + "deck show --deck-name testDeck\n" +
+                "deck rm-card --deck testDeck -card Battle OX\ndeck rm-card --deck testDeck --card Scanner\n" +
+                "deck rm-card --deck testDeck --card Scanner\ndeck rm-card --deck testDeck --card Scanner\n" +
+                "deck show --deck-name testDeck --side\n" +
+                "deck show --side --deck-name test\n" +
+                "deck show --deck-name testDeck\n" +
                 "deck show --ddeck-name testDeck\n" +
                 "deck delete testDeck\n" +
                 "menu exit");
@@ -418,12 +423,18 @@ public class GameTest {
                 "card added successfully\r\n" + "card added successfully\r\n" + "card added successfully\r\n" +
                 "card added successfully\r\n" + "card added successfully\r\n" + "card with name Battle OX does not exists\r\n" +
                 "deck with name test does not exist\r\n" + "invalid command\r\n" + "card added successfully\r\n" +
-                "card added successfully\r\n" + "invalid command\r\n" + "card removed from deck successfully\r\n" +
+                "card added successfully\r\n" + "card added successfully\r\n" +
+                "card added successfully\r\ncard added successfully\r\n" +
+                "there are already three cards with name Scanner in deck testDeck\r\ninvalid command\r\n" +//
+                "card removed from deck successfully\r\n" +
                 "card removed from deck successfully\r\n" + "card removed from deck successfully\r\n" +
                 "card with name Yomi Ship does not exist in side deck\r\n" + "deck with name test does not exist\r\n" +
                 "card with name aaaaa does not exist in side deck\r\n" + "invalid command\r\n" + "card removed from deck successfully\r\n" +
                 "card with name Battle OX does not exist in main deck\r\n" + "deck with name test does not exist\r\n" +
-                "invalid command\r\n" + "Deck: testDeck\nSide deck:\nMonsters:\nAxe Raider: An axe-wielding monster of tremendous strength and agility.\n" +
+                "invalid command\r\ncard removed from deck successfully\r\ncard removed from deck successfully\r\n" +
+                "card removed from deck successfully\r\n" +
+                "Deck: testDeck\nSide deck:\nMonsters:\n" +
+                "Axe Raider: An axe-wielding monster of tremendous strength and agility.\n" +
                  "Axe Raider: An axe-wielding monster of tremendous strength and agility.\n" +
                 "Battle OX: A monster with tremendous power, it destroys enemies with a swing of its axe.\nSpells and Traps:\n" +
                 "deck with name test does not exist\n" + "Deck: testDeck\nSide deck:\nMonsters:\n" +
