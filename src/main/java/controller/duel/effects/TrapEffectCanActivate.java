@@ -1,6 +1,7 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
+import controller.duel.phases.MainPhase1Controller;
 import model.Card;
 import model.MonsterCard;
 
@@ -10,7 +11,8 @@ import java.util.HashMap;
 public class TrapEffectCanActivate {
 
     private static TrapEffectCanActivate trapEffectCanActivate;
-    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private DuelWithUser duelWithUser;
+    private MainPhase1Controller mainPhase1Controller;
 
     private TrapEffectCanActivate() {
 
@@ -22,7 +24,13 @@ public class TrapEffectCanActivate {
         return trapEffectCanActivate;
     }
 
+    private void instantiate() {
+        duelWithUser = DuelWithUser.getInstance();
+        mainPhase1Controller = MainPhase1Controller.getInstance();
+    }
+
     public boolean checkSpellAndTrapPossibility(String name) {
+
         switch (name) {
             case "Twin Twisters":
             case "Mystical space typhoon":
@@ -41,8 +49,16 @@ public class TrapEffectCanActivate {
                 return canIActivateMindCrush();
             case "Call of the Haunted":
                 return canIActivateCallOfHunted();
+            case "Torrential Tribute":
+                return canIActivateTorentialTribute();
+            case "Solemn Warning":
+                return canSoleimanWarn();
         }
         return false;
+    }
+
+    private boolean canSoleimanWarn(){
+        return duelWithUser.getMyBoard().getLP() > 2000 && duelWithUser.getEnemyBoard().isItMySummon();
     }
 
     private boolean canIActivateRingOfDefence() {
@@ -137,5 +153,9 @@ public class TrapEffectCanActivate {
             }
         }
         return false;
+    }
+
+    private boolean canIActivateTorentialTribute() {
+        return mainPhase1Controller.isSummoningInProcess();
     }
 }

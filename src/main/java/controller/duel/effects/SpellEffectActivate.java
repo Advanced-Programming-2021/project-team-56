@@ -1,6 +1,7 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
+import controller.duel.phases.MainPhase1Controller;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
@@ -15,9 +16,10 @@ import java.util.HashMap;
 public class SpellEffectActivate {
 
     private static SpellEffectActivate spellEffectActivate;
-    private final SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-    private final EffectView effectView = EffectView.getInstance();
-    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private SpellEffectCanActivate spellEffectCanActivate;
+    private EffectView effectView;
+    private DuelWithUser duelWithUser;
+    private MainPhase1Controller mainPhase1Controller;
 
     private SpellEffectActivate() {
 
@@ -29,7 +31,15 @@ public class SpellEffectActivate {
         return spellEffectActivate;
     }
 
+    private void instantiate() {
+        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+        effectView = EffectView.getInstance();
+        duelWithUser = DuelWithUser.getInstance();
+        mainPhase1Controller = MainPhase1Controller.getInstance();
+    }
+
     public void spellCaller(String spellName) {
+        instantiate();
         switch (spellName) {
             case "Advanced Ritual Art":
                 if (advancedRitualArt()) {
@@ -516,20 +526,23 @@ public class SpellEffectActivate {
         if (!spellEffectCanActivate.darkHoleCanActivate()) {
             return false;
         }
-        HashMap<Integer, MonsterCard> myMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        HashMap<Integer, MonsterCard> enemyMonsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
-        ArrayList<Card> myGraveYard = duelWithUser.getMyBoard().getGraveyard();
-        ArrayList<Card> enemyGraveYard = duelWithUser.getEnemyBoard().getGraveyard();
-        for (int i = 1; i <= 5; i++) {
-            if (myMonsterTerritory.get(i) != null) {
-                duelWithUser.afterDeathEffect(i, myMonsterTerritory.get(i));
-                myGraveYard.add(myMonsterTerritory.get(i));
-                myMonsterTerritory.put(i, null);
+        int counter = 1;
+        while (counter <= 2) {
+            HashMap<Integer, MonsterCard> monsterTerritory;
+            ArrayList<Card> graveYard;
+            if (counter == 1) {
+                monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+                graveYard = duelWithUser.getMyBoard().getGraveyard();
+            } else {
+                monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+                graveYard = duelWithUser.getEnemyBoard().getGraveyard();
             }
-            if (enemyMonsterTerritory.get(i) != null) {
-                duelWithUser.afterDeathEffect(i, enemyMonsterTerritory.get(i));
-                enemyGraveYard.add(enemyMonsterTerritory.get(i));
-                enemyMonsterTerritory.put(i, null);
+            for (int i = 1; i <= 5; i++) {
+                if (monsterTerritory.get(i) != null) {
+                    duelWithUser.afterDeathEffect(i, monsterTerritory.get(i));
+                    graveYard.add(monsterTerritory.get(i));
+                    monsterTerritory.put(i, null);
+                }
             }
         }
         return true;

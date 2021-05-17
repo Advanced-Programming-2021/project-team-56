@@ -20,7 +20,7 @@ public class MainPhase1Controller {
     private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
     private SpellCard spell;
     private OpponentPhase opponentPhase = OpponentPhase.getInstance();
-
+    private boolean isSummoningInProcess;
 
     private MainPhase1Controller() {
 
@@ -381,16 +381,31 @@ public class MainPhase1Controller {
         }
     }
 
-    private void summon(MonsterCard monsterCard, boolean isSpecialSummon) {
-        placeMonsterOnTheField(monsterCard);
-        drawCardFromPlayerHand(monsterCard);
+    private void summon(MonsterCard monster, boolean isSpecialSummon) {
+        placeMonsterOnTheField(monster);
+        drawCardFromPlayerHand(monster);
         duelWithUser.getMyBoard().setSelectedCard(null);
-        monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
-        monsterCard.setInAttackPosition(true);
-        monsterCard.setFacedUp(true);
+        monster.setSummonedTurn(duelWithUser.getTurnCounter());
+        monster.setInAttackPosition(true);
+        monster.setFacedUp(true);
         if (!isSpecialSummon) {
             duelWithUser.getMyBoard().setLastSummonedOrSetTurn(duelWithUser.getTurnCounter());
         }
+        isSummoningInProcess = true;
+        duelWithUser.getMyBoard().setItMySummon(true);
+        opponentPhase.run();
+        if (duelWithUser.getMyBoard().isItEffectedBySoleiman()){
+            duelWithUser.getMyBoard().getGraveyard().add(monster);
+            HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+            for (int i = 1; i < 6; i++) {
+                if (monsterTerritory.get(i) == monster){
+                    monsterTerritory.put(i, null);
+                    break;
+                }
+            }
+        }
+        duelWithUser.getEnemyBoard().setItMySummon(false);
+        isSummoningInProcess = false;
     }
 
     private boolean isAddressValid(int address) {
@@ -641,5 +656,13 @@ public class MainPhase1Controller {
             }
         }
         return "summoned successfully";
+    }
+
+    public boolean isSummoningInProcess() {
+        return isSummoningInProcess;
+    }
+
+    public void setSummoningInProcess(boolean summoningInProcess) {
+        isSummoningInProcess = summoningInProcess;
     }
 }
