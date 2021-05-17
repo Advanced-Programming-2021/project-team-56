@@ -186,7 +186,7 @@ public class StandByPhaseController {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         while (true) {
-            effectView.showGraveyardForMonsterRebornAndScanner(true, false);
+            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, false);
             int address = effectView.getAddress();
             if (address < 1 || address > graveyard.size()) {
                 effectView.output("invalid selection");
@@ -228,7 +228,7 @@ public class StandByPhaseController {
         int address;
         MonsterCard monsterCard;
         if (isMyGraveyardEmpty && isEnemyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScanner(true, true);
+            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, true);
             address = effectView.getAddress();
             if (address > myGraveyard.size()) {
                 address -= myGraveyard.size();
@@ -237,11 +237,11 @@ public class StandByPhaseController {
                 monsterCard = (MonsterCard) myGraveyard.get(address - 1);
             }
         } else if (isMyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScanner(true, false);
+            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, false);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) myGraveyard.get(address - 1);
         } else if (isEnemyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScanner(false, true);
+            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(false, true);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
         } else {

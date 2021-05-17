@@ -24,6 +24,7 @@ public class MonsterCard extends Card {
     private String monsterType;
     private ArrayList<Integer> equipId = new ArrayList<>();
     private boolean isItControlledByChangeOfHeart;
+    private boolean isItHunted;
 
     public MonsterCard() {
 
@@ -178,5 +179,13 @@ public class MonsterCard extends Card {
                 "ATK: " + this.getAttack() + "\n" +
                 "DEF: " + this.getDefence() + "\n" +
                 "Description: " + this.getDescription();
+    }
+
+    public boolean isItHunted() {
+        return isItHunted;
+    }
+
+    public void setItHunted(boolean itHunted) {
+        isItHunted = itHunted;
     }
 }

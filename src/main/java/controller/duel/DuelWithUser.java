@@ -2,10 +2,7 @@ package controller.duel;
 
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
-import model.Board;
-import model.Card;
-import model.MonsterCard;
-import model.User;
+import model.*;
 import view.duel.DuelWithUserView;
 import view.duel.FirstToGoDeterminerView;
 import view.duel.phase.*;
@@ -449,31 +446,66 @@ public class DuelWithUser {
             }
         }
         if (monsterCard.getEquipId().size() != 0) {
-            int counter = 1;
-            while (counter <= 2) {
-                HashMap<Integer, Card> spellTerritory;
-                ArrayList<Card> graveyard;
-                if (counter == 1) {
-                    spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-                    graveyard = duelWithUser.getMyBoard().getGraveyard();
-                } else {
-                    spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
-                    graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+            equipSpellRemoval(monsterCard);
+        }
+        if (monsterCard.isItHunted() && !monsterCard.isItControlledByChangeOfHeart()) {
+            callOfHuntedRemoval(monsterCard);
+        }
+    }
+
+    private void equipSpellRemoval(MonsterCard monsterCard){
+        int counter = 1;
+        while (counter <= 2) {
+            HashMap<Integer, Card> spellTerritory;
+            ArrayList<Card> graveyard;
+            if (counter == 1) {
+                spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+                graveyard = duelWithUser.getMyBoard().getGraveyard();
+            } else {
+                spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+                graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+            }
+            for (int i = 1; i < 6; i++) {
+                Card spell = spellTerritory.get(i);
+                if (spell != null) {
+                    if (monsterCard.getEquipId().contains(spell.getEquipID())) {
+                        graveyard.add(spell);
+                        spellTerritory.put(i, null);
+                    }
                 }
+            }
+            counter++;
+        }
+        if (monsterCard.getEquipId().size() > 0) {
+            monsterCard.getEquipId().subList(0, monsterCard.getEquipId().size()).clear();
+        }
+    }
+
+    private void callOfHuntedRemoval(MonsterCard monsterCard){
+        int counter = 1;
+        while (counter <= 2) {
+            HashMap<Integer, Card> trapTerritory;
+            ArrayList<Card> graveyard;
+            if (counter == 1) {
+                trapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+                graveyard = duelWithUser.getMyBoard().getGraveyard();
+            } else {
+                trapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+                graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+            }
+            if (monsterCard.isItHunted() && !monsterCard.isItControlledByChangeOfHeart()) {
                 for (int i = 1; i < 6; i++) {
-                    Card spell = spellTerritory.get(i);
-                    if (spell != null) {
-                        if (monsterCard.getEquipId().contains(spell.getEquipID())) {
-                            graveyard.add(spell);
-                            spellTerritory.put(i, null);
+                    Card trap = trapTerritory.get(i);
+                    if (trap != null){
+                        if (trap.getName().equals("Call of the Haunted")){
+                            graveyard.add(trap);
+                            trapTerritory.put(i, null);
+                            break;
                         }
                     }
                 }
-                counter++;
             }
-            if (monsterCard.getEquipId().size() > 0) {
-                monsterCard.getEquipId().subList(0, monsterCard.getEquipId().size()).clear();
-            }
+            counter++;
         }
     }
 

@@ -139,7 +139,7 @@ public class SpellEffectActivate {
         MonsterCard monsterCard;
         int address;
         if (isMyGraveyardEmpty && isEnemyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScanner(true, true);
+            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, true);
             address = effectView.getAddress();
             if (address > myGraveyard.size()) {
                 address -= myGraveyard.size();
@@ -150,42 +150,44 @@ public class SpellEffectActivate {
                 myGraveyard.remove(address - 1);
             }
         } else if (isMyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScanner(true, false);
+            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, false);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) myGraveyard.get(address - 1);
             myGraveyard.remove(address - 1);
         } else if (isEnemyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScanner(false, true);
+            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(false, true);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
             enemyGraveyard.remove(address - 1);
         } else {
             return false;
         }
-        monsterReborn(monsterCard);
+        monsterReborn(monsterCard, true);
         return true;
     }
 
-    private void monsterReborn(MonsterCard monsterCard) {
+    public void monsterReborn(MonsterCard monsterCard, boolean isItMonsterRebornEffect) {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         monsterCard.setFacedUp(true);
         monsterCard.setItControlledByChangeOfHeart(false);
         monsterCard.setStartEffectTurn(-1);
         monsterCard.setLastTimeAttackedTurn(0);
         monsterCard.setSummonedTurn(0);
-        monsterCard.setLastTimeChangedPositionTurn(0);
+        monsterCard.setLastTimeChangedPositionTurn(duelWithUser.getTurnCounter());
         monsterCard.setItScanner(monsterCard.getName().equals("Scanner"));
-        effectView.output("do you want to summon it in attack position or defence position?");
-        while (true) {
-            String input = effectView.input();
-            if (input.equals("attack position")) {
-                monsterCard.setInAttackPosition(true);
-                break;
-            } else if (input.equals("defence position")) {
-                monsterCard.setInAttackPosition(false);
-                break;
-            } else {
-                effectView.output("invalid command");
+        if (isItMonsterRebornEffect) {
+            while (true) {
+                effectView.output("do you want to summon it in attack position or defence position?");
+                String input = effectView.input();
+                if (input.equals("attack position")) {
+                    monsterCard.setInAttackPosition(true);
+                    break;
+                } else if (input.equals("defence position")) {
+                    monsterCard.setInAttackPosition(false);
+                    break;
+                } else {
+                    effectView.output("invalid command");
+                }
             }
         }
         for (int i = 1; i < 6; i++) {
@@ -482,12 +484,29 @@ public class SpellEffectActivate {
             return false;
         }
         HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
-        ArrayList<Card> graveYard = duelWithUser.getEnemyBoard().getGraveyard();
+        ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
-            if (spellAndTrapTerritory.get(i) != null) {
-                graveYard.add(spellAndTrapTerritory.get(i));
+            Card spell = spellAndTrapTerritory.get(i);
+            if (spell != null) {
+                if (spell.getName().equals("Call of the Haunted") && spell.getIsFacedUp()) {
+                    for (int j = 1; j < 6; j++) {
+                        MonsterCard monster = monsterTerritory.get(j);
+                        if (monster != null && !monster.isItControlledByChangeOfHeart() && monster.isItHunted()) {
+                            graveyard.add(monster);
+                            monsterTerritory.put(j, null);
+                            break;
+                        }
+                    }
+                }
+                graveyard.add(spell);
                 spellAndTrapTerritory.put(i, null);
             }
+        }
+        Card fieldSpell = duelWithUser.getEnemyBoard().getFieldSpell();
+        if (fieldSpell != null) {
+            graveyard.add(fieldSpell);
+            duelWithUser.getEnemyBoard().setFieldSpell(null);
         }
         return true;
     }

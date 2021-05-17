@@ -2,6 +2,7 @@ package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
 import model.Card;
+import model.MonsterCard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 public class TrapEffectCanActivate {
 
     private static TrapEffectCanActivate trapEffectCanActivate;
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private TrapEffectCanActivate() {
 
@@ -36,6 +37,10 @@ public class TrapEffectCanActivate {
             case "Mirror Force":
             case "Magic Cylinder":
                 return canIActivateMagicCylinderOrMirrorForceOrNegateAttack();
+            case "Mind Crush":
+                return canIActivateMindCrush();
+            case "Call of the Haunted":
+                return canIActivateCallOfHunted();
         }
         return false;
     }
@@ -103,7 +108,34 @@ public class TrapEffectCanActivate {
         return false;
     }
 
-//    private boolean canIActivateCallOfHunted(){
-//
-//    }
+    private boolean canIActivateMindCrush() {
+        if (duelWithUser.getMyBoard().getPlayerHand().size() == 0) {
+            return false;
+        }
+        if (duelWithUser.getEnemyBoard().getPlayerHand().size() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean canIActivateCallOfHunted() {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        int counter = 0;
+        for (int i = 1; i < 6; i++) {
+            if (monsterTerritory.get(i) != null) {
+                counter++;
+            }
+            if (counter == 5) {
+                return false;
+            }
+        }
+        ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
+        for (int i = 0; i < graveyard.size(); i++) {
+            if (graveyard.get(i) instanceof MonsterCard) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

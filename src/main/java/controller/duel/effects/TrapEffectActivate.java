@@ -7,12 +7,14 @@ import view.duel.EffectView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class TrapEffectActivate {
 
     private static TrapEffectActivate trapEffectActivate;
-    private EffectView effectView = EffectView.getInstance();
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final EffectView effectView = EffectView.getInstance();
+    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
 
     private TrapEffectActivate() {
 
@@ -50,6 +52,12 @@ public class TrapEffectActivate {
             case "Negate Attack":
                 negateAttackActivate();
                 break;
+            case "Mind Crush":
+                mindCrushActivate();
+                break;
+            case "Call of the Haunted":
+                callOfHuntedActivate();
+                break;
         }
     }
 
@@ -78,6 +86,17 @@ public class TrapEffectActivate {
                 if (card == null) {
                     effectView.output("there is no card on the address");
                     continue;
+                }
+                HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+                if (card.getName().equals("Call of the Haunted") && card.getIsFacedUp()) {
+                    for (int j = 1; j < 6; j++) {
+                        MonsterCard monster = monsterTerritory.get(j);
+                        if (monster != null && !monster.isItControlledByChangeOfHeart() && monster.isItHunted()) {
+                            graveyard.add(monster);
+                            monsterTerritory.put(j, null);
+                            break;
+                        }
+                    }
                 }
                 effectView.output("card " + card.getName() + "was destroyed");
                 graveyard.add(card);
@@ -152,8 +171,20 @@ public class TrapEffectActivate {
                     effectView.output("this card is not activated yet");
                     continue;
                 }
+                HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+                ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+                if (card.getName().equals("Call of the Haunted")) {
+                    for (int j = 1; j < 6; j++) {
+                        MonsterCard monster = monsterTerritory.get(j);
+                        if (monster != null && !monster.isItControlledByChangeOfHeart() && monster.isItHunted()) {
+                            graveyard.add(monster);
+                            monsterTerritory.put(j, null);
+                            break;
+                        }
+                    }
+                }
                 effectView.output("card " + card.getName() + "was destroyed");
-                duelWithUser.getEnemyBoard().getGraveyard().add(card);
+                graveyard.add(card);
                 spellAndTrapTerritory.put(address, null);
             } else {
                 effectView.output("invalid command");
@@ -197,5 +228,62 @@ public class TrapEffectActivate {
             }
         }
         duelWithUser.getEnemyBoard().setItEffectedByMirrorFace(true);
+    }
+
+    private void mindCrushActivate() {
+        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
+        ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
+        effectView.output("guess which monster does your opponent have");
+        if (!doesPlayerHandIncludeTheGivenGuess()) {
+            Random random = new Random();
+            int cardNumber = random.nextInt(playerHand.size());
+            graveyard.add(playerHand.get(cardNumber));
+            playerHand.remove(cardNumber);
+        }
+    }
+
+    private boolean doesPlayerHandIncludeTheGivenGuess() {
+        String input = effectView.input();
+        ArrayList<Card> playerHand = duelWithUser.getEnemyBoard().getPlayerHand();
+        ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        ArrayList<Card> mainDeck = duelWithUser.getEnemyBoard().getMainDeck();
+        for (int i = 0; i < playerHand.size(); i++) {
+            if (playerHand.get(i).getName().equals(input)) {
+                for (int j = 0; j < playerHand.size(); j++) {
+                    if (playerHand.get(j).getName().equals(input)) {
+                        graveyard.add(playerHand.get(j));
+                        playerHand.remove(j);
+                        j--;
+                    }
+                }
+                for (int j = 0; j < mainDeck.size(); j++) {
+                    if (mainDeck.get(j).getName().equals(input)) {
+                        graveyard.add(mainDeck.get(j));
+                        mainDeck.remove(j);
+                        j--;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void callOfHuntedActivate() {
+        while (true) {
+            ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
+            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, false);
+            int address = effectView.getAddress();
+            if (graveyard.size() < address || address < 1) {
+                effectView.output("invalid selection");
+            } else if (!(graveyard.get(address - 1) instanceof MonsterCard)) {
+                effectView.output("the chosen card is not a monster");
+            } else {
+                MonsterCard monster = (MonsterCard) graveyard.get(address - 1);
+                graveyard.remove(address - 1);
+                spellEffectActivate.monsterReborn(monster, false);
+                monster.setItHunted(true);
+            }
+        }
     }
 }
