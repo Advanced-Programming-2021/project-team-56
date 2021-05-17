@@ -496,9 +496,12 @@ public class GameTest {
         assertNotNull(realTestCard);
     }
 
+    @Test
     public void deckControllerTest() {
-        Deck testDeck = new Deck("testDeckName");
-
+        String fullMainDeckTestResult = DeckMenuController.getInstance().addToDeck("mehrDeck", "Scanner", "Mehrshad", false);
+        String fullSideDeckTestResult = DeckMenuController.getInstance().addToDeck("mehrDeck", "Scanner", "Mehrshad", true);
+        assertEquals("main deck is full", fullMainDeckTestResult);
+        assertEquals("side deck is full", fullSideDeckTestResult);
     }
 
 
