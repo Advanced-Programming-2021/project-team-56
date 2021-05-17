@@ -73,7 +73,7 @@ public class GameTest {
         cardsToBuy.put("Marshmallon", 3);
         cardsToBuy.put("Beast King Barbaros", 3);
         cardsToBuy.put("Texchanger", 3);
-        cardsToBuy.put("Leotron ", 3);
+        cardsToBuy.put("Leotron", 3);
         cardsToBuy.put("The Calculator", 3);
         cardsToBuy.put("Alexandrite Dragon", 3);
         cardsToBuy.put("Mirage Dragon", 3);
@@ -136,15 +136,24 @@ public class GameTest {
 
     private static void putCardsInDeck() {
         DeckMenuController deckMenuController = DeckMenuController.getInstance();
-        HashMap<String, Integer> cardsToAddToDeck = new HashMap<>();
-        cardsSetNO60Appender(cardsToAddToDeck);
-        for (Map.Entry<String, Integer> map : cardsToAddToDeck.entrySet()) {
+        HashMap<String, Integer> cardsToAddToMainDeck = new HashMap<>();
+        cardsSetNO60Appender(cardsToAddToMainDeck);
+        for (Map.Entry<String, Integer> map : cardsToAddToMainDeck.entrySet()) {
             String cardName = map.getKey();
             for (int i = 0; i < map.getValue(); i++) {
                 deckMenuController.addToDeck("mehrDeck", cardName, "Mehrshad", false);
+                deckMenuController.addToDeck("amirDeck", cardName, "AmirAli", false);
             }
         }
-
+        HashMap<String, Integer> cardsToAddToSideDeck = new HashMap<>();
+        sideCardsSetAppender(cardsToAddToSideDeck);
+        for (Map.Entry<String, Integer> map : cardsToAddToSideDeck.entrySet()) {
+            String cardName = map.getKey();
+            for (int i = 0; i < map.getValue(); i++) {
+                deckMenuController.addToDeck("mehrDeck", cardName, "Mehrshad", true);
+                deckMenuController.addToDeck("amirDeck", cardName, "AmirAli", true);
+            }
+        }
     }
 
     private static void cardsSetNO60Appender(HashMap<String, Integer> cardsToAdd) {
@@ -188,7 +197,19 @@ public class GameTest {
         cardsToAdd.put("United We Stand", 3);
         cardsToAdd.put("Mystical space typhoon", 3);
         cardsToAdd.put("Monster Reborn", 3);
+        cardsToAdd.put("notExist", 1);
         cardsToAdd.put("Change of Heart", 3);
+    }
+
+    private static void sideCardsSetAppender(HashMap<String, Integer>cardsToAdd) {
+        cardsToAdd.put("Axe Raider", 3);
+        cardsToAdd.put("Feral Imp", 3);
+        cardsToAdd.put("Slot Machine", 1);
+        cardsToAdd.put("Leotron", 3);
+        cardsToAdd.put("Alexandrite Dragon", 1);
+        cardsToAdd.put("Wattaildragon", 1);
+        cardsToAdd.put("Spiral Serpent", 1);
+        cardsToAdd.put("Baby dragon", 2);
     }
 
     @BeforeAll
@@ -341,7 +362,7 @@ public class GameTest {
                 "Dark Blade:3500\nDark Hole:2500\nDark magician:8300\nExploder Dragon:1000\nFeral Imp:2800\n" +
                 "Fireyarou:2500\nFlame manipulator:1500\nForest:4300\nGate Guardian:20000\nHaniwa:600\n" +
                 "Harpie's Feather Duster:2500\nHerald of Creation:2700\nHero of the east:1700\nHorn Imp:2500\n" +
-                "Leotron :2500\nMagic Cylinder:2000\nMagic Jamamer:3000\nMagnum Shield:4300\nMan-Eater Bug:600\n" +
+                "Leotron:2500\nMagic Cylinder:2000\nMagic Jamamer:3000\nMagnum Shield:4300\nMan-Eater Bug:600\n" +
                 "Marshmallon:700\nMessenger of peace:4000\nMind Crush:2000\nMirage Dragon:2500\nMirror Force:2000\n" +
                 "Monster Reborn:2500\nMystical space typhoon:3500\nNegate Attack:3000\nPot of Greed:2500\n" +
                 "Raigeki:2500\nRing of defense:3500\nScanner:8000\nSilver Fang:1700\nSkull Guardian:7900\n" +
@@ -367,7 +388,7 @@ public class GameTest {
                 "deck created successfully!\r\ninvalid command\r\ndeck with name notExist does not exist\r\n" +
                 "invalid command\r\ndeck with name notExist does not exist\r\ndeck activated successfully\r\n" +
                 "Decks:\nActive deck:\ntestDeck: main deck 0, side deck 0, invalid\n" +
-                "Other decks:\nmehrDeck: main deck 60, side deck 0, valid\n" +
+                "Other decks:\nmehrDeck: main deck 60, side deck 15, valid\n" +
                 "deck deleted successfully\r\n");
     }
 
