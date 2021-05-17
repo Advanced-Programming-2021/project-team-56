@@ -2,7 +2,6 @@ import controller.DeckMenuController;
 import controller.LoginMenuController;
 import controller.ShopController;
 import model.Card;
-import model.Deck;
 import model.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -42,6 +41,8 @@ public class GameTest {
             }
         }
         makeDeckForPlayers();
+        DeckMenuController.getInstance().setActive("mehrDeck", "Mehrshad");
+        DeckMenuController.getInstance().setActive("amirDeck", "AmirAli");
     }
 
     private static void putMonsterCardsToBuy(HashMap<String, Integer> cardsToBuy) {
@@ -221,6 +222,10 @@ public class GameTest {
         for (String createTestUserCommand : creatTestUserCommands) {
             LoginMenuController.getInstance().createUser(createTestUserCommand);
         }
+        DeckMenuController.getInstance().createDeck("usernameDeck", "username");
+        DeckMenuController.getInstance().setActive("usernameDeck", "username");
+        DeckMenuController.getInstance().createDeck("bothRepetitiveDeck", "bothRepetitive");
+        DeckMenuController.getInstance().setActive("bothRepetitiveDeck", "bothRepetitive");
     }
 
 
@@ -232,10 +237,11 @@ public class GameTest {
         loginViewIOAppender(commands, validOutputs);
         mainMenuViewIOAppender(commands, validOutputs);
         profileViewIOAppender(commands, validOutputs);
-        duelMenuViewIOAppender(commands, validOutputs);
+        differentDuelMenuViewIOAppenderExecutor(commands, validOutputs);
         scoreBoardMenuViewIOAppender(commands, validOutputs);
         shopViewIOAppender(commands, validOutputs);
         deckMenuViewIOAppender(commands, validOutputs);
+        duelViewAppender(commands, validOutputs);
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(commands.toString().getBytes());
         System.setIn(inputStream);
@@ -246,10 +252,11 @@ public class GameTest {
         MainMenuView.getInstance().run("Mehrshad");
         MainMenuView.getInstance().run("Mehrshad");
         ProfileView.getInstance().run("Mehrshad");
-        DuelMenuView.getInstance().run("Mehrshad");
+        differentDuelMenuViewsExecutor();
         ScoreBoardView.getInstance().run();
         ShopView.getInstance().run("Mehrshad");
         DeckMenuView.getInstance().run("Mehrshad");
+        DuelMenuView.getInstance().run("Mehrshad");
 
         String output = (outputStream.toString());
 
@@ -311,17 +318,49 @@ public class GameTest {
                 "please enter a new password\r\ninvalid command\r\n");
     }
 
-    private void duelMenuViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
-        //TODO Enters the duel(optional)
+    private void differentDuelMenuViewIOAppenderExecutor(StringBuilder commands, StringBuilder validOutputs) {
+        duelViewNoDeckIOAppender(commands, validOutputs);
+        duelViewInvalidDeckIOAppender(commands, validOutputs);
+        duelViewInvalidRoundsIOAppender(commands, validOutputs);
+    }
+
+    private void differentDuelMenuViewsExecutor() {
+        DuelMenuView.getInstance().run("repetitiveUsername");
+        DuelMenuView.getInstance().run("username");
+        DuelMenuView.getInstance().run("Mehrshad");
+    }
+
+    private void duelViewNoDeckIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        //TODO
         inputStringBuilder.append("menu show-current\nmenu enter Duel\nmenu enter Deck\nmenu enter Shop\n" +
                 "menu enter Scoreboard\nmenu enter Profile\nmenu enter Import/Export\nduel invalid\n" +
-                "invalid\n" +
+                "invalid\nduel --new --second-player noSuchPlayer --rounds 1\n" +
+                "duel --new --second-player username --rounds 1\n" +
                 "menu exit\n");
 
         outputStringBuilder.append("Duel Menu\r\nmenu navigation is not possible\r\n" +
                 "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
                 "menu navigation is not possible\r\nmenu navigation is not possible\r\n" +
-                "menu navigation is not possible\r\ninvalid command\r\ninvalid command\r\n");
+                "menu navigation is not possible\r\ninvalid command\r\ninvalid command\r\n" +
+                "there is no player with this username\r\nrepetitiveUsername has no active deck\r\n");
+    }
+
+    private void duelViewInvalidDeckIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("duel --new --second-player repetitiveUsername --rounds 1\n" +
+                "duel --new --second-player bothRepetitive --rounds 1\n" +
+                "menu exit\n");
+
+        outputStringBuilder.append("repetitiveUsername has no active deck\r\n" +
+                "username's deck is invalid\r\n");
+    }
+
+    private void duelViewInvalidRoundsIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        inputStringBuilder.append("duel --new --second-player username --rounds 1\n" +
+                "duel --new --second-player AmirAli --rounds 2\n" +
+                "menu exit\n");
+
+
+        outputStringBuilder.append("username's deck is invalid\r\nnumber of rounds is not supported\r\n");
     }
 
     private void scoreBoardMenuViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
@@ -411,7 +450,8 @@ public class GameTest {
                 "deck show --deck-name testDeck\n" +
                 "deck show --ddeck-name testDeck\n" +
                 "deck delete testDeck\n" +
-                "menu exit");
+                "deck set-activate mehrDeck\n" +
+                "menu exit\n");
 
         outputStringBuilder.append("Deck Menu\r\nmenu navigation is not possible\r\ninvalid command\r\n" +
                 "invalid command\r\ninvalid command\r\ninvalid command\r\ndeck with name mehrDeck already exists\r\n" +
@@ -440,7 +480,17 @@ public class GameTest {
                 "deck with name test does not exist\n" + "Deck: testDeck\nSide deck:\nMonsters:\n" +
                 "Yomi Ship: If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.\n" +
                 "Spells and Traps:\n" + "invalid command\n" +
-                "deck deleted successfully\r\n");
+                "deck deleted successfully\r\ndeck activated successfully\r\n");
+    }
+
+    public void duelViewAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
+        //TODO
+        //traversing inside the menu
+        inputStringBuilder.append("duel invalid\nduel --second-player\n" +
+                "menu exit");
+
+
+        outputStringBuilder.append("invalid command\r\ninvalid command\r\n");
     }
 
     @Test
