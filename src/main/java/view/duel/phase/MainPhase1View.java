@@ -14,6 +14,7 @@ public class MainPhase1View {
     private static MainPhase1View mainPhase1;
     static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
+    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private MainPhase1View() {
 
@@ -27,8 +28,6 @@ public class MainPhase1View {
     }
 
     public void run() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
-        System.out.println("phase: Main Phase 1");
         System.out.print(duelWithUser.showField());
         MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
         while (true) {
