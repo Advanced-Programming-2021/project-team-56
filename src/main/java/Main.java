@@ -7,8 +7,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         ExcelUtils.getInstance().run();
-        LoginMenuController.getInstance().readFromJson();
+//        LoginMenuController.getInstance().readFromJson();
         LoginMenuView.getInstance().run();
-        LoginMenuController.getInstance().updateJson();
+//        LoginMenuController.getInstance().updateJson();
     }
 }
