@@ -13,22 +13,22 @@ public class DeckMenuView {
     static Pattern createDeck = Pattern.compile("^deck create (\\S+)$");
     static Pattern deleteDeck = Pattern.compile("^deck delete (\\S+)$");
     static Pattern setActive = Pattern.compile("^deck set-activate (\\S+)$");
-    static Pattern addToSideDeck1 = Pattern.compile("^deck add-card --card (\\S+) --deck (\\S+) --side$");
-    static Pattern addToSideDeck2 = Pattern.compile("^deck add-card --card (\\S+) --side --deck (\\S+)$");
-    static Pattern addToSideDeck3 = Pattern.compile("^deck add-card --side --card (\\S+) --deck (\\S+)$");
-    static Pattern addToSideDeck4 = Pattern.compile("^deck add-card --deck (\\S+) --card (\\S+) --side$");
-    static Pattern addToSideDeck5 = Pattern.compile("^deck add-card --deck (\\S+) --side --card (\\S+)$");
-    static Pattern addToSideDeck6 = Pattern.compile("^deck add-card --side --deck (\\S+) --card (\\S+)$");
-    static Pattern addToMainDeck1 = Pattern.compile("^deck add-card --card (\\S+) --deck (\\S+)$");
-    static Pattern addToMainDeck2 = Pattern.compile("^deck add-card --deck (\\S+) --card (\\S+)$");
-    static Pattern removeFromSideDeck1 = Pattern.compile("^deck rm-card --card (\\S+) --deck (\\S+) --side$");
-    static Pattern removeFromSideDeck2 = Pattern.compile("^deck rm-card --card (\\S+) --side --deck (\\S+)$");
-    static Pattern removeFromSideDeck3 = Pattern.compile("^deck rm-card --side --card (\\S+) --deck (\\S+)$");
-    static Pattern removeFromSideDeck4 = Pattern.compile("^deck rm-card --deck (\\S+) --card (\\S+) --side$");
-    static Pattern removeFromSideDeck5 = Pattern.compile("^deck rm-card --deck (\\S+) --side --card (\\S+)$");
-    static Pattern removeFromSideDeck6 = Pattern.compile("^deck rm-card --side --deck (\\S+) --card (\\S+)$");
-    static Pattern removeFromMainDeck1 = Pattern.compile("^deck rm-card --card (\\S+) --deck (\\S+)$");
-    static Pattern removeFromMainDeck2 = Pattern.compile("^deck rm-card --deck (\\S+) --card (\\S+)$");
+    static Pattern addToSideDeck1 = Pattern.compile("^deck add-card --card ([\\S\\s]+) --deck (\\S+) --side$");
+    static Pattern addToSideDeck2 = Pattern.compile("^deck add-card --card ([\\S\\s]+) --side --deck (\\S+)$");
+    static Pattern addToSideDeck3 = Pattern.compile("^deck add-card --side --card ([\\S\\s]+) --deck (\\S+)$");
+    static Pattern addToSideDeck4 = Pattern.compile("^deck add-card --deck (\\S+) --card ([\\S\\s]+) --side$");
+    static Pattern addToSideDeck5 = Pattern.compile("^deck add-card --deck (\\S+) --side --card ([\\S\\s]+)$");
+    static Pattern addToSideDeck6 = Pattern.compile("^deck add-card --side --deck (\\S+) --card ([\\S\\s]+)$");
+    static Pattern addToMainDeck1 = Pattern.compile("^deck add-card --card ([\\S\\s]+) --deck (\\S+)$");
+    static Pattern addToMainDeck2 = Pattern.compile("^deck add-card --deck (\\S+) --card ([\\S\\s]+)$");
+    static Pattern removeFromSideDeck1 = Pattern.compile("^deck rm-card --card ([\\S\\s]+) --deck (\\S+) --side$");
+    static Pattern removeFromSideDeck2 = Pattern.compile("^deck rm-card --card ([\\S\\s]+) --side --deck (\\S+)$");
+    static Pattern removeFromSideDeck3 = Pattern.compile("^deck rm-card --side --card ([\\S\\s]+) --deck (\\S+)$");
+    static Pattern removeFromSideDeck4 = Pattern.compile("^deck rm-card --deck (\\S+) --card ([\\S\\s]+) --side$");
+    static Pattern removeFromSideDeck5 = Pattern.compile("^deck rm-card --deck (\\S+) --side --card ([\\S\\s]+)$");
+    static Pattern removeFromSideDeck6 = Pattern.compile("^deck rm-card --side --deck (\\S+) --card ([\\S\\s]+)$");
+    static Pattern removeFromMainDeck1 = Pattern.compile("^deck rm-card --card ([\\S\\s]+) --deck (\\S+)$");
+    static Pattern removeFromMainDeck2 = Pattern.compile("^deck rm-card --deck (\\S+) --card ([\\S\\s]+)$");
     static Pattern showSideDeck1 = Pattern.compile("^deck show --deck-name (\\S+) --side$");
     static Pattern showSideDeck2 = Pattern.compile("^deck show --side --deck-name (\\S+)$");
     static Pattern showMainDeck = Pattern.compile("^deck show --deck-name (\\S+)$");
@@ -95,13 +95,13 @@ public class DeckMenuView {
             System.out.print(result);
             return;
         }
-        if (command.startsWith("deck show")) {
-            System.out.print(checkShowDeck(command, username));
-            return;
-        }
         if (command.equals("deck show --cards")) {
             String result = DeckMenuController.getInstance().showCards(username);
             System.out.print(result);
+            return;
+        }
+        if (command.startsWith("deck show")) {
+            System.out.print(checkShowDeck(command, username));
             return;
         }
         System.out.println("invalid command");

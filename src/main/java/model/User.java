@@ -125,6 +125,10 @@ public class User {
         this.username = username;
     }
 
+    public void setMoney(int amount) {
+        this.money = amount;
+    }
+
     public boolean isDeckWithThisNameExistent(String deckName) {
         for (Deck deck : decks) {
             if (deck.getDeckName().equals(deckName)) {

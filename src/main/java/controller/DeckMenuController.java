@@ -58,11 +58,11 @@ public class DeckMenuController {
     public String addToDeck(String deckName, String cardName, String username, boolean isAddToSide) {
         User user = User.getUserByUsername(username);
         Deck deck = user.getDeckByDeckName(deckName);
+        if (deck == null) {
+            return "deck with name " + deckName + " does not exist";
+        }
         if (!deck.isCardWithThisNameExistent(cardName)) {
             return "card with name " + cardName + " does not exists";
-        }
-        if (!user.isDeckWithThisNameExistent(deckName)) {
-            return "deck with name " + deckName + " does not exist";
         }
         if (isAddToSide) {
             if (deck.isSideDeckFull()) {
@@ -144,7 +144,7 @@ public class DeckMenuController {
     public String showMainOrSideDeck(String deckName, String username, String mainOrSide) {
         User user = User.getUserByUsername(username);
         if (!user.isDeckWithThisNameExistent(deckName)) {
-            return "deck with name " + deckName + " does not exist";
+            return "deck with name " + deckName + " does not exist\n";
         }
         Deck deck = user.getDeckByDeckName(deckName);
         ArrayList<Card> cards;
