@@ -133,7 +133,12 @@ public class GameTest {
         User player2 = User.getUserByUsername("AmirAli");
         DeckMenuController.getInstance().createDeck("mehrDeck", "Mehrshad");
         DeckMenuController.getInstance().createDeck("amirDeck", "AmirAli");
+        putCardsInDeck();
+    }
 
+    private static void putCardsInDeck() {
+        DeckMenuController deckMenuController = DeckMenuController.getInstance();
+//        deckMenuController.addToDeck("mehrDeck", )
     }
 
     @BeforeAll
