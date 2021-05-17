@@ -359,6 +359,29 @@ public class GameTest {
                 "deck create invalid deckName\ndeck create mehrDeck\ndeck create testDeck\ndeck delete i n\n" +
                 "deck delete notExist\ndeck set-activate i n\ndeck set-activate notExist\n" +
                 "deck set-activate testDeck\ndeck show --all\n" +
+                "deck add-card --card Battle OX --deck testDeck --side\n" +
+                "deck add-card --card Battle OX --side --deck testDeck\n" +
+                "deck add-card --side --card Battle OX --deck testDeck\n" +
+                "deck add-card --deck testDeck --card Command Knight --side\n" +
+                "deck add-card --deck testDeck --side --card Axe Raider\n" +
+                "deck add-card --side --deck testDeck --card Axe Raider\n" +
+                "deck add-card --card Battle OX --side --deck testDeck\n" +
+                "deck add-card --card Battle OX --side --deck test\n" +
+                "deck add-card -card Battle OX --side --deck testDeck\n" +
+                "deck add-card --card Yomi Ship --deck testDeck\n" +
+                "deck add-card --deck testDeck --card Yomi Ship\n" +
+                "deck add-card --deck testDeck -card Yomi Ship\n" +
+                "deck rm-card --card Battle OX --deck testDeck --side\n" +
+                "deck rm-card --card Battle OX --side --deck testDeck\n" +
+                "deck rm-card --side --card Command Knight --deck testDeck\n" +
+                "deck rm-card --deck testDeck --card Yomi Ship --side\n" +
+                "deck rm-card --deck test --side --card Battle OX\n" +
+                "deck rm-card --side --deck testDeck --card aaaaa\n" +
+                "deck rm-card --side --deck testDeck -card aaaaa\n" +
+                "deck rm-card --card Yomi Ship --deck testDeck\n" +
+                "deck rm-card --deck testDeck --card Battle OX\n" +
+                "deck rm-card --deck test --card Battle OX\n" +
+                "deck rm-card --deck testDeck -card Battle OX\n" +
                 "deck delete testDeck\n" +
                 "menu exit");
 
@@ -367,7 +390,15 @@ public class GameTest {
                 "deck created successfully!\r\ninvalid command\r\ndeck with name notExist does not exist\r\n" +
                 "invalid command\r\ndeck with name notExist does not exist\r\ndeck activated successfully\r\n" +
                 "Decks:\nActive deck:\ntestDeck: main deck 0, side deck 0, invalid\n" +
-                "Other decks:\nmehrDeck: main deck 60, side deck 0, valid\n" +
+                "Other decks:\nmehrDeck: main deck 60, side deck 0, valid\n" + "card added successfully\r\n" +
+                "card added successfully\r\n" + "card added successfully\r\n" + "card added successfully\r\n" +
+                "card added successfully\r\n" + "card added successfully\r\n" + "card with name Battle OX does not exists\r\n" +
+                "deck with name test does not exist\r\n" + "invalid command\r\n" + "card added successfully\r\n" +
+                "card added successfully\r\n" + "invalid command\r\n" + "card removed from deck successfully\r\n" +
+                "card removed from deck successfully\r\n" + "card removed from deck successfully\r\n" +
+                "card with name Yomi Ship does not exist in side deck\r\n" + "deck with name test does not exist\r\n" +
+                "card with name aaaaa does not exist in side deck\r\n" + "invalid command\r\n" + "card removed from deck successfully\r\n" +
+
                 "deck deleted successfully\r\n");
     }
 
