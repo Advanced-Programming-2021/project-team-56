@@ -26,7 +26,6 @@ public class DuelWithUser {
     private SpellEffectCanActivate spellEffectCanActivate;
     private SpellEffectActivate spellEffectActivate;
     private MainPhase1View mainPhase1View;
-    private FirstToGoDeterminerView firstToGoDeterminerView;
     private DrawPhaseView drawPhaseView;
     private StandByPhaseView standByPhaseView;
     private EndPhaseView endPhaseView;
@@ -53,18 +52,19 @@ public class DuelWithUser {
         spellEffectActivate = SpellEffectActivate.getInstance();
         endPhaseView = EndPhaseView.getInstance();
         standByPhaseView = StandByPhaseView.getInstance();
-        firstToGoDeterminerView = FirstToGoDeterminerView.getInstance();
         mainPhase1View = MainPhase1View.getInstance();
     }
 
     public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
         instantiate();
+        int roundResult = 0;
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
             int numberOfWinsPlayer2 = 0;
             while (numberOfWinsPlayer1 != 2 && numberOfWinsPlayer2 != 2) {
-                setUpGame(firstPlayerUsername, secondPlayerUsername);
-                if (phaseCaller(firstPlayerUsername) == 1) {
+                setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
+                roundResult = phaseCaller(firstPlayerUsername);
+                if (roundResult == 1) {
                     numberOfWinsPlayer1++;
                     duelWithUserView.printEndMessage(singleRoundWin(firstPlayerUsername,
                             numberOfWinsPlayer1, numberOfWinsPlayer2));
@@ -82,8 +82,9 @@ public class DuelWithUser {
                         firstPlayerUsername, numberOfWinsPlayer2, numberOfWinsPlayer1));
             }
         } else {
-            setUpGame(firstPlayerUsername, secondPlayerUsername);
-            if (phaseCaller(firstPlayerUsername) == 1) {
+            setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
+            roundResult = phaseCaller(firstPlayerUsername);
+            if (roundResult == 1) {
                 return (oneRoundWin(firstPlayerUsername, secondPlayerUsername));
             } else {
                 return (oneRoundWin(secondPlayerUsername, firstPlayerUsername));
@@ -165,10 +166,11 @@ public class DuelWithUser {
         }
     }
 
-    public void setUpGame(String firstPlayerUsername, String secondPlayerUsername) {
+    public void setUpGame(String firstPlayerUsername, String secondPlayerUsername, int lastRoundResult) {
         boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
         boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
-        String starter = firstToGoDeterminerView.determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername);
+        String starter = FirstToGoDeterminerView.getInstance()
+                .determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername, lastRoundResult);
         if (starter.equals(firstPlayerUsername)) {
             turnCounter = 2;
         } else {
