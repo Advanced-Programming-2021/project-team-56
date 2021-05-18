@@ -29,7 +29,7 @@ public class SpellEffectCanActivate {
         return spellEffectCanActivate;
     }
 
-    public void instantiate() {
+    private void instantiate() {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
         trapEffectCanActivate = TrapEffectCanActivate.getInstance();
