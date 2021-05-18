@@ -30,7 +30,7 @@ public class TrapEffectCanActivate {
     }
 
     public boolean checkSpellAndTrapPossibility(String name) {
-
+        instantiate();
         switch (name) {
             case "Twin Twisters":
             case "Mystical space typhoon":
@@ -57,7 +57,7 @@ public class TrapEffectCanActivate {
         return false;
     }
 
-    private boolean canSoleimanWarn(){
+    private boolean canSoleimanWarn() {
         return duelWithUser.getMyBoard().getLP() > 2000 && duelWithUser.getEnemyBoard().isItMySummon();
     }
 
@@ -72,7 +72,7 @@ public class TrapEffectCanActivate {
         return false;
     }
 
-    private boolean canIActivateSpaceTyphoonOrTwinTwister() {
+    public boolean canIActivateSpaceTyphoonOrTwinTwister() {
         HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
             if (spellAndTrapTerritory.get(i) != null) {
