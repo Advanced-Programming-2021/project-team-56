@@ -205,7 +205,6 @@ public class SpellEffectActivate {
                 break;
             }
         }
-        return true;
     }
 
     private void terraformingActivate() {
