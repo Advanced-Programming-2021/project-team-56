@@ -25,7 +25,7 @@ public class DuelWithUser {
     static Pattern selectFieldCard = Pattern.compile("^select (?:--opponent --field|--field --opponent|--field)$");
     private SpellEffectCanActivate spellEffectCanActivate;
     private SpellEffectActivate spellEffectActivate;
-    private MainPhase1View mainPhase1View = MainPhase1View.getInstance();
+    private MainPhase1View mainPhase1View;
     private FirstToGoDeterminerView firstToGoDeterminerView;
     private DrawPhaseView drawPhaseView;
     private StandByPhaseView standByPhaseView;
@@ -149,6 +149,7 @@ public class DuelWithUser {
                     }
                     break;
                 case 5:
+                    //TODO Wtf?
                     System.out.println("phase: Main Phase 2");
                     mainPhase1View.run();
                     break;

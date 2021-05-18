@@ -10,8 +10,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EffectView {
+
     private static EffectView effectView;
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final DuelWithUser duelWithUser;
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+    }
 
     private EffectView() {
 

@@ -19,6 +19,12 @@ public class SpellEffectCanActivate {
     private EffectView effectView;
     private TrapEffectCanActivate trapEffectCanActivate;
 
+    {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        trapEffectCanActivate = TrapEffectCanActivate.getInstance();
+    }
+
     private SpellEffectCanActivate() {
 
     }
@@ -29,14 +35,7 @@ public class SpellEffectCanActivate {
         return spellEffectCanActivate;
     }
 
-    private void instantiate() {
-        duelWithUser = DuelWithUser.getInstance();
-        effectView = EffectView.getInstance();
-        trapEffectCanActivate = TrapEffectCanActivate.getInstance();
-    }
-
     public boolean checkSpellPossibility(String name) {
-        instantiate();
         switch (name) {
             case "Pot of Greed":
                 return potOfGreedCanActivate();
@@ -209,6 +208,9 @@ public class SpellEffectCanActivate {
         }
         for (int i = 1; i < 6; i++) {
             Card card = spellTerritory.get(i);
+            if (card == null) {
+                continue;
+            }
             if (card.getName().equals("Supply Squad")) {
                 if (card.getIsFacedUp()) {
                     return true;

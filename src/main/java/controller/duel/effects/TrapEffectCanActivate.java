@@ -42,7 +42,7 @@ public class TrapEffectCanActivate {
             case "Magic Jammer":
                 return canIActivateMagicJammer();
             case "Negate Attack":
-            case "Mirror Force":
+            case "Mirror Force": //TODO
             case "Magic Cylinder":
                 return canIActivateMagicCylinderOrMirrorForceOrNegateAttack();
             case "Mind Crush":

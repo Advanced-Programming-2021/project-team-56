@@ -31,7 +31,7 @@ public class StandByPhaseView {
     }
 
     public String run() {
-        System.out.println("phase: standby phase view");
+        System.out.println("phase: standby phase");
         String result = StandByPhaseController.getInstance().run();
         if (!result.equals("the game continuous")){
             return result;

@@ -13,9 +13,8 @@ public class DrawPhaseController {
     }
 
     public static DrawPhaseController getInstance() {
-        if (drawPhase == null) {
+        if (drawPhase == null)
             drawPhase = new DrawPhaseController();
-        }
         return drawPhase;
     }
 

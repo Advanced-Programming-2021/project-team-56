@@ -12,14 +12,14 @@ import java.util.HashMap;
 
 
 public class BattlePhaseController {
+
     private static BattlePhaseController battlePhase;
-    public MonsterCard myMonster;
-    public MonsterCard enemyMonster;
     private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
     private final SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     private final EffectView effectView = EffectView.getInstance();
-    private final MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
     private final OpponentPhase opponentPhase = OpponentPhase.getInstance();
+    public MonsterCard myMonster;
+    public MonsterCard enemyMonster;
 
     private BattlePhaseController() {
     }
@@ -76,7 +76,7 @@ public class BattlePhaseController {
         if (card == null) {
             return "no card is selected yet";
         }
-        if (!mainPhase1Controller.isCardInMyMonsterTerritory()) {
+        if (!MainPhase1Controller.getInstance().isCardInMyMonsterTerritory()) {
             return "you can’t attack with this card";
         }
         myMonster = (MonsterCard) card;
