@@ -421,7 +421,7 @@ public class DuelWithUser {
             if (selectedCard instanceof MonsterCard) {
                 MonsterCard selectedMonsterCard = (MonsterCard) selectedCard;
                 return selectedMonsterCard.getName() + ": ATK, DEF = " + selectedMonsterCard.getFinalAttack() +
-                        ", " + selectedMonsterCard.getFinalDefence();
+                        ", " + selectedMonsterCard.getFinalDefence() + "\n" + selectedMonsterCard.getDescription();
             }
             return selectedCard.getName() + ":" + selectedCard.getDescription();
         }
