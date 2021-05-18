@@ -15,8 +15,9 @@ import java.util.HashMap;
 public class SpellEffectCanActivate {
 
     private static SpellEffectCanActivate spellEffectCanActivate;
-    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
-    private final EffectView effectView = EffectView.getInstance();
+    private DuelWithUser duelWithUser;
+    private EffectView effectView;
+    private TrapEffectCanActivate trapEffectCanActivate;
 
     private SpellEffectCanActivate() {
 
@@ -26,6 +27,40 @@ public class SpellEffectCanActivate {
         if (spellEffectCanActivate == null)
             spellEffectCanActivate = new SpellEffectCanActivate();
         return spellEffectCanActivate;
+    }
+
+    private void instantiate() {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        trapEffectCanActivate = TrapEffectCanActivate.getInstance();
+    }
+
+    public boolean checkSpellPossibility(String name) {
+        instantiate();
+        switch (name) {
+            case "Pot of Greed":
+                return potOfGreedCanActivate();
+            case "Harpie’s Feather Duster":
+                return trapEffectCanActivate.canIActivateSpaceTyphoonOrTwinTwister();
+            case "Change of Heart":
+                return canChangeOfHeartActivate();
+            case "Terraforming":
+                return canTeraformingActivate();
+            case "Raigeki":
+                return raigekiCanActivate();
+            case "Dark Hole":
+                return darkHoleCanActivate();
+            case "Black Pendant":
+            case "United We Stand":
+                return blackPendantAndUnitedWeStandCanActivate();
+            case "Magnum Shield":
+                return magnumShieldCanActivate();
+            case "Sword of Dark Destruction":
+                return swordOfDarkDestructionCanActivate();
+            case "Monster Reborn":
+                return canIActivateMonsterReborn();
+        }
+        return true;
     }
 
     public boolean yamiCanActivate(Board board) {
@@ -71,6 +106,16 @@ public class SpellEffectCanActivate {
             return 1;
         }
         return 0;
+    }
+
+    private boolean canIActivateMonsterReborn(){
+            boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
+            boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
+            if (isMyGraveyardEmpty || isEnemyGraveyardEmpty) {
+                return true;
+            } else {
+                return false;
+            }
     }
 
     private boolean areThereEnoughTributeFromDeck(int totalLevel) {
@@ -120,20 +165,28 @@ public class SpellEffectCanActivate {
         return mainDeck.size() >= 2;
     }
 
+    public boolean canChangeOfHeartActivate() {
+        if (!raigekiCanActivate()) {
+            return false;
+        }
+        HashMap<Integer, MonsterCard> myMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (myMonsterTerritory.get(i) == null) {
+                break;
+            }
+            if (i == 5) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean raigekiCanActivate() {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i <= 5; i++) {
             if (monsterTerritory.get(i) != null) {
                 return true;
             }
-        }
-        return false;
-    }
-
-    public boolean harpiesFeatherDusterCanActivate() {
-        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i <= 5; i++) {
-            if (spellAndTrapTerritory.get(i) != null) return true;
         }
         return false;
     }

@@ -20,6 +20,8 @@ public class Board {
     private boolean isItEffectedByMagicCylinder;
     private boolean isItAttackNegated;
     private boolean isItEffectedByMirrorFace;
+    private boolean isItEffectedBySoleiman;
+    private boolean isItMySummon;
 
 
     public Board(User user) {
@@ -144,5 +146,21 @@ public class Board {
 
     public void setItEffectedByMirrorFace(boolean itEffectedByMirrorFace) {
         isItEffectedByMirrorFace = itEffectedByMirrorFace;
+    }
+
+    public boolean isItEffectedBySoleiman() {
+        return isItEffectedBySoleiman;
+    }
+
+    public void setItEffectedBySoleiman(boolean itEffectedBySoleiman) {
+        isItEffectedBySoleiman = itEffectedBySoleiman;
+    }
+
+    public boolean isItMySummon() {
+        return isItMySummon;
+    }
+
+    public void setItMySummon(boolean itMySummon) {
+        isItMySummon = itMySummon;
     }
 }

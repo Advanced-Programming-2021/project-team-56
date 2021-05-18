@@ -1,6 +1,7 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
+import controller.duel.phases.MainPhase1Controller;
 import model.Card;
 import model.MonsterCard;
 import view.duel.EffectView;
@@ -12,9 +13,10 @@ import java.util.Random;
 public class TrapEffectActivate {
 
     private static TrapEffectActivate trapEffectActivate;
-    private final EffectView effectView = EffectView.getInstance();
-    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
-    private final SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
+    private EffectView effectView;
+    private DuelWithUser duelWithUser;
+    private SpellEffectActivate spellEffectActivate;
+    private MainPhase1Controller mainPhase1Controller;
 
     private TrapEffectActivate() {
 
@@ -26,7 +28,15 @@ public class TrapEffectActivate {
         return trapEffectActivate;
     }
 
+    private void instantiate() {
+        effectView = EffectView.getInstance();
+        duelWithUser = DuelWithUser.getInstance();
+        spellEffectActivate = SpellEffectActivate.getInstance();
+        mainPhase1Controller = MainPhase1Controller.getInstance();
+    }
+
     public void trapAndQuickSpellCaller(String name) {
+        instantiate();
         switch (name) {
             case "Twin Twisters":
                 destroySpell(2);
@@ -57,6 +67,12 @@ public class TrapEffectActivate {
                 break;
             case "Call of the Haunted":
                 callOfHuntedActivate();
+                break;
+            case "Torrential Tribute":
+                spellEffectActivate.darkHoleActivate();
+                break;
+            case "Solemn Warning":
+                soleimanWarns();
                 break;
         }
     }
@@ -285,5 +301,9 @@ public class TrapEffectActivate {
                 monster.setItHunted(true);
             }
         }
+    }
+
+    private void soleimanWarns() {
+        duelWithUser.getEnemyBoard().setItEffectedBySoleiman(true);
     }
 }
