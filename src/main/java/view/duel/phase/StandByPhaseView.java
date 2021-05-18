@@ -87,7 +87,7 @@ public class StandByPhaseView {
                 continue;
             }
             if (command.equals("show graveyard")) {
-                System.out.print(duelWithUser.showGraveYard());
+                MainPhase1View.showGraveYardView();
                 continue;
             }
             matcher = increaseLP.matcher(command);

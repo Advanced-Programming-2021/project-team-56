@@ -93,7 +93,7 @@ public class MainPhase1View {
                 continue;
             }
             if (command.equals("show graveyard")) {
-                System.out.print(duelWithUser.showGraveYard());
+                showGraveYardView();
                 continue;
             }
             matcher = increaseLP.matcher(command);
@@ -108,6 +108,21 @@ public class MainPhase1View {
 //                System.out.println("invalid nickname");
 //                continue;
 //            }
+            System.out.println("invalid command");
+        }
+    }
+
+    public static void showGraveYardView() {
+        String command;
+        while (true) {
+            command = LoginMenuView.scan.nextLine();
+            if (command.equals("show")) {
+                System.out.println(DuelWithUser.getInstance().showGraveYard());
+                continue;
+            }
+            if (command.equals("back")) {
+                break;
+            }
             System.out.println("invalid command");
         }
     }

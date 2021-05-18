@@ -560,6 +560,4 @@ public class GameTest {
         assertEquals("main deck is full", fullMainDeckTestResult);
         assertEquals("side deck is full", fullSideDeckTestResult);
     }
-
-
 }
