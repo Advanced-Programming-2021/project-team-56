@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 public class DuelWithUser {
 
+    private static DuelWithUser duelWithUser;
     static Pattern selectMyMonster = Pattern.compile("^select --monster (\\d+)$");
     static Pattern selectMySpellOrTrap = Pattern.compile("^select --spell (\\d+)$");
     static Pattern selectOpponentMonster1 = Pattern.compile("^select --monster (\\d+) --opponent$");
@@ -32,7 +33,6 @@ public class DuelWithUser {
     private int phaseCounter = 1;
     private int turnCounter;
     private int tempTurnCounter;
-    private static DuelWithUser duelWithUser;
     private DuelWithUserView duelWithUserView;
     private Board[] boards = new Board[2];
     private int startTurn;
@@ -47,6 +47,7 @@ public class DuelWithUser {
     }
 
     private void instantiate() {
+        duelWithUserView = DuelWithUserView.getInstance();
         drawPhaseView = DrawPhaseView.getInstance();
         spellEffectCanActivate = SpellEffectCanActivate.getInstance();
         spellEffectActivate = SpellEffectActivate.getInstance();

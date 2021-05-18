@@ -25,9 +25,8 @@ public class BattlePhaseController {
     }
 
     public static BattlePhaseController getInstance() {
-        if (battlePhase == null) {
+        if (battlePhase == null)
             battlePhase = new BattlePhaseController();
-        }
         return battlePhase;
     }
 
