@@ -73,11 +73,8 @@ public class SpellEffectActivate {
                 effectView.output(getRidOfSpell());
                 break;
             case "Monster Reborn":
-                if (monsterRebornActivate()) {
-                    effectView.output(getRidOfSpell());
-                } else {
-                    effectView.output("preparations of this spell are not done yet");
-                }
+                monsterRebornActivate();
+                effectView.output(getRidOfSpell());
                 break;
             case "Swords of Revealing Light":
                 swordsOfRevealingLightActivate();
@@ -114,7 +111,7 @@ public class SpellEffectActivate {
         return "spell activated";
     }
 
-    private boolean monsterRebornActivate() {
+    private void monsterRebornActivate() {
         ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
         ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
         boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
@@ -137,16 +134,13 @@ public class SpellEffectActivate {
             address = effectView.getAddress();
             monsterCard = (MonsterCard) myGraveyard.get(address - 1);
             myGraveyard.remove(address - 1);
-        } else if (isEnemyGraveyardEmpty) {
+        } else{
             effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(false, true);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
             enemyGraveyard.remove(address - 1);
-        } else {
-            return false;
         }
         monsterReborn(monsterCard, true);
-        return true;
     }
 
     public void monsterReborn(MonsterCard monsterCard, boolean isItMonsterRebornEffect) {
@@ -538,7 +532,7 @@ public class SpellEffectActivate {
         }
     }
 
-    public boolean swordOfDarkDestructionActivate1() {
+    public void swordOfDarkDestructionActivate1() {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         while (true) {
             int address = effectView.getAddress();

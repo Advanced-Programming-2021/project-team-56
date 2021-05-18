@@ -57,6 +57,8 @@ public class SpellEffectCanActivate {
                 return magnumShieldCanActivate();
             case "Sword of Dark Destruction":
                 return swordOfDarkDestructionCanActivate();
+            case "Monster Reborn":
+                return canIActivateMonsterReborn();
         }
         return true;
     }
@@ -104,6 +106,16 @@ public class SpellEffectCanActivate {
             return 1;
         }
         return 0;
+    }
+
+    private boolean canIActivateMonsterReborn(){
+            boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
+            boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
+            if (isMyGraveyardEmpty || isEnemyGraveyardEmpty) {
+                return true;
+            } else {
+                return false;
+            }
     }
 
     private boolean areThereEnoughTributeFromDeck(int totalLevel) {
@@ -166,6 +178,7 @@ public class SpellEffectCanActivate {
                 return false;
             }
         }
+        return true;
     }
 
     public boolean raigekiCanActivate() {
