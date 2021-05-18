@@ -319,7 +319,7 @@ public class DuelWithUser {
         field = new StringBuilder(showCards(field.toString(), "my monster"));
         field.append("\n");
         field = new StringBuilder(showCards(field.toString(), "my spell and trap"));
-        field.append("\n").append("\t\t\t\t\t\t").append(getMyBoard().getMainDeck().size());
+        field.append("\n").append("\t\t\t\t\t\t").append(getMyBoard().getMainDeck().size()).append("\n");
         for (int i = 0; i < getMyBoard().getPlayerHand().size(); i++) {
             field.append("\tc");
         }
@@ -417,6 +417,11 @@ public class DuelWithUser {
                 if (selectedCard == getEnemyBoard().getFieldSpell() && !selectedCard.getIsFacedUp()) {
                     return "card is not visible";
                 }
+            }
+            if (selectedCard instanceof MonsterCard) {
+                MonsterCard selectedMonsterCard = (MonsterCard) selectedCard;
+                return selectedMonsterCard.getName() + ": ATK, DEF = " + selectedMonsterCard.getFinalAttack() +
+                        ", " + selectedMonsterCard.getFinalDefence() + "\n" + selectedMonsterCard.getDescription();
             }
             return selectedCard.getName() + ":" + selectedCard.getDescription();
         }

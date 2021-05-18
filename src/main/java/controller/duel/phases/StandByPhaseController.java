@@ -126,6 +126,9 @@ public class StandByPhaseController {
     private boolean doIHaveItOnMyField() {
         HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
+            if (spellTerritory.get(i) == null) {
+                continue;
+            }
             if (spellTerritory.get(i).getName().equals("Messenger of peace")) {
                 if (spellTerritory.get(i).getIsFacedUp()) {
                     return true;
@@ -269,6 +272,7 @@ public class StandByPhaseController {
     private boolean isThereScannerAny() {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
+            //TODO If null not handled!
             if (monsterTerritory.get(i).getItScanner()) {
                 return true;
             }
