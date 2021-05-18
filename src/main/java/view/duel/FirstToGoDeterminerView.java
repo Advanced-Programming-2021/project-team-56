@@ -23,15 +23,15 @@ public class FirstToGoDeterminerView {
     }
 
     public String determineFirstPlayerToGo(String firstPlayerUsername, String secondPlayerUsername, int lastRoundResult) {
-        String winnerUsername;
+        String deciderUsername;
         if (lastRoundResult == 0) {
-            winnerUsername = rockPaperScissors(firstPlayerUsername, secondPlayerUsername);
+            deciderUsername = rockPaperScissors(firstPlayerUsername, secondPlayerUsername);
         } else if (lastRoundResult == 1) {
-            winnerUsername = firstPlayerUsername;
+            deciderUsername = secondPlayerUsername;
         } else {
-            winnerUsername = secondPlayerUsername;
+            deciderUsername = firstPlayerUsername;
         }
-        String WinnerNickname = User.getUserByUsername(winnerUsername).getNickname();
+        String WinnerNickname = User.getUserByUsername(deciderUsername).getNickname();
         System.out.println(WinnerNickname + ", please choose the first player to go: "
                 + firstPlayerUsername + " or " + secondPlayerUsername);
         while (true) {
