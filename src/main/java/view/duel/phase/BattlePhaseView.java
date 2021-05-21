@@ -12,7 +12,6 @@ public class BattlePhaseView {
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
     static Pattern increaseLP = Pattern.compile("^increase --LP (\\d+)$");
     static Pattern setWinner = Pattern.compile("^duel set-winner (\\S+)$");
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private BattlePhaseView() {
 
@@ -26,7 +25,8 @@ public class BattlePhaseView {
     }
 
     public String run() {
-        System.out.println("phase: battle phase");
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        System.out.println("phase: battle phase\n" + duelWithUser.showField());
         while (true) {
             BattlePhaseController.getInstance().afterBattleEffects();
             String command = LoginMenuView.scan.nextLine().trim();
