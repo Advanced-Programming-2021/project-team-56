@@ -12,25 +12,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainPhase1Controller {
-    private static MainPhase1Controller mainPhase1;
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
-    private EffectView effectView = EffectView.getInstance();
-    private BattlePhaseController battlePhaseController = BattlePhaseController.getInstance();
-    private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
-    private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+    private static MainPhase1Controller mainPhase1Controller;
+    private final DuelWithUser duelWithUser;
+    private final EffectView effectView;
+    private final BattlePhaseController battlePhaseController;
+    private final SpellEffectActivate spellEffectActivate;
+    private SpellEffectCanActivate spellEffectCanActivate;
+    private OpponentPhase opponentPhase;
     private SpellCard spell;
-    private OpponentPhase opponentPhase = OpponentPhase.getInstance();
     private boolean isSummoningInProcess;
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        battlePhaseController = BattlePhaseController.getInstance();
+        spellEffectActivate = SpellEffectActivate.getInstance();
+        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+        opponentPhase = OpponentPhase.getInstance();
+    }
 
     private MainPhase1Controller() {
 
     }
 
     public static MainPhase1Controller getInstance() {
-        if (mainPhase1 == null) {
-            mainPhase1 = new MainPhase1Controller();
-        }
-        return mainPhase1;
+        if (mainPhase1Controller == null)
+            mainPhase1Controller = new MainPhase1Controller();
+        return mainPhase1Controller;
     }
 
     public String summon() {
@@ -394,11 +402,11 @@ public class MainPhase1Controller {
         isSummoningInProcess = true;
         duelWithUser.getMyBoard().setItMySummon(true);
         opponentPhase.run();
-        if (duelWithUser.getMyBoard().isItEffectedBySoleiman()){
+        if (duelWithUser.getMyBoard().isItEffectedBySoleiman()) {
             duelWithUser.getMyBoard().getGraveyard().add(monster);
             HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
             for (int i = 1; i < 6; i++) {
-                if (monsterTerritory.get(i) == monster){
+                if (monsterTerritory.get(i) == monster) {
                     monsterTerritory.put(i, null);
                     break;
                 }

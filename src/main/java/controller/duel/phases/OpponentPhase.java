@@ -33,9 +33,8 @@ public class OpponentPhase {
     }
 
     public static OpponentPhase getInstance() {
-        if (opponentPhase == null) {
+        if (opponentPhase == null)
             opponentPhase = new OpponentPhase();
-        }
         return opponentPhase;
     }
 

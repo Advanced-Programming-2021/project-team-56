@@ -182,7 +182,7 @@ public class StandByPhaseController {
                 }
             }
         }
-        heraldOfCreationCardChoosing();
+        //TODO heraldOfCreationCardChoosing();
     }
 
     private void heraldOfCreationCardChoosing() {
@@ -273,6 +273,9 @@ public class StandByPhaseController {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             //TODO If null not handled!
+            if (monsterTerritory.get(i) == null) {
+                continue;
+            }
             if (monsterTerritory.get(i).getItScanner()) {
                 return true;
             }

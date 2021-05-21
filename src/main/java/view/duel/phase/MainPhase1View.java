@@ -10,24 +10,28 @@ import java.util.regex.Pattern;
 import static view.duel.phase.BattlePhaseView.increaseLP;
 
 public class MainPhase1View {
-    private static MainPhase1View mainPhase1;
+
+    private static MainPhase1View mainPhase1View;
     static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
     private DuelWithUser duelWithUser;
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+    }
 
     private MainPhase1View() {
 
     }
 
     public static MainPhase1View getInstance() {
-        if (mainPhase1 == null) {
-            mainPhase1 = new MainPhase1View();
+        if (mainPhase1View == null) {
+            mainPhase1View = new MainPhase1View();
         }
-        return mainPhase1;
+        return mainPhase1View;
     }
 
     public void run() {
-        duelWithUser = DuelWithUser.getInstance();
         System.out.print(duelWithUser.showField());
         MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
         while (true) {
@@ -86,7 +90,7 @@ public class MainPhase1View {
 
             }
             if (command.equals("special summon")) {
-                System.out.println(MainPhase1Controller.getInstance().specialSummon());
+                System.out.println(mainPhase1Controller.specialSummon());
             }
             if (command.equals("card show --selected")) {
                 System.out.println(duelWithUser.showSelectedCard());

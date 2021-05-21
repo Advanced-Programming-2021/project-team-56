@@ -41,6 +41,7 @@ public class TrapEffectCanActivate {
                 return canIActivateTimeSeal();
             case "Magic Jammer":
                 return canIActivateMagicJammer();
+                //TODO
             case "Negate Attack":
             case "Mirror Force":
             case "Magic Cylinder":
