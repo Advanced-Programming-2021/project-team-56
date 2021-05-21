@@ -27,9 +27,9 @@ public class FirstToGoDeterminerView {
         if (lastRoundResult == 0) {
             deciderUsername = rockPaperScissors(firstPlayerUsername, secondPlayerUsername);
         } else if (lastRoundResult == 1) {
-            deciderUsername = firstPlayerUsername;
-        } else {
             deciderUsername = secondPlayerUsername;
+        } else {
+            deciderUsername = firstPlayerUsername;
         }
         String WinnerNickname = User.getUserByUsername(deciderUsername).getNickname();
         System.out.println(WinnerNickname + ", please choose the first player to go: "
