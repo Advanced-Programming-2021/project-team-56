@@ -14,12 +14,21 @@ import java.util.HashMap;
 public class BattlePhaseController {
 
     private static BattlePhaseController battlePhase;
-    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
-    private final SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
-    private final EffectView effectView = EffectView.getInstance();
-    private final OpponentPhase opponentPhase = OpponentPhase.getInstance();
+
+    private final DuelWithUser duelWithUser;
+    private final EffectView effectView;
+    private final SpellEffectActivate spellEffectActivate;
+    private final OpponentPhase opponentPhase;
+
     public MonsterCard myMonster;
     public MonsterCard enemyMonster;
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        spellEffectActivate = SpellEffectActivate.getInstance();
+        opponentPhase = OpponentPhase.getInstance();
+    }
 
     private BattlePhaseController() {
     }

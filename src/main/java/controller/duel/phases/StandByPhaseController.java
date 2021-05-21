@@ -10,10 +10,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class StandByPhaseController {
+
     private static StandByPhaseController standByPhase;
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
-    private EffectView effectView = EffectView.getInstance();
-    private SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+
+    private final DuelWithUser duelWithUser;
+    private final EffectView effectView;
+    private final SpellEffectCanActivate spellEffectCanActivate;
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+    }
 
     private StandByPhaseController() {
 
@@ -221,7 +229,7 @@ public class StandByPhaseController {
     }
 
     private void scannerEffect() {
-        if (!isThereScannerAny()) {
+        if (!isScannerInMyBoard()) {
             return;
         }
         boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
@@ -269,10 +277,9 @@ public class StandByPhaseController {
         }
     }
 
-    private boolean isThereScannerAny() {
+    private boolean isScannerInMyBoard() {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
-            //TODO If null not handled!
             if (monsterTerritory.get(i) == null) {
                 continue;
             }

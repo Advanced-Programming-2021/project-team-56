@@ -16,10 +16,16 @@ import java.util.HashMap;
 public class SpellEffectActivate {
 
     private static SpellEffectActivate spellEffectActivate;
-    private SpellEffectCanActivate spellEffectCanActivate;
-    private EffectView effectView;
-    private DuelWithUser duelWithUser;
-    private MainPhase1Controller mainPhase1Controller;
+
+    private final EffectView effectView;
+    private final DuelWithUser duelWithUser;
+    private final SpellEffectCanActivate spellEffectCanActivate;
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+    }
 
     private SpellEffectActivate() {
 
@@ -31,15 +37,7 @@ public class SpellEffectActivate {
         return spellEffectActivate;
     }
 
-    private void instantiate() {
-        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-        effectView = EffectView.getInstance();
-        duelWithUser = DuelWithUser.getInstance();
-        mainPhase1Controller = MainPhase1Controller.getInstance();
-    }
-
     public void spellCaller(String spellName) {
-        instantiate();
         switch (spellName) {
             case "Advanced Ritual Art":
                 if (advancedRitualArt()) {
@@ -134,7 +132,7 @@ public class SpellEffectActivate {
             address = effectView.getAddress();
             monsterCard = (MonsterCard) myGraveyard.get(address - 1);
             myGraveyard.remove(address - 1);
-        } else{
+        } else {
             effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(false, true);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);

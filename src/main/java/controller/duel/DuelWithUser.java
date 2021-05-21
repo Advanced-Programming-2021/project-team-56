@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 public class DuelWithUser {
 
     private static DuelWithUser duelWithUser;
+
     static Pattern selectMyMonster = Pattern.compile("^select --monster (\\d+)$");
     static Pattern selectMySpellOrTrap = Pattern.compile("^select --spell (\\d+)$");
     static Pattern selectOpponentMonster1 = Pattern.compile("^select --monster (\\d+) --opponent$");
@@ -23,18 +24,18 @@ public class DuelWithUser {
     static Pattern selectOpponentSpellOrTrap2 = Pattern.compile("^select --opponent --spell (\\d+)$");
     static Pattern selectMyHandCard = Pattern.compile("^select --hand (\\d+)$");
     static Pattern selectFieldCard = Pattern.compile("^select (?:--opponent --field|--field --opponent|--field)$");
-    private SpellEffectCanActivate spellEffectCanActivate;
-    private SpellEffectActivate spellEffectActivate;
-    private MainPhase1View mainPhase1View;
-    private DrawPhaseView drawPhaseView;
-    private StandByPhaseView standByPhaseView;
-    private EndPhaseView endPhaseView;
+
+    private final DuelWithUserView duelWithUserView;
+
     private int phaseCounter = 1;
     private int turnCounter;
     private int tempTurnCounter;
-    private DuelWithUserView duelWithUserView;
     private Board[] boards = new Board[2];
     private int startTurn;
+
+    {
+        duelWithUserView = DuelWithUserView.getInstance();
+    }
 
     private DuelWithUser() {
     }
@@ -45,18 +46,8 @@ public class DuelWithUser {
         return duelWithUser;
     }
 
-    private void instantiate() {
-        duelWithUserView = DuelWithUserView.getInstance();
-        drawPhaseView = DrawPhaseView.getInstance();
-        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-        spellEffectActivate = SpellEffectActivate.getInstance();
-        endPhaseView = EndPhaseView.getInstance();
-        standByPhaseView = StandByPhaseView.getInstance();
-        mainPhase1View = MainPhase1View.getInstance();
-    }
-
     public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
-        instantiate();
+
         int roundResult = 0;
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
@@ -97,7 +88,7 @@ public class DuelWithUser {
         while (true) {
             switch (phaseCounter) {
                 case 1:
-                    result = drawPhaseView.run();
+                    result = DrawPhaseView.getInstance().run();
                     if (result.equals("I lost")) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
@@ -108,7 +99,7 @@ public class DuelWithUser {
                     }
                     break;
                 case 2:
-                    result = standByPhaseView.run();
+                    result = StandByPhaseView.getInstance().run();
                     if (result.equals("I won")) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
@@ -126,8 +117,9 @@ public class DuelWithUser {
                     }
                     break;
                 case 3:
+                    //TODO Cant print here
                     System.out.println("phase: Main Phase 1");
-                    mainPhase1View.run();
+                    MainPhase1View.getInstance().run();
                     break;
                 case 4:
                     if (startTurn != turnCounter) {
@@ -150,12 +142,12 @@ public class DuelWithUser {
                     }
                     break;
                 case 5:
-                    //TODO Wtf?
+                    //TODO Cant print here
                     System.out.println("phase: Main Phase 2");
-                    mainPhase1View.run();
+                    MainPhase1View.getInstance().run();
                     break;
                 case 6:
-                    endPhaseView.run();
+                    EndPhaseView.getInstance().run();
                     break;
             }
             phaseCounter++;
@@ -466,6 +458,8 @@ public class DuelWithUser {
     }
 
     public void afterDeathEffect(int player, MonsterCard monsterCard) {
+        SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+        SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
         if (player == 1) {
             if (spellEffectCanActivate.isThereSupplySquad(1)) {
                 spellEffectActivate.supplySquadEffect(1);

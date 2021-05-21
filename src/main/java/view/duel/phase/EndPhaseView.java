@@ -10,7 +10,9 @@ import static view.duel.phase.BattlePhaseView.increaseLP;
 import static view.duel.phase.BattlePhaseView.setWinner;
 
 public class EndPhaseView {
+
     private static EndPhaseView endPhase;
+
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     private EndPhaseView() {
@@ -18,9 +20,8 @@ public class EndPhaseView {
     }
 
     public static EndPhaseView getInstance() {
-        if (endPhase == null) {
+        if (endPhase == null)
             endPhase = new EndPhaseView();
-        }
         return endPhase;
     }
 
@@ -81,6 +82,7 @@ public class EndPhaseView {
             if (matcher.find()) {
                 System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
             }
+            //TODO Win cheat
 //            matcher = setWinner.matcher(command);
 //            if (matcher.find()) {
 //                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {

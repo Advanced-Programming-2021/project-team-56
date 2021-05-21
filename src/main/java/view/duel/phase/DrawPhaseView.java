@@ -11,7 +11,9 @@ import static view.duel.phase.BattlePhaseView.increaseLP;
 import static view.duel.phase.BattlePhaseView.setWinner;
 
 public class DrawPhaseView {
+
     private static DrawPhaseView drawPhase;
+
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
     static Pattern forceDraw1 = Pattern.compile("^select --hand ([\\S][\\S ]*) --force$");
     static Pattern forceDraw2 = Pattern.compile("^select --force --hand ([\\S][\\S ]*)$");
@@ -21,9 +23,8 @@ public class DrawPhaseView {
     }
 
     public static DrawPhaseView getInstance() {
-        if (drawPhase == null) {
+        if (drawPhase == null)
             drawPhase = new DrawPhaseView();
-        }
         return drawPhase;
     }
 
