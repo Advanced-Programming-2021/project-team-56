@@ -2,6 +2,7 @@ import controller.DeckMenuController;
 import controller.LoginMenuController;
 import controller.ShopController;
 import controller.duel.DuelWithUser;
+import controller.duel.phases.BattlePhaseController;
 import model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -202,7 +203,7 @@ public class GameTest {
         cardsToAdd.put("Change of Heart", 3);
     }
 
-    private static void sideCardsSetAppender(HashMap<String, Integer>cardsToAdd) {
+    private static void sideCardsSetAppender(HashMap<String, Integer> cardsToAdd) {
         cardsToAdd.put("Axe Raider", 3);
         cardsToAdd.put("Feral Imp", 3);
         cardsToAdd.put("Slot Machine", 1);
@@ -568,16 +569,20 @@ public class GameTest {
         Board board1 = new Board(user1);
         Board board2 = new Board(user2);
         DuelWithUser.getInstance().getBoards()[0] = board1;
+        DuelWithUser.getInstance().getBoards()[1] = board2;
         for (Card card : user1.getUserAllCards()) {
             if (card.getName().equals("Forest")) {
                 board1.setFieldSpell((SpellCard) card);
+                board2.setFieldSpell((SpellCard) card);
             }
             if (card.getName().equals("Raigeki")) {
                 board1.getSpellAndTrapTerritory().put(5, card);
+                board2.getSpellAndTrapTerritory().put(2, card);
             }
             if (card.getName().equals("Command Knight")) {
                 MonsterCard monsterCard = (MonsterCard) card;
                 board1.getMonsterTerritory().put(1, monsterCard);
+                board2.getMonsterTerritory().put(2, monsterCard);
             }
         }
         DuelWithUser.getInstance().selectCard("select --monster 1");
@@ -586,5 +591,76 @@ public class GameTest {
         assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Raigeki"));
         DuelWithUser.getInstance().selectCard("select --field");
         assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Forest"));
+        DuelWithUser.getInstance().selectCard("select --monster 2 --opponent");
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Command Knight"));
+        DuelWithUser.getInstance().selectCard("select --opponent --monster 3");
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Command Knight"));
+        DuelWithUser.getInstance().selectCard("select --spell 2 --opponent");
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Raigeki"));
+        DuelWithUser.getInstance().selectCard("select --opponent --spell 3");
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Raigeki"));
+        DuelWithUser.getInstance().selectCard("select --field --opponent");
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Forest"));
+        DuelWithUser.getInstance().deselectCard();
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null);
+    }
+
+    @Test
+    public void showSelectedCardAndShowGraveYard() {
+        User user1 = User.getUserByUsername("Mehrshad");
+        User user2 = User.getUserByUsername("AmirAli");
+        Board board1 = new Board(user1);
+        Board board2 = new Board(user2);
+        DuelWithUser.getInstance().getBoards()[0] = board1;
+        DuelWithUser.getInstance().getBoards()[1] = board2;
+        for (Card card : user1.getUserAllCards()) {
+            if (card.getName().equals("Silver Fang")) {
+                board1.getMonsterTerritory().put(1, (MonsterCard) card);
+            }
+            if (card.getName().equals("Slot Machine")) {
+                board1.getPlayerHand().add(card);
+            }
+            if (card.getName().equals("Yami") && board1.getGraveyard().size() == 0) {
+                board1.getGraveyard().add(card);
+            }
+        }
+        DuelWithUser.getInstance().selectCard("select --hand 1");
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Slot Machine"));
+        DuelWithUser.getInstance().selectCard("select --monster 1");
+        String graveYardOutput = DuelWithUser.getInstance().showGraveYard();
+        String selectedCardOutput = DuelWithUser.getInstance().showSelectedCard();
+        String output1 = "Yami:All Fiend and Spellcaster monsters on the field gain 200 ATK/DEF, also all Fairy monsters on the field lose 200 ATK/DEF.\n";
+        String output2 = "Silver Fang: ATK, DEF = 1200, 800\n" +
+                "A snow wolf that's beautiful to the eye, but absolutely vicious in battle.";
+        assertEquals(selectedCardOutput, output2);
+        assertEquals(graveYardOutput, output1);
+    }
+
+    @Test
+    public void battleTest() {
+        User user1 = User.getUserByUsername("Mehrshad");
+        User user2 = User.getUserByUsername("AmirAli");
+        Board board1 = new Board(user1);
+        Board board2 = new Board(user2);
+        DuelWithUser.getInstance().getBoards()[0] = board1;
+        DuelWithUser.getInstance().getBoards()[1] = board2;
+        for (Card card : user1.getUserAllCards()) {
+            if (card.getName().equals("Battle OX")) {
+                board1.getMonsterTerritory().put(1, (MonsterCard) card);
+                board2.getMonsterTerritory().put(1, (MonsterCard) card);
+            }
+            if (card.getName().equals("Axe Raider")) board1.getMonsterTerritory().put(2, (MonsterCard) card);
+            if (card.getName().equals("Silver Fang")) board2.getMonsterTerritory().put(2, (MonsterCard) card);
+            if (card.getName().equals("Wattkid")) board2.getMonsterTerritory().put(3, (MonsterCard) card);
+            if (card.getName().equals("Fireyarou")) board2.getMonsterTerritory().put(3, (MonsterCard) card);
+        }
+        DuelWithUser.getInstance().selectCard("select --monster 1");
+        board1.getMonsterTerritory().get(1).setInAttackPosition(true);
+        board2.getMonsterTerritory().get(1).setInAttackPosition(true);
+        board1.getMonsterTerritory().get(1).setFacedUp(true);
+        board2.getMonsterTerritory().get(1).setFacedUp(true);
+        board1.getMonsterTerritory().get(1).setLastTimeAttackedTurn(5);
+        BattlePhaseController.getInstance().attackCard(1);
+        assertTrue(board1.getMonsterTerritory().get(1) == null && board2.getMonsterTerritory().get(1) == null);
     }
 }
