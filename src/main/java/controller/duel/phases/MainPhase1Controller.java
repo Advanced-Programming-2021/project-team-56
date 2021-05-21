@@ -402,11 +402,11 @@ public class MainPhase1Controller {
         isSummoningInProcess = true;
         duelWithUser.getMyBoard().setItMySummon(true);
         opponentPhase.run();
-        if (duelWithUser.getMyBoard().isItEffectedBySoleiman()){
+        if (duelWithUser.getMyBoard().isItEffectedBySoleiman()) {
             duelWithUser.getMyBoard().getGraveyard().add(monster);
             HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
             for (int i = 1; i < 6; i++) {
-                if (monsterTerritory.get(i) == monster){
+                if (monsterTerritory.get(i) == monster) {
                     monsterTerritory.put(i, null);
                     break;
                 }

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import static view.duel.phase.BattlePhaseView.increaseLP;
 
 public class MainPhase1View {
+
     private static MainPhase1View mainPhase1View;
     static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
@@ -31,6 +32,7 @@ public class MainPhase1View {
     }
 
     public void run() {
+        duelWithUser = DuelWithUser.getInstance();
         System.out.print(duelWithUser.showField());
         MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
         while (true) {

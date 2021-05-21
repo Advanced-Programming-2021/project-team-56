@@ -12,7 +12,6 @@ import static view.duel.phase.BattlePhaseView.setWinner;
 public class EndPhaseView {
     private static EndPhaseView endPhase;
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private EndPhaseView() {
 
@@ -26,7 +25,8 @@ public class EndPhaseView {
     }
 
     public void run() {
-        System.out.println("phase: End Phase");
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        System.out.println("phase: End Phase\n" + duelWithUser.showField());
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("next phase")) {
