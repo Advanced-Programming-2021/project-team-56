@@ -63,6 +63,7 @@ public class SpellEffectCanActivate {
     }
 
     public boolean yamiCanActivate(Board board) {
+        //TODO Null pointer exception
         return board.getFieldSpell().getName().equals("Yami") && board.getFieldSpell().getIsFacedUp();
     }
 
