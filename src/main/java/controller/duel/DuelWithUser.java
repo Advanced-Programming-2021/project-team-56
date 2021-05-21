@@ -577,4 +577,8 @@ public class DuelWithUser {
     public int getPhaseCounter() {
         return phaseCounter;
     }
+
+    public Board[] getBoards() {
+        return boards;
+    }
 }

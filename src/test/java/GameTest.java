@@ -1,8 +1,8 @@
 import controller.DeckMenuController;
 import controller.LoginMenuController;
 import controller.ShopController;
-import model.Card;
-import model.User;
+import controller.duel.DuelWithUser;
+import model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import view.*;
@@ -559,5 +559,32 @@ public class GameTest {
         String fullSideDeckTestResult = DeckMenuController.getInstance().addToDeck("mehrDeck", "Scanner", "Mehrshad", true);
         assertEquals("main deck is full", fullMainDeckTestResult);
         assertEquals("side deck is full", fullSideDeckTestResult);
+    }
+
+    @Test
+    public void selectTest() {
+        User user1 = User.getUserByUsername("Mehrshad");
+        User user2 = User.getUserByUsername("AmirAli");
+        Board board1 = new Board(user1);
+        Board board2 = new Board(user2);
+        DuelWithUser.getInstance().getBoards()[0] = board1;
+        for (Card card : user1.getUserAllCards()) {
+            if (card.getName().equals("Forest")) {
+                board1.setFieldSpell((SpellCard) card);
+            }
+            if (card.getName().equals("Raigeki")) {
+                board1.getSpellAndTrapTerritory().put(5, card);
+            }
+            if (card.getName().equals("Command Knight")) {
+                MonsterCard monsterCard = (MonsterCard) card;
+                board1.getMonsterTerritory().put(1, monsterCard);
+            }
+        }
+        DuelWithUser.getInstance().selectCard("select --monster 1");
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Command Knight"));
+        DuelWithUser.getInstance().selectCard("select --spell 5");
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Raigeki"));
+        DuelWithUser.getInstance().selectCard("select --field");
+        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Forest"));
     }
 }
