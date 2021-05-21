@@ -15,9 +15,6 @@ public class StandByPhaseView {
     private static StandByPhaseView standByPhase;
     static Pattern setPosition = Pattern.compile("^set --position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
-
-
 
     private StandByPhaseView() {
 
@@ -31,7 +28,8 @@ public class StandByPhaseView {
     }
 
     public String run() {
-        System.out.println("phase: standby phase");
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        System.out.println("phase: standby phase\n" + duelWithUser.showField());
         String result = StandByPhaseController.getInstance().run();
         if (!result.equals("the game continuous")){
             return result;
