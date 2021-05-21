@@ -15,14 +15,13 @@ import java.util.HashMap;
 public class SpellEffectCanActivate {
 
     private static SpellEffectCanActivate spellEffectCanActivate;
-    private DuelWithUser duelWithUser;
-    private EffectView effectView;
-    private TrapEffectCanActivate trapEffectCanActivate;
+
+    private final DuelWithUser duelWithUser;
+    private final EffectView effectView;
 
     {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
-        trapEffectCanActivate = TrapEffectCanActivate.getInstance();
     }
 
     private SpellEffectCanActivate() {
@@ -40,7 +39,8 @@ public class SpellEffectCanActivate {
             case "Pot of Greed":
                 return potOfGreedCanActivate();
             case "Harpie’s Feather Duster":
-                return trapEffectCanActivate.canIActivateSpaceTyphoonOrTwinTwister();
+                //TODO Check if TrapEffectCanActivate object is made
+                return TrapEffectCanActivate.getInstance().canIActivateSpaceTyphoonOrTwinTwister();
             case "Change of Heart":
                 return canChangeOfHeartActivate();
             case "Terraforming":
@@ -107,14 +107,14 @@ public class SpellEffectCanActivate {
         return 0;
     }
 
-    private boolean canIActivateMonsterReborn(){
-            boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
-            boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
-            if (isMyGraveyardEmpty || isEnemyGraveyardEmpty) {
-                return true;
-            } else {
-                return false;
-            }
+    private boolean canIActivateMonsterReborn() {
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        if (isMyGraveyardEmpty || isEnemyGraveyardEmpty) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean areThereEnoughTributeFromDeck(int totalLevel) {

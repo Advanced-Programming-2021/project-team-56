@@ -44,7 +44,6 @@ public class Board {
         for (int i = 0; i < 5; i++) {
             playerHand.add(playerDeck.getMainDeck().get(0));
             playerDeck.getMainDeck().remove(0);
-            //TOdo
         }
     }
 

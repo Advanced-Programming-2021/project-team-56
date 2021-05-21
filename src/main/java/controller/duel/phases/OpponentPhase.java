@@ -15,27 +15,38 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class OpponentPhase {
+
     private static OpponentPhase opponentPhase;
-    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
-    private final EffectView effectView = EffectView.getInstance();
+
+    private final DuelWithUser duelWithUser;
+    private final EffectView effectView;
+    private final SpellEffectActivate spellEffectActivate;
+    private final TrapEffectActivate trapEffectActivate;
+    private final TrapEffectCanActivate trapEffectCanActivate;
+
     private ArrayList<Card> chainLink = new ArrayList<>();
-    private SpellEffectActivate spellEffectActivate = SpellEffectActivate.getInstance();
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
-    private TrapEffectActivate trapEffectActivate = TrapEffectActivate.getInstance();
-    private TrapEffectCanActivate trapEffectCanActivate = TrapEffectCanActivate.getInstance();
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        spellEffectActivate = SpellEffectActivate.getInstance();
+        trapEffectActivate = TrapEffectActivate.getInstance();
+        trapEffectCanActivate = TrapEffectCanActivate.getInstance();
+    }
 
     private OpponentPhase() {
 
-    }
-
-    public ArrayList<Card> getChainLink() {
-        return chainLink;
     }
 
     public static OpponentPhase getInstance() {
         if (opponentPhase == null)
             opponentPhase = new OpponentPhase();
         return opponentPhase;
+    }
+
+    public ArrayList<Card> getChainLink() {
+        return chainLink;
     }
 
     public void run() {

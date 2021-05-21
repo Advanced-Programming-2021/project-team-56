@@ -8,27 +8,36 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BattlePhaseView {
-    private static BattlePhaseView battlePhase;
+
+    private static BattlePhaseView battlePhaseView;
+
+    private final DuelWithUser duelWithUser;
+    private final BattlePhaseController battlePhaseController;
+
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
     static Pattern increaseLP = Pattern.compile("^increase --LP (\\d+)$");
     static Pattern setWinner = Pattern.compile("^duel set-winner (\\S+)$");
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+        battlePhaseController = BattlePhaseController.getInstance();
+    }
 
     private BattlePhaseView() {
 
     }
 
     public static BattlePhaseView getInstance() {
-        if (battlePhase == null) {
-            battlePhase = new BattlePhaseView();
+        if (battlePhaseView == null) {
+            battlePhaseView = new BattlePhaseView();
         }
-        return battlePhase;
+        return battlePhaseView;
     }
 
     public String run() {
-        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: battle phase\n" + duelWithUser.showField());
         while (true) {
-            BattlePhaseController.getInstance().afterBattleEffects();
+            battlePhaseController.afterBattleEffects();
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("next phase")) {
                 break;
@@ -58,14 +67,12 @@ public class BattlePhaseView {
                 continue;
             }
             if (command.equals("activate effect")) {
-                //TODO
                 System.out.println("you can’t activate an effect on this turn");
                 continue;
             }
             Matcher matcher = attack.matcher(command);
-            BattlePhaseController battlePhase = BattlePhaseController.getInstance();
             if (matcher.find()) {
-                System.out.println(battlePhase.attackCard(Integer.parseInt(matcher.group(1))));
+                System.out.println(battlePhaseController.attackCard(Integer.parseInt(matcher.group(1))));
                 System.out.print(duelWithUser.showField());
                 if (isGameOver()) {
                     if (duelWithUser.getMyBoard().getLP() <= 0) {
@@ -77,7 +84,7 @@ public class BattlePhaseView {
                 continue;
             }
             if (command.equals("attack direct")) {
-                System.out.println(battlePhase.attackUser());
+                System.out.println(battlePhaseController.attackUser());
                 System.out.print(duelWithUser.showField());
                 if (isGameOver()) {
                     if (duelWithUser.getMyBoard().getLP() <= 0) {

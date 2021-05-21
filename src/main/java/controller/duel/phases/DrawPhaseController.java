@@ -6,8 +6,13 @@ import model.Card;
 import java.util.ArrayList;
 
 public class DrawPhaseController {
+
     private static DrawPhaseController drawPhase;
-    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final DuelWithUser duelWithUser;
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+    }
 
     private DrawPhaseController() {
     }
