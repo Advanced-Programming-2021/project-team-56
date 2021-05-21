@@ -497,7 +497,7 @@ public class GameTest {
                 "new card added to the hand : Mirage Dragon\r\n" + //TODO
                 "AmirNick:8000\n\tc\tc\tc\tc\tc\n55\n\tE\tE\tE\tE\tE\n\tE\tE\tE\tE\tE\n0\t\t\t\t\t\tE\n" +
                 "\n--------------------------\n\nE\t\t\t\t\t\t0\n\tE\tE\tE\tE\tE\n\tE\tE\tE\tE\tE\n" +
-                "\t\t\t\t\t\t54\tc\tc\tc\tc\tc\tc\nMehrNick:8000\nAmirAli won the whole match\r\n");
+                "\t\t\t\t\t\t54\n\tc\tc\tc\tc\tc\tc\nMehrNick:8000\nAmirAli won the whole match\r\n");
     }
 
     @Test
