@@ -192,7 +192,7 @@ public class OpponentPhase {
 
     private boolean isItPossibleToAddACardToTheChain() {
         HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < 6; i++) {
             Card card = spellAndTrapTerritory.get(i);
             if (card != null && !card.isItInChainLink()) {
                 if (trapEffectCanActivate.checkSpellAndTrapPossibility(card.getName())) {

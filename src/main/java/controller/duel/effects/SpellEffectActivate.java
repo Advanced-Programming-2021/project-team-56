@@ -42,11 +42,8 @@ public class SpellEffectActivate {
         instantiate();
         switch (spellName) {
             case "Advanced Ritual Art":
-                if (advancedRitualArt()) {
-                    effectView.output(getRidOfSpell());
-                } else {
-                    effectView.output("preparations of this spell are not done yet");
-                }
+                advancedRitualArt();
+                effectView.output(getRidOfSpell());
                 break;
             case "Terraforming":
                 terraformingActivate();
@@ -134,7 +131,7 @@ public class SpellEffectActivate {
             address = effectView.getAddress();
             monsterCard = (MonsterCard) myGraveyard.get(address - 1);
             myGraveyard.remove(address - 1);
-        } else{
+        } else {
             effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(false, true);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
@@ -248,21 +245,8 @@ public class SpellEffectActivate {
         }
     }
 
-    private boolean advancedRitualArt() {
-        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        for (int i = 1; i < 6; i++) {
-            if (monsterTerritory.get(i) == null) {
-                break;
-            }
-            if (i == 5) {
-                return false;
-            }
-        }
+    private void advancedRitualArt() {
         int output = spellEffectCanActivate.canAdvancedRitualArtActivate();
-        if (output == 0) {
-            effectView.output("there is no way you could ritual summon a monster");
-            return false;
-        }
         effectView.output("you should ritual summon right now");
         if (output == 1) {
             payingTributeForRitualSummon(8);
@@ -285,7 +269,6 @@ public class SpellEffectActivate {
         //TODO For Test view this shuffle is like a booger
         Collections.shuffle(duelWithUser.getMyBoard().getMainDeck());
         effectView.output("summoned successfully");
-        return true;
     }
 
     private void ritualSummon(boolean attackPosition, int address) {
