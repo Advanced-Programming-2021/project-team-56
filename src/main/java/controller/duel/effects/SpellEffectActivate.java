@@ -27,13 +27,6 @@ public class SpellEffectActivate {
         spellEffectCanActivate = SpellEffectCanActivate.getInstance();
     }
 
-    {
-        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-        effectView = EffectView.getInstance();
-        duelWithUser = DuelWithUser.getInstance();
-        mainPhase1Controller = MainPhase1Controller.getInstance();
-    }
-
     private SpellEffectActivate() {
 
     }
