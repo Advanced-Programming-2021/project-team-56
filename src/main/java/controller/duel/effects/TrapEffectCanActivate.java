@@ -13,11 +13,9 @@ public class TrapEffectCanActivate {
     private static TrapEffectCanActivate trapEffectCanActivate;
 
     private final DuelWithUser duelWithUser;
-    private final MainPhase1Controller mainPhase1Controller;
 
     {
         duelWithUser = DuelWithUser.getInstance();
-        mainPhase1Controller = MainPhase1Controller.getInstance();
     }
 
     private TrapEffectCanActivate() {
@@ -158,7 +156,7 @@ public class TrapEffectCanActivate {
     }
 
     private boolean canIActivateTorentialTribute() {
-        return mainPhase1Controller.isSummoningInProcess();
+        return MainPhase1Controller.getInstance().isSummoningInProcess();
     }
 
     private boolean canIActivateTrapHole() {
