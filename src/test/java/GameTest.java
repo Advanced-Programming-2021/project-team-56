@@ -651,16 +651,25 @@ public class GameTest {
             }
             if (card.getName().equals("Axe Raider")) board1.getMonsterTerritory().put(2, (MonsterCard) card);
             if (card.getName().equals("Silver Fang")) board2.getMonsterTerritory().put(2, (MonsterCard) card);
-            if (card.getName().equals("Wattkid")) board2.getMonsterTerritory().put(3, (MonsterCard) card);
+            if (card.getName().equals("Wattkid")) board1.getMonsterTerritory().put(3, (MonsterCard) card);
             if (card.getName().equals("Fireyarou")) board2.getMonsterTerritory().put(3, (MonsterCard) card);
         }
         DuelWithUser.getInstance().selectCard("select --monster 1");
         board1.getMonsterTerritory().get(1).setInAttackPosition(true);
-        board2.getMonsterTerritory().get(1).setInAttackPosition(true);
-        board1.getMonsterTerritory().get(1).setFacedUp(true);
-        board2.getMonsterTerritory().get(1).setFacedUp(true);
-        board1.getMonsterTerritory().get(1).setLastTimeAttackedTurn(5);
+        board1.getMonsterTerritory().get(1).setLastTimeAttackedTurn(50);
         BattlePhaseController.getInstance().attackCard(1);
         assertTrue(board1.getMonsterTerritory().get(1) == null && board2.getMonsterTerritory().get(1) == null);
+        DuelWithUser.getInstance().selectCard("select --monster 2");
+        board1.getMonsterTerritory().get(2).setInAttackPosition(true);
+        board2.getMonsterTerritory().get(2).setInAttackPosition(true);
+        board1.getMonsterTerritory().get(2).setLastTimeAttackedTurn(50);
+        BattlePhaseController.getInstance().attackCard(2);
+        assertTrue(board2.getLP() == 7500 && board2.getMonsterTerritory().get(2) == null);
+        DuelWithUser.getInstance().selectCard("select --monster 3");
+        board1.getMonsterTerritory().get(3).setInAttackPosition(true);
+        board2.getMonsterTerritory().get(3).setInAttackPosition(true);
+        board1.getMonsterTerritory().get(3).setLastTimeAttackedTurn(50);
+        BattlePhaseController.getInstance().attackCard(3);
+        assertTrue(board1.getLP() == 7700 && board1.getMonsterTerritory().get(3) == null);
     }
 }
