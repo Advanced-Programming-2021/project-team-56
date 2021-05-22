@@ -405,6 +405,7 @@ public class MainPhase1Controller {
             duelWithUser.getMyBoard().setMyMonsterInDangerOfTrapHole(true);
         }
         opponentPhase.run();
+        opponentPhase.resolveTheChainLink();
         spawnKill(monster);
         duelWithUser.getMyBoard().setMyMonsterInDangerOfTrapHole(false);
         duelWithUser.getMyBoard().setItMySummon(false);
