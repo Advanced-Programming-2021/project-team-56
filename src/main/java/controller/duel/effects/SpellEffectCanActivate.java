@@ -67,19 +67,19 @@ public class SpellEffectCanActivate {
     }
 
     public boolean yamiCanActivate(Board board) {
-        return board.getFieldSpell().getName().equals("Yami") && board.getFieldSpell().getIsFacedUp();
+        return board.getFieldSpell() != null && board.getFieldSpell().getName().equals("Yami") && board.getFieldSpell().getIsFacedUp();
     }
 
     public boolean forestCanActivate(Board board) {
-        return board.getFieldSpell().getName().equals("Forest") && board.getFieldSpell().getIsFacedUp();
+        return board.getFieldSpell() != null && board.getFieldSpell().getName().equals("Forest") && board.getFieldSpell().getIsFacedUp();
     }
 
     public boolean closedForestCanActivate(Board board) {
-        return board.getFieldSpell().getName().equals("closedForest") && board.getFieldSpell().getIsFacedUp();
+        return board.getFieldSpell() != null && board.getFieldSpell().getName().equals("closedForest") && board.getFieldSpell().getIsFacedUp();
     }
 
     public boolean umiirukaCanActive(Board board) {
-        return board.getFieldSpell().getName().equals("UMIIRUKA") && board.getFieldSpell().getIsFacedUp();
+        return board.getFieldSpell() != null && board.getFieldSpell().getName().equals("UMIIRUKA") && board.getFieldSpell().getIsFacedUp();
     }
 
     public int canAdvancedRitualArtActivate() {
