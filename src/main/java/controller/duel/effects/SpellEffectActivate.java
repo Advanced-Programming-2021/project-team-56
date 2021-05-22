@@ -1,7 +1,6 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
-import controller.duel.phases.MainPhase1Controller;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
@@ -17,15 +16,9 @@ public class SpellEffectActivate {
 
     private static SpellEffectActivate spellEffectActivate;
 
-    private final EffectView effectView;
-    private final DuelWithUser duelWithUser;
-    private final SpellEffectCanActivate spellEffectCanActivate;
-
-    {
-        duelWithUser = DuelWithUser.getInstance();
-        effectView = EffectView.getInstance();
-        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-    }
+    private EffectView effectView;
+    private DuelWithUser duelWithUser;
+    private SpellEffectCanActivate spellEffectCanActivate;
 
     private SpellEffectActivate() {
 
@@ -37,7 +30,14 @@ public class SpellEffectActivate {
         return spellEffectActivate;
     }
 
+    private void instantiate() {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+    }
+
     public void spellCaller(String spellName) {
+        instantiate();
         switch (spellName) {
             case "Advanced Ritual Art":
                 advancedRitualArt();
@@ -462,6 +462,7 @@ public class SpellEffectActivate {
                     monsterTerritory.put(i, null);
                 }
             }
+            counter++;
         }
     }
 
