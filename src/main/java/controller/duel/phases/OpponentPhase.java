@@ -56,7 +56,7 @@ public class OpponentPhase {
         }
         effectView.output("now it will be " + duelWithUser.getMyBoard().getUser().getUsername() + "’s turn");
         effectView.output1(duelWithUser.showField());
-        effectView.output("do you want to activate your trap and spell?");
+        effectView.output("do you want to activate your trap and spell?(yes/no)");
         while (true) {
             String input = effectView.input();
             if (input.equals("yes")) {
@@ -111,10 +111,8 @@ public class OpponentPhase {
                     continue;
                 } else if (result == 1) {
                     run();
-                    break;
-                } else {
-                    break;
                 }
+                return;
             }
             effectView.output("invalid command");
         }
@@ -139,7 +137,7 @@ public class OpponentPhase {
         if (card instanceof SpellCard) {
             SpellCard spell = (SpellCard) card;
             if (!spell.getIcon().equals("Quick-play")) {
-                effectView.output("this card can't be played in opponent turn");
+                effectView.output("this card can't be played in opponent's turn");
                 return 0;
             }
             if (trapEffectCanActivate.checkSpellAndTrapPossibility(spell.getName())) {
@@ -150,10 +148,27 @@ public class OpponentPhase {
             }
         } else {
             TrapCard trap = (TrapCard) card;
-            //todo possible
-            return 2;
+            if (trapEffectCanActivate.checkSpellAndTrapPossibility(trap.getName())) {
+                chainLink.add(trap);
+                trap.setItInChainLink(true);
+                if (isTrapCardCounterAttackType(trap.getName())){
+                    return 2;
+                }
+                return 1;
+            }
         }
         return 0;
+    }
+
+    private boolean isTrapCardCounterAttackType(String name) {
+        switch (name) {
+            case "Negate Attack":
+            case "Solemn Warning":
+            case "Magic Jammer":
+                return true;
+
+        }
+        return false;
     }
 
     public void resolveTheChainLink() {
@@ -191,10 +206,10 @@ public class OpponentPhase {
         return false;
     }
 
-    private void getRidOfTrapOrQuickPlaySpell(Card card){
+    private void getRidOfTrapOrQuickPlaySpell(Card card) {
         HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
-            if (spellAndTrapTerritory.get(i) == card){
+            if (spellAndTrapTerritory.get(i) == card) {
                 spellAndTrapTerritory.put(i, null);
             }
         }
