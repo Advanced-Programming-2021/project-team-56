@@ -656,11 +656,10 @@ public class GameTest {
         }
         DuelWithUser.getInstance().selectCard("select --monster 1");
         board1.getMonsterTerritory().get(1).setInAttackPosition(true);
-        board2.getMonsterTerritory().get(1).setInAttackPosition(true);
-        board1.getMonsterTerritory().get(1).setFacedUp(true);
-        board2.getMonsterTerritory().get(1).setFacedUp(true);
+       // board2.getMonsterTerritory().get(1).setInAttackPosition(true);
         board1.getMonsterTerritory().get(1).setLastTimeAttackedTurn(5);
         BattlePhaseController.getInstance().attackCard(1);
         assertTrue(board1.getMonsterTerritory().get(1) == null && board2.getMonsterTerritory().get(1) == null);
+
     }
 }

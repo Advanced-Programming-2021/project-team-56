@@ -173,7 +173,7 @@ public class BattlePhaseController {
     private boolean doesEnemyTerritoryIncludeMessengerOfPeace() {
         HashMap<Integer, Card> spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
-            if (spellTerritory.get(i).getName().equals("Messenger of peace")) {
+            if (spellTerritory.get(i) != null && spellTerritory.get(i).getName().equals("Messenger of peace")) {
                 if (spellTerritory.get(i).getIsFacedUp()) {
                     return true;
                 }
