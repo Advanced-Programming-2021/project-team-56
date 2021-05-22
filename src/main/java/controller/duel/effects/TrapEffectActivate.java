@@ -1,7 +1,6 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
-import controller.duel.phases.MainPhase1Controller;
 import model.Card;
 import model.MonsterCard;
 import view.duel.EffectView;
@@ -289,7 +288,7 @@ public class TrapEffectActivate {
     private void callOfHuntedActivate() {
         while (true) {
             ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
-            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, false);
+            effectView.showGraveyardForCardsEffects(true, false);
             int address = effectView.getAddress();
             if (graveyard.size() < address || address < 1) {
                 effectView.output("invalid selection");

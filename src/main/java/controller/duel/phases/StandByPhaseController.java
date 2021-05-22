@@ -1,6 +1,7 @@
 package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
+import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
 import model.Card;
 import model.MonsterCard;
@@ -12,19 +13,20 @@ import java.util.HashMap;
 public class StandByPhaseController {
 
     private static StandByPhaseController standByPhase;
-
     private final DuelWithUser duelWithUser;
     private final EffectView effectView;
     private final SpellEffectCanActivate spellEffectCanActivate;
+    private final SpellEffectActivate spellEffectActivate;
+
+    private StandByPhaseController() {
+
+    }
 
     {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
         spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-    }
-
-    private StandByPhaseController() {
-
+        spellEffectActivate = SpellEffectActivate.getInstance();
     }
 
     public static StandByPhaseController getInstance() {
@@ -122,8 +124,9 @@ public class StandByPhaseController {
         HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         for (int i = 1; i < 6; i++) {
-            if (spellTerritory.get(i).getName().equals("Messenger of peace")) {
-                if (spellTerritory.get(i).getIsFacedUp()) {
+            Card spell = spellTerritory.get(i);
+            if (spell != null && spell.getIsFacedUp()) {
+                if (spell.getName().equals("Messenger of peace")) {
                     graveyard.add(spellTerritory.get(i));
                     spellTerritory.put(i, null);
                 }
@@ -134,13 +137,12 @@ public class StandByPhaseController {
     private boolean doIHaveItOnMyField() {
         HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
-            if (spellTerritory.get(i) == null) {
+            Card spell = spellTerritory.get(i);
+            if (spell == null) {
                 continue;
             }
-            if (spellTerritory.get(i).getName().equals("Messenger of peace")) {
-                if (spellTerritory.get(i).getIsFacedUp()) {
-                    return true;
-                }
+            if (spell.getName().equals("Messenger of peace") && spell.getIsFacedUp()) {
+                return true;
             }
         }
         return false;
@@ -189,15 +191,16 @@ public class StandByPhaseController {
                     effectView.output("invalid command");
                 }
             }
+            heraldOfCreationCardChoosing();
         }
-        //TODO heraldOfCreationCardChoosing();
     }
 
     private void heraldOfCreationCardChoosing() {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         while (true) {
-            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, false);
+            effectView.output("choose your dead monster");
+            effectView.showGraveyardForCardsEffects(true, false);
             int address = effectView.getAddress();
             if (address < 1 || address > graveyard.size()) {
                 effectView.output("invalid selection");
@@ -209,6 +212,9 @@ public class StandByPhaseController {
             } else if (((MonsterCard) card).getLevel() < 7) {
                 effectView.output("the level of monster must be 7 or higher");
             } else {
+                spellEffectActivate.monsterReborn((MonsterCard) card, false);
+                card.setFacedUp(false);
+                ((MonsterCard) card).setLastTimeChangedPositionTurn(0);
                 playerHand.add(card);
                 graveyard.remove(address - 1);
                 return;
@@ -239,7 +245,7 @@ public class StandByPhaseController {
         int address;
         MonsterCard monsterCard;
         if (isMyGraveyardEmpty && isEnemyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, true);
+            effectView.showGraveyardForCardsEffects(true, true);
             address = effectView.getAddress();
             if (address > myGraveyard.size()) {
                 address -= myGraveyard.size();
@@ -248,11 +254,11 @@ public class StandByPhaseController {
                 monsterCard = (MonsterCard) myGraveyard.get(address - 1);
             }
         } else if (isMyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, false);
+            effectView.showGraveyardForCardsEffects(true, false);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) myGraveyard.get(address - 1);
         } else if (isEnemyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(false, true);
+            effectView.showGraveyardForCardsEffects(false, true);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
         } else {
@@ -265,7 +271,7 @@ public class StandByPhaseController {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             MonsterCard scanner = monsterTerritory.get(i);
-            if (scanner.getItScanner()){
+            if (scanner.getItScanner()) {
                 scanner.setName(monsterCard.getName());
                 scanner.setAttack(monsterCard.getAttack());
                 scanner.setDefence(monsterCard.getDefence());
