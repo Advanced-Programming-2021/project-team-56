@@ -41,9 +41,8 @@ public class TrapEffectCanActivate {
                 return canIActivateTimeSeal();
             case "Magic Jammer":
                 return canIActivateMagicJammer();
-            //TODO
             case "Negate Attack":
-            case "Mirror Force": //TODO
+            case "Mirror Force":
             case "Magic Cylinder":
                 return canIActivateMagicCylinderOrMirrorForceOrNegateAttack();
             case "Mind Crush":
@@ -54,6 +53,8 @@ public class TrapEffectCanActivate {
                 return canIActivateTorentialTribute();
             case "Solemn Warning":
                 return canSoleimanWarn();
+            case "Trap Hole":
+                return canIActivateTrapHole();
         }
         return false;
     }
@@ -158,5 +159,9 @@ public class TrapEffectCanActivate {
 
     private boolean canIActivateTorentialTribute() {
         return mainPhase1Controller.isSummoningInProcess();
+    }
+
+    private boolean canIActivateTrapHole() {
+        return duelWithUser.getEnemyBoard().isMyMonsterInDangerOfTrapHole();
     }
 }
