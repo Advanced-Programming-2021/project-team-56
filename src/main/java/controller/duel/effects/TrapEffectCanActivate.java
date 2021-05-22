@@ -138,16 +138,9 @@ public class TrapEffectCanActivate {
 
 
     private boolean canIActivateCallOfHunted() {
-        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        int counter = 0;
-        for (int i = 1; i < 6; i++) {
-            if (monsterTerritory.get(i) != null) {
-                counter++;
-            }
-            if (counter == 5) {
-                return false;
-            }
-        }
+       if (SpellEffectCanActivate.getInstance().isMyMonsterTerritoryFull()){
+           return false;
+       }
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         for (int i = 0; i < graveyard.size(); i++) {
             if (graveyard.get(i) instanceof MonsterCard) {

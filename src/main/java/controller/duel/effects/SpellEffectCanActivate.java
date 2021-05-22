@@ -266,7 +266,7 @@ public class SpellEffectCanActivate {
         return false;
     }
 
-    private boolean isMyMonsterTerritoryFull() {
+    public boolean isMyMonsterTerritoryFull() {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) == null) {
