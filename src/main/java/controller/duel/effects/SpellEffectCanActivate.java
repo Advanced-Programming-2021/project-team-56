@@ -15,18 +15,19 @@ import java.util.HashMap;
 public class SpellEffectCanActivate {
 
     private static SpellEffectCanActivate spellEffectCanActivate;
+
     private DuelWithUser duelWithUser;
     private EffectView effectView;
     private TrapEffectCanActivate trapEffectCanActivate;
-
-    private SpellEffectCanActivate() {
-
-    }
 
     public void instantiate(){
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
         trapEffectCanActivate = TrapEffectCanActivate.getInstance();
+    }
+
+    private SpellEffectCanActivate() {
+
     }
 
     public static SpellEffectCanActivate getInstance() {

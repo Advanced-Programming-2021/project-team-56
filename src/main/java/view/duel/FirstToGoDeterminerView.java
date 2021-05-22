@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 public class FirstToGoDeterminerView {
 
     private static FirstToGoDeterminerView firstToGoDeterminerView;
+
     static Pattern rockPaperScissors = Pattern.compile("^(?:rock|paper|scissors)$");
 
     private FirstToGoDeterminerView() {

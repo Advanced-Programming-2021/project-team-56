@@ -11,8 +11,12 @@ import java.util.HashMap;
 public class TrapEffectCanActivate {
 
     private static TrapEffectCanActivate trapEffectCanActivate;
-    private DuelWithUser duelWithUser;
-    private MainPhase1Controller mainPhase1Controller;
+
+    private final DuelWithUser duelWithUser;
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+    }
 
     private TrapEffectCanActivate() {
 
@@ -24,13 +28,7 @@ public class TrapEffectCanActivate {
         return trapEffectCanActivate;
     }
 
-    private void instantiate() {
-        duelWithUser = DuelWithUser.getInstance();
-        mainPhase1Controller = MainPhase1Controller.getInstance();
-    }
-
     public boolean checkSpellAndTrapPossibility(String name) {
-        instantiate();
         switch (name) {
             case "Twin Twisters":
             case "Mystical space typhoon":
@@ -41,6 +39,7 @@ public class TrapEffectCanActivate {
                 return canIActivateTimeSeal();
             case "Magic Jammer":
                 return canIActivateMagicJammer();
+                //TODO
             case "Negate Attack":
             case "Mirror Force": //TODO
             case "Magic Cylinder":
@@ -156,6 +155,6 @@ public class TrapEffectCanActivate {
     }
 
     private boolean canIActivateTorentialTribute() {
-        return mainPhase1Controller.isSummoningInProcess();
+        return MainPhase1Controller.getInstance().isSummoningInProcess();
     }
 }

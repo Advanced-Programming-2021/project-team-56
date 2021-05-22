@@ -13,11 +13,8 @@ import static view.duel.phase.BattlePhaseView.setWinner;
 public class StandByPhaseView {
 
     private static StandByPhaseView standByPhase;
-    static Pattern setPosition = Pattern.compile("^set --position (attack|defence)$");
+
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
-
-
 
     private StandByPhaseView() {
 
@@ -31,6 +28,7 @@ public class StandByPhaseView {
     }
 
     public String run() {
+        DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: standby phase");
         String result = StandByPhaseController.getInstance().run();
         if (!result.equals("the game continuous")){

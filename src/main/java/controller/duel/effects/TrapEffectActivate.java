@@ -13,10 +13,16 @@ import java.util.Random;
 public class TrapEffectActivate {
 
     private static TrapEffectActivate trapEffectActivate;
-    private EffectView effectView;
-    private DuelWithUser duelWithUser;
-    private SpellEffectActivate spellEffectActivate;
-    private MainPhase1Controller mainPhase1Controller;
+
+    private final DuelWithUser duelWithUser;
+    private final EffectView effectView;
+    private final SpellEffectActivate spellEffectActivate;
+
+    {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        spellEffectActivate = SpellEffectActivate.getInstance();
+    }
 
     private TrapEffectActivate() {
 
@@ -28,15 +34,7 @@ public class TrapEffectActivate {
         return trapEffectActivate;
     }
 
-    private void instantiate() {
-        effectView = EffectView.getInstance();
-        duelWithUser = DuelWithUser.getInstance();
-        spellEffectActivate = SpellEffectActivate.getInstance();
-        mainPhase1Controller = MainPhase1Controller.getInstance();
-    }
-
     public void trapAndQuickSpellCaller(String name) {
-        instantiate();
         switch (name) {
             case "Twin Twisters":
                 destroySpell(2);

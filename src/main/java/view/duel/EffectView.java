@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 public class EffectView {
 
     private static EffectView effectView;
+
     private final DuelWithUser duelWithUser;
 
     {

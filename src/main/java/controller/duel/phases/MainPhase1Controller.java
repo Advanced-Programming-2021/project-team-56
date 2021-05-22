@@ -12,22 +12,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainPhase1Controller {
+
     private static MainPhase1Controller mainPhase1Controller;
+
     private final DuelWithUser duelWithUser;
     private final EffectView effectView;
-    private final BattlePhaseController battlePhaseController;
     private final SpellEffectActivate spellEffectActivate;
-    private SpellEffectCanActivate spellEffectCanActivate;
-    private OpponentPhase opponentPhase;
+    private final OpponentPhase opponentPhase;
+    //private final BattlePhaseController battlePhaseController; its only used in flip summon
+
     private SpellCard spell;
     private boolean isSummoningInProcess;
 
     {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
-        battlePhaseController = BattlePhaseController.getInstance();
         spellEffectActivate = SpellEffectActivate.getInstance();
-        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
         opponentPhase = OpponentPhase.getInstance();
     }
 
@@ -218,7 +218,7 @@ public class MainPhase1Controller {
             return "you can’t flip summon this card";
         }
         if (monsterCard.getName().equals("Man-Eater Bug")) {
-            battlePhaseController.manEaterBugEffect(false);
+            BattlePhaseController.getInstance().manEaterBugEffect(false);
         }
         monsterCard.setFacedUp(true);
         monsterCard.setInAttackPosition(true);
@@ -402,11 +402,11 @@ public class MainPhase1Controller {
         isSummoningInProcess = true;
         duelWithUser.getMyBoard().setItMySummon(true);
         opponentPhase.run();
-        if (duelWithUser.getMyBoard().isItEffectedBySoleiman()){
+        if (duelWithUser.getMyBoard().isItEffectedBySoleiman()) {
             duelWithUser.getMyBoard().getGraveyard().add(monster);
             HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
             for (int i = 1; i < 6; i++) {
-                if (monsterTerritory.get(i) == monster){
+                if (monsterTerritory.get(i) == monster) {
                     monsterTerritory.put(i, null);
                     break;
                 }

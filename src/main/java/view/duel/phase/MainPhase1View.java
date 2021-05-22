@@ -3,6 +3,7 @@ package view.duel.phase;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.MainPhase1Controller;
 import view.LoginMenuView;
+import view.duel.DuelWithUserView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,14 +11,20 @@ import java.util.regex.Pattern;
 import static view.duel.phase.BattlePhaseView.increaseLP;
 
 public class MainPhase1View {
+
     private static MainPhase1View mainPhase1View;
+
     static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
-    private DuelWithUser duelWithUser;
+
+    private final DuelWithUser duelWithUser;
+    private final MainPhase1Controller mainPhase1Controller;
 
     {
         duelWithUser = DuelWithUser.getInstance();
+        mainPhase1Controller = MainPhase1Controller.getInstance();
     }
+
 
     private MainPhase1View() {
 
@@ -32,7 +39,6 @@ public class MainPhase1View {
 
     public void run() {
         System.out.print(duelWithUser.showField());
-        MainPhase1Controller mainPhase1Controller = MainPhase1Controller.getInstance();
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("next phase")) {
@@ -103,6 +109,7 @@ public class MainPhase1View {
             if (matcher.find()) {
                 System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
             }
+            //TODO Ino ki comment krd?
 //            matcher = setWinner.matcher(command);
 //            if (matcher.find()) {
 //                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
