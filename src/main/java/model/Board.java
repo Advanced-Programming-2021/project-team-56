@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class Board {
@@ -22,6 +21,8 @@ public class Board {
     private boolean isItEffectedByMirrorFace;
     private boolean isItEffectedBySoleiman;
     private boolean isItMySummon;
+    private boolean isMyMonsterInDangerOfTrapHole;
+    private boolean amIAffectedByTrapHole;
 
 
     public Board(User user) {
@@ -161,5 +162,21 @@ public class Board {
 
     public void setItMySummon(boolean itMySummon) {
         isItMySummon = itMySummon;
+    }
+
+    public boolean isMyMonsterInDangerOfTrapHole() {
+        return isMyMonsterInDangerOfTrapHole;
+    }
+
+    public void setMyMonsterInDangerOfTrapHole(boolean myMonsterInDangerOfTrapHole) {
+        isMyMonsterInDangerOfTrapHole = myMonsterInDangerOfTrapHole;
+    }
+
+    public boolean isAmIAffectedByTrapHole() {
+        return amIAffectedByTrapHole;
+    }
+
+    public void setAmIAffectedByTrapHole(boolean amIAffectedByTrapHole) {
+        this.amIAffectedByTrapHole = amIAffectedByTrapHole;
     }
 }

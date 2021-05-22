@@ -38,6 +38,8 @@ public class SpellEffectCanActivate {
 
     public boolean checkSpellPossibility(String name) {
         switch (name) {
+            case "Advanced Ritual Art":
+                return canAdvancedRitualArtActivate() != 0;
             case "Pot of Greed":
                 return potOfGreedCanActivate();
             case "Harpie’s Feather Duster":
@@ -80,6 +82,9 @@ public class SpellEffectCanActivate {
     }
 
     public int canAdvancedRitualArtActivate() {
+        if (isMyMonsterTerritoryFull()) {
+            return 0;
+        }
         if (!doseHandIncludeCrabTurtle() && !doseHandIncludeSkullGuardian()) {
             return 0;
         }
@@ -109,13 +114,12 @@ public class SpellEffectCanActivate {
     }
 
     private boolean canIActivateMonsterReborn() {
-        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
-        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
-        if (isMyGraveyardEmpty || isEnemyGraveyardEmpty) {
-            return true;
-        } else {
+        if (isMyMonsterTerritoryFull()) {
             return false;
         }
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        return isMyGraveyardEmpty || isEnemyGraveyardEmpty;
     }
 
     private boolean areThereEnoughTributeFromDeck(int totalLevel) {
@@ -169,16 +173,7 @@ public class SpellEffectCanActivate {
         if (!raigekiCanActivate()) {
             return false;
         }
-        HashMap<Integer, MonsterCard> myMonsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        for (int i = 1; i < 6; i++) {
-            if (myMonsterTerritory.get(i) == null) {
-                break;
-            }
-            if (i == 5) {
-                return false;
-            }
-        }
-        return true;
+        return !isMyMonsterTerritoryFull();
     }
 
     public boolean raigekiCanActivate() {
@@ -269,5 +264,15 @@ public class SpellEffectCanActivate {
             }
         }
         return false;
+    }
+
+    private boolean isMyMonsterTerritoryFull() {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            if (monsterTerritory.get(i) == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }

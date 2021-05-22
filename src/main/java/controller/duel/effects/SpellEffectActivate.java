@@ -1,7 +1,6 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
-import controller.duel.phases.MainPhase1Controller;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
@@ -21,12 +20,6 @@ public class SpellEffectActivate {
     private final DuelWithUser duelWithUser;
     private final SpellEffectCanActivate spellEffectCanActivate;
 
-    {
-        duelWithUser = DuelWithUser.getInstance();
-        effectView = EffectView.getInstance();
-        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
-    }
-
     private SpellEffectActivate() {
 
     }
@@ -37,14 +30,17 @@ public class SpellEffectActivate {
         return spellEffectActivate;
     }
 
+    {
+        duelWithUser = DuelWithUser.getInstance();
+        effectView = EffectView.getInstance();
+        spellEffectCanActivate = SpellEffectCanActivate.getInstance();
+    }
+
     public void spellCaller(String spellName) {
         switch (spellName) {
             case "Advanced Ritual Art":
-                if (advancedRitualArt()) {
-                    effectView.output(getRidOfSpell());
-                } else {
-                    effectView.output("preparations of this spell are not done yet");
-                }
+                advancedRitualArt();
+                effectView.output(getRidOfSpell());
                 break;
             case "Terraforming":
                 terraformingActivate();
@@ -246,21 +242,8 @@ public class SpellEffectActivate {
         }
     }
 
-    private boolean advancedRitualArt() {
-        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        for (int i = 1; i < 6; i++) {
-            if (monsterTerritory.get(i) == null) {
-                break;
-            }
-            if (i == 5) {
-                return false;
-            }
-        }
+    private void advancedRitualArt() {
         int output = spellEffectCanActivate.canAdvancedRitualArtActivate();
-        if (output == 0) {
-            effectView.output("there is no way you could ritual summon a monster");
-            return false;
-        }
         effectView.output("you should ritual summon right now");
         if (output == 1) {
             payingTributeForRitualSummon(8);
@@ -283,7 +266,6 @@ public class SpellEffectActivate {
         //TODO For Test view this shuffle is like a booger
         Collections.shuffle(duelWithUser.getMyBoard().getMainDeck());
         effectView.output("summoned successfully");
-        return true;
     }
 
     private void ritualSummon(boolean attackPosition, int address) {
@@ -479,6 +461,7 @@ public class SpellEffectActivate {
                     monsterTerritory.put(i, null);
                 }
             }
+            counter++;
         }
     }
 

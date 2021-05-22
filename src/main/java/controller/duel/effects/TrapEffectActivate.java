@@ -72,6 +72,9 @@ public class TrapEffectActivate {
             case "Solemn Warning":
                 soleimanWarns();
                 break;
+            case "Trap Hole":
+                trapHoleActivate();
+                break;
         }
     }
 
@@ -303,5 +306,9 @@ public class TrapEffectActivate {
 
     private void soleimanWarns() {
         duelWithUser.getEnemyBoard().setItEffectedBySoleiman(true);
+    }
+
+    private void trapHoleActivate(){
+        duelWithUser.getEnemyBoard().setAmIAffectedByTrapHole(true);
     }
 }

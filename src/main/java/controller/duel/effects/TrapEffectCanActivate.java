@@ -13,9 +13,11 @@ public class TrapEffectCanActivate {
     private static TrapEffectCanActivate trapEffectCanActivate;
 
     private final DuelWithUser duelWithUser;
+    private final MainPhase1Controller mainPhase1Controller;
 
     {
         duelWithUser = DuelWithUser.getInstance();
+        mainPhase1Controller = MainPhase1Controller.getInstance();
     }
 
     private TrapEffectCanActivate() {
@@ -51,6 +53,8 @@ public class TrapEffectCanActivate {
                 return canIActivateTorentialTribute();
             case "Solemn Warning":
                 return canSoleimanWarn();
+            case "Trap Hole":
+                return canIActivateTrapHole();
         }
         return false;
     }
@@ -154,6 +158,10 @@ public class TrapEffectCanActivate {
     }
 
     private boolean canIActivateTorentialTribute() {
-        return MainPhase1Controller.getInstance().isSummoningInProcess();
+        return mainPhase1Controller.isSummoningInProcess();
+    }
+
+    private boolean canIActivateTrapHole() {
+        return duelWithUser.getEnemyBoard().isMyMonsterInDangerOfTrapHole();
     }
 }

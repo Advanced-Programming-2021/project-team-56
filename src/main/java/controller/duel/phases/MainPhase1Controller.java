@@ -401,8 +401,18 @@ public class MainPhase1Controller {
         }
         isSummoningInProcess = true;
         duelWithUser.getMyBoard().setItMySummon(true);
+        if (monster.getAttack() >= 1000) {
+            duelWithUser.getMyBoard().setMyMonsterInDangerOfTrapHole(true);
+        }
         opponentPhase.run();
-        if (duelWithUser.getMyBoard().isItEffectedBySoleiman()) {
+        spawnKill(monster);
+        duelWithUser.getMyBoard().setMyMonsterInDangerOfTrapHole(false);
+        duelWithUser.getMyBoard().setItMySummon(false);
+        isSummoningInProcess = false;
+    }
+
+    private void spawnKill(MonsterCard monster){
+        if (duelWithUser.getMyBoard().isItEffectedBySoleiman() || duelWithUser.getMyBoard().isAmIAffectedByTrapHole()) {
             duelWithUser.getMyBoard().getGraveyard().add(monster);
             HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
             for (int i = 1; i < 6; i++) {
@@ -411,9 +421,9 @@ public class MainPhase1Controller {
                     break;
                 }
             }
+            duelWithUser.getMyBoard().setAmIAffectedByTrapHole(false);
+            duelWithUser.getMyBoard().setItEffectedBySoleiman(false);
         }
-        duelWithUser.getEnemyBoard().setItMySummon(false);
-        isSummoningInProcess = false;
     }
 
     private boolean isAddressValid(int address) {
