@@ -18,10 +18,12 @@ public class SpellEffectCanActivate {
 
     private final DuelWithUser duelWithUser;
     private final EffectView effectView;
+    private final TrapEffectCanActivate trapEffectCanActivate;
 
     {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
+        trapEffectCanActivate = TrapEffectCanActivate.getInstance();
     }
 
     private SpellEffectCanActivate() {
@@ -40,7 +42,7 @@ public class SpellEffectCanActivate {
                 return potOfGreedCanActivate();
             case "Harpie’s Feather Duster":
                 //TODO Check if TrapEffectCanActivate object is made
-                return TrapEffectCanActivate.getInstance().canIActivateSpaceTyphoonOrTwinTwister();
+                return trapEffectCanActivate.canIActivateSpaceTyphoonOrTwinTwister();
             case "Change of Heart":
                 return canChangeOfHeartActivate();
             case "Terraforming":
@@ -63,7 +65,6 @@ public class SpellEffectCanActivate {
     }
 
     public boolean yamiCanActivate(Board board) {
-        //TODO Null pointer exception
         return board.getFieldSpell().getName().equals("Yami") && board.getFieldSpell().getIsFacedUp();
     }
 
