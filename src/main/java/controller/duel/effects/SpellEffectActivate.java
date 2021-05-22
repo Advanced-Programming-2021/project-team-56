@@ -30,14 +30,13 @@ public class SpellEffectActivate {
         return spellEffectActivate;
     }
 
-    private void instantiate() {
+    {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
         spellEffectCanActivate = SpellEffectCanActivate.getInstance();
     }
 
     public void spellCaller(String spellName) {
-        instantiate();
         switch (spellName) {
             case "Advanced Ritual Art":
                 advancedRitualArt();

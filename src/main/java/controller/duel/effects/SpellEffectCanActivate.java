@@ -20,7 +20,7 @@ public class SpellEffectCanActivate {
     private EffectView effectView;
     private TrapEffectCanActivate trapEffectCanActivate;
 
-    public void instantiate(){
+    {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
         trapEffectCanActivate = TrapEffectCanActivate.getInstance();
@@ -37,7 +37,6 @@ public class SpellEffectCanActivate {
     }
 
     public boolean checkSpellPossibility(String name) {
-        instantiate();
         switch (name) {
             case "Advanced Ritual Art":
                 return canAdvancedRitualArtActivate() != 0;
