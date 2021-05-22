@@ -13,9 +13,11 @@ public class TrapEffectCanActivate {
     private static TrapEffectCanActivate trapEffectCanActivate;
 
     private final DuelWithUser duelWithUser;
+    private final MainPhase1Controller mainPhase1Controller;
 
     {
         duelWithUser = DuelWithUser.getInstance();
+        mainPhase1Controller = MainPhase1Controller.getInstance();
     }
 
     private TrapEffectCanActivate() {
@@ -39,7 +41,7 @@ public class TrapEffectCanActivate {
                 return canIActivateTimeSeal();
             case "Magic Jammer":
                 return canIActivateMagicJammer();
-                //TODO
+            //TODO
             case "Negate Attack":
             case "Mirror Force": //TODO
             case "Magic Cylinder":
@@ -155,6 +157,6 @@ public class TrapEffectCanActivate {
     }
 
     private boolean canIActivateTorentialTribute() {
-        return MainPhase1Controller.getInstance().isSummoningInProcess();
+        return mainPhase1Controller.isSummoningInProcess();
     }
 }

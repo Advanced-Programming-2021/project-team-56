@@ -16,9 +16,9 @@ public class SpellEffectActivate {
 
     private static SpellEffectActivate spellEffectActivate;
 
-    private EffectView effectView;
-    private DuelWithUser duelWithUser;
-    private SpellEffectCanActivate spellEffectCanActivate;
+    private final EffectView effectView;
+    private final DuelWithUser duelWithUser;
+    private final SpellEffectCanActivate spellEffectCanActivate;
 
     private SpellEffectActivate() {
 

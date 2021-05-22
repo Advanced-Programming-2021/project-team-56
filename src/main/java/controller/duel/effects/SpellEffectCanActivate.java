@@ -16,9 +16,9 @@ public class SpellEffectCanActivate {
 
     private static SpellEffectCanActivate spellEffectCanActivate;
 
-    private DuelWithUser duelWithUser;
-    private EffectView effectView;
-    private TrapEffectCanActivate trapEffectCanActivate;
+    private final DuelWithUser duelWithUser;
+    private final EffectView effectView;
+    private final TrapEffectCanActivate trapEffectCanActivate;
 
     {
         duelWithUser = DuelWithUser.getInstance();
