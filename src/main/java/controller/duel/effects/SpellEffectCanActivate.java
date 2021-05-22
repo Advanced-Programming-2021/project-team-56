@@ -41,7 +41,6 @@ public class SpellEffectCanActivate {
             case "Pot of Greed":
                 return potOfGreedCanActivate();
             case "Harpie’s Feather Duster":
-                //TODO Check if TrapEffectCanActivate object is made
                 return trapEffectCanActivate.canIActivateSpaceTyphoonOrTwinTwister();
             case "Change of Heart":
                 return canChangeOfHeartActivate();
