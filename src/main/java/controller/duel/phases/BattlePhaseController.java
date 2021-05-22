@@ -53,6 +53,8 @@ public class BattlePhaseController {
             return "you can't attack with this card due to the effect of messenger of peace";
         }
         opponentPhase.run();
+        opponentPhase.resolveTheChainLink();
+        monster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
             return magicCylinderConverseDamage(monster);
         }
@@ -60,7 +62,6 @@ public class BattlePhaseController {
             duelWithUser.getMyBoard().setItEffectedByMirrorFace(false);
             return "your faced up cards were destroyed";
         }
-        monster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (duelWithUser.getMyBoard().isItAttackNegated()){
             duelWithUser.getMyBoard().setItAttackNegated(false);
             return "your attack was blocked";
@@ -122,22 +123,15 @@ public class BattlePhaseController {
             return "you can't attack with this card due to the effect of messenger of peace";
         }
         opponentPhase.run();
-        if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
-            return magicCylinderConverseDamage(myMonster);
-        }
-        if (duelWithUser.getMyBoard().isItEffectedByMirrorFace()) {
-            duelWithUser.getMyBoard().setItEffectedByMirrorFace(false);
-            return "your faced up cards were destroyed";
-        }
-        opponentPhase.run();
-        if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
-            return magicCylinderConverseDamage(myMonster);
-        }
-        if (duelWithUser.getMyBoard().isItEffectedByMirrorFace()) {
-            duelWithUser.getMyBoard().setItEffectedByMirrorFace(false);
-            return "your faced up cards were destroyed";
-        }
+        opponentPhase.resolveTheChainLink();
         myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
+        if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
+            return magicCylinderConverseDamage(myMonster);
+        }
+        if (duelWithUser.getMyBoard().isItEffectedByMirrorFace()) {
+            duelWithUser.getMyBoard().setItEffectedByMirrorFace(false);
+            return "your faced up cards were destroyed";
+        }
         if (duelWithUser.getMyBoard().isItAttackNegated()){
             duelWithUser.getMyBoard().setItAttackNegated(false);
             return "your attack was blocked";

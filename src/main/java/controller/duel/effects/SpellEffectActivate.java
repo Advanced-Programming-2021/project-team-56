@@ -113,7 +113,7 @@ public class SpellEffectActivate {
         MonsterCard monsterCard;
         int address;
         if (isMyGraveyardEmpty && isEnemyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, true);
+            effectView.showGraveyardForCardsEffects(true, true);
             address = effectView.getAddress();
             if (address > myGraveyard.size()) {
                 address -= myGraveyard.size();
@@ -124,12 +124,12 @@ public class SpellEffectActivate {
                 myGraveyard.remove(address - 1);
             }
         } else if (isMyGraveyardEmpty) {
-            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(true, false);
+            effectView.showGraveyardForCardsEffects(true, false);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) myGraveyard.get(address - 1);
             myGraveyard.remove(address - 1);
         } else {
-            effectView.showGraveyardForMonsterRebornAndScannerAndCallOfHunted(false, true);
+            effectView.showGraveyardForCardsEffects(false, true);
             address = effectView.getAddress();
             monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
             enemyGraveyard.remove(address - 1);
@@ -140,11 +140,11 @@ public class SpellEffectActivate {
     public void monsterReborn(MonsterCard monsterCard, boolean isItMonsterRebornEffect) {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         monsterCard.setFacedUp(true);
+        monsterCard.setLastTimeChangedPositionTurn(duelWithUser.getTurnCounter());
         monsterCard.setItControlledByChangeOfHeart(false);
         monsterCard.setStartEffectTurn(-1);
         monsterCard.setLastTimeAttackedTurn(0);
         monsterCard.setSummonedTurn(0);
-        monsterCard.setLastTimeChangedPositionTurn(duelWithUser.getTurnCounter());
         monsterCard.setItScanner(monsterCard.getName().equals("Scanner"));
         if (isItMonsterRebornEffect) {
             while (true) {
