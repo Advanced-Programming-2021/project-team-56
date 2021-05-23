@@ -169,6 +169,9 @@ public class StandByPhaseController {
     }
 
     private void heraldOfCreationEffect() {
+        if (!doIHaveHeraldOfCreationOnMyField()) {
+            return;
+        }
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         if (canHeraldOfCreationPickUpAMonster()) {
@@ -193,6 +196,17 @@ public class StandByPhaseController {
             }
             heraldOfCreationCardChoosing();
         }
+    }
+
+    private boolean doIHaveHeraldOfCreationOnMyField() {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            MonsterCard monster = monsterTerritory.get(i);
+            if (monster != null && monster.getName().equals("Herald of Creation") && monster.getIsFacedUp()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void heraldOfCreationCardChoosing() {
