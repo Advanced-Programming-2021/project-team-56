@@ -7,6 +7,7 @@ import model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import view.*;
+import view.duel.phase.BattlePhaseView;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -129,8 +130,6 @@ public class GameTest {
     }
 
     private static void makeDeckForPlayers() {
-        User player1 = User.getUserByUsername("Mehrshad");
-        User player2 = User.getUserByUsername("AmirAli");
         DeckMenuController.getInstance().createDeck("mehrDeck", "Mehrshad");
         DeckMenuController.getInstance().createDeck("amirDeck", "AmirAli");
         putCardsInDeck();
@@ -243,6 +242,7 @@ public class GameTest {
         shopViewIOAppender(commands, validOutputs);
         deckMenuViewIOAppender(commands, validOutputs);
         duelViewAppender(commands, validOutputs);
+        battleViewAppender(commands, validOutputs);
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(commands.toString().getBytes());
         System.setIn(inputStream);
@@ -258,10 +258,9 @@ public class GameTest {
         ShopView.getInstance().run("Mehrshad");
         DeckMenuView.getInstance().run("Mehrshad");
         DuelMenuView.getInstance().run("Mehrshad");
+        BattlePhaseView.getInstance().run();
 
-        String output = (outputStream.toString());
-
-        assertEquals(validOutputs.toString(), output);
+        assertEquals(validOutputs.toString(), outputStream.toString());
     }
 
     private void loginViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
@@ -542,6 +541,11 @@ public class GameTest {
         assertEquals("user with username bothRepetitive already exists", bothRepetitiveOutput);
     }
 
+    private void battleViewAppender(StringBuilder commands, StringBuilder validOutputs) {
+        commands.append("summon");
+        validOutputs.append("phase: battle phase\r\n" + "action not allowed in this phase\r\n");
+    }
+
     @Test
     public void cardConstructorTest() {
         //TODO Can put all set and gets on testCard
@@ -586,23 +590,23 @@ public class GameTest {
             }
         }
         DuelWithUser.getInstance().selectCard("select --monster 1");
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Command Knight"));
+        assertEquals("Command Knight", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
         DuelWithUser.getInstance().selectCard("select --spell 5");
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Raigeki"));
+        assertEquals("Raigeki", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
         DuelWithUser.getInstance().selectCard("select --field");
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Forest"));
+        assertEquals("Forest", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
         DuelWithUser.getInstance().selectCard("select --monster 2 --opponent");
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Command Knight"));
+        assertEquals("Command Knight", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
         DuelWithUser.getInstance().selectCard("select --opponent --monster 3");
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Command Knight"));
+        assertEquals("Command Knight", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
         DuelWithUser.getInstance().selectCard("select --spell 2 --opponent");
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Raigeki"));
+        assertEquals("Raigeki", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
         DuelWithUser.getInstance().selectCard("select --opponent --spell 3");
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Raigeki"));
+        assertEquals("Raigeki", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
         DuelWithUser.getInstance().selectCard("select --field --opponent");
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Forest"));
+        assertEquals("Forest", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
         DuelWithUser.getInstance().deselectCard();
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null);
+        assertNull(DuelWithUser.getInstance().getMyBoard().getSelectedCard());
     }
 
     @Test
@@ -625,7 +629,7 @@ public class GameTest {
             }
         }
         DuelWithUser.getInstance().selectCard("select --hand 1");
-        assertTrue(DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName().equals("Slot Machine"));
+        assertEquals("Slot Machine", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
         DuelWithUser.getInstance().selectCard("select --monster 1");
         String graveYardOutput = DuelWithUser.getInstance().showGraveYard();
         String selectedCardOutput = DuelWithUser.getInstance().showSelectedCard();
