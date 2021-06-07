@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static model.enums.ProcessResult.*;
+
 public class LoginMenuController {
 
     private static LoginMenuController loginMenuController;
@@ -34,14 +36,11 @@ public class LoginMenuController {
 
     public String logIn(String username, String password) {
         User user = User.getUserByUsername(username);
-        if (user == null) {
-            return "Username and password didn't match!";
-        }
-        if (!user.getPassword().equals(password)) {
-            return "Username and password didn't match!";
+        if (user == null || !user.getPassword().equals(password)) {
+            return LOGIN_FAILED.value;
         }
         User.setCurrentUser(user);
-        return "user logged in successfully!";
+        return LOGIN_SUCCESSFUL.value;
     }
 
     public String register(String username, String password, String nickname) {
@@ -52,37 +51,7 @@ public class LoginMenuController {
             return "user with nickname " + nickname + " already exists";
         }
         new User(username, nickname, password);
-        return "user created successfully!";
-    }
-
-    public String createUser(String command) {
-        String result = "";
-        Matcher matcher = createUser1.matcher(command);
-        if (matcher.find()) {
-            result = register(matcher.group(1), matcher.group(2), matcher.group(3));
-        }
-        matcher = createUser2.matcher(command);
-        if (matcher.find()) {
-            result = register(matcher.group(1), matcher.group(3), matcher.group(2));
-        }
-        matcher = createUser3.matcher(command);
-        if (matcher.find()) {
-            result = register(matcher.group(3), matcher.group(1), matcher.group(2));
-        }
-        matcher = createUser4.matcher(command);
-        if (matcher.find()) {
-            result = register(matcher.group(2), matcher.group(1), matcher.group(3));
-        }
-        matcher = createUser5.matcher(command);
-        if (matcher.find()) {
-            result = register(matcher.group(2), matcher.group(3), matcher.group(1));
-        }
-        matcher = createUser6.matcher(command);
-        if (matcher.find()) {
-            result = register(matcher.group(3), matcher.group(2), matcher.group(1));
-        }
-        if (result.equals("")) return "invalid command";
-        else return result;
+        return SIGNUP_SUCCESSFUL.value;
     }
 
     public void readFromJson() {

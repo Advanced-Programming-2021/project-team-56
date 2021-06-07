@@ -9,6 +9,9 @@ import model.enums.MenuURL;
 
 import java.io.IOException;
 
+import static model.enums.Errors.*;
+import static model.enums.ProcessResult.LOGIN_SUCCESSFUL;
+
 public class LoginView {
 
     public Button backButton;
@@ -17,19 +20,19 @@ public class LoginView {
     public TextField userNameField;
     public Label errorLabel;
 
-    public void loginClicked(MouseEvent mouseEvent) {
+    public void loginClicked(MouseEvent mouseEvent) throws IOException {
         if (userNameField.getText().equals("")) {
-            errorLabel.setText("username field is empty");
+            errorLabel.setText(EMPTY_FIELD_USERNAME.value);
             return;
         }
         if (passWordField.getText().equals("")) {
-            errorLabel.setText("password field is empty");
+            errorLabel.setText(EMPTY_FIELD_PASSWORD.value);
             return;
         }
         String result = LoginMenuController.getInstance().logIn(userNameField.getText(), passWordField.getText());
         errorLabel.setText(result);
-        if (result.equals("user logged in successfully!")) {
-            //////////////////
+        if (result.equals(LOGIN_SUCCESSFUL.value)) {
+            FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
         }
     }
 

@@ -32,7 +32,7 @@ public class LoginMenuView {
                 continue;
             }
             if (command.startsWith("user create")) {
-                System.out.println(LoginMenuController.getInstance().createUser(command));
+//                System.out.println(LoginMenuController.getInstance().createUser(command));
                 continue;
             }
             if (command.startsWith("user login")) {

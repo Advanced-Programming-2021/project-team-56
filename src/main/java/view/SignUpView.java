@@ -9,6 +9,8 @@ import model.enums.MenuURL;
 
 import java.io.IOException;
 
+import static model.enums.Errors.*;
+
 public class SignUpView {
 
     public Button signUpButton;
@@ -24,18 +26,19 @@ public class SignUpView {
 
     public void signUpClicked(MouseEvent mouseEvent) {
         if (userNameField.getText().equals("")) {
-            errorLabel.setText("username field is empty");
+            errorLabel.setText(EMPTY_FIELD_USERNAME.value);
             return;
         }
         if (nickNameField.getText().equals("")) {
-            errorLabel.setText("nickname field is empty");
+            errorLabel.setText(EMPTY_FIELD_NICKNAME.value);
             return;
         }
         if (passWordField.getText().equals("")) {
-            errorLabel.setText("password field is empty");
+            errorLabel.setText(EMPTY_FIELD_PASSWORD.value);
             return;
         }
-        String result = LoginMenuController.getInstance().register(userNameField.getText(), passWordField.getText(), nickNameField.getText());
+        String result = LoginMenuController.getInstance()
+                .register(userNameField.getText(), passWordField.getText(), nickNameField.getText());
         errorLabel.setText(result);
     }
 }
