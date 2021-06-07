@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class User {
 
     private static ArrayList<User> users = new ArrayList<>();
+    private static User currentUser;
     private String username;
     private String password;
     private int score = 0;
@@ -105,6 +106,10 @@ public class User {
         return this.money;
     }
 
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
     public String getPassword() {
         return this.password;
     }
@@ -119,6 +124,10 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        User.currentUser = currentUser;
     }
 
     public void setUsername(String username) {
