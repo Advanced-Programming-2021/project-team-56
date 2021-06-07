@@ -20,6 +20,7 @@ public class JavaFXClass extends Application {
         editStage(primaryStage);
         primaryStage.setScene(scene);
         primaryStage.show();
+        System.out.println("");
     }
 
     private void editStage(Stage stage) {
