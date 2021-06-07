@@ -47,7 +47,6 @@ public class DuelWithUser {
     }
 
     public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
-
         int roundResult = 0;
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
