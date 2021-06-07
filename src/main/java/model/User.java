@@ -68,17 +68,11 @@ public class User {
                 maxLP = playerLP.get(i);
             }
         }
-        //TODO isn't this code done when you're clearing: clearLP
-        for (int i = 0; i < playerLP.size(); i++) {
-            playerLP.remove(0);
-        }
         return maxLP;
     }
 
     public void clearLP(){
-        for (int i = 0; i < playerLP.size(); i++) {
-            playerLP.remove(0);
-        }
+        playerLP.clear();
     }
 
     public int getScore() {
@@ -132,15 +126,6 @@ public class User {
     public boolean isDeckWithThisNameExistent(String deckName) {
         for (Deck deck : decks) {
             if (deck.getDeckName().equals(deckName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isCardWithThisNameExistent(String cardName) {
-        for (Card card : userAllCards) {
-            if (card.getName().equals(cardName)) {
                 return true;
             }
         }

@@ -79,10 +79,7 @@ public class TrapEffectCanActivate {
                 return true;
             }
         }
-        if (duelWithUser.getEnemyBoard().getFieldSpell() != null) {
-            return true;
-        }
-        return false;
+        return duelWithUser.getEnemyBoard().getFieldSpell() != null;
     }
 
     private boolean canIActivateTimeSeal() {
@@ -102,10 +99,7 @@ public class TrapEffectCanActivate {
             }
         }
         Card fieldSpell = duelWithUser.getEnemyBoard().getFieldSpell();
-        if (fieldSpell != null && fieldSpell.getIsFacedUp()) {
-            return true;
-        }
-        return false;
+        return fieldSpell != null && fieldSpell.getIsFacedUp();
     }
 
     private boolean canIActivateMagicCylinderOrMirrorForceOrNegateAttack() {
@@ -128,10 +122,7 @@ public class TrapEffectCanActivate {
         if (duelWithUser.getMyBoard().getPlayerHand().size() == 0) {
             return false;
         }
-        if (duelWithUser.getEnemyBoard().getPlayerHand().size() == 0) {
-            return false;
-        }
-        return true;
+        return duelWithUser.getEnemyBoard().getPlayerHand().size() != 0;
     }
 
 

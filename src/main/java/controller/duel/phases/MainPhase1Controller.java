@@ -18,7 +18,6 @@ public class MainPhase1Controller {
     private final EffectView effectView;
     private final SpellEffectActivate spellEffectActivate;
     private final OpponentPhase opponentPhase;
-    //private final BattlePhaseController battlePhaseController; its only used in flip summon
 
     private SpellCard spell;
     private boolean isSummoningInProcess;
