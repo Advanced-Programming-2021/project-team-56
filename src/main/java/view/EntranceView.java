@@ -24,6 +24,7 @@ public class EntranceView {
     public Button exitButton;
     public Button loginButton;
 
+
     public void signUpClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.SIGNUP);
     }

@@ -6,20 +6,24 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginView">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginView">
 
     <children>
-        <Label alignment="CENTER" layoutX="390.0" layoutY="13.0" prefHeight="52.0" prefWidth="186.0" text="Sign Up Men" />
-        <Label layoutX="332.0" layoutY="300.0" prefHeight="30.0" prefWidth="107.0" text="username:" />
-        <TextField fx:id="userNameField" layoutX="439.0" layoutY="300.0" />
-        <Label layoutX="332.0" layoutY="360.0" prefHeight="30.0" prefWidth="107.0" text="password:" />
-        <TextField fx:id="passWordField" layoutX="439.0" layoutY="360.0" />
-        <Button fx:id="loginButton" layoutX="511.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#loginClicked" prefHeight="39.0" prefWidth="158.0" text="Login" />
-        <Button fx:id="backButton" layoutX="332.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="39.0" prefWidth="158.0" text="Back" />
-        <Label fx:id="errorLabel" layoutX="332.0" layoutY="464.0" prefHeight="30.0" prefWidth="337.0" />
+        <Label alignment="CENTER" layoutX="390.0" layoutY="13.0" prefHeight="52.0" prefWidth="186.0"
+               text="Sign Up Men"/>
+        <Label layoutX="332.0" layoutY="300.0" prefHeight="30.0" prefWidth="107.0" text="username:"/>
+        <TextField fx:id="userNameField" layoutX="439.0" layoutY="300.0"/>
+        <Label layoutX="332.0" layoutY="360.0" prefHeight="30.0" prefWidth="107.0" text="password:"/>
+        <TextField fx:id="passWordField" layoutX="439.0" layoutY="360.0"/>
+        <Button fx:id="loginButton" layoutX="511.0" layoutY="425.0" mnemonicParsing="false"
+                onMouseClicked="#loginClicked" prefHeight="39.0" prefWidth="158.0" text="Login"/>
+        <Button fx:id="backButton" layoutX="332.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#backClicked"
+                prefHeight="39.0" prefWidth="158.0" text="Back"/>
+        <Label fx:id="errorLabel" layoutX="332.0" layoutY="464.0" prefHeight="30.0" prefWidth="337.0"/>
     </children>
 
     <stylesheets>
-        <URL value="@../CSS/main.css" />
+        <URL value="@../CSS/main.css"/>
     </stylesheets>
 </AnchorPane>
