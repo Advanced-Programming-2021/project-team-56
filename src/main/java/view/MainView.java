@@ -1,5 +1,6 @@
 package view;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import model.enums.MenuURL;
@@ -15,6 +16,12 @@ public class MainView {
     public Button scoreboardButton;
     public Button importExportButton;
     public Button backButton;
+
+    @FXML
+    public void initialize() {
+        MainGUI.getStage().setHeight(700);
+        MainGUI.getStage().setWidth(1000);
+    }
 
     public void goToDuelMenu(MouseEvent mouseEvent) {
     }

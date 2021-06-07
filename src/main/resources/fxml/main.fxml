@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+<?import java.net.URL?>
+<Pane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="view.MainView">
     <children>
         <Button onMouseClicked="#goToDuelMenu" fx:id="duelButton" layoutX="474.0" layoutY="135.0"
@@ -14,7 +15,7 @@
                 text="Import/Export"/>
         <Button onMouseClicked="#goToDeckMenu" fx:id="deckButton" layoutX="473.0" layoutY="208.0"
                 mnemonicParsing="false" text="Deck"/>
-        <Button onMouseClicked="#goBackToLoginMenu" fx:id="backButton" layoutX="66.0" layoutY="906.0"
+        <Button onMouseClicked="#goBackToLoginMenu" fx:id="backButton" layoutX="66.0" layoutY="600.0"
                 mnemonicParsing="false" text="Back"/>
         <Button onMouseClicked="#goToShopMenu" fx:id="shopButton" layoutX="468.0" layoutY="441.0"
                 mnemonicParsing="false" text="Shop"/>
@@ -23,4 +24,7 @@
         <Button onMouseClicked="#goToScoreboard" fx:id="scoreboardButton" layoutX="456.0" layoutY="287.0"
                 mnemonicParsing="false" text="Scoreboard"/>
     </children>
+    <stylesheets>
+        <URL value="@../CSS/main.css" />
+    </stylesheets>
 </Pane>

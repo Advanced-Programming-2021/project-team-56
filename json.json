@@ -1,1 +1,1 @@
-[]
+[{"@type":"model.User","@val":{"username":"mehr","password":"123","score":0,"nickname":"mehr","money":100000,"decks":[],"userAllCards":[],"playerLP":[]}}]
