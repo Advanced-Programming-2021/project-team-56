@@ -2,6 +2,7 @@ package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
+import controller.duel.effects.SpellEffectCanActivate;
 import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
@@ -240,10 +241,7 @@ public class MainPhase1Controller {
                 tributes--;
             }
         }
-        if (tributes <= 0) {
-            return true;
-        }
-        return false;
+        return tributes <= 0;
     }
 
     private boolean canThisCardBeSummoned() {
@@ -251,10 +249,7 @@ public class MainPhase1Controller {
         if (!isCardInMyHand(card)) {
             return false;
         }
-        if (!(card instanceof MonsterCard)) {
-            return false;
-        }
-        return true;
+        return card instanceof MonsterCard;
     }
 
     private boolean canThisCardBeNormalSummoned(String name) {
@@ -264,10 +259,7 @@ public class MainPhase1Controller {
         if (name.equals("Skull Guardian")) {
             return false;
         }
-        if (name.equals("Crab Turtle")) {
-            return false;
-        }
-        return true;
+        return !name.equals("Crab Turtle");
     }
 
     public String specialSummon() {
@@ -340,10 +332,7 @@ public class MainPhase1Controller {
     private boolean isItAnotherCard(int address) {
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        if (playerHand.get(address - 1) != monsterCard) {
-            return true;
-        }
-        return false;
+        return playerHand.get(address - 1) != monsterCard;
     }
 
     private boolean isThereAnyOtherCardOnHand() {
@@ -427,11 +416,7 @@ public class MainPhase1Controller {
 
     private boolean isAddressValid(int address) {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
-        if (monsterTerritory.get(address) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return monsterTerritory.get(address) != null;
     }
 
     private void tribute(int address) {
@@ -512,9 +497,11 @@ public class MainPhase1Controller {
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card == null) {
             effectView.output("no card is selected yet");
+            return;
         }
         if (!(card instanceof SpellCard)) {
             effectView.output("activate effect is only for spell cards.");
+            return;
         }
         spell = (SpellCard) card;
         if (isSpellInMyHand()) {
@@ -538,10 +525,15 @@ public class MainPhase1Controller {
             spellEffectActivate.spellAbsorption();
             effectView.output("spell activated");
             opponentPhase.run();
+            opponentPhase.resolveTheChainLink();
         } else {
             if (isMySpellAndTrapTerritoryFull()) {
                 effectView.output("spell card zone is full");
             } else {
+                if(!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())){
+                    effectView.output("preparations of this spell are not done yet");
+                    return;
+                }
                 HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
                 for (int i = 1; i < 5; i++) {
                     if (spellTerritory.get(i) == null) {
@@ -567,8 +559,14 @@ public class MainPhase1Controller {
         if (spell.getIcon().equals("Field")) {
             duelWithUser.getMyBoard().setSelectedCard(null);
             spellEffectActivate.spellAbsorption();
+            opponentPhase.run();
+            opponentPhase.resolveTheChainLink();
             effectView.output("spell activated");
         } else {
+            if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())){
+                effectView.output("preparations of this spell are not done yet");
+                return;
+            }
             spellEffectActivate.spellAbsorption();
             spell.setItInChainLink(true);
             opponentPhase.getChainLink().add(spell);
@@ -603,16 +601,17 @@ public class MainPhase1Controller {
         effectView.output("three tribute");
         String input = effectView.input();
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
-        if (input.equals("no tribute")) {
-            monsterCard.setAttack(1900);
-            summon(monsterCard, false);
-            return "summoned successfully";
-        } else if (input.equals("two tribute")) {
-            return summonBeastKingBarbarosWithTwoTribute(monsterCard);
-        } else if (input.equals("three tribute")) {
-            return summoneBeastKingBarbarosWithThreeTribute(monsterCard);
-        } else {
-            return "invalid command";
+        switch (input) {
+            case "no tribute":
+                monsterCard.setAttack(1900);
+                summon(monsterCard, false);
+                return "summoned successfully";
+            case "two tribute":
+                return summonBeastKingBarbarosWithTwoTribute(monsterCard);
+            case "three tribute":
+                return summoneBeastKingBarbarosWithThreeTribute(monsterCard);
+            default:
+                return "invalid command";
         }
     }
 

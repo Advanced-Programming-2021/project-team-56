@@ -100,7 +100,8 @@ public class GameTest {
         IOAppender.scoreBoardMenuViewIOAppender(commands, validOutputs);
         IOAppender.shopViewIOAppender(commands, validOutputs);
         IOAppender.deckMenuViewIOAppender(commands, validOutputs);
-        IOAppender.duelViewAppender(commands, validOutputs);
+        IOAppender.duelViewAppender1(commands, validOutputs);
+        IOAppender.duelViewAppender2(commands, validOutputs);
 //        battleViewAppender(commands, validOutputs);
         ByteArrayInputStream inputStream = new ByteArrayInputStream(commands.toString().getBytes());
         System.setIn(inputStream);
@@ -114,6 +115,7 @@ public class GameTest {
         ScoreBoardView.getInstance().run();
         ShopView.getInstance().run("Mehrshad");
         DeckMenuView.getInstance().run("Mehrshad");
+        DuelMenuView.getInstance().run("Mehrshad");
         DuelMenuView.getInstance().run("Mehrshad");
         assertEquals(validOutputs.toString(), outputStream.toString());
     }

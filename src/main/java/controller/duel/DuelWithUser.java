@@ -4,6 +4,7 @@ import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
 import model.*;
 import view.duel.DuelWithUserView;
+import view.duel.EffectView;
 import view.duel.FirstToGoDeterminerView;
 import view.duel.phase.*;
 
@@ -116,8 +117,7 @@ public class DuelWithUser {
                     }
                     break;
                 case 3:
-                    //TODO Cant print here
-                    System.out.println("phase: Main Phase 1");
+                    EffectView.getInstance().output("phase: Main Phase 1");
                     MainPhase1View.getInstance().run();
                     break;
                 case 4:
@@ -141,8 +141,7 @@ public class DuelWithUser {
                     }
                     break;
                 case 5:
-                    //TODO Cant print here
-                    System.out.println("phase: Main Phase 2");
+                    EffectView.getInstance().output("phase: Main Phase 2");
                     MainPhase1View.getInstance().run();
                     break;
                 case 6:

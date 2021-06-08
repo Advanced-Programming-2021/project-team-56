@@ -27,7 +27,6 @@ public class Board {
 
     public Board(User user) {
         this.playerDeck = new Deck(user.getActivatedDeck());
-        //TODO Collections.shuffle(this.playerDeck.getMainDeck());
         this.user = user;
         this.monsterTerritory.put(5, null);
         this.monsterTerritory.put(3, null);

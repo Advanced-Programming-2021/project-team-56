@@ -30,6 +30,7 @@ public class StandByPhaseView {
     public String run() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: standby phase");
+        System.out.print(duelWithUser.showField());
         String result = StandByPhaseController.getInstance().run();
         if (!result.equals("the game continuous")){
             return result;
@@ -40,33 +41,32 @@ public class StandByPhaseView {
                 break;
             }
             if (command.equals("activate effect")) {
-                //TODO
-                System.out.println("you can’t activate an effect on this turn");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("summon")) {
-                System.out.println("action not allowed in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("set")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("set --position attack") || command.equals("set --position defence")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("flip-summon")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             Matcher matcher = attack.matcher(command);
             if (matcher.find()) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("attack direct")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("surrender")) {

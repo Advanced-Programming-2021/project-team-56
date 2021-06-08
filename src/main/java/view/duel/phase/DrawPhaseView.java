@@ -2,6 +2,7 @@ package view.duel.phase;
 
 import controller.duel.DuelWithUser;
 import controller.duel.phases.DrawPhaseController;
+import controller.duel.phases.OpponentPhase;
 import view.LoginMenuView;
 
 import java.util.regex.Matcher;
@@ -43,33 +44,32 @@ public class DrawPhaseView {
                 break;
             }
             if (command.equals("summon")) {
-                System.out.println("action not allowed in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("set")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("set --position attack") || command.equals("set --position defence")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("flip-summon")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("activate effect")) {
-                //TODO
-                System.out.println("you can’t activate an effect on this turn");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             Matcher matcher = attack.matcher(command);
             if (matcher.find()) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("attack direct")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("surrender")) {
@@ -109,6 +109,8 @@ public class DrawPhaseView {
             }
             System.out.println("invalid command");
         }
+        OpponentPhase.getInstance().run();
+        OpponentPhase.getInstance().resolveTheChainLink();
         return "the game continues";
     }
 
