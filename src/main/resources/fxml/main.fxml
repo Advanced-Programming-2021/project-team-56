@@ -25,6 +25,6 @@
                 mnemonicParsing="false" text="Scoreboard"/>
     </children>
     <stylesheets>
-        <URL value="@../CSS/main.css" />
+        <URL value="@../CSS/main.css"/>
     </stylesheets>
 </Pane>

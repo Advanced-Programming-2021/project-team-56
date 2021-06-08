@@ -2,11 +2,9 @@ package model.popup;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -87,7 +85,7 @@ public interface IPopup {
     static Scene makePopupScene() {
         Scene popupScene = new Scene(popupVBox, 400, 300);
         setCursorForScene(popupScene);
-        popupScene.getStylesheets().add("/CSS/main.css");
+        popupScene.getStylesheets().add("/CSS/sample.css");
         popupVBox.getChildren().add(popupText);
         popupVBox.getChildren().add(backButton);
         popupStage.setScene(popupScene);

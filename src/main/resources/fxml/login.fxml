@@ -24,6 +24,6 @@
     </children>
 
     <stylesheets>
-        <URL value="@../CSS/main.css"/>
+        <URL value="@../CSS/sample.css"/>
     </stylesheets>
 </AnchorPane>
