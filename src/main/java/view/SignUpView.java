@@ -3,8 +3,10 @@ package view;
 import controller.LoginMenuController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import model.enums.MenuURL;
 
 import java.io.IOException;
@@ -13,12 +15,13 @@ import static model.enums.Errors.*;
 
 public class SignUpView {
 
-    public Button signUpButton;
-    public Button backButton;
-    public Label errorLabel;
+
     public TextField userNameField;
     public TextField nickNameField;
-    public TextField passWordField;
+    public PasswordField passWordField;
+    public Text loginLabel;
+    public Label errorLabel;
+    public Button signUpButton;
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.ENTRANCE);
@@ -40,5 +43,9 @@ public class SignUpView {
         String result = LoginMenuController.getInstance()
                 .register(userNameField.getText(), passWordField.getText(), nickNameField.getText());
         errorLabel.setText(result);
+    }
+
+    public void loginClicked(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(MenuURL.LOGIN);
     }
 }
