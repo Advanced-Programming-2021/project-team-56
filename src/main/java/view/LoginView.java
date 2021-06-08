@@ -23,6 +23,7 @@ public class LoginView {
     public Button loginButton;
     public Text signUpLabel;
     public Label errorLabel;
+    public Button backButton;
 
     public void loginClicked(MouseEvent mouseEvent) throws IOException {
         if (userNameField.getText().equals("")) {

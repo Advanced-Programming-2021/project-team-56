@@ -1,28 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Pane?>
-
-
 <?import java.net.URL?>
-<Pane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="view.MainView">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainView">
     <children>
-        <Button onMouseClicked="#goToDuelMenu" fx:id="duelButton" layoutX="474.0" layoutY="135.0"
-                mnemonicParsing="false" text="Duel"/>
-        <Button onMouseClicked="#goToImportExportMenu" fx:id="importExportButton" layoutX="449.0" layoutY="508.0"
-                mnemonicParsing="false"
-                text="Import/Export"/>
-        <Button onMouseClicked="#goToDeckMenu" fx:id="deckButton" layoutX="473.0" layoutY="208.0"
-                mnemonicParsing="false" text="Deck"/>
-        <Button onMouseClicked="#goBackToLoginMenu" fx:id="backButton" layoutX="66.0" layoutY="600.0"
-                mnemonicParsing="false" text="Back"/>
-        <Button onMouseClicked="#goToShopMenu" fx:id="shopButton" layoutX="468.0" layoutY="441.0"
-                mnemonicParsing="false" text="Shop"/>
-        <Button onMouseClicked="#goToProfileMenu" fx:id="profileButton" layoutX="468.0" layoutY="367.0"
-                mnemonicParsing="false" text="Profile"/>
-        <Button onMouseClicked="#goToScoreboard" fx:id="scoreboardButton" layoutX="456.0" layoutY="287.0"
-                mnemonicParsing="false" text="Scoreboard"/>
+        <Button fx:id="duelButton" layoutX="10.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#goToDuelMenu" prefHeight="53.0" prefWidth="300.0" text="Duel">
+         <font>
+            <Font size="25.0" />
+         </font>
+        </Button>
+        <Button fx:id="importExportButton" layoutX="10.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#goToImportExportMenu" prefHeight="53.0" prefWidth="300.0" text="Import/Export">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Button>
+        <Button fx:id="deckButton" alignment="CENTER" layoutX="10.0" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#goToDeckMenu" prefHeight="53.0" prefWidth="300.0" text="Deck">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Button>
+        <Button fx:id="backButton" layoutX="10.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#goBackToLoginMenu" prefHeight="53.0" prefWidth="150.0" text="Back">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Button>
+        <Button fx:id="shopButton" layoutX="10.0" layoutY="448.0" mnemonicParsing="false" onMouseClicked="#goToShopMenu" prefHeight="53.0" prefWidth="300.0" text="Shop">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Button>
+        <Button fx:id="profileButton" layoutX="10.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#goToProfileMenu" prefHeight="53.0" prefWidth="300.0" text="Profile">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Button>
+        <Button fx:id="scoreboardButton" layoutX="10.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#goToScoreboard" prefHeight="53.0" prefWidth="300.0" text="Scoreboard">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Button>
+        <ImageView fitHeight="690.0" fitWidth="501.0" layoutX="448.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/Setu-kaiba.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="165.0" layoutY="636.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="150.0" text="Logout">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Button>
     </children>
     <stylesheets>
         <URL value="@../CSS/main.css" />
