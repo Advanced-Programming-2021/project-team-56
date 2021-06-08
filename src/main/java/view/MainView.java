@@ -5,9 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import model.enums.MenuURL;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,18 +35,24 @@ public class MainView {
         ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(duelButton, deckButton, shopButton, profileButton,
                 scoreboardButton, importExportButton, backButton));
         for (Button button : buttons) {
-            button.setFont(Font.loadFont("/fonts/BigSpace-rPKx.ttf", 10));
-            button.setStyle("-fx-font-family: sample;");
             button.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     button.setEffect(new Glow(0.6));
+                    button.setLayoutY(button.getLayoutY() - 5);
+                    try {
+                        new Robot().mouseMove((int) MouseInfo.getPointerInfo().getLocation().getX(),
+                                (int) MouseInfo.getPointerInfo().getLocation().getY() - 2);
+                    } catch (AWTException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             button.setOnMouseExited(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     button.setEffect(null);
+                    button.setLayoutY(button.getLayoutY() + 5);
                 }
             });
         }

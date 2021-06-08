@@ -11,7 +11,9 @@
 }
 
 Button {
-    -fx-background-color: black;
-    -fx-border-color: #6e059e;
+    -fx-background-color: #6e059e;
     -fx-font-family: sample;
+    -fx-text-fill: white;
+    -fx-background-radius: 40;
+    -fx-font-size: 25;
 }
