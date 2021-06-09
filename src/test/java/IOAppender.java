@@ -228,6 +228,7 @@ public class IOAppender {
                 "activate effect\n" +
                 "attack direct\n" +
                 "attack3\n" +
+                "select -d\n" +
                 "surrender\n" +
                 "menu exit\n");
         outputStringBuilder.append("invalid command\r\n" +
@@ -254,6 +255,7 @@ public class IOAppender {
                 "you can’t do this action in this phase\r\n" +
                 "you can’t do this action in this phase\r\n" +
                 "invalid command\r\n" +
+                "no card is selected yet\r\n" +
                 "AmirAli won the whole match\r\n");
     }
 
@@ -271,7 +273,15 @@ public class IOAppender {
                 "activate effect\n" +
                 "attack direct\n" +
                 "attack3\n" +
+                "select -d\n" +
                 "next phase\n" +
+                "attack\n" +
+                "attack direct\n" +
+                "attack 8\n" +
+                "select -d\n" +
+                "select --hand 4\n" +
+                "card show --selected\n" +
+                "activate effect\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -314,6 +324,7 @@ public class IOAppender {
                 "you can’t do this action in this phase\r\n" +
                 "you can’t do this action in this phase\r\n" +
                 "invalid command\r\n" +
+                "no card is selected yet\r\n" +
                 "phase: Main Phase 1\r\n" +
                 "AmirNick:8000\n" +
                 "\tc\tc\tc\tc\tc\n" +
@@ -330,67 +341,12 @@ public class IOAppender {
                 "\t\t\t\t\t\t54\n" +
                 "\tc\tc\tc\tc\tc\tc\n" +
                 "MehrNick:8000\n" +
-                "AmirAli won the whole match\r\n");
-    }
-
-    public static void duelViewAppender3(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
-        inputStringBuilder.append("duel invalid\nduel --new --second-player AmirAli --rounds 1\n" +
-                "rock\n" +
-                "scissors\n" +
-                "Mehrshad\n" +
-                "next phase\n" +
-                "next phase\n" +
-                "next phase\n" +
-                "surrender\n" +
-                "menu exit");
-        outputStringBuilder.append("invalid command\r\n" +
-                "MehrNick, please choose between Rock, Paper or Scissors:\r\n" +
-                "AmirNick, please choose between Rock, Paper or Scissors:\r\n" +
-                "MehrNick, please choose the first player to go: Mehrshad or AmirAli\r\n" +
-                "phase: draw phase\r\n" +
-                "new card added to the hand : Mirage Dragon\r\n" +
-                "AmirNick:8000\n" +
-                "\tc\tc\tc\tc\tc\n55\n" +
-                "\tE\tE\tE\tE\tE\n\tE\tE\tE\tE\tE\n" +
-                "0\t\t\t\t\t\tE\n" +
-                "\n--------------------------\n\nE\t\t\t\t\t\t0\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "\t\t\t\t\t\t54\n" +
-                "\tc\tc\tc\tc\tc\tc\n" +
-                "MehrNick:8000\n" +
-                "phase: standby phase\r\n" +
-                "AmirNick:8000\n" +
-                "\tc\tc\tc\tc\tc\n" +
-                "55\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "0\t\t\t\t\t\tE\n" +
-                "\n" +
-                "--------------------------\n" +
-                "\n" +
-                "E\t\t\t\t\t\t0\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "\t\t\t\t\t\t54\n" +
-                "\tc\tc\tc\tc\tc\tc\n" +
-                "MehrNick:8000\n" +
-                "phase: Main Phase 1\r\n" +
-                "AmirNick:8000\n" +
-                "\tc\tc\tc\tc\tc\n" +
-                "55\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "0\t\t\t\t\t\tE\n" +
-                "\n" +
-                "--------------------------\n" +
-                "\n" +
-                "E\t\t\t\t\t\t0\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "\tE\tE\tE\tE\tE\n" +
-                "\t\t\t\t\t\t54\n" +
-                "\tc\tc\tc\tc\tc\tc\n" +
-                "MehrNick:8000\n" +
+                "invalid command\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "no card is selected yet\r\n" +
+                "card selected\r\n" +
+                "Pot of Greed:Draw 2 cards.\r\n" +
                 "AmirAli won the whole match\r\n");
     }
 

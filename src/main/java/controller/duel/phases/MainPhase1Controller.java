@@ -529,7 +529,7 @@ public class MainPhase1Controller {
                     return;
                 }
                 HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-                for (int i = 1; i < 5; i++) {
+                for (int i = 1; i < 6; i++) {
                     if (spellTerritory.get(i) == null) {
                         spellTerritory.put(i, spell);
                         spell.setFacedUp(true);

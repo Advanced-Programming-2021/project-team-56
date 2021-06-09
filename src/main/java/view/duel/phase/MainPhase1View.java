@@ -4,12 +4,12 @@ import controller.duel.DuelWithUser;
 import controller.duel.phases.MainPhase1Controller;
 import controller.duel.phases.OpponentPhase;
 import view.LoginMenuView;
-import view.duel.DuelWithUserView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static view.duel.phase.BattlePhaseView.increaseLP;
+import static view.duel.phase.BattlePhaseView.setWinner;
 
 public class MainPhase1View {
 
@@ -110,15 +110,14 @@ public class MainPhase1View {
             if (command.equals("surrender")){
                 return "i lost";
             }
-            //TODO Ino ki comment krd?
-//            matcher = setWinner.matcher(command);
-//            if (matcher.find()) {
-//                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
-//                    return duelWithUser.setWinner(matcher.group(1));
-//                }
-//                System.out.println("invalid nickname");
-//                continue;
-//            }
+            matcher = setWinner.matcher(command);
+            if (matcher.find()) {
+                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
+                    return duelWithUser.setWinner(matcher.group(1));
+                }
+                System.out.println("invalid nickname");
+                continue;
+            }
             System.out.println("invalid command");
         }
         OpponentPhase.getInstance().run();

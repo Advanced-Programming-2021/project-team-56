@@ -201,10 +201,6 @@ public class DuelWithUser {
         if (matcher.find()) {
             return selectMonster(matcher, "me");
         }
-        matcher = selectMySpellOrTrap.matcher(command);
-        if (matcher.find()) {
-            return selectSpellOrTrap(matcher, "me");
-        }
         matcher = selectOpponentMonster1.matcher(command);
         if (matcher.find()) {
             return selectMonster(matcher, "opponent");
@@ -212,6 +208,10 @@ public class DuelWithUser {
         matcher = selectOpponentMonster2.matcher(command);
         if (matcher.find()) {
             return selectMonster(matcher, "opponent");
+        }
+        matcher = selectMySpellOrTrap.matcher(command);
+        if (matcher.find()) {
+            return selectSpellOrTrap(matcher, "me");
         }
         matcher = selectOpponentSpellOrTrap1.matcher(command);
         if (matcher.find()) {
@@ -234,7 +234,7 @@ public class DuelWithUser {
     private String selectMonster(Matcher matcher, String whichPlayer) {
         int monsterNumber = Integer.parseInt(matcher.group(1));
         if (monsterNumber > 5 || monsterNumber == 0) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         if (whichPlayer.equals("me")) {
             if (getMyBoard().getMonsterTerritory().get(monsterNumber) == null) {
@@ -272,10 +272,10 @@ public class DuelWithUser {
     private String selectMyHandCard(Matcher matcher) {
         int myHandCardsAddress = Integer.parseInt(matcher.group(1));
         if (myHandCardsAddress > getMyBoard().getPlayerHand().size() || myHandCardsAddress == 0) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         getMyBoard().setSelectedCard(getMyBoard().getPlayerHand().get(myHandCardsAddress - 1));
-        return "card selected";
+        return Output.CardSelected.toString();
     }
 
     private String selectFieldCard(String command) {
@@ -284,24 +284,24 @@ public class DuelWithUser {
                 return "no card found in the given position";
             }
             getMyBoard().setSelectedCard(getMyBoard().getFieldSpell());
-            return "card selected";
+            return Output.CardSelected.toString();
         }
         if (command.equals("select --field --opponent") || command.equals("select --opponent --field")) {
             if (getEnemyBoard().getFieldSpell() == null) {
                 return "no card found in the given position";
             }
             getMyBoard().setSelectedCard(getEnemyBoard().getFieldSpell());
-            return "card selected";
+            return Output.CardSelected.toString();
         }
         return "this is never going to be returned";
     }
 
     public String deselectCard() {
         if (getMyBoard().getSelectedCard() == null) {
-            return "no card is selected yet";
+            return Output.NoCardIsSelectedYet.toString();
         }
         getMyBoard().setSelectedCard(null);
-        return "card deselected";
+        return Output.CardSelected.toString();
     }
 
     public String showField() {
@@ -414,17 +414,17 @@ public class DuelWithUser {
     public String showSelectedCard() {
         Card selectedCard = getMyBoard().getSelectedCard();
         if (selectedCard == null) {
-            return "no card is selected yet";
+            return Output.NoCardIsSelectedYet.toString();
         } else {
             for (int i = 1; i <= 5; i++) {
                 if (selectedCard == getEnemyBoard().getMonsterTerritory().get(i) && !selectedCard.getIsFacedUp()) {
-                    return "card is not visible";
+                    return Output.CardIsNotVisible.toString();
                 }
                 if (selectedCard == getEnemyBoard().getSpellAndTrapTerritory().get(i) && !selectedCard.getIsFacedUp()) {
-                    return "card is not visible";
+                    return Output.CardIsNotVisible.toString();
                 }
                 if (selectedCard == getEnemyBoard().getFieldSpell() && !selectedCard.getIsFacedUp()) {
-                    return "card is not visible";
+                    return Output.CardIsNotVisible.toString();
                 }
             }
             if (selectedCard instanceof MonsterCard) {
@@ -573,12 +573,12 @@ public class DuelWithUser {
 
     public String isNicknameValid(String nickname) {
         if (getMyBoard().getUser().getNickname().equals(nickname)) {
-            return "yes";
+            return Output.Yes.toString();
         }
         if (getEnemyBoard().getUser().getNickname().equals(nickname)) {
-            return "yes";
+            return Output.Yes.toString();
         }
-        return "no";
+        return Output.No.toString();
     }
 
     public int getPhaseCounter() {

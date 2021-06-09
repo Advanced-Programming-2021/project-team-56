@@ -5,6 +5,10 @@ public enum Output {
     InvalidCommand("invalid command"),
     NoCardIsSelectedYet("no card is selected yet"),
     SummonedSuccessfully("summoned successfully"),
+    CardSelected("card selected"),
+    CardIsNotVisible("card is not visible"),
+    Yes("yes"),
+    No("no"),
     InvalidSelection("invalid selection");
 
     private String output;
