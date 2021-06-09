@@ -1,14 +1,24 @@
 package view;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.User;
 import view.components.SceneSizeChangeListener;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class MainGUI extends Application {
 
@@ -35,19 +45,56 @@ public class MainGUI extends Application {
         MainGUI.stage = stage;
     }
 
+    public static void editMenuButtons(ArrayList<Button> buttons) {
+        for (Button button : buttons) {
+            button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    button.setEffect(new Glow(0.6));
+                    button.setLayoutY(button.getLayoutY() - 5);
+                    try {
+                        new Robot().mouseMove((int) MouseInfo.getPointerInfo().getLocation().getX(),
+                                (int) MouseInfo.getPointerInfo().getLocation().getY() - 2);
+                    } catch (AWTException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            button.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    button.setEffect(null);
+                    button.setLayoutY(button.getLayoutY() + 5);
+                }
+            });
+
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/entrance.fxml"));
-        Scene scene = new Scene(fxml);
+        Scene scene = instantiateScene(fxml);
         setScene(scene);
         editStage(primaryStage);
         primaryStage.setScene(scene);
-//        primaryStage.setFullScreen(true);
+        new User("a", "a", "a");
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint(null);
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 //        letterbox(scene, (Pane) fxml);
-        primaryStage.setMaximized(true);
+//        primaryStage.setMaximized(true);
 //        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
 
+    }
+
+    private Scene instantiateScene(Parent fxml) {
+        Image image = new Image("/images/Cursor/Cursor1.png");
+        Scene scene = new Scene(fxml);
+        scene.setCursor(new ImageCursor(image,  image.getWidth() / 2,
+                image.getHeight() / 2));
+        return scene;
     }
 
     private void editStage(Stage stage) {
@@ -55,15 +102,15 @@ public class MainGUI extends Application {
         stage.initStyle(StageStyle.UTILITY);
     }
 
-    private void letterbox(final Scene scene, final Pane contentPane) {
-        final double initWidth  = scene.getWidth();
-        final double initHeight = scene.getHeight();
-        final double ratio = initWidth / initHeight;
-
-        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
-        scene.widthProperty().addListener(sizeListener);
-        scene.heightProperty().addListener(sizeListener);
-    }
+//    private void letterbox(final Scene scene, final Pane contentPane) {
+//        final double initWidth  = scene.getWidth();
+//        final double initHeight = scene.getHeight();
+//        final double ratio = initWidth / initHeight;
+//
+//        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+//        scene.widthProperty().addListener(sizeListener);
+//        scene.heightProperty().addListener(sizeListener);
+//    }
 
 
 }

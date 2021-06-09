@@ -1,16 +1,11 @@
 package view;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import model.enums.MenuURL;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,29 +30,7 @@ public class MainView {
     private void editButtons() {
         ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(duelButton, deckButton, shopButton, profileButton,
                 scoreboardButton, importExportButton, backButton, logoutButton));
-        for (Button button : buttons) {
-            button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    button.setEffect(new Glow(0.6));
-                    button.setLayoutY(button.getLayoutY() - 5);
-                    try {
-                        new Robot().mouseMove((int) MouseInfo.getPointerInfo().getLocation().getX(),
-                                (int) MouseInfo.getPointerInfo().getLocation().getY() - 2);
-                    } catch (AWTException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            button.setOnMouseExited(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    button.setEffect(null);
-                    button.setLayoutY(button.getLayoutY() + 5);
-                }
-            });
-
-        }
+        MainGUI.editMenuButtons(buttons);
     }
 
     public void goToDuelMenu(MouseEvent mouseEvent) {
