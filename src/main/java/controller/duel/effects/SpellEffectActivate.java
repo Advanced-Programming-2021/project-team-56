@@ -99,7 +99,6 @@ public class SpellEffectActivate {
                 break;
             }
         }
-        spellEffectActivate.spellAbsorption();
         duelWithUser.getMyBoard().getGraveyard().add(spell);
         duelWithUser.getMyBoard().setSelectedCard(null);
         return "spell activated";

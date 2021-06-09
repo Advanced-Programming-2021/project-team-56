@@ -360,10 +360,10 @@ public class MainPhase1Controller {
         }
     }
 
-    private void drawCardFromPlayerHand(MonsterCard monsterCard) {
+    private void drawCardFromPlayerHand(Card card) {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i) == monsterCard) {
+            if (playerHand.get(i) == card) {
                 playerHand.remove(i);
                 return;
             }
@@ -393,7 +393,7 @@ public class MainPhase1Controller {
         isSummoningInProcess = false;
     }
 
-    private void spawnKill(MonsterCard monster){
+    private void spawnKill(MonsterCard monster) {
         if (duelWithUser.getMyBoard().isItEffectedBySoleiman() || duelWithUser.getMyBoard().isAmIAffectedByTrapHole()) {
             duelWithUser.getMyBoard().getGraveyard().add(monster);
             HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
@@ -517,14 +517,14 @@ public class MainPhase1Controller {
             spell.setFacedUp(true);
             duelWithUser.getMyBoard().setSelectedCard(null);
             spellEffectActivate.spellAbsorption();
+            drawCardFromPlayerHand(spell);
             effectView.output("spell activated");
-            opponentPhase.run();
-            opponentPhase.resolveTheChainLink();
+            opponentPhase();
         } else {
             if (isMySpellAndTrapTerritoryFull()) {
                 effectView.output("spell card zone is full");
             } else {
-                if(!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())){
+                if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())) {
                     effectView.output("preparations of this spell are not done yet");
                     return;
                 }
@@ -536,11 +536,11 @@ public class MainPhase1Controller {
                         break;
                     }
                 }
+                drawCardFromPlayerHand(spell);
                 spellEffectActivate.spellAbsorption();
                 spell.setItInChainLink(true);
                 opponentPhase.getChainLink().add(spell);
-                opponentPhase.run();
-                opponentPhase.resolveTheChainLink();
+                opponentPhase();
             }
         }
     }
@@ -553,19 +553,17 @@ public class MainPhase1Controller {
         if (spell.getIcon().equals("Field")) {
             duelWithUser.getMyBoard().setSelectedCard(null);
             spellEffectActivate.spellAbsorption();
-            opponentPhase.run();
-            opponentPhase.resolveTheChainLink();
+            opponentPhase();
             effectView.output("spell activated");
         } else {
-            if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())){
+            if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())) {
                 effectView.output("preparations of this spell are not done yet");
                 return;
             }
             spellEffectActivate.spellAbsorption();
             spell.setItInChainLink(true);
             opponentPhase.getChainLink().add(spell);
-            opponentPhase.run();
-            opponentPhase.resolveTheChainLink();
+            opponentPhase();
         }
     }
 
@@ -674,5 +672,10 @@ public class MainPhase1Controller {
 
     public void setSummoningInProcess(boolean summoningInProcess) {
         isSummoningInProcess = summoningInProcess;
+    }
+
+    private void opponentPhase() {
+        opponentPhase.run();
+        opponentPhase.resolveTheChainLink();
     }
 }

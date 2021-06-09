@@ -347,6 +347,22 @@ public class IOAppender {
                 "no card is selected yet\r\n" +
                 "card selected\r\n" +
                 "Pot of Greed:Draw 2 cards.\r\n" +
+                "spell activated\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t1\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
                 "AmirAli won the whole match\r\n");
     }
 

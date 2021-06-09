@@ -8,6 +8,7 @@ import model.Card;
 import model.SpellCard;
 import model.TrapCard;
 import view.duel.EffectView;
+import view.duel.phase.Output;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +53,7 @@ public class OpponentPhase {
     public void run() {
         duelWithUser.increaseTempTurnCounter();
         if (!isItPossibleToAddACardToTheChain()) {
+            duelWithUser.decreaseTempTurnCounter();
             return;
         }
         effectView.output("now it will be " + duelWithUser.getMyBoard().getUser().getUsername() + "’s turn");
@@ -62,9 +64,10 @@ public class OpponentPhase {
             if (input.equals("yes")) {
                 break;
             } else if (input.equals("no")) {
+                duelWithUser.decreaseTempTurnCounter();
                 return;
             } else {
-                effectView.output("invalid command");
+                effectView.output(Output.InvalidCommand.toString());
             }
         }
         while (true) {
@@ -122,7 +125,7 @@ public class OpponentPhase {
         HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
         int address = effectView.getAddress();
         if (address > 5 || address < 1) {
-            effectView.output("invalid selection");
+            effectView.output(Output.InvalidSelection.toString());
             return 0;
         }
         Card card = spellAndTrapTerritory.get(address - 1);
@@ -166,7 +169,6 @@ public class OpponentPhase {
             case "Solemn Warning":
             case "Magic Jammer":
                 return true;
-
         }
         return false;
     }
@@ -181,6 +183,7 @@ public class OpponentPhase {
             }
             if ((card instanceof TrapCard)) {
                 trapEffectActivate.trapAndQuickSpellCaller(card.getName());
+                getRidOfTrapOrQuickPlaySpell(card);
                 duelWithUser.decreaseTempTurnCounter();
                 continue;
             }
@@ -207,13 +210,15 @@ public class OpponentPhase {
     }
 
     private void getRidOfTrapOrQuickPlaySpell(Card card) {
-        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i < 6; i++) {
-            if (spellAndTrapTerritory.get(i) == card) {
-                spellAndTrapTerritory.put(i, null);
+        if (!card.getName().equals("Call of the Haunted")) {
+            HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+            for (int i = 1; i < 6; i++) {
+                if (spellAndTrapTerritory.get(i) == card) {
+                    spellAndTrapTerritory.put(i, null);
+                }
             }
+            duelWithUser.getMyBoard().getGraveyard().add(card);
         }
-        duelWithUser.getMyBoard().getGraveyard().add(card);
     }
 
     private boolean isItPossibleToAddACardToTheChain() {
