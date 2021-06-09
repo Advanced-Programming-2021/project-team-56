@@ -51,23 +51,23 @@ public class BattlePhaseView {
                 continue;
             }
             if (command.equals("summon")) {
-                System.out.println("action not allowed in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("set")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("set --position attack") || command.equals("set --position defence")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("flip-summon")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("activate effect")) {
-                System.out.println("you can’t activate an effect on this turn");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             Matcher matcher = attack.matcher(command);
@@ -119,7 +119,7 @@ public class BattlePhaseView {
                 System.out.println("invalid nickname");
                 continue;
             }
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
         return "the game continues";
     }

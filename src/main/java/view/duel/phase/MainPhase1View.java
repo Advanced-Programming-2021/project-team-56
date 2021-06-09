@@ -2,6 +2,7 @@ package view.duel.phase;
 
 import controller.duel.DuelWithUser;
 import controller.duel.phases.MainPhase1Controller;
+import controller.duel.phases.OpponentPhase;
 import view.LoginMenuView;
 import view.duel.DuelWithUserView;
 
@@ -37,7 +38,7 @@ public class MainPhase1View {
         return mainPhase1View;
     }
 
-    public void run() {
+    public String run() {
         System.out.print(duelWithUser.showField());
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
@@ -45,7 +46,7 @@ public class MainPhase1View {
                 break;
             }
             if (command.equals("summon")) {
-                System.out.println(mainPhase1Controller.summon());
+                System.out.println(mainPhase1Controller.summon(false));
                 System.out.print(duelWithUser.showField());
                 continue;
             }
@@ -76,11 +77,11 @@ public class MainPhase1View {
             }
             matcher = attack.matcher(command);
             if (matcher.find()) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("attack direct")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("select -d")) {
@@ -90,9 +91,6 @@ public class MainPhase1View {
             if (command.startsWith("select")) {
                 System.out.println(duelWithUser.selectCard(command));
                 continue;
-            }
-            if (command.equals("ritual summon")) {
-
             }
             if (command.equals("special summon")) {
                 System.out.println(mainPhase1Controller.specialSummon());
@@ -109,6 +107,9 @@ public class MainPhase1View {
             if (matcher.find()) {
                 System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
             }
+            if (command.equals("surrender")){
+                return "i lost";
+            }
             //TODO Ino ki comment krd?
 //            matcher = setWinner.matcher(command);
 //            if (matcher.find()) {
@@ -120,6 +121,9 @@ public class MainPhase1View {
 //            }
             System.out.println("invalid command");
         }
+        OpponentPhase.getInstance().run();
+        OpponentPhase.getInstance().resolveTheChainLink();
+        return "the game continues";
     }
 
     public static void showGraveYardView() {

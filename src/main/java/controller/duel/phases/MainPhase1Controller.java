@@ -7,6 +7,7 @@ import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
 import view.duel.EffectView;
+import view.duel.phase.Output;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,9 +41,9 @@ public class MainPhase1Controller {
         return mainPhase1Controller;
     }
 
-    public String summon() {
+    public String summon(boolean isItSet) {
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
-            return "no card is selected yet";
+            return Output.NoCardIsSelectedYet.toString();
         }
         if (!canThisCardBeSummoned()) {
             return "you can’t summon this card";
@@ -58,15 +59,15 @@ public class MainPhase1Controller {
             return "this card can't be normal summoned";
         }
         if (monsterCard.getName().equals("Beast King Barbaros")) {
-            return beastKingBarbaros();
+            return beastKingBarbaros(isItSet);
         }
         if (monsterCard.getName().equals("Terratiger, the Empowered Warrior")) {
             terraTigerTheEmpoweredWarrior();
-            return "summoned successfully";
+            return Output.SummonedSuccessfully.toString();
         }
         if (monsterCard.getLevel() < 5) {
-            summon(monsterCard, false);
-            return "summoned successfully";
+            summon(monsterCard, false, isItSet);
+            return Output.SummonedSuccessfully.toString();
         }
         if (monsterCard.getLevel() < 7) {
             if (!areThereEnoughCardsToTribute(1)) {
@@ -74,14 +75,14 @@ public class MainPhase1Controller {
             }
             int firstAddress = effectView.getAddress();
             if (firstAddress < 1 || firstAddress > 5) {
-                return "invalid selection";
+                return Output.InvalidSelection.toString();
             }
             if (!isAddressValid(firstAddress)) {
                 return "there no monsters on this address";
             } else {
                 tribute(firstAddress);
-                summon(monsterCard, false);
-                return "summoned successfully";
+                summon(monsterCard, false, isItSet);
+                return Output.SummonedSuccessfully.toString();
             }
         } else {
             if (!areThereEnoughCardsToTribute(2)) {
@@ -101,7 +102,7 @@ public class MainPhase1Controller {
             if (isAddressValid(firstAddress) && isAddressValid(secondAddress)) {
                 tribute(firstAddress);
                 tribute(secondAddress);
-                summon(monsterCard, false);
+                summon(monsterCard, false, isItSet);
                 return "summoned successfully";
             } else {
                 return "there is no monster on one of these addresses";
@@ -111,17 +112,11 @@ public class MainPhase1Controller {
 
     public String set() {
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
-            return "no card is selected yet";
+            return Output.NoCardIsSelectedYet.toString();
         }
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card instanceof MonsterCard) {
-            MonsterCard monsterCard = (MonsterCard) card;
-            if (isMonsterTerritoryFull()) {
-                return "monster card zone is full";
-            }
-            if (duelWithUser.getTurnCounter() == duelWithUser.getLastSummonedOrSetTurn()) {
-                return "you already summoned/set on this turn";
-            }
+            return summon(true);
         } else {
             if (!isCardInMyHand(card)) {
                 return "you can’t set this card";
@@ -133,7 +128,6 @@ public class MainPhase1Controller {
             duelWithUser.getMyBoard().setSelectedCard(null);
             return "set successfully";
         }
-        return "";
     }
 
     private void dropSpellAndTrapOnTheGround(Card card) {
@@ -155,7 +149,7 @@ public class MainPhase1Controller {
 
     public String changeToAttackPosition() {
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
-            return "no card is selected yet";
+            return Output.NoCardIsSelectedYet.toString();
         }
         if (!isCardInMyMonsterTerritory()) {
             return "you can’t change this card position";
@@ -176,7 +170,7 @@ public class MainPhase1Controller {
 
     public String changeToDefencePosition() {
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
-            return "no card is selected yet";
+            return Output.NoCardIsSelectedYet.toString();
         }
         if (!isCardInMyMonsterTerritory()) {
             return "you can’t change this card position";
@@ -204,7 +198,7 @@ public class MainPhase1Controller {
 
     public String flipSummon() {
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
-            return "no card is selected yet";
+            return Output.NoCardIsSelectedYet.toString();
         }
         if (!isCardInMyMonsterTerritory()) {
             return "you can’t change this card position";
@@ -265,7 +259,7 @@ public class MainPhase1Controller {
     public String specialSummon() {
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card == null) {
-            return "no card is selected yet";
+            return Output.NoCardIsSelectedYet.toString();
         }
         if (!canThisCardBeSummoned()) {
             return "this card can't be special summoned";
@@ -289,18 +283,18 @@ public class MainPhase1Controller {
         }
         int firstAddress = effectView.getAddress();
         if (firstAddress < 1 || firstAddress > 5) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         int secondAddress = effectView.getAddress();
         if (secondAddress < 1 || secondAddress > 5) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         int thirdAddress = effectView.getAddress();
         if (thirdAddress < 1 || thirdAddress > 5) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         if (firstAddress == secondAddress || secondAddress == thirdAddress || thirdAddress == firstAddress) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         if (!isAddressValid(firstAddress) || !isAddressValid(secondAddress) || !isAddressValid(thirdAddress)) {
             return "there is no monster on one of these addresses";
@@ -308,7 +302,7 @@ public class MainPhase1Controller {
         tribute(firstAddress);
         tribute(secondAddress);
         tribute(thirdAddress);
-        summon((MonsterCard) duelWithUser.getMyBoard().getSelectedCard(), true);
+        summon((MonsterCard) duelWithUser.getMyBoard().getSelectedCard(), true, false);
         return "special summon of Gate Guardian was successful";
     }
 
@@ -319,13 +313,13 @@ public class MainPhase1Controller {
         }
         int address = effectView.getAddress();
         if (address > playerHand.size() || address < 1) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         if (!isItAnotherCard(address)) {
             return "there is no card on the address";
         }
         tributeFromHand(address);
-        summon((MonsterCard) duelWithUser.getMyBoard().getSelectedCard(), true);
+        summon((MonsterCard) duelWithUser.getMyBoard().getSelectedCard(), true, false);
         return "special summon of The Tricky was successful";
     }
 
@@ -338,8 +332,8 @@ public class MainPhase1Controller {
     private boolean isThereAnyOtherCardOnHand() {
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i) != monsterCard) {
+        for (Card card : playerHand) {
+            if (card != monsterCard) {
                 return true;
             }
         }
@@ -348,8 +342,8 @@ public class MainPhase1Controller {
 
     private boolean isCardInMyHand(Card card) {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i) == card) {
+        for (Card value : playerHand) {
+            if (value == card) {
                 return true;
             }
         }
@@ -376,7 +370,7 @@ public class MainPhase1Controller {
         }
     }
 
-    private void summon(MonsterCard monster, boolean isSpecialSummon) {
+    private void summon(MonsterCard monster, boolean isSpecialSummon, boolean isItSet) {
         placeMonsterOnTheField(monster);
         drawCardFromPlayerHand(monster);
         duelWithUser.getMyBoard().setSelectedCard(null);
@@ -461,12 +455,12 @@ public class MainPhase1Controller {
                 ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
                 int address = effectView.getAddress();
                 if (address > playerHand.size() || address < 1) {
-                    effectView.output("invalid selection");
+                    effectView.output(Output.InvalidSelection.toString());
                 } else {
                     if (playerHand.get(address) instanceof MonsterCard) {
                         MonsterCard monsterCard = (MonsterCard) playerHand.get(address);
                         if (monsterCard.getLevel() <= 4) {
-                            summon(monsterCard, true);
+                            summon(monsterCard, true, false);
                             monsterCard.setInAttackPosition(false);
                             effectView.output("special summon of" + monsterCard.getName() + "was successful");
                             return;
@@ -482,9 +476,9 @@ public class MainPhase1Controller {
 
     private boolean canTigerEffectBeActivated() {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (int i = 0; i < playerHand.size(); i++) {
-            if ((playerHand.get(i) instanceof MonsterCard)) {
-                MonsterCard monsterCard = (MonsterCard) playerHand.get(i);
+        for (Card card : playerHand) {
+            if ((card instanceof MonsterCard)) {
+                MonsterCard monsterCard = (MonsterCard) card;
                 if (monsterCard.getLevel() <= 4) {
                     return true;
                 }
@@ -496,7 +490,7 @@ public class MainPhase1Controller {
     public void activateSpell() {
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card == null) {
-            effectView.output("no card is selected yet");
+            effectView.output(Output.NoCardIsSelectedYet.toString());
             return;
         }
         if (!(card instanceof SpellCard)) {
@@ -586,15 +580,15 @@ public class MainPhase1Controller {
 
     private boolean isSpellInMyHand() {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i) == spell) {
+        for (Card card : playerHand) {
+            if (card == spell) {
                 return true;
             }
         }
         return false;
     }
 
-    private String beastKingBarbaros() {
+    private String beastKingBarbaros(boolean isItset) {
         effectView.output("choose on option from the list below");
         effectView.output("no tribute");
         effectView.output("two tribute");
@@ -604,10 +598,10 @@ public class MainPhase1Controller {
         switch (input) {
             case "no tribute":
                 monsterCard.setAttack(1900);
-                summon(monsterCard, false);
+                summon(monsterCard, false, isItset);
                 return "summoned successfully";
             case "two tribute":
-                return summonBeastKingBarbarosWithTwoTribute(monsterCard);
+                return summonBeastKingBarbarosWithTwoTribute(monsterCard, isItset);
             case "three tribute":
                 return summoneBeastKingBarbarosWithThreeTribute(monsterCard);
             default:
@@ -615,7 +609,7 @@ public class MainPhase1Controller {
         }
     }
 
-    private String summonBeastKingBarbarosWithTwoTribute(MonsterCard monsterCard) {
+    private String summonBeastKingBarbarosWithTwoTribute(MonsterCard monsterCard, boolean isItSet) {
         if (!areThereEnoughCardsToTribute(2)) {
             return "there is no way you could special summon a monster";
         }
@@ -635,7 +629,7 @@ public class MainPhase1Controller {
         }
         tribute(firstAddress);
         tribute(secondAddress);
-        summon(monsterCard, false);
+        summon(monsterCard, false, isItSet);
         return "summoned successfully";
     }
 
@@ -645,18 +639,18 @@ public class MainPhase1Controller {
         }
         int firstAddress = effectView.getAddress();
         if (firstAddress < 1 || firstAddress > 5) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         int secondAddress = effectView.getAddress();
         if (secondAddress < 1 || secondAddress > 5) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         int thirdAddress = effectView.getAddress();
         if (thirdAddress < 1 || thirdAddress > 5) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         if (firstAddress == secondAddress || secondAddress == thirdAddress || thirdAddress == firstAddress) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         if (!isAddressValid(firstAddress) || !isAddressValid(secondAddress) || !isAddressValid(thirdAddress)) {
             return "there is no monster on one of these addresses";
@@ -664,7 +658,7 @@ public class MainPhase1Controller {
         tribute(firstAddress);
         tribute(secondAddress);
         tribute(thirdAddress);
-        summon(monsterCard, false);
+        summon(monsterCard, false, false);
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             if (monsterTerritory.get(i) != null) {

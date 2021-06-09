@@ -107,7 +107,7 @@ public class DrawPhaseView {
                 checkForceDrawCommand(command);
                 continue;
             }
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
         OpponentPhase.getInstance().run();
         OpponentPhase.getInstance().resolveTheChainLink();

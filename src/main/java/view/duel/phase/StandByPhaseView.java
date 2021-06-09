@@ -1,6 +1,7 @@
 package view.duel.phase;
 
 import controller.duel.DuelWithUser;
+import controller.duel.phases.OpponentPhase;
 import controller.duel.phases.StandByPhaseController;
 import view.LoginMenuView;
 
@@ -100,8 +101,10 @@ public class StandByPhaseView {
                 System.out.println("invalid nickname");
                 continue;
             }
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
+        OpponentPhase.getInstance().run();
+        OpponentPhase.getInstance().resolveTheChainLink();
         return "the game continuous";
     }
 }

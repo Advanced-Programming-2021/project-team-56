@@ -118,7 +118,14 @@ public class DuelWithUser {
                     break;
                 case 3:
                     EffectView.getInstance().output("phase: Main Phase 1");
-                    MainPhase1View.getInstance().run();
+                    if(MainPhase1View.getInstance().run().equals("i lost")){
+                        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
+                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
+                        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
+                            return 2;
+                        }
+                        return 1;
+                    }
                     break;
                 case 4:
                     if (startTurn != turnCounter) {
@@ -143,6 +150,14 @@ public class DuelWithUser {
                 case 5:
                     EffectView.getInstance().output("phase: Main Phase 2");
                     MainPhase1View.getInstance().run();
+                    if(MainPhase1View.getInstance().run().equals("i lost")){
+                        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
+                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
+                        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
+                            return 2;
+                        }
+                        return 1;
+                    }
                     break;
                 case 6:
                     EndPhaseView.getInstance().run();
