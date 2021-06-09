@@ -7,55 +7,65 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainView">
+<Pane fx:id="root" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainView">
     <children>
-        <Button fx:id="duelButton" layoutX="10.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#goToDuelMenu" prefHeight="53.0" prefWidth="300.0" text="Duel">
-         <font>
-            <Font size="25.0" />
-         </font>
-        </Button>
-        <Button fx:id="importExportButton" layoutX="10.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#goToImportExportMenu" prefHeight="53.0" prefWidth="300.0" text="Import/Export">
+        <Button fx:id="duelButton" layoutX="10.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#goToDuelMenu"
+                prefHeight="53.0" prefWidth="300.0" text="Duel">
             <font>
-                <Font size="25.0" />
+                <Font size="25.0"/>
             </font>
         </Button>
-        <Button fx:id="deckButton" alignment="CENTER" layoutX="10.0" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#goToDeckMenu" prefHeight="53.0" prefWidth="300.0" text="Deck">
+        <Button fx:id="importExportButton" layoutX="10.0" layoutY="548.0" mnemonicParsing="false"
+                onMouseClicked="#goToImportExportMenu" prefHeight="53.0" prefWidth="300.0" text="Import/Export">
             <font>
-                <Font size="25.0" />
+                <Font size="25.0"/>
             </font>
         </Button>
-        <Button fx:id="backButton" layoutX="10.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#goBackToLoginMenu" prefHeight="53.0" prefWidth="150.0" text="Back">
+        <Button fx:id="deckButton" alignment="CENTER" layoutX="10.0" layoutY="148.0" mnemonicParsing="false"
+                onMouseClicked="#goToDeckMenu" prefHeight="53.0" prefWidth="300.0" text="Deck">
             <font>
-                <Font size="25.0" />
+                <Font size="25.0"/>
             </font>
         </Button>
-        <Button fx:id="shopButton" layoutX="10.0" layoutY="448.0" mnemonicParsing="false" onMouseClicked="#goToShopMenu" prefHeight="53.0" prefWidth="300.0" text="Shop">
+        <Button fx:id="backButton" layoutX="10.0" layoutY="636.0" mnemonicParsing="false"
+                onMouseClicked="#goBackToLoginMenu" prefHeight="53.0" prefWidth="150.0" text="Back">
             <font>
-                <Font size="25.0" />
+                <Font size="25.0"/>
             </font>
         </Button>
-        <Button fx:id="profileButton" layoutX="10.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#goToProfileMenu" prefHeight="53.0" prefWidth="300.0" text="Profile">
+        <Button fx:id="shopButton" layoutX="10.0" layoutY="448.0" mnemonicParsing="false" onMouseClicked="#goToShopMenu"
+                prefHeight="53.0" prefWidth="300.0" text="Shop">
             <font>
-                <Font size="25.0" />
+                <Font size="25.0"/>
             </font>
         </Button>
-        <Button fx:id="scoreboardButton" layoutX="10.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#goToScoreboard" prefHeight="53.0" prefWidth="300.0" text="Scoreboard">
+        <Button fx:id="profileButton" layoutX="10.0" layoutY="348.0" mnemonicParsing="false"
+                onMouseClicked="#goToProfileMenu" prefHeight="53.0" prefWidth="300.0" text="Profile">
             <font>
-                <Font size="25.0" />
+                <Font size="25.0"/>
             </font>
         </Button>
-        <ImageView fitHeight="690.0" fitWidth="501.0" layoutX="448.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+        <Button fx:id="scoreboardButton" layoutX="10.0" layoutY="248.0" mnemonicParsing="false"
+                onMouseClicked="#goToScoreboard" prefHeight="53.0" prefWidth="300.0" text="Scoreboard">
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Button>
+        <ImageView fitHeight="690.0" fitWidth="501.0" layoutX="499.0" layoutY="15.0" pickOnBounds="true"
+                   preserveRatio="true">
             <image>
-                <Image url="@../images/Setu-kaiba.png" />
+                <Image url="@../images/Setu-kaiba.png"/>
             </image>
         </ImageView>
-        <Button layoutX="165.0" layoutY="636.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="150.0" text="Logout">
+        <Button fx:id="logoutButton" layoutX="165.0" layoutY="636.0" mnemonicParsing="false" prefHeight="53.0"
+                prefWidth="150.0" text="Logout">
             <font>
-                <Font size="25.0" />
+                <Font size="25.0"/>
             </font>
         </Button>
     </children>
     <stylesheets>
-        <URL value="@../CSS/main.css" />
+        <URL value="@../CSS/main.css"/>
     </stylesheets>
 </Pane>

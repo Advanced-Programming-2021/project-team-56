@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import model.enums.MenuURL;
@@ -23,17 +24,17 @@ public class MainView {
     public Button scoreboardButton;
     public Button importExportButton;
     public Button backButton;
+    public Button logoutButton;
+    public Pane root;
 
     @FXML
     public void initialize() {
-        MainGUI.getStage().setHeight(700);
-        MainGUI.getStage().setWidth(1000);
         editButtons();
     }
 
     private void editButtons() {
         ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(duelButton, deckButton, shopButton, profileButton,
-                scoreboardButton, importExportButton, backButton));
+                scoreboardButton, importExportButton, backButton, logoutButton));
         for (Button button : buttons) {
             button.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
@@ -55,6 +56,7 @@ public class MainView {
                     button.setLayoutY(button.getLayoutY() + 5);
                 }
             });
+
         }
     }
 
