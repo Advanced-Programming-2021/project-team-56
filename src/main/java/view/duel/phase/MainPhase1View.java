@@ -130,13 +130,13 @@ public class MainPhase1View {
         while (true) {
             command = LoginMenuView.scan.nextLine();
             if (command.equals("show")) {
-                System.out.println(DuelWithUser.getInstance().showGraveYard());
+                System.out.print(DuelWithUser.getInstance().showGraveYard());
                 continue;
             }
             if (command.equals("back")) {
                 break;
             }
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
     }
 }

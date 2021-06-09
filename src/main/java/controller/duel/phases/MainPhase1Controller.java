@@ -62,7 +62,10 @@ public class MainPhase1Controller {
             return beastKingBarbaros(isItSet);
         }
         if (monsterCard.getName().equals("Terratiger, the Empowered Warrior")) {
-            terraTigerTheEmpoweredWarrior();
+            summon(monsterCard, false, isItSet);
+            if (!isItSet){
+                terraTigerTheEmpoweredWarrior();
+            }
             return Output.SummonedSuccessfully.toString();
         }
         if (monsterCard.getLevel() < 5) {
@@ -201,14 +204,14 @@ public class MainPhase1Controller {
             return Output.NoCardIsSelectedYet.toString();
         }
         if (!isCardInMyMonsterTerritory()) {
-            return "you can’t change this card position";
+            return Output.YouCantFlipSummonThisCard.toString();
         }
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         if (monsterCard.getSummonedTurn() == duelWithUser.getTurnCounter()) {
-            return "you can’t flip summon this card";
+            return Output.YouCantFlipSummonThisCard.toString();
         }
         if (monsterCard.getIsFacedUp()) {
-            return "you can’t flip summon this card";
+            return Output.YouCantFlipSummonThisCard.toString();
         }
         if (monsterCard.getName().equals("Man-Eater Bug")) {
             BattlePhaseController.getInstance().manEaterBugEffect(false);
@@ -375,8 +378,8 @@ public class MainPhase1Controller {
         drawCardFromPlayerHand(monster);
         duelWithUser.getMyBoard().setSelectedCard(null);
         monster.setSummonedTurn(duelWithUser.getTurnCounter());
-        monster.setInAttackPosition(true);
-        monster.setFacedUp(true);
+        monster.setInAttackPosition(!isItSet);
+        monster.setFacedUp(!isItSet);
         if (!isSpecialSummon) {
             duelWithUser.getMyBoard().setLastSummonedOrSetTurn(duelWithUser.getTurnCounter());
         }
@@ -453,16 +456,16 @@ public class MainPhase1Controller {
                 return;
             } else if (result.equals("yes")) {
                 ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-                int address = effectView.getAddress();
+                int address = effectView.getAddress() ;
                 if (address > playerHand.size() || address < 1) {
                     effectView.output(Output.InvalidSelection.toString());
                 } else {
-                    if (playerHand.get(address) instanceof MonsterCard) {
-                        MonsterCard monsterCard = (MonsterCard) playerHand.get(address);
+                    if (playerHand.get(address - 1) instanceof MonsterCard) {
+                        MonsterCard monsterCard = (MonsterCard) playerHand.get(address - 1);
                         if (monsterCard.getLevel() <= 4) {
                             summon(monsterCard, true, false);
                             monsterCard.setInAttackPosition(false);
-                            effectView.output("special summon of" + monsterCard.getName() + "was successful");
+                            effectView.output("special summon of " + monsterCard.getName() + " was successful");
                             return;
                         }
                     }
@@ -663,15 +666,11 @@ public class MainPhase1Controller {
                 duelWithUser.afterDeathEffect(2, monsterTerritory.get(i));
             }
         }
-        return "summoned successfully";
+        return Output.SummonedSuccessfully.toString();
     }
 
     public boolean isSummoningInProcess() {
         return isSummoningInProcess;
-    }
-
-    public void setSummoningInProcess(boolean summoningInProcess) {
-        isSummoningInProcess = summoningInProcess;
     }
 
     private void opponentPhase() {

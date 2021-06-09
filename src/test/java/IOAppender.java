@@ -290,6 +290,24 @@ public class IOAppender {
                 "card show --selected\n" +
                 "summon\n" +
                 "activate effect\n" +
+                "show graveyard\n" +
+                "show\n" +
+                "invalid\n" +
+                "back\n" +
+                "flip-summon\n" +
+                "select --hand 1\n" +
+                "card show --selected\n" +
+                "summon\n" +
+                "yes\n" +
+                "-5\n" +
+                "yes\n" +
+                "8\n" +
+                "yes\n" +
+                "3\n" +
+                "yes\n" +
+                "2\n" +
+                "yes\n" +
+                "1\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -405,6 +423,58 @@ public class IOAppender {
                 "\t\t\t\t\t\t52\n" +
                 "\tc\tc\tc\tc\tc\tc\n" +
                 "MehrNick:8000\n" +
+                "Pot of Greed:Draw 2 cards.\n" +
+                "invalid command\r\n" +
+                "no card is selected yet\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "Terratiger, the Empowered Warrior: ATK, DEF = 1800, 1200\n" +
+                "When this card is Normal Summoned: You can Special Summon 1 Level 4 or lower Normal Monster from your hand in Defense Position.\r\n" +
+                "do you want to activate this card effect?\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "do you want to activate this card effect?\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "do you want to activate this card effect?\r\n" +
+                "Give an address\r\n"+
+                "you can't special summon this card\r\n" +
+                "do you want to activate this card effect?\r\n" +
+                "Give an address\r\n" +
+                "you can't special summon this card\r\n" +
+                "do you want to activate this card effect?\r\n" +
+                "Give an address\r\n" +
+                "special summon of Scanner was successful\r\n" +
+                "summoned successfully\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n"+
                 "AmirAli won the whole match\r\n");
     }
 

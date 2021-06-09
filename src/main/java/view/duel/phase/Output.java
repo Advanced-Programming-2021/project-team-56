@@ -10,6 +10,7 @@ public enum Output {
     Yes("yes"),
     No("no"),
     MenuNavigationIsNotPossible("menu navigation is not possible"),
+    YouCantFlipSummonThisCard("you can't flip summon this card"),
     InvalidSelection("invalid selection");
 
     private String output;
