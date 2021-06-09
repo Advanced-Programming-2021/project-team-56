@@ -24,7 +24,7 @@
             <children>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <VBox style="-fx-background-color: #fe4451;" HBox.hgrow="ALWAYS" />
+                        <VBox style="-fx-background-color: #5e008a;" HBox.hgrow="ALWAYS" />
                         <VBox style="-fx-background-color: white;" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
@@ -38,7 +38,7 @@
                                 <DropShadow />
                             </effect>
                             <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 2em; -fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #ff3b49;" text="SignUp" />
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 2em; -fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #55027c;" text="SignUp" />
                                 <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
                                     <VBox.margin>
                                         <Insets top="35.0" />
@@ -82,7 +82,7 @@
                                         <Insets top="35.0" />
                                     </VBox.margin>
                                 </HBox>
-                                <Button fx:id="signUpButton" mnemonicParsing="false" onMouseClicked="#signUpClicked" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #ff3b49; -fx-background-radius: 100px; -fx-text-fill: white;" text="SignUp">
+                                <Button fx:id="signUpButton" mnemonicParsing="false" onMouseClicked="#signUpClicked" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px; -fx-text-fill: white;" text="SignUp">
                                     <VBox.margin>
                                         <Insets top="35.0" />
                                     </VBox.margin>
@@ -92,9 +92,9 @@
                                         <Pane prefHeight="70.0" prefWidth="337.0">
                                             <children>
                                                 <Text layoutX="58.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-family: Quicksand;" text="Have an account?" />
-                                                <Text fx:id="loginLabel" layoutX="207.0" layoutY="116.0" onMouseClicked="#loginClicked" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-family: Quicksand; -fx-fill: #ff3b49;" text="Login" />
+                                                <Text fx:id="loginLabel" layoutX="207.0" layoutY="116.0" onMouseClicked="#loginClicked" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-family: Quicksand; -fx-fill: #55027c;" text="Login" />
                                                 <Label fx:id="errorLabel" alignment="CENTER" layoutX="3.0" layoutY="58.0" prefHeight="21.0" prefWidth="337.0" style="-fx-text-fill: black; -fx-font-size: 15;" />
-                                    <Button fx:id="backButton" layoutX="58.0" layoutY="17.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #ff3b49; -fx-background-radius: 100px; -fx-text-fill: white;" text="Back" />
+                                    <Button fx:id="backButton" layoutX="58.0" layoutY="17.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px; -fx-text-fill: white;" text="Back" />
                                             </children>
                                         </Pane>
                                     </children>
