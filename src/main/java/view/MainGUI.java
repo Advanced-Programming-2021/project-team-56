@@ -1,5 +1,6 @@
 package view;
 
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import model.User;
 import view.components.SceneSizeChangeListener;
 
@@ -46,7 +48,12 @@ public class MainGUI extends Application {
     }
 
     public static void editMenuButtons(ArrayList<Button> buttons) {
+
         for (Button button : buttons) {
+            TranslateTransition buttonsTransition = new TranslateTransition(Duration.seconds(1), button);
+            buttonsTransition.setFromX(button.getLayoutX() - 400);
+            buttonsTransition.setToX(button.getLayoutX());
+            buttonsTransition.play();
             button.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {

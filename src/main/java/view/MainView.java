@@ -1,9 +1,11 @@
 package view;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import model.enums.MenuURL;
 
 import java.io.IOException;
@@ -31,6 +33,7 @@ public class MainView {
         ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(duelButton, deckButton, shopButton, profileButton,
                 scoreboardButton, importExportButton, backButton, logoutButton));
         MainGUI.editMenuButtons(buttons);
+
     }
 
     public void goToDuelMenu(MouseEvent mouseEvent) {
