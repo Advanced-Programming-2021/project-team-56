@@ -9,7 +9,7 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EntranceView">
 
     <stylesheets>
-        <URL value="@../CSS/sample.css"/>
+        <URL value="@../CSS/main.css"/>
     </stylesheets>
     <children>
         <Button layoutX="100.0" layoutY="326.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="206.0"
