@@ -9,6 +9,7 @@ public enum Output {
     CardIsNotVisible("card is not visible"),
     Yes("yes"),
     No("no"),
+    MenuNavigationIsNotPossible("menu navigation is not possible"),
     InvalidSelection("invalid selection");
 
     private String output;

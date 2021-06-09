@@ -6,10 +6,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static view.MainMenuView.menuEnter;
+
 public class LoginMenuView {
 
     private static LoginMenuView loginMenuView;
-    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
     static Pattern loginUser = Pattern.compile("^user login (\\S+) (\\S+) (\\S+) (\\S+)$");
 
     private LoginMenuView() {

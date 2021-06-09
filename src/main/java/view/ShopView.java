@@ -1,15 +1,17 @@
 package view;
 
 import controller.ShopController;
+import view.duel.phase.Output;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static view.MainMenuView.menuEnter;
 
 public class ShopView {
 
     private static ShopView shopView;
     static Pattern buyCard = Pattern.compile("^shop buy ([\\S][\\S ]*)$");
-    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
     static Pattern increaseMoneyCheat = Pattern.compile("^increase --money (\\d+)$");
 
     private ShopView() {
@@ -54,10 +56,10 @@ public class ShopView {
             }
             matcher = menuEnter.matcher(command);
             if (matcher.find()){
-                System.out.println("menu navigation is not possible");
+                System.out.println(Output.MenuNavigationIsNotPossible);
                 continue;
             }
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
     }
 }

@@ -6,10 +6,11 @@ import controller.ShopController;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static view.MainMenuView.menuEnter;
+
 public class DeckMenuView {
 
     private static DeckMenuView deckMenuView;
-    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
     static Pattern createDeck = Pattern.compile("^deck create (\\S+)$");
     static Pattern deleteDeck = Pattern.compile("^deck delete (\\S+)$");
     static Pattern setActive = Pattern.compile("^deck set-activate (\\S+)$");

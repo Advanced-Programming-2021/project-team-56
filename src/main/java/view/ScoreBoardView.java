@@ -3,12 +3,13 @@ package view;
 import controller.ScoreBoardController;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import static view.MainMenuView.menuEnter;
+
 
 public class ScoreBoardView {
 
     private static ScoreBoardView scoreBoardView;
-    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
 
     private ScoreBoardView() {
     }

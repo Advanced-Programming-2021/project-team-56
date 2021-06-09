@@ -101,17 +101,21 @@ public class IOAppender {
                 "menu enter Profile\n" +
                 "menu exit\n" +
                 "menu enter Import/Export\n" +
+                "\n" +
+                "menu show-current\n" +
+                "menu exit\n" +
                 "menu enter invalidMenu\n" +
                 "user logout\n" +
                 "menu exit\n");
         outputStringBuilder.append("invalid command\r\n" +
                 "Main Menu\r\n" +
                 "invalid command\r\n" +
+                "Import/Export menu\r\n" +
+                "invalid command\r\n" +
                 "user logged out successfully!\r\n");
     }
 
     public static void duelViewNoDeckIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
-        //TODO
         inputStringBuilder.append("menu show-current\n" +
                 "menu enter Duel\n" +
                 "menu enter Deck\n" +
@@ -282,6 +286,10 @@ public class IOAppender {
                 "select --hand 4\n" +
                 "card show --selected\n" +
                 "activate effect\n" +
+                "select --hand 7\n" +
+                "card show --selected\n" +
+                "summon\n" +
+                "activate effect\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -362,6 +370,40 @@ public class IOAppender {
                 "\tE\tE\tE\tE\tE\n" +
                 "\t\t\t\t\t\t52\n" +
                 "\tc\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "Forest:All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.\r\n" +
+                "you can’t summon this card\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t1\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "spell activated\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
                 "MehrNick:8000\n" +
                 "AmirAli won the whole match\r\n");
     }

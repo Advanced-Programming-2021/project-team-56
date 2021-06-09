@@ -1,14 +1,16 @@
 package view;
 
 import controller.ProfileController;
+import view.duel.phase.Output;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static view.MainMenuView.menuEnter;
+
 public class ProfileView {
 
     private static ProfileView profileView;
-    static Pattern menuEnter = Pattern.compile("^menu enter (?:Duel|Deck|Scoreboard|Profile|Shop|Import/Export)$");
     static Pattern changeNickname = Pattern.compile("^profile change --nickname (\\S+)$");
 
     private ProfileView() {
@@ -45,7 +47,7 @@ public class ProfileView {
                 System.out.println(profileController.checkProfileChangePasswordCommand(username, command));
                 continue;
             }
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
     }
 
@@ -55,7 +57,7 @@ public class ProfileView {
             String newNickname = matcher.group(1);
             System.out.println(ProfileController.getInstance().changeNickname(username, newNickname));
         } else {
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
     }
 
