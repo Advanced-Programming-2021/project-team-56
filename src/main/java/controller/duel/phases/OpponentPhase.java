@@ -72,43 +72,12 @@ public class OpponentPhase {
         }
         while (true) {
             String command = effectView.input();
-            if (command.equals("select -d")) {
-                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
+            if (isThisActionNotAllowed(command)){
+                System.out.println(Output.ItsNotYourTurnToPLayThisKindOfMove);
                 continue;
-            }
-            if (command.startsWith("select")) {
-                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
-                continue;
-            }
-            if (command.equals("summon")) {
-                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
-                continue;
-            }
-            if (command.equals("set")) {
-                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
-                continue;
-            }
-            if (command.equals("set --position attack") || command.equals("set --position defence")) {
-                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
-                continue;
-            }
-            if (command.equals("flip-summon")) {
-                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
-                continue;
-            }
-            Matcher matcher = attack.matcher(command);
-            if (matcher.find()) {
-                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
-                continue;
-            }
-            if (command.equals("attack direct")) {
-                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
-                continue;
-            }
-            if (command.equals("cancel")) {
+            } else if (command.equals("cancel")) {
                 break;
-            }
-            if (command.equals("activate effect")) {
+            } else if (command.equals("activate effect")) {
                 int result = activateEffect();
                 if (result == 0) {
                     continue;
@@ -116,6 +85,11 @@ public class OpponentPhase {
                     run();
                 }
                 return;
+            }
+            Matcher matcher = attack.matcher(command);
+            if (matcher.find()) {
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
+                continue;
             }
             effectView.output(Output.InvalidCommand.toString());
         }
@@ -234,7 +208,7 @@ public class OpponentPhase {
                     if (((SpellCard) card).getSetTurn() >= duelWithUser.getTurnCounter()) {
                         return false;
                     }
-                } else{
+                } else {
                     if (((TrapCard) card).getSetTurn() >= duelWithUser.getTurnCounter()) {
                         return false;
                     }
@@ -247,7 +221,26 @@ public class OpponentPhase {
         return false;
     }
 
-    public void startChainLink(){
+    private boolean isThisActionNotAllowed(String command){
+        if (command.equals("select -d")) {
+            return true;
+        } else if (command.startsWith("select")) {
+            return true;
+        } else if (command.equals("summon")) {
+            return true;
+        } else if (command.equals("set")) {
+            return true;
+        } else if (command.equals("set --position attack") || command.equals("set --position defence")) {
+            return true;
+        } else if (command.equals("flip-summon")) {
+            return true;
+        } else if (command.equals("attack direct")) {
+            return true;
+        }
+        return false;
+    }
+
+    public void startChainLink() {
         opponentPhase.run();
         opponentPhase.resolveTheChainLink();
     }

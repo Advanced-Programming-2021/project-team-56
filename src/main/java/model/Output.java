@@ -12,6 +12,7 @@ public enum Output {
     ILost("I lost"),
     IWon("I won"),
     InvalidNickname("invalid nick name"),
+    ThisCardCantBeSpecialSummoned("this card can't be special summoned"),
     TheGameContinues("the game continues"),
     MenuNavigationIsNotPossible("menu navigation is not possible"),
     YouCantFlipSummonThisCard("you can't flip summon this card"),

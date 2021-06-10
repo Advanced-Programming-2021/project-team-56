@@ -122,6 +122,7 @@ public class MainPhase1Controller {
         if (card instanceof MonsterCard) {
             return summon(true);
         } else {
+            boolean isItFieldSpell = false;
             if (!isCardInMyHand(card)) {
                 return "you can’t set this card";
             }
@@ -130,21 +131,32 @@ public class MainPhase1Controller {
             }
             if (card instanceof SpellCard) {
                 ((SpellCard) card).setSetTurn(duelWithUser.getTurnCounter());
-            }else {
+                if (((SpellCard) card).getIcon().equals("Field")) {
+                    isItFieldSpell = true;
+                }
+            } else {
                 ((TrapCard) card).setSetTurn(duelWithUser.getTurnCounter());
             }
-            dropSpellAndTrapOnTheGround(card);
+            dropSpellAndTrapOnTheGround(card, isItFieldSpell);
             duelWithUser.getMyBoard().setSelectedCard(null);
             return "set successfully";
         }
     }
 
-    private void dropSpellAndTrapOnTheGround(Card card) {
-        HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i < 6; i++) {
-            if (spellTerritory.get(i) == null) {
-                spellTerritory.put(i, card);
-                break;
+    private void dropSpellAndTrapOnTheGround(Card card, boolean isItFieldSpell) {
+        if (isItFieldSpell) {
+            SpellCard fieldSpell = duelWithUser.getMyBoard().getFieldSpell();
+            if (fieldSpell != null){
+                duelWithUser.getMyBoard().getGraveyard().add(fieldSpell);
+            }
+            duelWithUser.getMyBoard().setFieldSpell((SpellCard) card);
+        } else {
+            HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+            for (int i = 1; i < 6; i++) {
+                if (spellTerritory.get(i) == null) {
+                    spellTerritory.put(i, card);
+                    break;
+                }
             }
         }
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
@@ -245,10 +257,10 @@ public class MainPhase1Controller {
             return Output.NoCardIsSelectedYet.toString();
         }
         if (!canThisCardBeSummoned()) {
-            return "this card can't be special summoned";
+            return Output.ThisCardCantBeSpecialSummoned.toString();
         }
         if (canThisCardBeNormalSummoned(card.getName())) {
-            return "this card can't be special summoned";
+            return Output.ThisCardCantBeSpecialSummoned.toString();
         }
         MonsterCard monsterCard = (MonsterCard) card;
         if (monsterCard.getName().equals("The Tricky")) {
@@ -477,6 +489,10 @@ public class MainPhase1Controller {
             effectView.output(Output.NoCardIsSelectedYet.toString());
             return;
         }
+        if (card instanceof TrapCard) {
+            effectView.output("you can't activate trap card right now");
+            return;
+        }
         if (!(card instanceof SpellCard)) {
             effectView.output("activate effect is only for spell cards.");
             return;
@@ -512,7 +528,7 @@ public class MainPhase1Controller {
                     effectView.output("preparations of this spell are not done yet");
                     return;
                 }
-                dropSpellAndTrapOnTheGround(spell);
+                dropSpellAndTrapOnTheGround(spell, false);
                 spell.setFacedUp(true);
                 spellEffectActivate.spellAbsorption();
                 spell.setItInChainLink(true);
@@ -580,7 +596,7 @@ public class MainPhase1Controller {
             case "three tribute":
                 return summoneBeastKingBarbarosWithThreeTribute(monsterCard);
             default:
-                return "invalid command";
+                return Output.InvalidCommand.toString();
         }
     }
 

@@ -40,10 +40,18 @@ public class Board {
         this.spellAndTrapTerritory.put(4, null);
     }
 
-    public void setPlayerHand() {
+    public void setPlayerHandForFirstPlayer() {
         for (int i = 0; i < 5; i++) {
             playerHand.add(playerDeck.getMainDeck().get(0));
             playerDeck.getMainDeck().remove(0);
+        }
+    }
+
+    public void setPlayerHandForSecondPlayer() {
+        for (int i = 0; i < 5; i++) {
+            int index = playerDeck.getMainDeck().size() - 1;
+            playerHand.add(playerDeck.getMainDeck().get(index));
+            playerDeck.getMainDeck().remove(index);
         }
     }
 

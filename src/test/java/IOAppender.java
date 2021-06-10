@@ -340,6 +340,33 @@ public class IOAppender {
                 "back\n" +
                 "card show --selected\n" +
                 "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "special summon\n" +
+                "select --hand 6\n" +
+                "special summon\n" +
+                "select --opponent --field\n" +
+                "special summon\n" +
+                "select -d\n" +
+                "summon\n" +
+                "select --hand 2\n" +
+                "summon\n" +
+                "select --hand 1\n" +
+                "summon\n" +
+                "select --hand 5\n" +
+                "set\n" +
+                "select --spell 1\n" +
+                "activate effect\n" +
+                "flip-summon\n" +
+                "select --monster 1\n" +
+                "flip-summon\n" +
+                "select --hand 2\n" +
+                "card show --selected\n" +
+                "select --field\n" +
+                "set\n" +
+                "show graveyard\n" +
+                "show\n" +
+                "back\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -717,7 +744,245 @@ public class IOAppender {
                 "you can’t do this action in this phase\r\n" +
                 "no card is selected yet\r\n" +
                 "no card is selected yet\r\n" +
-                "AmirAli won the whole match\r\n");
+                "its AmirNick’s turn\r\n" +
+                "phase: draw phase\r\n" +
+                "new card added to the hand : Torrential Tribute\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "phase: standby phase\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "phase: Main Phase 1\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "no card is selected yet\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "this card can't be special summoned\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "this card can't be special summoned\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card deselected\r\n" +
+                "no card is selected yet\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "this card can't be normal summoned\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "summoned successfully\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "set successfully\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "you can't activate trap card right now\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "you can't flip summon this card\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "you can't flip summon this card\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "Forest:All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.\r\n" +
+                "no card found in the given position\r\n" +
+                "set successfully\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "graveyard empty\n" +
+                "Mehrshad won the whole match\r\n");
     }
 
     public static void profileViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {
