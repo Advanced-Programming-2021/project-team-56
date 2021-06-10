@@ -30,7 +30,7 @@ public class StandByPhaseView {
         System.out.println("phase: standby phase");
         System.out.print(duelWithUser.showField());
         String result = StandByPhaseController.getInstance().run();
-        if (!result.equals("the game continuous")) {
+        if (!result.equals(Output.TheGameContinues.toString())) {
             return result;
         }
         while (true) {

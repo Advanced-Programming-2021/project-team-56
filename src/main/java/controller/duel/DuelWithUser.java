@@ -89,7 +89,7 @@ public class DuelWithUser {
             switch (phaseCounter) {
                 case 1:
                     result = DrawPhaseView.getInstance().run();
-                    if (result.equals("I lost")) {
+                    if (result.equals(Output.ILost.toString())) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
@@ -100,14 +100,14 @@ public class DuelWithUser {
                     break;
                 case 2:
                     result = StandByPhaseView.getInstance().run();
-                    if (result.equals("I won")) {
+                    if (result.equals(Output.IWon.toString())) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
                             return 1;
                         }
                         return 2;
-                    } else if (result.equals("I lost")) {
+                    } else if (result.equals(Output.ILost.toString())) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getEnemyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
@@ -118,7 +118,7 @@ public class DuelWithUser {
                     break;
                 case 3:
                     EffectView.getInstance().output("phase: Main Phase 1");
-                    if (MainPhase1View.getInstance().run().equals("i lost")) {
+                    if (MainPhase1View.getInstance().run().equals(Output.ILost.toString())) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
@@ -130,14 +130,14 @@ public class DuelWithUser {
                 case 4:
                     if (startTurn != turnCounter) {
                         result = BattlePhaseView.getInstance().run();
-                        if (result.equals("I won")) {
+                        if (result.equals(Output.IWon.toString())) {
                             getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                             getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                             if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
                                 return 1;
                             }
                             return 2;
-                        } else if (result.equals("I lost")) {
+                        } else if (result.equals(Output.ILost.toString())) {
                             getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                             getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                             if (getEnemyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
@@ -149,7 +149,7 @@ public class DuelWithUser {
                     break;
                 case 5:
                     EffectView.getInstance().output("phase: Main Phase 2");
-                    if (MainPhase1View.getInstance().run().equals("i lost")) {
+                    if (MainPhase1View.getInstance().run().equals(Output.ILost.toString())) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
@@ -240,13 +240,13 @@ public class DuelWithUser {
                 return "no card found in the given position";
             }
             getMyBoard().setSelectedCard(getMyBoard().getMonsterTerritory().get(monsterNumber));
-            return "card selected";
+            return Output.CardSelected.toString();
         }
         if (getEnemyBoard().getMonsterTerritory().get(monsterNumber) == null) {
             return "no card found in the given position";
         }
         getMyBoard().setSelectedCard(getEnemyBoard().getMonsterTerritory().get(monsterNumber));
-        return "card selected";
+        return Output.CardSelected.toString();
     }
 
     private String selectSpellOrTrap(Matcher matcher, String whichPlayer) {
@@ -259,13 +259,13 @@ public class DuelWithUser {
                 return "no card found in the given position";
             }
             getMyBoard().setSelectedCard(getMyBoard().getSpellAndTrapTerritory().get(spellOrTrapNumber));
-            return "card selected";
+            return Output.CardSelected.toString();
         }
         if (getEnemyBoard().getSpellAndTrapTerritory().get(spellOrTrapNumber) == null) {
             return "no card found in the given position";
         }
         getMyBoard().setSelectedCard(getEnemyBoard().getSpellAndTrapTerritory().get(spellOrTrapNumber));
-        return "card selected";
+        return Output.CardSelected.toString();
     }
 
     private String selectMyHandCard(Matcher matcher) {
@@ -565,9 +565,9 @@ public class DuelWithUser {
 
     public String setWinner(String nickname) {
         if (nickname.equals(getMyBoard().getUser().getNickname())) {
-            return "I won";
+            return Output.IWon.toString();
         }
-        return "I lost";
+        return Output.ILost.toString();
     }
 
     public String isNicknameValid(String nickname) {

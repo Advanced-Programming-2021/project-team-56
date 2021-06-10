@@ -1,6 +1,7 @@
 package view.duel.phase;
 
 import controller.duel.DuelWithUser;
+import controller.duel.phases.EndPhaseController;
 import controller.duel.phases.OpponentPhase;
 import model.Output;
 import view.LoginMenuView;
@@ -25,6 +26,7 @@ public class EndPhaseView {
 
     public String run() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        EndPhaseController.getInstance().run();
         System.out.println("phase: End Phase\n" + duelWithUser.showField());
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();

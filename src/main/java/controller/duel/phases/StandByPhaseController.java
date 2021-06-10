@@ -5,6 +5,7 @@ import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
 import model.Card;
 import model.MonsterCard;
+import model.Output;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class StandByPhaseController {
                 return supplySquadDrawCard(2);
             }
         }
-        return "the game continuous";
+        return Output.TheGameContinues.toString();
     }
 
     private boolean didAnyCardDestroyed(int player) {
@@ -91,14 +92,14 @@ public class StandByPhaseController {
         }
         if (mainDeck.size() == 0) {
             if (player == 1) {
-                return "I lost";
+                return Output.ILost.toString();
             } else {
-                return "I won";
+                return Output.IWon.toString();
             }
         }
         playerHand.add(mainDeck.get(mainDeck.size() - 1));
         mainDeck.remove(mainDeck.size() - 1);
-        return "the game continuous";
+        return Output.TheGameContinues.toString();
     }
 
     private void askWhetherMessengerOfPeaceContinues() {
@@ -113,7 +114,7 @@ public class StandByPhaseController {
                         effectView.output("ok");
                         return;
                     } else {
-                        effectView.output("invalid command");
+                        effectView.output(Output.InvalidCommand.toString());
                     }
                 }
             }
@@ -182,7 +183,7 @@ public class StandByPhaseController {
                     effectView.output("chose which card do you want to tribute");
                     int address = effectView.getAddress();
                     if (address > playerHand.size() || address < 1) {
-                        effectView.output("invalid selection");
+                        effectView.output(Output.InvalidSelection.toString());
                     } else {
                         graveyard.add(playerHand.get(address - 1));
                         playerHand.remove(address - 1);
@@ -191,7 +192,7 @@ public class StandByPhaseController {
                 } else if (input.equals("cancel")) {
                     return;
                 } else {
-                    effectView.output("invalid command");
+                    effectView.output(Output.InvalidCommand.toString());
                 }
             }
             heraldOfCreationCardChoosing();
@@ -217,7 +218,7 @@ public class StandByPhaseController {
             effectView.showGraveyardForCardsEffects(true, false);
             int address = effectView.getAddress();
             if (address < 1 || address > graveyard.size()) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
                 continue;
             }
             Card card = (graveyard.get(address - 1));
@@ -238,9 +239,9 @@ public class StandByPhaseController {
 
     private boolean canHeraldOfCreationPickUpAMonster() {
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
-        for (int i = 0; i < graveyard.size(); i++) {
-            if (graveyard.get(i) instanceof MonsterCard) {
-                if (((MonsterCard) graveyard.get(i)).getLevel() >= 7) {
+        for (Card card : graveyard) {
+            if (card instanceof MonsterCard) {
+                if (((MonsterCard) card).getLevel() >= 7) {
                     return true;
                 }
             }

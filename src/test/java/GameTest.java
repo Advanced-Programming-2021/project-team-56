@@ -244,37 +244,6 @@ public class GameTest {
     }
 
     @Test
-    public void showSelectedCardAndShowGraveYard() {
-        User user1 = User.getUserByUsername("Mehrshad");
-        User user2 = User.getUserByUsername("AmirAli");
-        Board board1 = new Board(user1);
-        Board board2 = new Board(user2);
-        DuelWithUser.getInstance().getBoards()[0] = board1;
-        DuelWithUser.getInstance().getBoards()[1] = board2;
-        for (Card card : user1.getUserAllCards()) {
-            if (card.getName().equals("Silver Fang")) {
-                board1.getMonsterTerritory().put(1, (MonsterCard) card);
-            }
-            if (card.getName().equals("Slot Machine")) {
-                board1.getPlayerHand().add(card);
-            }
-            if (card.getName().equals("Yami") && board1.getGraveyard().size() == 0) {
-                board1.getGraveyard().add(card);
-            }
-        }
-        DuelWithUser.getInstance().selectCard("select --hand 1");
-        assertEquals("Slot Machine", DuelWithUser.getInstance().getMyBoard().getSelectedCard().getName());
-        DuelWithUser.getInstance().selectCard("select --monster 1");
-        String graveYardOutput = DuelWithUser.getInstance().showGraveYard();
-        String selectedCardOutput = DuelWithUser.getInstance().showSelectedCard();
-        String output1 = "Yami:All Fiend and Spellcaster monsters on the field gain 200 ATK/DEF, also all Fairy monsters on the field lose 200 ATK/DEF.\n";
-        String output2 = "Silver Fang: ATK, DEF = 1200, 800\n" +
-                "A snow wolf that's beautiful to the eye, but absolutely vicious in battle.";
-        assertEquals(selectedCardOutput, output2);
-        assertEquals(graveYardOutput, output1);
-    }
-
-    @Test
     public void battleTest() {
         User user1 = User.getUserByUsername("Mehrshad");
         User user2 = User.getUserByUsername("AmirAli");

@@ -2,6 +2,7 @@ package view;
 
 import controller.DuelMenuController;
 import controller.duel.DuelWithUser;
+import model.Output;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -44,7 +45,7 @@ public class DuelMenuView {
                 checkDuelWithUserCommand(command, username);
                 continue;
             }
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
     }
 
@@ -69,7 +70,7 @@ public class DuelMenuView {
                 return;
             }
         }
-        System.out.println("invalid command");
+        System.out.println(Output.InvalidCommand);
     }
 
     private void checkDuelWithUser(String firstPlayerUsername, String secondPlayerUsername, String numberOfRounds) {
