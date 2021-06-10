@@ -11,6 +11,7 @@ public enum Output {
     No("no"),
     ILost("I lost"),
     IWon("I won"),
+    InvalidNickname("invalid nick name"),
     TheGameContinues("the game continues"),
     MenuNavigationIsNotPossible("menu navigation is not possible"),
     YouCantFlipSummonThisCard("you can't flip summon this card"),

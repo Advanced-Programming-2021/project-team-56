@@ -90,12 +90,7 @@ public class DuelWithUser {
                 case 1:
                     result = DrawPhaseView.getInstance().run();
                     if (result.equals(Output.ILost.toString())) {
-                        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
-                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
-                        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
-                            return 2;
-                        }
-                        return 1;
+                        return surrender(firstPlayerUsername);
                     }
                     break;
                 case 2:
@@ -119,12 +114,7 @@ public class DuelWithUser {
                 case 3:
                     EffectView.getInstance().output("phase: Main Phase 1");
                     if (MainPhase1View.getInstance().run().equals(Output.ILost.toString())) {
-                        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
-                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
-                        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
-                            return 2;
-                        }
-                        return 1;
+                        return surrender(firstPlayerUsername);
                     }
                     break;
                 case 4:
@@ -150,16 +140,13 @@ public class DuelWithUser {
                 case 5:
                     EffectView.getInstance().output("phase: Main Phase 2");
                     if (MainPhase1View.getInstance().run().equals(Output.ILost.toString())) {
-                        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
-                        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
-                        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
-                            return 2;
-                        }
-                        return 1;
+                        return surrender(firstPlayerUsername);
                     }
                     break;
                 case 6:
-                    EndPhaseView.getInstance().run();
+                    if(EndPhaseView.getInstance().run().equals(Output.ILost.toString())){
+                        return surrender(firstPlayerUsername);
+                    }
                     break;
             }
             phaseCounter++;
@@ -168,6 +155,15 @@ public class DuelWithUser {
                 turnCounter++;
             }
         }
+    }
+
+    private int surrender(String firstPlayerUsername){
+        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
+        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
+        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
+            return 2;
+        }
+        return 1;
     }
 
     public void setUpGame(String firstPlayerUsername, String secondPlayerUsername, int lastRoundResult) {

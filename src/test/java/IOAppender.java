@@ -315,18 +315,25 @@ public class IOAppender {
                 "set\n" +
                 "select --hand 1\n" +
                 "set\n" +
-                "set -- position defence\n" +
+                "set --position defence\n" +
                 "select --field\n" +
-                "set -- position attack\n" +
+                "set --position attack\n" +
                 "select --monster 1\n" +
-                "set -- position attack\n" +
+                "set --position attack\n" +
                 "select --monster 2\n" +
-                "set -- position attack\n" +
+                "set --position attack\n" +
                 "activate effect\n" +
                 "select -d\n" +
                 "activate effect\n" +
                 "next phase\n" +
                 "next phase\n" +
+                "select\n" +
+                "flip-summon\n" +
+                "attack direct\n" +
+                "attack 3\n" +
+                "set\n" +
+                "summon\n" +
+                "set -- position attack\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -663,6 +670,22 @@ public class IOAppender {
                 "\tc\tc\tc\n" +
                 "MehrNick:8000\n" +
                 "phase: Main Phase 2\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: End Phase\n" +
                 "AmirNick:8000\n" +
                 "\tc\tc\tc\tc\tc\n" +
                 "55\n" +

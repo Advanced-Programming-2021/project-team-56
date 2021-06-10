@@ -3,6 +3,7 @@ package view.duel.phase;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.EndPhaseController;
 import controller.duel.phases.OpponentPhase;
+import model.Commands;
 import model.Output;
 import view.LoginMenuView;
 
@@ -27,58 +28,28 @@ public class EndPhaseView {
     public String run() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         EndPhaseController.getInstance().run();
-        System.out.println("phase: End Phase\n" + duelWithUser.showField());
+        System.out.print("phase: End Phase\n" + duelWithUser.showField());
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
-            if (command.equals("next phase")) {
+            if (command.equals(Commands.NextPhase.toString())) {
                 break;
-            }
-            if (command.equals("activate effect")) {
+            } else if (isThisActionNotAllowed(command)) {
                 System.out.println(Output.YouCantDoThisAction);
                 continue;
-            }
-            if (command.equals("summon")) {
-                System.out.println(Output.YouCantDoThisAction);
-                continue;
-            }
-            if (command.equals("set")) {
-                System.out.println(Output.YouCantDoThisAction);
-                continue;
-            }
-            if (command.equals("set --position attack") || command.equals("set --position defence")) {
-                System.out.println(Output.YouCantDoThisAction);
-                continue;
-            }
-            if (command.equals("flip-summon")) {
-                System.out.println(Output.YouCantDoThisAction);
-                continue;
-            }
-            Matcher matcher = attack.matcher(command);
-            if (matcher.find()) {
-                System.out.println(Output.YouCantDoThisAction);
-                continue;
-            }
-            if (command.equals("attack direct")) {
-                System.out.println(Output.YouCantDoThisAction);
-                continue;
-            }
-            if (command.equals("select -d")) {
+            } else if (command.equals("select -d")) {
                 System.out.println(duelWithUser.deselectCard());
                 continue;
-            }
-            if (command.startsWith("select")) {
+            } else if (command.startsWith("select")) {
                 System.out.println(duelWithUser.selectCard(command));
                 continue;
-            }
-            if (command.equals("card show --selected")) {
+            } else if (command.equals("card show --selected")) {
                 System.out.println(duelWithUser.showSelectedCard());
                 continue;
-            }
-            if (command.equals("show graveyard")) {
+            } else if (command.equals("show graveyard")) {
                 MainPhase1View.showGraveYardView();
                 continue;
             }
-            matcher = increaseLP.matcher(command);
+            Matcher matcher = increaseLP.matcher(command);
             if (matcher.find()) {
                 System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
             }
@@ -99,6 +70,24 @@ public class EndPhaseView {
         String nickname = duelWithUser.getEnemyBoard().getUser().getNickname();
         System.out.println("its " + nickname + "’s turn");
         return Output.TheGameContinues.toString();
+    }
+
+    private boolean isThisActionNotAllowed(String command) {
+        if (command.equals(Commands.ActivateEffect.toString())) {
+            return true;
+        } else if (command.equals(Commands.Summon.toString())) {
+            return true;
+        } else if (command.equals(Commands.Set.toString())) {
+            return true;
+        } else if (command.equals(Commands.SetAttackPosition.toString()) || command.equals(Commands.SetDefencePosition.toString())) {
+            return true;
+        } else if (command.equals(Commands.FlipSummon.toString())) {
+            return true;
+        } else if (command.equals(Commands.AttackDirect.toString())) {
+            return true;
+        }
+        Matcher matcher = attack.matcher(command);
+        return matcher.find();
     }
 
 }
