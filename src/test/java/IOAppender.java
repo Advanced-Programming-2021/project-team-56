@@ -300,6 +300,7 @@ public class IOAppender {
                 "summon\n" +
                 "yes\n" +
                 "-5\n" +
+                "ys\n" +
                 "yes\n" +
                 "8\n" +
                 "yes\n" +
@@ -308,6 +309,21 @@ public class IOAppender {
                 "2\n" +
                 "yes\n" +
                 "1\n" +
+                "set\n" +
+                "select --hand 2\n" +
+                "summon\n" +
+                "set\n" +
+                "select --hand 1\n" +
+                "set\n" +
+                "set -- position defence\n" +
+                "select --field\n" +
+                "set -- position attack\n" +
+                "select --monster 1\n" +
+                "set -- position attack\n" +
+                "select --monster 2\n" +
+                "set -- position attack\n" +
+                "select -d\n" +
+                "activate effect\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -448,10 +464,12 @@ public class IOAppender {
                 "Give an address\r\n" +
                 "invalid selection\r\n" +
                 "do you want to activate this card effect?\r\n" +
+                "invalid command\r\n" +
+                "do you want to activate this card effect?\r\n" +
                 "Give an address\r\n" +
                 "invalid selection\r\n" +
                 "do you want to activate this card effect?\r\n" +
-                "Give an address\r\n"+
+                "Give an address\r\n" +
                 "you can't special summon this card\r\n" +
                 "do you want to activate this card effect?\r\n" +
                 "Give an address\r\n" +
@@ -474,7 +492,140 @@ public class IOAppender {
                 "\tE\tE\tE\tE\tE\n" +
                 "\t\t\t\t\t\t52\n" +
                 "\tc\tc\tc\tc\n" +
-                "MehrNick:8000\n"+
+                "MehrNick:8000\n" +
+                "no card is selected yet\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "you already summoned/set on this turn\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "you already summoned/set on this turn\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "set successfully\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "no card is selected yet\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "you can’t change this card position\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "this card is already in the wanted position\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "you already changed this card position in this turn\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
                 "AmirAli won the whole match\r\n");
     }
 

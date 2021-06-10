@@ -11,6 +11,7 @@ public enum Output {
     No("no"),
     MenuNavigationIsNotPossible("menu navigation is not possible"),
     YouCantFlipSummonThisCard("you can't flip summon this card"),
+    ItsNotYourTurnToPLayThisKindOfMove("it’s not your turn to play this kind of moves"),
     InvalidSelection("invalid selection");
 
     private String output;

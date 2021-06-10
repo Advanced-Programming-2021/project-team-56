@@ -13,6 +13,14 @@ public class TrapCard extends Card {
 
     }
 
+    public int getSetTurn() {
+        return setTurn;
+    }
+
+    public void setSetTurn(int setTurn) {
+        this.setTurn = setTurn;
+    }
+
     public TrapCard(Card card) {
         super(card.getName(), card.getDescription(), card.getPrice());
         TrapCard trapCard = (TrapCard) card;
@@ -37,10 +45,6 @@ public class TrapCard extends Card {
         this.status = status;
     }
 
-    public void setSetTurn(int turn) {
-        this.setTurn = turn;
-    }
-
     public String getType() {
         return type;
     }
@@ -51,10 +55,6 @@ public class TrapCard extends Card {
 
     public String getIcon() {
         return icon;
-    }
-
-    public int getSetTurn() {
-        return this.setTurn;
     }
 
     @Override

@@ -228,7 +228,7 @@ public class DuelWithUser {
         if (selectFieldCard.matcher(command).find()) {
             return selectFieldCard(command);
         }
-        return "invalid command";
+        return Output.InvalidCommand.toString();
     }
 
     private String selectMonster(Matcher matcher, String whichPlayer) {
@@ -253,7 +253,7 @@ public class DuelWithUser {
     private String selectSpellOrTrap(Matcher matcher, String whichPlayer) {
         int spellOrTrapNumber = Integer.parseInt(matcher.group(1));
         if (spellOrTrapNumber > 5 || spellOrTrapNumber == 0) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         if (whichPlayer.equals("me")) {
             if (getMyBoard().getSpellAndTrapTerritory().get(spellOrTrapNumber) == null) {

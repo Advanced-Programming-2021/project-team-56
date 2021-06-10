@@ -63,9 +63,9 @@ public class MainPhase1View {
             Matcher matcher = setPosition.matcher(command);
             if (matcher.find()) {
                 if (matcher.group(1).equals("attack")) {
-                    System.out.println(mainPhase1Controller.changeToAttackPosition());
+                    System.out.println(mainPhase1Controller.changePosition(true));
                 } else {
-                    System.out.println(mainPhase1Controller.changeToDefencePosition());
+                    System.out.println(mainPhase1Controller.changePosition(false));
                 }
                 System.out.print(duelWithUser.showField());
                 continue;

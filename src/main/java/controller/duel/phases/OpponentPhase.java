@@ -73,36 +73,36 @@ public class OpponentPhase {
         while (true) {
             String command = effectView.input();
             if (command.equals("select -d")) {
-                effectView.output("it’s not your turn to play this kind of moves");
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
                 continue;
             }
             if (command.startsWith("select")) {
-                effectView.output("it’s not your turn to play this kind of moves");
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
                 continue;
             }
             if (command.equals("summon")) {
-                effectView.output("it’s not your turn to play this kind of moves");
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
                 continue;
             }
             if (command.equals("set")) {
-                effectView.output("it’s not your turn to play this kind of moves");
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
                 continue;
             }
             if (command.equals("set --position attack") || command.equals("set --position defence")) {
-                effectView.output("it’s not your turn to play this kind of moves");
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
                 continue;
             }
             if (command.equals("flip-summon")) {
-                effectView.output("it’s not your turn to play this kind of moves");
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
                 continue;
             }
             Matcher matcher = attack.matcher(command);
             if (matcher.find()) {
-                effectView.output("it’s not your turn to play this kind of moves");
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
                 continue;
             }
             if (command.equals("attack direct")) {
-                effectView.output("it’s not your turn to play this kind of moves");
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
                 continue;
             }
             if (command.equals("cancel")) {
@@ -117,7 +117,7 @@ public class OpponentPhase {
                 }
                 return;
             }
-            effectView.output("invalid command");
+            effectView.output(Output.InvalidCommand.toString());
         }
     }
 
@@ -144,20 +144,24 @@ public class OpponentPhase {
                 return 0;
             }
             if (trapEffectCanActivate.checkSpellAndTrapPossibility(spell.getName())) {
-                spellEffectActivate.spellAbsorption();
-                chainLink.add(spell);
-                spell.setItInChainLink(true);
-                return 1;
+                if (spell.getSetTurn() < duelWithUser.getTurnCounter()) {
+                    spellEffectActivate.spellAbsorption();
+                    chainLink.add(spell);
+                    spell.setItInChainLink(true);
+                    return 1;
+                }
             }
         } else {
             TrapCard trap = (TrapCard) card;
             if (trapEffectCanActivate.checkSpellAndTrapPossibility(trap.getName())) {
-                chainLink.add(trap);
-                trap.setItInChainLink(true);
-                if (isTrapCardCounterAttackType(trap.getName())){
-                    return 2;
+                if (trap.getSetTurn() < duelWithUser.getTurnCounter()) {
+                    chainLink.add(trap);
+                    trap.setItInChainLink(true);
+                    if (isTrapCardCounterAttackType(trap.getName())) {
+                        return 2;
+                    }
+                    return 1;
                 }
-                return 1;
             }
         }
         return 0;
@@ -226,6 +230,15 @@ public class OpponentPhase {
         for (int i = 1; i < 6; i++) {
             Card card = spellAndTrapTerritory.get(i);
             if (card != null && !card.isItInChainLink()) {
+                if (card instanceof SpellCard) {
+                    if (((SpellCard) card).getSetTurn() >= duelWithUser.getTurnCounter()) {
+                        return false;
+                    }
+                } else{
+                    if (((TrapCard) card).getSetTurn() >= duelWithUser.getTurnCounter()) {
+                        return false;
+                    }
+                }
                 if (trapEffectCanActivate.checkSpellAndTrapPossibility(card.getName())) {
                     return true;
                 }

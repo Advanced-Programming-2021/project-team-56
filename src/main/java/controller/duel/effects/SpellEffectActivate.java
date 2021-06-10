@@ -262,7 +262,6 @@ public class SpellEffectActivate {
                 effectView.output("invalid command");
             }
         }
-        //TODO For Test view this shuffle is like a booger
         Collections.shuffle(duelWithUser.getMyBoard().getMainDeck());
         effectView.output("summoned successfully");
     }

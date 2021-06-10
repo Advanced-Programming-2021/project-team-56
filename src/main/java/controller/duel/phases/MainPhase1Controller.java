@@ -6,6 +6,7 @@ import controller.duel.effects.SpellEffectCanActivate;
 import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
+import model.TrapCard;
 import view.duel.EffectView;
 import view.duel.phase.Output;
 
@@ -63,7 +64,7 @@ public class MainPhase1Controller {
         }
         if (monsterCard.getName().equals("Terratiger, the Empowered Warrior")) {
             summon(monsterCard, false, isItSet);
-            if (!isItSet){
+            if (!isItSet) {
                 terraTigerTheEmpoweredWarrior();
             }
             return Output.SummonedSuccessfully.toString();
@@ -81,7 +82,7 @@ public class MainPhase1Controller {
                 return Output.InvalidSelection.toString();
             }
             if (!isAddressValid(firstAddress)) {
-                return "there no monsters on this address";
+                return "there is no monsters on this address";
             } else {
                 tribute(firstAddress);
                 summon(monsterCard, false, isItSet);
@@ -93,11 +94,11 @@ public class MainPhase1Controller {
             }
             int firstAddress = effectView.getAddress();
             if (firstAddress < 1 || firstAddress > 5) {
-                return "invalid selection";
+                return Output.InvalidSelection.toString();
             }
             int secondAddress = effectView.getAddress();
             if (secondAddress < 1 || secondAddress > 5) {
-                return "invalid selection";
+                return Output.InvalidSelection.toString();
             }
             if (firstAddress == secondAddress) {
                 return "there is no monster on one of these addresses";
@@ -127,6 +128,11 @@ public class MainPhase1Controller {
             if (isMySpellAndTrapTerritoryFull()) {
                 return "spell card zone is full";
             }
+            if (card instanceof SpellCard) {
+                ((SpellCard) card).setSetTurn(duelWithUser.getTurnCounter());
+            }else {
+                ((TrapCard) card).setSetTurn(duelWithUser.getTurnCounter());
+            }
             dropSpellAndTrapOnTheGround(card);
             duelWithUser.getMyBoard().setSelectedCard(null);
             return "set successfully";
@@ -142,7 +148,7 @@ public class MainPhase1Controller {
             }
         }
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (int i = 1; i < playerHand.size(); i++) {
+        for (int i = 0; i < playerHand.size(); i++) {
             if (playerHand.get(i) == card) {
                 playerHand.remove(i);
                 break;
@@ -150,7 +156,7 @@ public class MainPhase1Controller {
         }
     }
 
-    public String changeToAttackPosition() {
+    public String changePosition(boolean inAttackPosition) {
         if (duelWithUser.getMyBoard().getSelectedCard() == null) {
             return Output.NoCardIsSelectedYet.toString();
         }
@@ -158,7 +164,7 @@ public class MainPhase1Controller {
             return "you can’t change this card position";
         }
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
-        if (monsterCard.getIsInAttackPosition()) {
+        if (monsterCard.getIsInAttackPosition() == inAttackPosition) {
             return "this card is already in the wanted position";
         }
         if (!monsterCard.getIsFacedUp()) {
@@ -167,36 +173,10 @@ public class MainPhase1Controller {
         if (duelWithUser.getTurnCounter() == monsterCard.getLastTimeChangedPositionTurn()) {
             return "you already changed this card position in this turn";
         }
-        changePosition(true);
-        return "monster card position changed successfully";
-    }
-
-    public String changeToDefencePosition() {
-        if (duelWithUser.getMyBoard().getSelectedCard() == null) {
-            return Output.NoCardIsSelectedYet.toString();
-        }
-        if (!isCardInMyMonsterTerritory()) {
-            return "you can’t change this card position";
-        }
-        MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
-        if (!monsterCard.getIsInAttackPosition()) {
-            return "this card is already in the wanted position";
-        }
-        if (duelWithUser.getTurnCounter() == monsterCard.getLastTimeChangedPositionTurn()) {
-            return "you already changed this card position in this turn";
-        }
-        if (duelWithUser.getTurnCounter() == monsterCard.getLastTimeAttackedTurn()) {
-            return "you already attacked with this card in this turn";
-        }
-        changePosition(false);
-        return "monster card position changed successfully";
-    }
-
-    private void changePosition(boolean position) {
-        MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
-        monsterCard.setInAttackPosition(position);
+        monsterCard.setInAttackPosition(inAttackPosition);
         monsterCard.setLastTimeChangedPositionTurn(duelWithUser.getTurnCounter());
         duelWithUser.getMyBoard().setSelectedCard(null);
+        return "monster card position changed successfully";
     }
 
     public String flipSummon() {
@@ -456,7 +436,7 @@ public class MainPhase1Controller {
                 return;
             } else if (result.equals("yes")) {
                 ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-                int address = effectView.getAddress() ;
+                int address = effectView.getAddress();
                 if (address > playerHand.size() || address < 1) {
                     effectView.output(Output.InvalidSelection.toString());
                 } else {
@@ -465,6 +445,7 @@ public class MainPhase1Controller {
                         if (monsterCard.getLevel() <= 4) {
                             summon(monsterCard, true, false);
                             monsterCard.setInAttackPosition(false);
+                            monsterCard.setLastTimeChangedPositionTurn(duelWithUser.getTurnCounter());
                             effectView.output("special summon of " + monsterCard.getName() + " was successful");
                             return;
                         }
@@ -472,7 +453,7 @@ public class MainPhase1Controller {
                     effectView.output("you can't special summon this card");
                 }
             } else {
-                effectView.output("invalid command");
+                effectView.output(Output.InvalidCommand.toString());
             }
         }
     }
@@ -531,15 +512,8 @@ public class MainPhase1Controller {
                     effectView.output("preparations of this spell are not done yet");
                     return;
                 }
-                HashMap<Integer, Card> spellTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-                for (int i = 1; i < 6; i++) {
-                    if (spellTerritory.get(i) == null) {
-                        spellTerritory.put(i, spell);
-                        spell.setFacedUp(true);
-                        break;
-                    }
-                }
-                drawCardFromPlayerHand(spell);
+                dropSpellAndTrapOnTheGround(spell);
+                spell.setFacedUp(true);
                 spellEffectActivate.spellAbsorption();
                 spell.setItInChainLink(true);
                 opponentPhase.getChainLink().add(spell);
