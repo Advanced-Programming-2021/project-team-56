@@ -6,6 +6,7 @@ import controller.duel.phases.OpponentPhase;
 import model.Commands;
 import model.Output;
 import view.LoginMenuView;
+import view.duel.DuelWithUserView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,6 +32,7 @@ public class DrawPhaseView {
 
     public String run() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
+        DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
         System.out.println("phase: draw phase");
         String result = DrawPhaseController.getInstance().run();
         System.out.println(result);
@@ -45,36 +47,15 @@ public class DrawPhaseView {
             } else if (isThisActionNotAllowed(command)) {
                 System.out.println(Output.YouCantDoThisAction);
                 continue;
-            } else if (command.equals("surrender")) {
-                return Output.ILost.toString();
-            } else if (command.equals("select -d")) {
-                System.out.println(duelWithUser.deselectCard());
-                continue;
-            } else if (command.startsWith("select")) {
-                System.out.println(duelWithUser.selectCard(command));
-                continue;
-            } else if (command.equals("card show --selected")) {
-                System.out.println(duelWithUser.showSelectedCard());
-                continue;
-            } else if (command.equals("show graveyard")) {
-                MainPhase1View.showGraveYardView();
+            } else if(DuelWithUserView.getInstance().isItValidInAllOfThePhases(command)){
                 continue;
             } else if (command.startsWith("select --hand") || command.startsWith("select --force")) {
                 checkForceDrawCommand(command);
                 continue;
             }
-            Matcher matcher = increaseLP.matcher(command);
-            if (matcher.find()) {
-                System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
-                continue;
-            }
-            matcher = setWinner.matcher(command);
-            if (matcher.find()) {
-                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
-                    return duelWithUser.setWinner(matcher.group(1));
-                }
-                System.out.println("invalid nickname");
-                continue;
+            result = duelWithUserView.cheatCodeExecute(command);
+            if (!result.equals(Output.TheGameContinues.toString())) {
+                return result;
             }
             System.out.println(Output.InvalidCommand);
         }

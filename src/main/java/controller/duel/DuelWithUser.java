@@ -553,8 +553,7 @@ public class DuelWithUser {
         this.tempTurnCounter = tempTurnCounter;
     }
 
-    public String increaseMyLP(String amount) {
-        int amountOfLP = Integer.parseInt(amount);
+    public String increaseMyLP(int amountOfLP) {
         getMyBoard().increaseLP(amountOfLP);
         return "LP of " + getMyBoard().getUser().getNickname() + " increased by " + amountOfLP;
     }
@@ -566,14 +565,14 @@ public class DuelWithUser {
         return Output.ILost.toString();
     }
 
-    public String isNicknameValid(String nickname) {
+    public boolean isNicknameValid(String nickname) {
         if (getMyBoard().getUser().getNickname().equals(nickname)) {
-            return Output.Yes.toString();
+            return true;
         }
         if (getEnemyBoard().getUser().getNickname().equals(nickname)) {
-            return Output.Yes.toString();
+            return true;
         }
-        return Output.No.toString();
+        return false;
     }
 
     public int getPhaseCounter() {

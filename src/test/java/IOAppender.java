@@ -333,7 +333,13 @@ public class IOAppender {
                 "attack 3\n" +
                 "set\n" +
                 "summon\n" +
-                "set -- position attack\n" +
+                "set --position attack\n" +
+                "activate effect\n" +
+                "select -d\n" +
+                "show graveyard\n" +
+                "back\n" +
+                "card show --selected\n" +
+                "next phase\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -701,6 +707,16 @@ public class IOAppender {
                 "\t\t\t\t\t\t52\n" +
                 "\tc\tc\tc\n" +
                 "MehrNick:8000\n" +
+                "invalid command\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "no card is selected yet\r\n" +
+                "no card is selected yet\r\n" +
                 "AmirAli won the whole match\r\n");
     }
 

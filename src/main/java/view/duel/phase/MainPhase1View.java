@@ -6,6 +6,7 @@ import controller.duel.phases.OpponentPhase;
 import model.Commands;
 import model.Output;
 import view.LoginMenuView;
+import view.duel.DuelWithUserView;
 
 import java.util.regex.Matcher;
 
@@ -34,6 +35,7 @@ public class MainPhase1View {
     }
 
     public String run() {
+        DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
         System.out.print(duelWithUser.showField());
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
@@ -42,56 +44,20 @@ public class MainPhase1View {
             } else if (isThisActionNotAllowed(command)) {
                 System.out.println(Output.YouCantDoThisAction);
                 continue;
-            } else if (command.equals(Commands.DisSelect.toString())) {
-                System.out.println(duelWithUser.deselectCard());
-                continue;
-            } else if (command.startsWith(Commands.Select.toString())) {
-                System.out.println(duelWithUser.selectCard(command));
-                continue;
-            } else if (command.equals(Commands.CardShowSelected.toString())) {
-                System.out.println(duelWithUser.showSelectedCard());
-                continue;
-            } else if (command.equals(Commands.ShowGraveyard.toString())) {
-                showGraveYardView();
-                continue;
-            } else if (command.equals(Commands.Surrender.toString())) {
-                return Output.ILost.toString();
             } else if (shouldIShowTheFiled(command)) {
                 System.out.print(duelWithUser.showField());
                 continue;
-            }
-            Matcher matcher = increaseLP.matcher(command);
-            if (matcher.find()) {
-                System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
+            } else if (duelWithUserView.isItValidInAllOfThePhases(command)) {
                 continue;
             }
-            matcher = setWinner.matcher(command);
-            if (matcher.find()) {
-                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
-                    return duelWithUser.setWinner(matcher.group(1));
-                }
-                System.out.println(Output.InvalidNickname);
-                continue;
+            String result = duelWithUserView.cheatCodeExecute(command);
+            if (!result.equals(Output.TheGameContinues.toString())) {
+                return result;
             }
             System.out.println(Output.InvalidCommand);
         }
         OpponentPhase.getInstance().startChainLink();
         return Output.TheGameContinues.toString();
-    }
-
-    public static void showGraveYardView() {
-        String command;
-        while (true) {
-            command = LoginMenuView.scan.nextLine();
-            if (command.equals("show")) {
-                System.out.print(DuelWithUser.getInstance().showGraveYard());
-                continue;
-            }
-            if (command.equals("back")) {
-                break;
-            }
-            System.out.println(Output.InvalidCommand);
-        }
     }
 
     private boolean isThisActionNotAllowed(String command) {
