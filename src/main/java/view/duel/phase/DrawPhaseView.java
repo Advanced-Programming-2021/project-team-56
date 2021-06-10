@@ -3,19 +3,18 @@ package view.duel.phase;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.DrawPhaseController;
 import controller.duel.phases.OpponentPhase;
+import model.Output;
 import view.LoginMenuView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static view.duel.phase.BattlePhaseView.increaseLP;
-import static view.duel.phase.BattlePhaseView.setWinner;
+import static view.duel.phase.BattlePhaseView.*;
 
 public class DrawPhaseView {
 
     private static DrawPhaseView drawPhase;
 
-    static Pattern attack = Pattern.compile("^attack (\\d+)$");
     static Pattern forceDraw1 = Pattern.compile("^select --hand ([\\S][\\S ]*) --force$");
     static Pattern forceDraw2 = Pattern.compile("^select --force --hand ([\\S][\\S ]*)$");
 
@@ -36,7 +35,7 @@ public class DrawPhaseView {
         System.out.println(result);
         System.out.print(duelWithUser.showField());
         if (result.equals("No cards is in your deck")) {
-            return "I lost";
+            return Output.ILost.toString();
         }
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
@@ -73,7 +72,7 @@ public class DrawPhaseView {
                 continue;
             }
             if (command.equals("surrender")) {
-                return "I lost";
+                return Output.ILost.toString();
             }
             if (command.equals("select -d")) {
                 System.out.println(duelWithUser.deselectCard());
@@ -109,9 +108,8 @@ public class DrawPhaseView {
             }
             System.out.println(Output.InvalidCommand);
         }
-        OpponentPhase.getInstance().run();
-        OpponentPhase.getInstance().resolveTheChainLink();
-        return "the game continues";
+        OpponentPhase.getInstance().startChainLink();
+        return Output.TheGameContinues.toString();
     }
 
     private void checkForceDrawCommand(String command) {
@@ -125,6 +123,6 @@ public class DrawPhaseView {
             System.out.println(DrawPhaseController.getInstance().forceDraw(matcher.group(1)));
             return;
         }
-        System.out.println("invalid command");
+        System.out.println(Output.InvalidCommand);
     }
 }

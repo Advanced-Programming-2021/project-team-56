@@ -4,7 +4,7 @@ import controller.duel.DuelWithUser;
 import model.Card;
 import model.MonsterCard;
 import view.LoginMenuView;
-import view.duel.phase.Output;
+import model.Output;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

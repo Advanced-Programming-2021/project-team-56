@@ -3,20 +3,19 @@ package view.duel.phase;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.MainPhase1Controller;
 import controller.duel.phases.OpponentPhase;
+import model.Output;
 import view.LoginMenuView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static view.duel.phase.BattlePhaseView.increaseLP;
-import static view.duel.phase.BattlePhaseView.setWinner;
+import static view.duel.phase.BattlePhaseView.*;
 
 public class MainPhase1View {
 
     private static MainPhase1View mainPhase1View;
 
     static Pattern setPosition = java.util.regex.Pattern.compile("^set -- position (attack|defence)$");
-    static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     private final DuelWithUser duelWithUser;
     private final MainPhase1Controller mainPhase1Controller;
@@ -108,7 +107,7 @@ public class MainPhase1View {
                 System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
             }
             if (command.equals("surrender")){
-                return "i lost";
+                return Output.ILost.toString();
             }
             matcher = setWinner.matcher(command);
             if (matcher.find()) {
@@ -118,11 +117,10 @@ public class MainPhase1View {
                 System.out.println("invalid nickname");
                 continue;
             }
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
-        OpponentPhase.getInstance().run();
-        OpponentPhase.getInstance().resolveTheChainLink();
-        return "the game continues";
+        OpponentPhase.getInstance().startChainLink();
+        return Output.TheGameContinues.toString();
     }
 
     public static void showGraveYardView() {

@@ -1,19 +1,17 @@
 package view.duel.phase;
 
 import controller.duel.DuelWithUser;
+import controller.duel.phases.OpponentPhase;
+import model.Output;
 import view.LoginMenuView;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static view.duel.phase.BattlePhaseView.increaseLP;
-import static view.duel.phase.BattlePhaseView.setWinner;
+import static view.duel.phase.BattlePhaseView.*;
 
 public class EndPhaseView {
 
     private static EndPhaseView endPhase;
-
-    static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     private EndPhaseView() {
 
@@ -25,7 +23,7 @@ public class EndPhaseView {
         return endPhase;
     }
 
-    public void run() {
+    public String run() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         System.out.println("phase: End Phase\n" + duelWithUser.showField());
         while (true) {
@@ -34,32 +32,32 @@ public class EndPhaseView {
                 break;
             }
             if (command.equals("activate effect")) {
-                System.out.println("you can’t activate an effect on this turn");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("summon")) {
-                System.out.println("action not allowed in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("set")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("set --position attack") || command.equals("set --position defence")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("flip-summon")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             Matcher matcher = attack.matcher(command);
             if (matcher.find()) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("attack direct")) {
-                System.out.println("you can’t do this action in this phase");
+                System.out.println(Output.YouCantDoThisAction);
                 continue;
             }
             if (command.equals("select -d")) {
@@ -82,19 +80,23 @@ public class EndPhaseView {
             if (matcher.find()) {
                 System.out.println(duelWithUser.increaseMyLP(matcher.group(1)));
             }
-            //TODO Win cheat
-//            matcher = setWinner.matcher(command);
-//            if (matcher.find()) {
-//                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
-//                    return duelWithUser.setWinner(matcher.group(1));
-//                }
-//                System.out.println("invalid nickname");
-//                continue;
-//            }
-            System.out.println("invalid command");
+            if (command.equals("surrender")) {
+                return Output.ILost.toString();
+            }
+            matcher = setWinner.matcher(command);
+            if (matcher.find()) {
+                if (duelWithUser.isNicknameValid(matcher.group(1)).equals("yes")) {
+                    return duelWithUser.setWinner(matcher.group(1));
+                }
+                System.out.println("invalid nickname");
+                continue;
+            }
+            System.out.println(Output.InvalidCommand);
         }
+        OpponentPhase.getInstance().startChainLink();
         String nickname = duelWithUser.getEnemyBoard().getUser().getNickname();
         System.out.println("its " + nickname + "’s turn");
+        return Output.TheGameContinues.toString();
     }
 
 }

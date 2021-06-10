@@ -118,7 +118,7 @@ public class DuelWithUser {
                     break;
                 case 3:
                     EffectView.getInstance().output("phase: Main Phase 1");
-                    if(MainPhase1View.getInstance().run().equals("i lost")){
+                    if (MainPhase1View.getInstance().run().equals("i lost")) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
@@ -149,8 +149,7 @@ public class DuelWithUser {
                     break;
                 case 5:
                     EffectView.getInstance().output("phase: Main Phase 2");
-                    MainPhase1View.getInstance().run();
-                    if(MainPhase1View.getInstance().run().equals("i lost")){
+                    if (MainPhase1View.getInstance().run().equals("i lost")) {
                         getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
                         getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
                         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
@@ -301,7 +300,7 @@ public class DuelWithUser {
             return Output.NoCardIsSelectedYet.toString();
         }
         getMyBoard().setSelectedCard(null);
-        return Output.CardSelected.toString();
+        return "card deselected";
     }
 
     public String showField() {

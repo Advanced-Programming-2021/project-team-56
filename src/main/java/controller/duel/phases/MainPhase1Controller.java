@@ -8,7 +8,7 @@ import model.MonsterCard;
 import model.SpellCard;
 import model.TrapCard;
 import view.duel.EffectView;
-import view.duel.phase.Output;
+import model.Output;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -503,7 +503,7 @@ public class MainPhase1Controller {
             spellEffectActivate.spellAbsorption();
             drawCardFromPlayerHand(spell);
             effectView.output("spell activated");
-            opponentPhase();
+            OpponentPhase.getInstance().startChainLink();
         } else {
             if (isMySpellAndTrapTerritoryFull()) {
                 effectView.output("spell card zone is full");
@@ -517,7 +517,7 @@ public class MainPhase1Controller {
                 spellEffectActivate.spellAbsorption();
                 spell.setItInChainLink(true);
                 opponentPhase.getChainLink().add(spell);
-                opponentPhase();
+                OpponentPhase.getInstance().startChainLink();
             }
         }
     }
@@ -530,7 +530,7 @@ public class MainPhase1Controller {
         if (spell.getIcon().equals("Field")) {
             duelWithUser.getMyBoard().setSelectedCard(null);
             spellEffectActivate.spellAbsorption();
-            opponentPhase();
+            OpponentPhase.getInstance().startChainLink();
             effectView.output("spell activated");
         } else {
             if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())) {
@@ -540,7 +540,7 @@ public class MainPhase1Controller {
             spellEffectActivate.spellAbsorption();
             spell.setItInChainLink(true);
             opponentPhase.getChainLink().add(spell);
-            opponentPhase();
+            OpponentPhase.getInstance().startChainLink();
         }
     }
 
@@ -594,10 +594,10 @@ public class MainPhase1Controller {
         }
         int secondAddress = effectView.getAddress();
         if (secondAddress < 1 || secondAddress > 5) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         if (firstAddress == secondAddress) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         if (!isAddressValid(firstAddress) || !isAddressValid(secondAddress)) {
             return "there is no monster on one of these addresses";
@@ -647,8 +647,4 @@ public class MainPhase1Controller {
         return isSummoningInProcess;
     }
 
-    private void opponentPhase() {
-        opponentPhase.run();
-        opponentPhase.resolveTheChainLink();
-    }
 }

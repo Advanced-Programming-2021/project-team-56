@@ -2,6 +2,7 @@ package view.duel.phase;
 
 import controller.duel.DuelWithUser;
 import controller.duel.phases.BattlePhaseController;
+import model.Output;
 import view.LoginMenuView;
 
 import java.util.regex.Matcher;
@@ -76,9 +77,9 @@ public class BattlePhaseView {
                 System.out.print(duelWithUser.showField());
                 if (isGameOver()) {
                     if (duelWithUser.getMyBoard().getLP() <= 0) {
-                        return "I lost";
+                        return Output.ILost.toString();
                     } else {
-                        return "I won";
+                        return Output.IWon.toString();
                     }
                 }
                 continue;
@@ -88,15 +89,15 @@ public class BattlePhaseView {
                 System.out.print(duelWithUser.showField());
                 if (isGameOver()) {
                     if (duelWithUser.getMyBoard().getLP() <= 0) {
-                        return "I lost";
+                        return Output.ILost.toString();
                     } else {
-                        return "I won";
+                        return Output.IWon.toString();
                     }
                 }
                 continue;
             }
             if (command.equals("surrender")) {
-                return "I lost";
+                return Output.ILost.toString();
             }
             if (command.equals("card show --selected")) {
                 System.out.println(duelWithUser.showSelectedCard());
@@ -121,7 +122,7 @@ public class BattlePhaseView {
             }
             System.out.println(Output.InvalidCommand);
         }
-        return "the game continues";
+        return Output.TheGameContinues.toString();
     }
 
     private boolean isGameOver() {

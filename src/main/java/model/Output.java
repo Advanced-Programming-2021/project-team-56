@@ -1,4 +1,4 @@
-package view.duel.phase;
+package model;
 
 public enum Output {
     YouCantDoThisAction("you can’t do this action in this phase"),
@@ -9,6 +9,9 @@ public enum Output {
     CardIsNotVisible("card is not visible"),
     Yes("yes"),
     No("no"),
+    ILost("I lost"),
+    IWon("I won"),
+    TheGameContinues("the game continues"),
     MenuNavigationIsNotPossible("menu navigation is not possible"),
     YouCantFlipSummonThisCard("you can't flip summon this card"),
     ItsNotYourTurnToPLayThisKindOfMove("it’s not your turn to play this kind of moves"),

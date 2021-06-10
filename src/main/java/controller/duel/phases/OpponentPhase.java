@@ -8,7 +8,7 @@ import model.Card;
 import model.SpellCard;
 import model.TrapCard;
 import view.duel.EffectView;
-import view.duel.phase.Output;
+import model.Output;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -245,5 +245,10 @@ public class OpponentPhase {
             }
         }
         return false;
+    }
+
+    public void startChainLink(){
+        opponentPhase.run();
+        opponentPhase.resolveTheChainLink();
     }
 }

@@ -3,19 +3,16 @@ package view.duel.phase;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.OpponentPhase;
 import controller.duel.phases.StandByPhaseController;
+import model.Output;
 import view.LoginMenuView;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static view.duel.phase.BattlePhaseView.increaseLP;
-import static view.duel.phase.BattlePhaseView.setWinner;
+import static view.duel.phase.BattlePhaseView.*;
 
 public class StandByPhaseView {
 
     private static StandByPhaseView standByPhase;
-
-    static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     private StandByPhaseView() {
 
@@ -33,7 +30,7 @@ public class StandByPhaseView {
         System.out.println("phase: standby phase");
         System.out.print(duelWithUser.showField());
         String result = StandByPhaseController.getInstance().run();
-        if (!result.equals("the game continuous")){
+        if (!result.equals("the game continuous")) {
             return result;
         }
         while (true) {
@@ -71,7 +68,7 @@ public class StandByPhaseView {
                 continue;
             }
             if (command.equals("surrender")) {
-                return "I lost";
+                return Output.ILost.toString();
             }
             if (command.equals("select -d")) {
                 System.out.println(duelWithUser.deselectCard());
@@ -103,8 +100,7 @@ public class StandByPhaseView {
             }
             System.out.println(Output.InvalidCommand);
         }
-        OpponentPhase.getInstance().run();
-        OpponentPhase.getInstance().resolveTheChainLink();
-        return "the game continuous";
+        OpponentPhase.getInstance().startChainLink();
+        return Output.TheGameContinues.toString();
     }
 }

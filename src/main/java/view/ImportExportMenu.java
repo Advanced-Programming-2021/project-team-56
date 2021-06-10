@@ -1,9 +1,6 @@
 package view;
 
-import controller.ShopController;
-import view.duel.phase.Output;
-
-import java.util.regex.Matcher;
+import model.Output;
 
 public class ImportExportMenu {
     private static ImportExportMenu importExportMenu;

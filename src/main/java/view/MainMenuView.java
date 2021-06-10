@@ -1,6 +1,6 @@
 package view;
 
-import view.duel.phase.Output;
+import model.Output;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

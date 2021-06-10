@@ -322,8 +322,11 @@ public class IOAppender {
                 "set -- position attack\n" +
                 "select --monster 2\n" +
                 "set -- position attack\n" +
+                "activate effect\n" +
                 "select -d\n" +
                 "activate effect\n" +
+                "next phase\n" +
+                "next phase\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -611,6 +614,55 @@ public class IOAppender {
                 "MehrNick:8000\n" +
                 "card selected\r\n" +
                 "you already changed this card position in this turn\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "activate effect is only for spell cards.\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card deselected\r\n" +
+                "no card is selected yet\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "55\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "0\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: Main Phase 2\r\n" +
                 "AmirNick:8000\n" +
                 "\tc\tc\tc\tc\tc\n" +
                 "55\n" +
