@@ -1,11 +1,8 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
-import model.Board;
-import model.Card;
-import model.MonsterCard;
+import model.*;
 
-import model.SpellCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -516,7 +513,7 @@ public class SpellEffectActivate {
         while (true) {
             int address = effectView.getAddress();
             if (address > 5 || address < 1) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
             } else {
                 MonsterCard monster = monsterTerritory.get(address);
                 if (monster == null) {

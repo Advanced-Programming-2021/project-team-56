@@ -55,7 +55,7 @@ public class EffectView {
         while (true) {
             System.out.println("Give an address");
             String result = LoginMenuView.scan.nextLine().trim();
-            Pattern number = Pattern.compile("[\\d]+");
+            Pattern number = Pattern.compile("^([\\d]+)$");
             Matcher matcher = number.matcher(result);
             if (matcher.find()) {
                 return Integer.parseInt(result);

@@ -4,11 +4,8 @@ import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.TrapEffectActivate;
 import controller.duel.effects.TrapEffectCanActivate;
-import model.Card;
-import model.SpellCard;
-import model.TrapCard;
+import model.*;
 import view.duel.EffectView;
-import model.Output;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,7 +99,7 @@ public class OpponentPhase {
             effectView.output(Output.InvalidSelection.toString());
             return 0;
         }
-        Card card = spellAndTrapTerritory.get(address - 1);
+        Card card = spellAndTrapTerritory.get(address);
         if (card == null) {
             effectView.output("there is no spell or trap on this address");
             return 0;
@@ -222,19 +219,19 @@ public class OpponentPhase {
     }
 
     private boolean isThisActionNotAllowed(String command){
-        if (command.equals("select -d")) {
+        if (command.equals(Commands.DisSelect.toString())) {
             return true;
-        } else if (command.startsWith("select")) {
+        } else if (command.startsWith(Commands.Select.toString())) {
             return true;
-        } else if (command.equals("summon")) {
+        } else if (command.equals(Commands.Summon.toString())) {
             return true;
-        } else if (command.equals("set")) {
+        } else if (command.equals(Commands.Set.toString())) {
             return true;
-        } else if (command.equals("set --position attack") || command.equals("set --position defence")) {
+        } else if (command.equals(Commands.SetAttackPosition.toString()) || command.equals(Commands.SetDefencePosition.toString())) {
             return true;
-        } else if (command.equals("flip-summon")) {
+        } else if (command.equals(Commands.FlipSummon.toString())) {
             return true;
-        } else if (command.equals("attack direct")) {
+        } else if (command.equals(Commands.AttackDirect.toString())) {
             return true;
         }
         return false;

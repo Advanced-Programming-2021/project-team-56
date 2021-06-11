@@ -390,6 +390,50 @@ public class IOAppender {
                 "attack direct\n" +
                 "select --monster 1\n" +
                 "attack direct\n" +
+                "next phase\n" +
+                "select --field\n" +
+                "activate effect\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "select --spell 1\n" +
+                "activate effect\n" +
+                "select --hand 1\n" +
+                "card show --selected\n" +
+                "set\n" +
+                "three tributes\n" +
+                "set\n" +
+                "two tributes\n" +
+                "8\n" +
+                "set\n" +
+                "two tributes\n" +
+                "5\n" +
+                "0\n" +
+                "set\n" +
+                "two tributes\n" +
+                "4\n" +
+                "4\n" +
+                "set\n" +
+                "two tributes\n" +
+                "1\n" +
+                "3\n" +
+                "set\n" +
+                "no tribute\n" +
+                "yes\n" +
+                "select -d\n" +
+                "summon\n" +
+                "set\n" +
+                "flip-summon\n" +
+                "select\n" +
+                "attack direct\n" +
+                "set --position attack\n" +
+                "activate effect\n" +
+                "6\n" +
+                "activate effect\n" +
+                "2\n" +
+                "activate effect\n" +
+                "1\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -528,10 +572,15 @@ public class IOAppender {
                 "When this card is Normal Summoned: You can Special Summon 1 Level 4 or lower Normal Monster from your hand in Defense Position.\r\n" +
                 "do you want to activate this card effect?\r\n" +
                 "Give an address\r\n" +
-                "invalid selection\r\n" +
-                "do you want to activate this card effect?\r\n" +
                 "invalid command\r\n" +
-                "do you want to activate this card effect?\r\n" +
+                "Give an address\r\n" +
+                "invalid command\r\n" +
+                "Give an address\r\n" +
+                "invalid command\r\n" +
+                "Give an address\r\n" +
+                "invalid command\r\n" +
+                "Give an address\r\n" +
+                "invalid command\r\n" +
                 "Give an address\r\n" +
                 "invalid selection\r\n" +
                 "do you want to activate this card effect?\r\n" +
@@ -1059,7 +1108,282 @@ public class IOAppender {
                 "\t\t\t\t\t\t54\n" +
                 "\tc\tc\tc\n" +
                 "AmirNick:8000\n" +
-                "Mehrshad won the whole match\r\n");
+                "phase: Main Phase 2\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "spell activated\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "phase: End Phase\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "its MehrNick’s turn\r\n" +
+                "phase: draw phase\r\n" +
+                "new card added to the hand : Crab Turtle\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t51\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: standby phase\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t51\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: Main Phase 1\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t1\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t51\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "spell activated\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "Beast King Barbaros: ATK, DEF = 3000, 1200\n" +
+                "You can Normal Summon/Set this card without Tributing, but its original ATK becomes 1900. You can Tribute 3 monsters to Tribute Summon (but not Set) this card. If Summoned this way: Destroy all cards your opponent controls.\r\n" +
+                "choose on option from the list below\r\n" +
+                "no tribute\r\n" +
+                "two tributes\r\n" +
+                "three tributes\r\n" +
+                "there is no way you could summon this monster\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "choose on option from the list below\r\n" +
+                "no tribute\r\n" +
+                "two tributes\r\n" +
+                "three tributes\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "choose on option from the list below\r\n" +
+                "no tribute\r\n" +
+                "two tributes\r\n" +
+                "three tributes\r\n" +
+                "Give an address\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "choose on option from the list below\r\n" +
+                "no tribute\r\n" +
+                "two tributes\r\n" +
+                "three tributes\r\n" +
+                "Give an address\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "choose on option from the list below\r\n" +
+                "no tribute\r\n" +
+                "two tributes\r\n" +
+                "three tributes\r\n" +
+                "Give an address\r\n" +
+                "Give an address\r\n" +
+                "there is no monster on one of these addresses\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "choose on option from the list below\r\n" +
+                "no tribute\r\n" +
+                "two tributes\r\n" +
+                "three tributes\r\n" +
+                "now it will be AmirAli’s turn\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tDO\tOO\tDH\tE\n" +
+                "2\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "do you want to activate your trap and spell?(yes/no)\r\n" +
+                "it’s not your turn to play this kind of moves\r\n" +
+                "it’s not your turn to play this kind of moves\r\n" +
+                "it’s not your turn to play this kind of moves\r\n" +
+                "it’s not your turn to play this kind of moves\r\n" +
+                "it’s not your turn to play this kind of moves\r\n" +
+                "it’s not your turn to play this kind of moves\r\n" +
+                "it’s not your turn to play this kind of moves\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "Give an address\r\n" +
+                "there is no spell or trap on this address\r\n" +
+                "Give an address\r\n" +
+                "summoned successfully\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "2\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t5\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "AmirAli won the whole match\r\n");
     }
 
     public static void profileViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {

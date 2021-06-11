@@ -380,8 +380,7 @@ public class MainPhase1Controller {
         if (monster.getAttack() >= 1000) {
             duelWithUser.getMyBoard().setMyMonsterInDangerOfTrapHole(true);
         }
-        opponentPhase.run();
-        opponentPhase.resolveTheChainLink();
+        opponentPhase.startChainLink();
         spawnKill(monster);
         duelWithUser.getMyBoard().setMyMonsterInDangerOfTrapHole(false);
         duelWithUser.getMyBoard().setItMySummon(false);
@@ -535,8 +534,9 @@ public class MainPhase1Controller {
     }
 
     private void activateSpellFromGround() {
-        if (!spell.getIsFacedUp()) {
+        if (spell.getIsFacedUp()) {
             effectView.output("you have already activated this card");
+            return;
         }
         spell.setFacedUp(true);
         if (spell.getIcon().equals("Field")) {
@@ -578,8 +578,8 @@ public class MainPhase1Controller {
     private String beastKingBarbaros(boolean isItset) {
         effectView.output("choose on option from the list below");
         effectView.output("no tribute");
-        effectView.output("two tribute");
-        effectView.output("three tribute");
+        effectView.output("two tributes");
+        effectView.output("three tributes");
         String input = effectView.input();
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         switch (input) {
@@ -587,9 +587,9 @@ public class MainPhase1Controller {
                 monsterCard.setAttack(1900);
                 summon(monsterCard, false, isItset);
                 return "summoned successfully";
-            case "two tribute":
+            case "two tributes":
                 return summonBeastKingBarbarosWithTwoTribute(monsterCard, isItset);
-            case "three tribute":
+            case "three tributes":
                 return summoneBeastKingBarbarosWithThreeTribute(monsterCard);
             default:
                 return Output.InvalidCommand.toString();
@@ -602,7 +602,7 @@ public class MainPhase1Controller {
         }
         int firstAddress = effectView.getAddress();
         if (firstAddress < 1 || firstAddress > 5) {
-            return "invalid selection";
+            return Output.InvalidSelection.toString();
         }
         int secondAddress = effectView.getAddress();
         if (secondAddress < 1 || secondAddress > 5) {
@@ -617,7 +617,7 @@ public class MainPhase1Controller {
         tribute(firstAddress);
         tribute(secondAddress);
         summon(monsterCard, false, isItSet);
-        return "summoned successfully";
+        return Output.SummonedSuccessfully.toString();
     }
 
     private String summoneBeastKingBarbarosWithThreeTribute(MonsterCard monsterCard) {
