@@ -509,11 +509,7 @@ public class MainPhase1Controller {
 
     private void activateSpellFromHand() {
         if (spell.getIcon().equals("Field")) {
-            SpellCard fieldSpell = duelWithUser.getMyBoard().getFieldSpell();
-            if (fieldSpell != null) {
-                duelWithUser.getMyBoard().getGraveyard().add(fieldSpell);
-            }
-            duelWithUser.getMyBoard().setFieldSpell(spell);
+            dropSpellAndTrapOnTheGround(spell, true);
             spell.setFacedUp(true);
             duelWithUser.getMyBoard().setSelectedCard(null);
             spellEffectActivate.spellAbsorption();

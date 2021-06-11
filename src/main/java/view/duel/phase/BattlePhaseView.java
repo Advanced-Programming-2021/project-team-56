@@ -37,7 +37,7 @@ public class BattlePhaseView {
 
     public String run() {
         DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
-        System.out.println("phase: battle phase\n" + duelWithUser.showField());
+        System.out.print("phase: battle phase\n" + duelWithUser.showField());
         while (true) {
             battlePhaseController.afterBattleEffects();
             String command = LoginMenuView.scan.nextLine().trim();
@@ -53,15 +53,15 @@ public class BattlePhaseView {
             if (matcher.find()) {
                 System.out.println(battlePhaseController.attackCard(Integer.parseInt(matcher.group(1))));
                 String result = afterAttack();
-                if (result.equals(Output.TheGameContinues.toString())) {
+                if (!result.equals(Output.TheGameContinues.toString())) {
                     return result;
                 }
                 continue;
             }
-            if (command.equals("attack direct")) {
+            if (command.equals(Commands.AttackDirect.toString())) {
                 System.out.println(battlePhaseController.attackUser());
                 String result = afterAttack();
-                if (result.equals(Output.TheGameContinues.toString())) {
+                if (!result.equals(Output.TheGameContinues.toString())) {
                     return result;
                 }
                 continue;
@@ -84,13 +84,7 @@ public class BattlePhaseView {
             return true;
         } else if (command.equals(Commands.SetAttackPosition.toString()) || command.equals(Commands.SetDefencePosition.toString())) {
             return true;
-        } else if (command.equals(Commands.FlipSummon.toString())) {
-            return true;
-        } else if (command.equals(Commands.AttackDirect.toString())) {
-            return true;
-        }
-        Matcher matcher = attack.matcher(command);
-        return matcher.find();
+        } else return command.equals(Commands.FlipSummon.toString());
     }
 
     private boolean isGameOver() {

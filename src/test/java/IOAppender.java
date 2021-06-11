@@ -226,11 +226,17 @@ public class IOAppender {
                 "Mehrshad\n" +
                 "set\n" +
                 "summon\n" +
+                "select --monster 5\n" +
+                "select --monster 6\n" +
+                "select --opponent --field\n" +
                 "set --position attack\n" +
                 "attack 5\n" +
                 "flip-summon\n" +
                 "activate effect\n" +
                 "attack direct\n" +
+                "select --spell 6\n" +
+                "select --spell 1\n" +
+                "select --hand 81\n" +
                 "attack3\n" +
                 "select -d\n" +
                 "surrender\n" +
@@ -253,11 +259,17 @@ public class IOAppender {
                 "MehrNick:8000\n" +
                 "you can’t do this action in this phase\r\n" +
                 "you can’t do this action in this phase\r\n" +
+                "no card found in the given position\r\n" +
+                "invalid selection\r\n" +
+                "no card found in the given position\r\n" +
                 "you can’t do this action in this phase\r\n" +
                 "you can’t do this action in this phase\r\n" +
                 "you can’t do this action in this phase\r\n" +
                 "you can’t do this action in this phase\r\n" +
                 "you can’t do this action in this phase\r\n" +
+                "invalid selection\r\n" +
+                "no card found in the given position\r\n" +
+                "invalid selection\r\n" +
                 "invalid command\r\n" +
                 "no card is selected yet\r\n" +
                 "AmirAli won the whole match\r\n");
@@ -301,6 +313,8 @@ public class IOAppender {
                 "yes\n" +
                 "-5\n" +
                 "ys\n" +
+                "yes\n" +
+                "hello\n" +
                 "yes\n" +
                 "8\n" +
                 "yes\n" +
@@ -367,6 +381,15 @@ public class IOAppender {
                 "show graveyard\n" +
                 "show\n" +
                 "back\n" +
+                "next phase\n" +
+                "set\n" +
+                "summon\n" +
+                "flip-summon\n" +
+                "activate effect\n" +
+                "set --position attack\n" +
+                "attack direct\n" +
+                "select --monster 1\n" +
+                "attack direct\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -982,6 +1005,60 @@ public class IOAppender {
                 "\tc\tc\tc\n" +
                 "AmirNick:8000\n" +
                 "graveyard empty\n" +
+                "phase: battle phase\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "you can’t do this action in this phase\r\n" +
+                "no card is selected yet\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "you can’t attack the opponent directly\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "52\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tDO\tOO\tE\tE\n" +
+                "1\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t0\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t54\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
                 "Mehrshad won the whole match\r\n");
     }
 

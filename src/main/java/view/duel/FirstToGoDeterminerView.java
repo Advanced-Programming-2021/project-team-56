@@ -1,6 +1,7 @@
 package view.duel;
 
 import controller.duel.FirstToGoDeterminerController;
+import model.Output;
 import model.User;
 import view.LoginMenuView;
 
@@ -69,9 +70,9 @@ public class FirstToGoDeterminerView {
                                 return firstPlayerUsername;
                             }
                             return secondPlayerUsername;
-                        } else System.out.println("invalid command");
+                        } else System.out.println(Output.InvalidCommand);
                     }
-                } else System.out.println("invalid command");
+                } else System.out.println(Output.InvalidCommand);
             }
             System.out.println("Draw, please try again");
         }

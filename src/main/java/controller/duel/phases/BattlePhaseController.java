@@ -5,6 +5,7 @@ import controller.duel.effects.SpellEffectActivate;
 import model.Board;
 import model.Card;
 import model.MonsterCard;
+import model.Output;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class BattlePhaseController {
 
     public String attackUser() {
         String result = isTargetingMonsterOrUserPossible(0, true);
-        if (!result.equals("continue the process")) {
+        if (!result.equals(Output.TheGameContinues.toString())) {
             return result;
         }
         MonsterCard monster = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
@@ -52,8 +53,7 @@ public class BattlePhaseController {
         if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
             return "you can't attack with this card due to the effect of messenger of peace";
         }
-        opponentPhase.run();
-        opponentPhase.resolveTheChainLink();
+        opponentPhase.startChainLink();
         monster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
             return magicCylinderConverseDamage(monster);
@@ -110,20 +110,19 @@ public class BattlePhaseController {
                 }
             }
         }
-        return "continue the process";
+        return Output.TheGameContinues.toString();
     }
 
     public String attackCard(int address) {
         String result = isTargetingMonsterOrUserPossible(address, false);
-        if (!result.equals("continue the process")) {
+        if (!result.equals(Output.TheGameContinues.toString())) {
             return result;
         }
         effectFinalDamage();
         if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
             return "you can't attack with this card due to the effect of messenger of peace";
         }
-        opponentPhase.run();
-        opponentPhase.resolveTheChainLink();
+        opponentPhase.startChainLink();
         myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
             return magicCylinderConverseDamage(myMonster);
