@@ -174,7 +174,6 @@ public class GameTest {
 
     @Test
     public void cardConstructorTest() {
-        //TODO Can put all set and gets on testCard
         Card testCard = new Card("testCard", "testDescryption", 700);
         int outputPrice = testCard.getPrice();
         assertEquals(700, outputPrice);

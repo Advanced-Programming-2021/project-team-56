@@ -146,7 +146,7 @@ public class MainPhase1Controller {
     private void dropSpellAndTrapOnTheGround(Card card, boolean isItFieldSpell) {
         if (isItFieldSpell) {
             SpellCard fieldSpell = duelWithUser.getMyBoard().getFieldSpell();
-            if (fieldSpell != null){
+            if (fieldSpell != null) {
                 duelWithUser.getMyBoard().getGraveyard().add(fieldSpell);
             }
             duelWithUser.getMyBoard().setFieldSpell((SpellCard) card);
@@ -255,21 +255,16 @@ public class MainPhase1Controller {
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card == null) {
             return Output.NoCardIsSelectedYet.toString();
-        }
-        if (!canThisCardBeSummoned()) {
-            return Output.ThisCardCantBeSpecialSummoned.toString();
-        }
-        if (canThisCardBeNormalSummoned(card.getName())) {
+        } else if (!canThisCardBeSummoned()) {
             return Output.ThisCardCantBeSpecialSummoned.toString();
         }
         MonsterCard monsterCard = (MonsterCard) card;
         if (monsterCard.getName().equals("The Tricky")) {
             return specialSummonTheTricky();
-        }
-        if (monsterCard.getName().equals("Gate Guardian")) {
+        } else if (monsterCard.getName().equals("Gate Guardian")) {
             return specialSummonGateGuardian();
         }
-        return "";
+        return Output.ThisCardCantBeSpecialSummoned.toString();
     }
 
     private String specialSummonGateGuardian() {
@@ -487,12 +482,10 @@ public class MainPhase1Controller {
         if (card == null) {
             effectView.output(Output.NoCardIsSelectedYet.toString());
             return;
-        }
-        if (card instanceof TrapCard) {
+        } else if (card instanceof TrapCard) {
             effectView.output("you can't activate trap card right now");
             return;
-        }
-        if (!(card instanceof SpellCard)) {
+        } else if (!(card instanceof SpellCard)) {
             effectView.output("activate effect is only for spell cards.");
             return;
         }

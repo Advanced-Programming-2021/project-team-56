@@ -399,6 +399,8 @@ public class IOAppender {
                 "next phase\n" +
                 "select --spell 1\n" +
                 "activate effect\n" +
+                "select --monster 1\n" +
+                "flip-summon\n" +
                 "select --hand 1\n" +
                 "card show --selected\n" +
                 "set\n" +
@@ -434,6 +436,30 @@ public class IOAppender {
                 "2\n" +
                 "activate effect\n" +
                 "1\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "select --hand 1\n" +
+                "special summon\n" +
+                "select --hand 3\n" +
+                "set\n" +
+                "select --hand 3\n" +
+                "set\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "i9\n" +
+                "no\n" +
+                "next phase\n" +
+                "yes\n" +
+                "activate effect\n" +
+                "2\n" +
+                "Skull Guardian\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -1225,6 +1251,23 @@ public class IOAppender {
                 "\tc\tc\tc\tc\tc\tc\n" +
                 "MehrNick:8000\n" +
                 "card selected\r\n" +
+                "you can't flip summon this card\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "0\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tOO\tDO\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
                 "Beast King Barbaros: ATK, DEF = 3000, 1200\n" +
                 "You can Normal Summon/Set this card without Tributing, but its original ATK becomes 1900. You can Tribute 3 monsters to Tribute Summon (but not Set) this card. If Summoned this way: Destroy all cards your opponent controls.\r\n" +
                 "choose on option from the list below\r\n" +
@@ -1381,6 +1424,290 @@ public class IOAppender {
                 "\tE\tE\tE\tE\tE\n" +
                 "\tE\tE\tE\tE\tE\n" +
                 "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: battle phase\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "2\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t5\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: Main Phase 2\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "2\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t5\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: End Phase\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "54\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "2\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t5\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t49\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "its AmirNick’s turn\r\n" +
+                "phase: draw phase\r\n" +
+                "new card added to the hand : Mind Crush\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "phase: standby phase\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "phase: Main Phase 1\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "this card can't be special summoned\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "set successfully\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "card selected\r\n" +
+                "set successfully\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tH\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "phase: battle phase\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tH\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "phase: Main Phase 2\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tH\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "phase: End Phase\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "49\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tH\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "its MehrNick’s turn\r\n" +
+                "phase: draw phase\r\n" +
+                "new card added to the hand : Mind Crush\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tH\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "2\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t5\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "now it will be AmirAli’s turn\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tH\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "do you want to activate your trap and spell?(yes/no)\r\n" +
+                "invalid command\r\n" +
+                "phase: standby phase\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tH\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "2\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t5\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "now it will be AmirAli’s turn\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t2\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tH\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "do you want to activate your trap and spell?(yes/no)\r\n" +
+                "Give an address\r\n" +
+                "guess which monster does your opponent have\r\n" +
+                "phase: Main Phase 1\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "3\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
                 "\tc\tc\tc\tc\tc\n" +
                 "MehrNick:8000\n" +
                 "AmirAli won the whole match\r\n");

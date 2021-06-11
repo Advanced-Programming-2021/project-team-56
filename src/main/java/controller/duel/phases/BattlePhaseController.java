@@ -178,7 +178,6 @@ public class BattlePhaseController {
     private boolean isThereSwordOfRevealingLight() {
         HashMap<Integer, Card> spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
-            //todo
             if (spellTerritory.get(i) != null && spellTerritory.get(i).getName().equals("Swords of Revealing Light")) {
                 if (spellTerritory.get(i).getIsFacedUp()) {
                     return true;
