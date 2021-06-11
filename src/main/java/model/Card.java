@@ -9,7 +9,6 @@ public class Card {
     private int startEffectTurn = -1;
     private int price;
     private static ArrayList<Card> cards = new ArrayList<>();
-    private boolean isItScanner;
     private int equipID;
     public static int id = 0;
     private boolean isItInChainLink;
@@ -86,14 +85,6 @@ public class Card {
 
     public void setFacedUp(boolean isFacedUp) {
         this.isFacedUp = isFacedUp;
-    }
-
-    public void setItScanner(boolean isItScanner) {
-        this.isItScanner = isItScanner;
-    }
-
-    public boolean getItScanner() {
-        return isItScanner;
     }
 
     public int getEquipID() {

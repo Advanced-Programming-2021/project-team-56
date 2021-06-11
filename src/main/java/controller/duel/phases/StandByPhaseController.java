@@ -286,8 +286,7 @@ public class StandByPhaseController {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
             MonsterCard scanner = monsterTerritory.get(i);
-            if (scanner.getItScanner()) {
-                scanner.setName(monsterCard.getName());
+            if (scanner.getName().equals("Scanner")) {
                 scanner.setAttack(monsterCard.getAttack());
                 scanner.setDefence(monsterCard.getDefence());
                 scanner.setAttribute(monsterCard.getAttribute());
@@ -301,10 +300,8 @@ public class StandByPhaseController {
     private boolean isScannerInMyBoard() {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         for (int i = 1; i < 6; i++) {
-            if (monsterTerritory.get(i) == null) {
-                continue;
-            }
-            if (monsterTerritory.get(i).getItScanner()) {
+            MonsterCard monster = monsterTerritory.get(i);
+            if (monster != null && monster.getName().equals("Scanner")) {
                 return true;
             }
         }

@@ -20,6 +20,7 @@ public class MonsterCard extends Card {
     private int lastTimeChangedPositionTurn;
     private int lastTimeAttackedTurn;
     private int summonedTurn;
+    private boolean isItScanner;
     private String cardType;
     private String monsterType;
     private ArrayList<Integer> equipId = new ArrayList<>();

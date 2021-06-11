@@ -1,6 +1,7 @@
 package controller;
 
 import model.Card;
+import model.MonsterCard;
 import model.User;
 
 import java.util.ArrayList;
@@ -55,9 +56,6 @@ public class ShopController {
         Card card = Card.getCardByName(cardName);
         if (card.getPrice() > User.getUserByUsername(username).getMoney()) {
             return "not enough money";
-        }
-        if (card.getName().equals("Scanner")){
-            card.setItScanner(true);
         }
         User.getUserByUsername(username).decreaseMoney(card.getPrice());
         User.getUserByUsername(username).addCardToUserAllCards(card);

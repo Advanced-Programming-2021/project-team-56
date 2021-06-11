@@ -141,7 +141,6 @@ public class SpellEffectActivate {
         monsterCard.setStartEffectTurn(-1);
         monsterCard.setLastTimeAttackedTurn(0);
         monsterCard.setSummonedTurn(0);
-        monsterCard.setItScanner(monsterCard.getName().equals("Scanner"));
         if (isItMonsterRebornEffect) {
             while (true) {
                 effectView.output("do you want to summon it in attack position or defence position?");
