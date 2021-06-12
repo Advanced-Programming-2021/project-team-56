@@ -6,7 +6,8 @@ public enum MenuURL {
     ENTRANCE("/fxml/entrance.fxml"),
     LOGIN("/fxml/login.fxml"),
     MAIN("/fxml/main.fxml"),
-    SIGNUP("/fxml/signup.fxml");
+    SIGNUP("/fxml/signup.fxml"),
+    PROFILE("/fxml/profile.fxml");
 
 
 
