@@ -8,12 +8,12 @@
 <AnchorPane prefHeight="1050.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ScoreBoardView">
     <children>
-        <ScrollPane fx:id="scoreboardScrollPane" layoutX="140.0" layoutY="25.0" prefHeight="1000.0" prefWidth="1520.0"
-                    AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="40.0"
-                    AnchorPane.topAnchor="25.0"/>
-        <Button fx:id="backButton" layoutX="5.0" layoutY="975.0" mnemonicParsing="false" onMouseClicked="#goBackToMain"
-                prefHeight="50.0" prefWidth="100.0" text="Back" AnchorPane.bottomAnchor="25.0"
-                AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="1575.0" AnchorPane.topAnchor="975.0"/>
+        <ScrollPane fx:id="scoreboardScrollPane" blendMode="HARD_LIGHT" layoutX="80.0" layoutY="25.0" prefHeight="850.0"
+                    prefWidth="1520.0" AnchorPane.bottomAnchor="176.0" AnchorPane.leftAnchor="80.0"
+                    AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="25.0"/>
+        <Button fx:id="backButton" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" onMouseClicked="#goBackToMain"
+                prefHeight="80.0" prefWidth="250.0" text="Back" AnchorPane.bottomAnchor="20.0"
+                AnchorPane.leftAnchor="10.0"/>
     </children>
     <stylesheets>
         <URL value="@../CSS/scoreboard.css"/>

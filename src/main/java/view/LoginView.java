@@ -13,8 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import model.enums.MenuURL;
+import view.components.NodeEditor;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static model.enums.Errors.*;
 import static model.enums.ProcessResult.LOGIN_SUCCESSFUL;
@@ -24,10 +27,16 @@ public class LoginView {
     public TextField userNameField;
     public PasswordField passWordField;
     public Button loginButton;
-    public Text signUpLabel;
     public Label errorLabel;
     public Button backButton;
+    public Label signupLabel;
 
+    @FXML
+    public void initialize() {
+        ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(backButton));
+        MainGUI.editMenuButtons(buttons);
+        NodeEditor.setNodesGlow(userNameField, passWordField, loginButton, signupLabel);
+    }
 
     public void loginClicked(MouseEvent mouseEvent) throws IOException {
         if (userNameField.getText().equals("")) {

@@ -55,7 +55,7 @@ public class MainGUI extends Application {
 
     public static void editMenuButtons(ArrayList<Button> buttons) {
         for (Button button : buttons) {
-            TranslateTransition buttonsTransition = new TranslateTransition(Duration.seconds(1), button);
+            TranslateTransition buttonsTransition = new TranslateTransition(Duration.seconds(0.8), button);
             buttonsTransition.setFromX(button.getLayoutX() - 400);
             buttonsTransition.setToX(button.getLayoutX());
             buttonsTransition.play();
@@ -94,9 +94,7 @@ public class MainGUI extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint(null);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-//        letterbox(scene, (Pane) fxml);
-//        primaryStage.setMaximized(true);
-//        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
 
     }
@@ -113,16 +111,6 @@ public class MainGUI extends Application {
         setStage(stage);
         stage.initStyle(StageStyle.UTILITY);
     }
-
-//    private void letterbox(final Scene scene, final Pane contentPane) {
-//        final double initWidth  = scene.getWidth();
-//        final double initHeight = scene.getHeight();
-//        final double ratio = initWidth / initHeight;
-//
-//        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
-//        scene.widthProperty().addListener(sizeListener);
-//        scene.heightProperty().addListener(sizeListener);
-//    }
 
 
 }

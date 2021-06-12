@@ -35,19 +35,19 @@ public class ProfileView {
 
     public void loadChangePasswordMenu(MouseEvent mouseEvent) {
         actionLabel.setText("Change Password:");
-        currentInfoTitle.setText("current password:");
+        currentInfoTitle.setText("Current password:");
         currentInfoValue.setText(User.getCurrentUser().getPassword());
-        textFieldTitle.setText("new password");
-        changeInfoButton.setText("change password");
+        textFieldTitle.setText("New password");
+        changeInfoButton.setText("Change password");
         errorLabel.setText("");
     }
 
     public void loadChangeNickNameMenu(MouseEvent mouseEvent) {
         actionLabel.setText("Change Nickname:");
-        currentInfoTitle.setText("current nickname:");
+        currentInfoTitle.setText("Current nickname:");
         currentInfoValue.setText(User.getCurrentUser().getNickname());
-        textFieldTitle.setText("new nickname");
-        changeInfoButton.setText("change nickname");
+        textFieldTitle.setText("New nickname");
+        changeInfoButton.setText("Change nickname");
         errorLabel.setText("");
     }
 
@@ -56,23 +56,25 @@ public class ProfileView {
     }
 
     public void changeInfoClicked(MouseEvent mouseEvent) {
-        if (changeInfoButton.getText().equals("change nickname")) changeNickName();
+        if (changeInfoButton.getText().equals("Change nickname")) changeNickName();
         else changePassWord();
     }
 
     private void changeNickName() {
         if (newInfoField.getText().equals("")) {
-            errorLabel.setText("nickname's field is empty");
+            errorLabel.setText("Nickname's field is empty");
             return;
         }
-        errorLabel.setText(ProfileController.getInstance().changeNickname(User.getCurrentUser().getUsername(), newInfoField.getText()));
+        errorLabel.setText(ProfileController.getInstance().
+                changeNickname(User.getCurrentUser().getUsername(), newInfoField.getText()));
     }
 
     private void changePassWord() {
         if (newInfoField.getText().equals("")) {
-            errorLabel.setText("nickname's field is empty");
+            errorLabel.setText("Password's field is empty");
             return;
         }
-        errorLabel.setText(ProfileController.getInstance().changePasswords(newInfoField.getText(), User.getCurrentUser().getUsername()));
+        errorLabel.setText(ProfileController.getInstance().
+                changePasswords(newInfoField.getText(), User.getCurrentUser().getUsername()));
     }
 }

@@ -36,9 +36,16 @@ public class ScoreBoardController {
                 }
                 scoreBoard.append(rank + "- " + users.get(i).getNickname() + ": " + users.get(i).getScore() + "\n");
             }
+            if (userCounter == 20) {
+                break;
+            }
             userCounter++;
         }
         return scoreBoard.toString();
+    }
+
+    public String getCurrentUserNickName() {
+        return User.getCurrentUser().getNickname();
     }
 
 }

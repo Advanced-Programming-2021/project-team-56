@@ -59,6 +59,6 @@ public class MainView {
     }
 
     public void goBackToLoginMenu(MouseEvent mouseEvent) throws IOException {
-        FxmlController.getInstance().setSceneFxml(MenuURL.LOGIN);
+        FxmlController.getInstance().setSceneFxml(MenuURL.ENTRANCE);
     }
 }

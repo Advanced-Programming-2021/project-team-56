@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -17,15 +18,15 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginView">
     <children>
-        <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <StackPane prefHeight="1050.0" prefWidth="1680.0">
             <effect>
                 <DropShadow />
             </effect>
             <children>
-                <HBox prefHeight="100.0" prefWidth="200.0">
+                <HBox prefHeight="1050.0" prefWidth="1680.0">
                     <children>
-                        <VBox style="-fx-background-color: #5e008a;" HBox.hgrow="ALWAYS" />
-                        <VBox style="-fx-background-color: white;" HBox.hgrow="ALWAYS" />
+                        <VBox id="leftSideLoginVBox" alignment="BOTTOM_LEFT" prefHeight="1050.0" prefWidth="840.0" style="-fx-background-color: #5e008a;" HBox.hgrow="ALWAYS" />
+                        <VBox id="rightSideLoginVBox" prefHeight="1050.0" prefWidth="840.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -33,7 +34,7 @@
                         <Insets bottom="45.0" left="45.0" right="45.0" top="45.0" />
                     </StackPane.margin>
                     <children>
-                        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="470.0" prefWidth="430.0" style="-fx-background-color: white;">
+                        <VBox id="loginVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="468.0" prefWidth="544.0" style="-fx-background-color: white;">
                             <effect>
                                 <DropShadow />
                             </effect>
@@ -44,26 +45,26 @@
                                         <Insets top="40.0" />
                                     </VBox.margin>
                                     <children>
-                                        <TextField fx:id="userNameField" prefHeight="31.0" prefWidth="329.0" promptText="username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
-                              <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/User-Symbol.png" />
-                                 </image>
-                              </ImageView>
+                                        <TextField fx:id="userNameField" prefHeight="31.0" prefWidth="329.0" promptText="Username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+                                        <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/User-Symbol.png" />
+                                            </image>
+                                        </ImageView>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" layoutX="60.0" layoutY="130.0" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
                                     <children>
-                                        <PasswordField fx:id="passWordField" promptText="password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                                        <PasswordField fx:id="passWordField" promptText="Password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                             </HBox.margin>
                                         </PasswordField>
-                              <ImageView fx:id="passWordSecurityImage" fitHeight="21.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Password-Symbol.png" />
-                                 </image>
-                              </ImageView>
+                                        <ImageView fx:id="passWordSecurityImage" fitHeight="21.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/Password-Symbol.png" />
+                                            </image>
+                                        </ImageView>
                                     </children>
                                     <VBox.margin>
                                         <Insets top="40.0" />
@@ -74,14 +75,13 @@
                                         <Insets top="40.0" />
                                     </VBox.margin>
                                 </Button>
-                                <HBox alignment="BOTTOM_CENTER" prefHeight="92.0" prefWidth="330.0" VBox.vgrow="ALWAYS">
+                                <HBox alignment="BASELINE_RIGHT" prefHeight="92.0" prefWidth="330.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <Pane prefHeight="92.0" prefWidth="332.0">
+                                        <Pane prefHeight="194.0" prefWidth="551.0">
                                             <children>
-                                                <Text layoutX="56.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-family: Quicksand;" text="Need an account?" />
-                                                <Text fx:id="signUpLabel" layoutX="203.0" layoutY="136.0" onMouseClicked="#signUpClicked" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-family: Quicksand; -fx-fill: #55027c;" text="SignUp" />
-                                                <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="64.0" prefHeight="21.0" prefWidth="330.0" style="-fx-text-fill: black; -fx-font-size: 15;" />
-                                    <Button fx:id="backButton" layoutX="56.0" layoutY="17.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px; -fx-text-fill: white;" text="Back" />
+                                                <Text layoutX="152.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-family: Quicksand;" text="Need an account?" />
+                                                <Label fx:id="signupLabel" alignment="CENTER" layoutX="294.0" layoutY="39.0" onMouseClicked="#signUpClicked" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px;" text="Signup" textFill="WHITE" />
+                                    <Label fx:id="errorLabel" alignment="CENTER" layoutY="77.0" prefHeight="30.0" prefWidth="524.0" style="-fx-text-fill: black; -fx-font-size: 15;" />
                                             </children>
                                         </Pane>
                                     </children>
@@ -95,5 +95,9 @@
                 </VBox>
             </children>
         </StackPane>
+        <Button id="loginBackButton" fx:id="backButton" blendMode="GREEN" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #7E588B; -fx-background-radius: 100px; -fx-text-fill: white;" text="Back" />
     </children>
+    <stylesheets>
+        <URL value="@../CSS/register.css" />
+    </stylesheets>
 </AnchorPane>

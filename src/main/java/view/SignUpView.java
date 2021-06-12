@@ -1,15 +1,18 @@
 package view;
 
 import controller.LoginMenuController;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 import model.enums.MenuURL;
+import view.components.NodeEditor;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static model.enums.Errors.*;
 
@@ -19,10 +22,19 @@ public class SignUpView {
     public TextField userNameField;
     public TextField nickNameField;
     public PasswordField passWordField;
-    public Text loginLabel;
+    public Label loginLabel;
     public Label errorLabel;
     public Button signUpButton;
     public Button backButton;
+
+    @FXML
+    public void initialize() {
+        ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(backButton));
+        MainGUI.editMenuButtons(buttons);
+        NodeEditor.setNodesGlow(loginLabel, signUpButton, userNameField, nickNameField, passWordField);
+    }
+
+
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.ENTRANCE);
