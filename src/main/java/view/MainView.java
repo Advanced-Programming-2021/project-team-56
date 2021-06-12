@@ -48,7 +48,8 @@ public class MainView {
         FxmlController.getInstance().setSceneFxml(SCOREBOARD);
     }
 
-    public void goToProfileMenu(MouseEvent mouseEvent) {
+    public void goToProfileMenu(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(MenuURL.PROFILE);
     }
 
     public void goToShopMenu(MouseEvent mouseEvent) {

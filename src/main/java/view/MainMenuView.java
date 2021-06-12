@@ -48,7 +48,7 @@ public class MainMenuView {
                 return;
             }
             if (menuName.equals("Profile")) {
-                ProfileMenuView.getInstance().run(username);
+                //ProfileMenuView.getInstance().run(username);
                 return;
             }
             if (menuName.equals("Shop")) {

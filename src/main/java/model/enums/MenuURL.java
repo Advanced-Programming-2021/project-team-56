@@ -7,7 +7,8 @@ public enum MenuURL {
     LOGIN("/fxml/login.fxml"),
     MAIN("/fxml/main.fxml"),
     SIGNUP("/fxml/signup.fxml"),
-    SCOREBOARD("/fxml/scoreboard.fxml");
+    SCOREBOARD("/fxml/scoreboard.fxml"),
+    PROFILE("/fxml/profile.fxml");
 
 
 
