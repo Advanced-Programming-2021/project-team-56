@@ -47,7 +47,7 @@ public class SpellEffectActivate {
                 changeOfHeartActivate();
                 effectView.output(getRidOfSpell());
                 break;
-            case "Harpie’s Feather Duster":
+            case "Harpie's Feather Duster":
                 harpiesFeatherDusterActivate();
                 effectView.output(getRidOfSpell());
                 break;

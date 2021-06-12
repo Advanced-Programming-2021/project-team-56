@@ -40,7 +40,7 @@ public class SpellEffectCanActivate {
                 return canAdvancedRitualArtActivate() != 0;
             case "Pot of Greed":
                 return potOfGreedCanActivate();
-            case "Harpie’s Feather Duster":
+            case "Harpie's Feather Duster":
                 return TrapEffectCanActivate.getInstance().canIActivateSpaceTyphoonOrTwinTwister();
             case "Change of Heart":
                 return canChangeOfHeartActivate();

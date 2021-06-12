@@ -490,6 +490,13 @@ public class IOAppender {
                 "2\n" +
                 "5\n" +
                 "7\n" +
+                "select --hand 3\n" +
+                "activate effect\n" +
+                "select --hand 3\n" +
+                "summon\n" +
+                "next phase\n" +
+                "select --monster 2\n" +
+                "attack 1\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -2026,6 +2033,40 @@ public class IOAppender {
                 "\tE\tE\tH\tE\tE\n" +
                 "\t\t\t\t\t\t50\n" +
                 "\tc\tc\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "card selected\r\n" +
+                "spell activated\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "7\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t5\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "card selected\r\n" +
+                "summoned successfully\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "7\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t5\n" +
+                "\tE\tE\tOO\tOO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\n" +
                 "AmirNick:6400\n" +
                 "Mehrshad won the whole match\r\n");
     }
