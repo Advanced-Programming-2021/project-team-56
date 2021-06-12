@@ -485,7 +485,11 @@ public class IOAppender {
                 "10\n" +
                 "1\n" +
                 "7\n" +
+                "ko\n" +
                 "attack position\n" +
+                "2\n" +
+                "5\n" +
+                "7\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -1971,8 +1975,42 @@ public class IOAppender {
                 "8: Beast King Barbaros\r\n" +
                 "9: Skull Guardian\r\n" +
                 "Give an address\r\n" +
-                "do you want to summon it in attack position or defence position?\r\n" +
+                "do you want to summon Scanner in attack position or defence position?\r\n" +
+                "invalid command\r\n" +
+                "do you want to summon Scanner in attack position or defence position?\r\n" +
                 "summoned successfully\r\n" +
+                "choose a card from graveyard to scan it's attributes for your scanner\r\n" +
+                "1: Mirage Dragon\r\n" +
+                "2: Torrential Tribute\r\n" +
+                "3: Mind Crush\r\n" +
+                "4: Pot of Greed\r\n" +
+                "5: Pot of Greed\r\n" +
+                "6: Terratiger, the Empowered Warrior\r\n" +
+                "7: Beast King Barbaros\r\n" +
+                "8: Skull Guardian\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "choose a card from graveyard to scan it's attributes for your scanner\r\n" +
+                "1: Mirage Dragon\r\n" +
+                "2: Torrential Tribute\r\n" +
+                "3: Mind Crush\r\n" +
+                "4: Pot of Greed\r\n" +
+                "5: Pot of Greed\r\n" +
+                "6: Terratiger, the Empowered Warrior\r\n" +
+                "7: Beast King Barbaros\r\n" +
+                "8: Skull Guardian\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "choose a card from graveyard to scan it's attributes for your scanner\r\n" +
+                "1: Mirage Dragon\r\n" +
+                "2: Torrential Tribute\r\n" +
+                "3: Mind Crush\r\n" +
+                "4: Pot of Greed\r\n" +
+                "5: Pot of Greed\r\n" +
+                "6: Terratiger, the Empowered Warrior\r\n" +
+                "7: Beast King Barbaros\r\n" +
+                "8: Skull Guardian\r\n" +
+                "Give an address\r\n" +
                 "spell activated\r\n" +
                 "MehrNick:8000\n" +
                 "\tc\tc\tc\n" +

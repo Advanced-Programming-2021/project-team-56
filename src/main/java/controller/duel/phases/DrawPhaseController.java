@@ -2,6 +2,7 @@ package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
 import model.Card;
+import model.MonsterCard;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,11 @@ public class DrawPhaseController {
             if (mainDeck.size() == 0) {
                 return "No cards is in your deck";
             }
-            playerHand.add(mainDeck.get(mainDeck.size() - 1));
+            Card newCard = mainDeck.get(mainDeck.size() - 1);
+            if (newCard.getName().equals("Scanner")){
+                ((MonsterCard)newCard).setItScanner(true);
+            }
+            playerHand.add(newCard);
             mainDeck.remove(mainDeck.size() - 1);
             return "new card added to the hand : " + playerHand.get(playerHand.size() - 1).getName();
         }else{
@@ -40,11 +45,14 @@ public class DrawPhaseController {
     }
 
     public String forceDraw(String cardName) {
-        ArrayList<Card> mainDeckCards = duelWithUser.getMyBoard().getMainDeck();
-        for (Card mainDeckCard : mainDeckCards) {
-            if (mainDeckCard.getName().equals(cardName)) {
-                duelWithUser.getMyBoard().getPlayerHand().add(mainDeckCard);
-                mainDeckCards.remove(mainDeckCard);
+        ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
+        for (Card card : mainDeck) {
+            if (card.getName().equals(cardName)) {
+                if (card.getName().equals("Scanner")){
+                    ((MonsterCard) card).setItScanner(true);
+                }
+                duelWithUser.getMyBoard().getPlayerHand().add(card);
+                mainDeck.remove(card);
                 return "card with name " + cardName + " got added to your hand";
             }
         }

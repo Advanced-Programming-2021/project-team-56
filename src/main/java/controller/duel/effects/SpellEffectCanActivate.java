@@ -115,9 +115,9 @@ public class SpellEffectCanActivate {
         if (isMyMonsterTerritoryFull()) {
             return false;
         }
-        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
-        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
-        return isMyGraveyardEmpty || isEnemyGraveyardEmpty;
+        boolean isMyGraveyardEmpty = !spellEffectCanActivate.isThereMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = !spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        return !isMyGraveyardEmpty || !isEnemyGraveyardEmpty;
     }
 
     private boolean areThereEnoughTributeFromDeck(int totalLevel) {
@@ -218,8 +218,10 @@ public class SpellEffectCanActivate {
         ArrayList<Card> graveyard;
         if (player == 1) {
             graveyard = duelWithUser.getMyBoard().getGraveyard();
-        } else {
+        } else if(player == 2){
             graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        }else {
+            return false;
         }
         for (Card card : graveyard) {
             if (card instanceof MonsterCard) {

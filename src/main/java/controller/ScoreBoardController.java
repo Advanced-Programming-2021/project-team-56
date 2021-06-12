@@ -26,15 +26,17 @@ public class ScoreBoardController {
         Collections.sort(users, comparator);
         StringBuilder scoreBoard = new StringBuilder();
         int rank = 1;
+        int userCounter = 1;
         for (int i = 0; i < users.size(); i++) {
             if (i == 0) {
                 scoreBoard.append("1- " + users.get(0).getNickname() + ": " + users.get(0).getScore() + "\n");
             } else {
                 if (users.get(i).getScore() != users.get(i - 1).getScore()) {
-                    rank++;
+                    rank = userCounter;
                 }
                 scoreBoard.append(rank + "- " + users.get(i).getNickname() + ": " + users.get(i).getScore() + "\n");
             }
+            userCounter++;
         }
         return scoreBoard.toString();
     }

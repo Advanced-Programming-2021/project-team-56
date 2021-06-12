@@ -189,4 +189,12 @@ public class MonsterCard extends Card {
     public void setItHunted(boolean itHunted) {
         isItHunted = itHunted;
     }
+
+    public void setItScanner(boolean itScanner) {
+        isItScanner = itScanner;
+    }
+
+    public boolean isItScanner() {
+        return isItScanner;
+    }
 }

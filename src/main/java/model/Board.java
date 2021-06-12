@@ -42,7 +42,11 @@ public class Board {
 
     public void setPlayerHandForFirstPlayer() {
         for (int i = 0; i < 5; i++) {
-            playerHand.add(playerDeck.getMainDeck().get(0));
+            Card newCard = playerDeck.getMainDeck().get(0);
+            if (newCard.getName().equals("Scanner")){
+                ((MonsterCard)newCard).setItScanner(true);
+            }
+            playerHand.add(newCard);
             playerDeck.getMainDeck().remove(0);
         }
     }
@@ -50,7 +54,11 @@ public class Board {
     public void setPlayerHandForSecondPlayer() {
         for (int i = 0; i < 5; i++) {
             int index = playerDeck.getMainDeck().size() - 1;
-            playerHand.add(playerDeck.getMainDeck().get(index));
+            Card newCard = playerDeck.getMainDeck().get(index);
+            if (newCard.getName().equals("Scanner")){
+                ((MonsterCard)newCard).setItScanner(true);
+            }
+            playerHand.add(newCard);
             playerDeck.getMainDeck().remove(index);
         }
     }

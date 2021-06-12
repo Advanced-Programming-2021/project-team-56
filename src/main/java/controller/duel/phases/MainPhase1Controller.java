@@ -208,6 +208,9 @@ public class MainPhase1Controller {
         if (monsterCard.getName().equals("Man-Eater Bug")) {
             BattlePhaseController.getInstance().manEaterBugEffect(false);
         }
+        if (monsterCard.isItScanner()) {
+            spellEffectActivate.scannerEffect();
+        }
         monsterCard.setFacedUp(true);
         monsterCard.setInAttackPosition(true);
         monsterCard.setSummonedTurn(duelWithUser.getTurnCounter());
@@ -377,6 +380,9 @@ public class MainPhase1Controller {
         }
         opponentPhase.startChainLink();
         spawnKill(monster);
+        if (monster.isItScanner()) {
+            spellEffectActivate.scannerEffect();
+        }
         duelWithUser.getMyBoard().setMyMonsterInDangerOfTrapHole(false);
         duelWithUser.getMyBoard().setItMySummon(false);
         isSummoningInProcess = false;
