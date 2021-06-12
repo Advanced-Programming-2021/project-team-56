@@ -22,6 +22,7 @@ public class SignUpView {
     public Text loginLabel;
     public Label errorLabel;
     public Button signUpButton;
+    public Button backButton;
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.ENTRANCE);
