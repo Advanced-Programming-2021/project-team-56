@@ -18,12 +18,6 @@ import static model.enums.ProcessResult.*;
 public class LoginMenuController {
 
     private static LoginMenuController loginMenuController;
-    static Pattern createUser1 = Pattern.compile("^user create --username (\\S+) --password (\\S+) --nickname (\\S+)$");
-    static Pattern createUser2 = Pattern.compile("^user create --username (\\S+) --nickname (\\S+) --password (\\S+)$");
-    static Pattern createUser3 = Pattern.compile("^user create --password (\\S+) --nickname (\\S+) --username (\\S+)$");
-    static Pattern createUser4 = Pattern.compile("^user create --password (\\S+) --username (\\S+) --nickname (\\S+)$");
-    static Pattern createUser5 = Pattern.compile("^user create --nickname (\\S+) --username (\\S+) --password (\\S+)$");
-    static Pattern createUser6 = Pattern.compile("^user create --nickname (\\S+) --password (\\S+) --username (\\S+)$");
 
     private LoginMenuController() {
     }
@@ -45,10 +39,10 @@ public class LoginMenuController {
 
     public String register(String username, String password, String nickname) {
         if (User.isThisUsernameAlreadyTaken(username)) {
-            return "user with username " + username + " already exists";
+            return "user with username " + "\"" + username + "\"" + " already exists";
         }
         if (User.isThisNicknameAlreadyTaken(nickname)) {
-            return "user with nickname " + nickname + " already exists";
+            return "user with nickname " + "\"" + nickname + "\"" + " already exists";
         }
         new User(username, nickname, password);
         return SIGNUP_SUCCESSFUL.value;

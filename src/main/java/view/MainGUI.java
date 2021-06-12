@@ -1,5 +1,7 @@
 package view;
 
+import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.com.google.gson.reflect.TypeToken;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -20,7 +22,11 @@ import model.User;
 import view.components.SceneSizeChangeListener;
 
 import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainGUI extends Application {
 
@@ -48,7 +54,6 @@ public class MainGUI extends Application {
     }
 
     public static void editMenuButtons(ArrayList<Button> buttons) {
-
         for (Button button : buttons) {
             TranslateTransition buttonsTransition = new TranslateTransition(Duration.seconds(1), button);
             buttonsTransition.setFromX(button.getLayoutX() - 400);
@@ -80,12 +85,12 @@ public class MainGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+//        readFromJson();
         Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/entrance.fxml"));
         Scene scene = instantiateScene(fxml);
         setScene(scene);
         editStage(primaryStage);
         primaryStage.setScene(scene);
-        new User("a", "a", "a");
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint(null);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);

@@ -41,9 +41,8 @@ public class SignUpView {
             errorLabel.setText(EMPTY_FIELD_PASSWORD.value);
             return;
         }
-        String result = LoginMenuController.getInstance()
-                .register(userNameField.getText(), passWordField.getText(), nickNameField.getText());
-        errorLabel.setText(result);
+        errorLabel.setText(LoginMenuController.getInstance()
+                .register(userNameField.getText(), passWordField.getText(), nickNameField.getText()));
     }
 
     public void loginClicked(MouseEvent mouseEvent) throws IOException {

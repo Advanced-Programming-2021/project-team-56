@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static model.enums.MenuURL.SCOREBOARD;
+
 public class MainView {
 
     public Button duelButton;
@@ -42,7 +44,8 @@ public class MainView {
     public void goToDeckMenu(MouseEvent mouseEvent) {
     }
 
-    public void goToScoreboard(MouseEvent mouseEvent) {
+    public void goToScoreboard(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(SCOREBOARD);
     }
 
     public void goToProfileMenu(MouseEvent mouseEvent) {

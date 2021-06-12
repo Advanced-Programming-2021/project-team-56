@@ -45,7 +45,6 @@ public class MainMenuView {
         if (matcher.find()) {
             String menuName = matcher.group(1);
             if (menuName.equals("Scoreboard")) {
-                ScoreBoardView.getInstance().run();
                 return;
             }
             if (menuName.equals("Profile")) {

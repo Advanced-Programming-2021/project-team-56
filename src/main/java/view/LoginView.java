@@ -40,6 +40,11 @@ public class LoginView {
         }
         String result = LoginMenuController.getInstance().logIn(userNameField.getText(), passWordField.getText());
         errorLabel.setText(result);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (result.equals(LOGIN_SUCCESSFUL.value)) {
             FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
         }

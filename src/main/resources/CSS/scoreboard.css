@@ -1,0 +1,20 @@
+.root {
+    -fx-background-image: url(../images/Black-Purple-Hexagon-Background.png);
+    -fx-background-size: cover;
+}
+
+ScrollPane {
+    /*-fx-background-image: url(../images/Black-Purple-Hexagon-Background.png);*/
+    -fx-border-color: #9234be;
+    -fx-border-width: 8;
+}
+
+Button {
+    -fx-background-color: #500274;
+    -fx-border-width: 10px;
+    -fx-border-color: #17061f;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-background-radius: 40;
+    -fx-border-radius: 35;
+}
