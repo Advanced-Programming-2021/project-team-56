@@ -155,11 +155,13 @@ public class BattlePhaseController {
         if (myMonster.getName().equals("The Calculator")) {
             theCalculatorEffect(1);
         }
-        if (enemyMonster.getName().equals("The Calculator")) {
-            theCalculatorEffect(2);
-        }
-        if (enemyMonster.getName().equals("Suijin")) {
-            suijinEffect();
+        if(enemyMonster != null) {
+            if (enemyMonster.getName().equals("The Calculator")) {
+                theCalculatorEffect(2);
+            }
+            if (enemyMonster.getName().equals("Suijin")) {
+                suijinEffect();
+            }
         }
     }
 

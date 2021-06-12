@@ -42,15 +42,14 @@ public class DrawPhaseView {
         }
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
-            if (command.equals(Commands.NextPhase.toString())) {
+            if (isItForceDrawCommand(command)) {
+                continue;
+            } else if (command.equals(Commands.NextPhase.toString())) {
                 break;
             } else if (isThisActionNotAllowed(command)) {
                 System.out.println(Output.YouCantDoThisAction);
                 continue;
-            } else if(DuelWithUserView.getInstance().isItValidInAllOfThePhases(command)){
-                continue;
-            } else if (command.startsWith("select --hand") || command.startsWith("select --force")) {
-                checkForceDrawCommand(command);
+            } else if (DuelWithUserView.getInstance().isItValidInAllOfThePhases(command)) {
                 continue;
             }
             result = duelWithUserView.cheatCodeExecute(command);
@@ -63,18 +62,18 @@ public class DrawPhaseView {
         return Output.TheGameContinues.toString();
     }
 
-    private void checkForceDrawCommand(String command) {
+    private boolean isItForceDrawCommand(String command) {
         Matcher matcher = forceDraw1.matcher(command);
         if (matcher.find()) {
             System.out.println(DrawPhaseController.getInstance().forceDraw(matcher.group(1)));
-            return;
+            return true;
         }
         matcher = forceDraw2.matcher(command);
         if (matcher.find()) {
             System.out.println(DrawPhaseController.getInstance().forceDraw(matcher.group(1)));
-            return;
+            return true;
         }
-        System.out.println(Output.InvalidCommand);
+        return false;
     }
 
     private boolean isThisActionNotAllowed(String command) {

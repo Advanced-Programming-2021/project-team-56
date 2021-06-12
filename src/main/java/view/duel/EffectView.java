@@ -68,21 +68,17 @@ public class EffectView {
     public void showGraveyardForCardsEffects(boolean player1, boolean player2) {
         ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
         ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
-        int j = 1;
+        int j = 0;
         if (player1) {
-            for (int i = 0; i < myGraveyard.size(); i++) {
-                if (myGraveyard.get(i) instanceof MonsterCard) {
-                    j++;
-                    System.out.println(j + ": " + myGraveyard.get(i).getName());
-                }
+            for (Card card : myGraveyard) {
+                j++;
+                System.out.println(j + ": " + card.getName());
             }
         }
         if (player2) {
-            for (int i = 0; i < enemyGraveyard.size(); i++) {
-                if (enemyGraveyard.get(i) instanceof MonsterCard) {
-                    j++;
-                    System.out.println(j + ": " + enemyGraveyard.get(i).getName());
-                }
+            for (Card card : enemyGraveyard) {
+                j++;
+                System.out.println(j + ": " + card.getName());
             }
         }
     }

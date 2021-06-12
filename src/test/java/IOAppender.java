@@ -460,6 +460,32 @@ public class IOAppender {
                 "activate effect\n" +
                 "2\n" +
                 "Skull Guardian\n" +
+                "select --hand 1\n" +
+                "summon\n" +
+                "yes\n" +
+                "cancel\n" +
+                "next phase\n" +
+                "select --field --opponent\n" +
+                "attack direct\n" +
+                "select --monster 1\n" +
+                "attack direct\n" +
+                "next phase\n" +
+                "select --hand 3\n" +
+                "set\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "select --hand Monster Reborn --force\n" +
+                "select --force --hand Exploder Dragon\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "select --field\n" +
+                "activate effect\n" +
+                "select --hand 4\n" +
+                "activate effect\n" +
+                "10\n" +
+                "1\n" +
+                "7\n" +
+                "attack position\n" +
                 "surrender\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
@@ -1710,7 +1736,260 @@ public class IOAppender {
                 "\t\t\t\t\t\t48\n" +
                 "\tc\tc\tc\tc\tc\n" +
                 "MehrNick:8000\n" +
-                "AmirAli won the whole match\r\n");
+                "card selected\r\n" +
+                "now it will be AmirAli’s turn\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "6\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t3\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t53\n" +
+                "\tc\tc\n" +
+                "AmirNick:8000\n" +
+                "do you want to activate your trap and spell?(yes/no)\r\n" +
+                "summoned successfully\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "3\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: battle phase\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "3\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "you can’t attack with this card\r\n" +
+                "AmirNick:8000\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "3\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "your opponent receives 1600 battle damage\r\n" +
+                "AmirNick:6400\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "3\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: Main Phase 2\r\n" +
+                "AmirNick:6400\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "3\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "set successfully\r\n" +
+                "AmirNick:6400\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "3\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: End Phase\n" +
+                "AmirNick:6400\n" +
+                "\tc\tc\n" +
+                "53\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "3\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t48\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "its AmirNick’s turn\r\n" +
+                "phase: draw phase\r\n" +
+                "new card added to the hand : Harpie's Feather Duster\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "6\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t3\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t52\n" +
+                "\tc\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "card with name Monster Reborn got added to your hand\r\n" +
+                "card with name Exploder Dragon got added to your hand\r\n" +
+                "phase: standby phase\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "6\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t3\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "phase: Main Phase 1\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "6\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t3\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "card selected\r\n" +
+                "you have already activated this card\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "6\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t3\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "card selected\r\n" +
+                "1: Mirage Dragon\r\n" +
+                "2: Torrential Tribute\r\n" +
+                "3: Mind Crush\r\n" +
+                "4: Pot of Greed\r\n" +
+                "5: Pot of Greed\r\n" +
+                "6: Terratiger, the Empowered Warrior\r\n" +
+                "7: Scanner\r\n" +
+                "8: Beast King Barbaros\r\n" +
+                "9: Skull Guardian\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "1: Mirage Dragon\r\n" +
+                "2: Torrential Tribute\r\n" +
+                "3: Mind Crush\r\n" +
+                "4: Pot of Greed\r\n" +
+                "5: Pot of Greed\r\n" +
+                "6: Terratiger, the Empowered Warrior\r\n" +
+                "7: Scanner\r\n" +
+                "8: Beast King Barbaros\r\n" +
+                "9: Skull Guardian\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "1: Mirage Dragon\r\n" +
+                "2: Torrential Tribute\r\n" +
+                "3: Mind Crush\r\n" +
+                "4: Pot of Greed\r\n" +
+                "5: Pot of Greed\r\n" +
+                "6: Terratiger, the Empowered Warrior\r\n" +
+                "7: Scanner\r\n" +
+                "8: Beast King Barbaros\r\n" +
+                "9: Skull Guardian\r\n" +
+                "Give an address\r\n" +
+                "do you want to summon it in attack position or defence position?\r\n" +
+                "summoned successfully\r\n" +
+                "spell activated\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "5\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t4\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "Mehrshad won the whole match\r\n");
     }
 
     public static void profileViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {

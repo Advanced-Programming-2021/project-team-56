@@ -122,9 +122,9 @@ public class SpellEffectCanActivate {
 
     private boolean areThereEnoughTributeFromDeck(int totalLevel) {
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
-        for (int i = 0; i < mainDeck.size(); i++) {
-            if (mainDeck.get(i) instanceof MonsterCard) {
-                totalLevel -= ((MonsterCard) mainDeck.get(i)).getLevel();
+        for (Card card : mainDeck) {
+            if (card instanceof MonsterCard) {
+                totalLevel -= ((MonsterCard) card).getLevel();
             }
         }
         return totalLevel <= 0;
@@ -132,8 +132,8 @@ public class SpellEffectCanActivate {
 
     private boolean doseHandIncludeCrabTurtle() {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i).getName().equals("Crab Turtle")) {
+        for (Card card : playerHand) {
+            if (card.getName().equals("Crab Turtle")) {
                 return true;
             }
         }
@@ -142,8 +142,8 @@ public class SpellEffectCanActivate {
 
     private boolean doseHandIncludeSkullGuardian() {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i).getName().equals("Skull Guardian")) {
+        for (Card card : playerHand) {
+            if (card.getName().equals("Skull Guardian")) {
                 return true;
             }
         }
@@ -152,9 +152,9 @@ public class SpellEffectCanActivate {
 
     public boolean canTeraformingActivate() {
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
-        for (int i = 0; i < mainDeck.size(); i++) {
-            if (mainDeck.get(i) instanceof SpellCard) {
-                if (((SpellCard) mainDeck.get(i)).getIcon().equals("Field")) {
+        for (Card card : mainDeck) {
+            if (card instanceof SpellCard) {
+                if (((SpellCard) card).getIcon().equals("Field")) {
                     return true;
                 }
             }
@@ -221,8 +221,8 @@ public class SpellEffectCanActivate {
         } else {
             graveyard = duelWithUser.getEnemyBoard().getGraveyard();
         }
-        for (int i = 0; i < graveyard.size(); i++) {
-            if (graveyard.get(i) instanceof MonsterCard) {
+        for (Card card : graveyard) {
+            if (card instanceof MonsterCard) {
                 return true;
             }
         }

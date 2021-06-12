@@ -102,35 +102,90 @@ public class SpellEffectActivate {
     }
 
     private void monsterRebornActivate() {
-        ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
-        ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
         boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
         boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
         MonsterCard monsterCard;
-        int address;
         if (isMyGraveyardEmpty && isEnemyGraveyardEmpty) {
-            effectView.showGraveyardForCardsEffects(true, true);
-            address = effectView.getAddress();
-            if (address > myGraveyard.size()) {
-                address -= myGraveyard.size();
-                monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
-                enemyGraveyard.remove(address - 1);
-            } else {
-                monsterCard = (MonsterCard) myGraveyard.get(address - 1);
-                myGraveyard.remove(address - 1);
-            }
+            monsterCard = choosingCardFromBothYards();
         } else if (isMyGraveyardEmpty) {
-            effectView.showGraveyardForCardsEffects(true, false);
-            address = effectView.getAddress();
-            monsterCard = (MonsterCard) myGraveyard.get(address - 1);
-            myGraveyard.remove(address - 1);
+            monsterCard = choosingCardFromMyYard();
         } else {
-            effectView.showGraveyardForCardsEffects(false, true);
-            address = effectView.getAddress();
-            monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
-            enemyGraveyard.remove(address - 1);
+            monsterCard = choosingCardFromEnemyYard();
         }
         monsterReborn(monsterCard, true);
+    }
+
+    private MonsterCard choosingCardFromBothYards() {
+        MonsterCard monsterCard;
+        ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
+        ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        while (true) {
+            effectView.showGraveyardForCardsEffects(true, true);
+            int address = effectView.getAddress() - 1;
+            if (isAddressValid(myGraveyard.size() + enemyGraveyard.size(), address)) {
+                if (address > myGraveyard.size()) {
+                    address -= myGraveyard.size();
+                    if (enemyGraveyard.get(address) instanceof MonsterCard) {
+                        monsterCard = (MonsterCard) enemyGraveyard.get(address);
+                        enemyGraveyard.remove(address);
+                    }else {
+                        effectView.output(Output.InvalidSelection.toString());
+                        continue;
+                    }
+                } else {
+                    if (myGraveyard.get(address) instanceof MonsterCard) {
+                        monsterCard = (MonsterCard) myGraveyard.get(address);
+                        myGraveyard.remove(address);
+                    }else {
+                        effectView.output(Output.InvalidSelection.toString());
+                        continue;
+                    }
+                }
+                break;
+            }
+            effectView.output(Output.InvalidSelection.toString());
+        }
+        return monsterCard;
+    }
+
+    private MonsterCard choosingCardFromMyYard() {
+        ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
+        MonsterCard monsterCard;
+        while (true) {
+            effectView.showGraveyardForCardsEffects(true, false);
+            int address = effectView.getAddress() - 1;
+            if (isAddressValid(myGraveyard.size(), address)) {
+                if (myGraveyard.get(address) instanceof MonsterCard) {
+                    monsterCard = (MonsterCard) myGraveyard.get(address);
+                    myGraveyard.remove(address);
+                    break;
+                }
+            }
+            effectView.output(Output.InvalidSelection.toString());
+        }
+        return monsterCard;
+    }
+
+    private MonsterCard choosingCardFromEnemyYard() {
+        ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        MonsterCard monsterCard;
+        while (true) {
+            effectView.showGraveyardForCardsEffects(false, true);
+            int address = effectView.getAddress() - 1;
+            if (isAddressValid(enemyGraveyard.size(), address)) {
+                if (enemyGraveyard.get(address) instanceof MonsterCard) {
+                    monsterCard = (MonsterCard) enemyGraveyard.get(address);
+                    enemyGraveyard.remove(address);
+                    break;
+                }
+            }
+            effectView.output(Output.InvalidSelection.toString());
+        }
+        return monsterCard;
+    }
+
+    private boolean isAddressValid(int max, int input) {
+        return input < max && input != 0;
     }
 
     public void monsterReborn(MonsterCard monsterCard, boolean isItMonsterRebornEffect) {
