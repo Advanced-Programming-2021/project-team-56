@@ -1,0 +1,15 @@
+.root {
+    -fx-background-image: url(../images/Yu-Gi-Oh-Background.jpg);
+    -fx-background-size: cover;
+}
+
+Button {
+    -fx-background-color: #9234be;
+    -fx-border-width: 10px;
+    -fx-border-color: #17061f;
+    -fx-font-family: sample;
+    -fx-text-fill: white;
+    -fx-background-radius: 40;
+    -fx-border-radius: 35;
+    -fx-font-size: 25;
+}
