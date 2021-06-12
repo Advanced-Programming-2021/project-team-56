@@ -1,0 +1,22 @@
+.root {
+    -fx-background-image: url(../images/Black-Purple-Hexagon-Background.png);
+    -fx-background-size: cover;
+}
+
+@font-face {
+    font-family: 'sample';
+    font-style: normal;
+    font-weight: normal;
+    src: url("/fonts/BigSpace-rPKx.ttf") format('truetype');
+}
+
+Button {
+    -fx-background-color: #500274;
+    -fx-border-width: 10px;
+    -fx-border-color: #17061f;
+    -fx-font-family: sample;
+    -fx-text-fill: white;
+    -fx-background-radius: 40;
+    -fx-border-radius: 35;
+    -fx-font-size: 25;
+}
