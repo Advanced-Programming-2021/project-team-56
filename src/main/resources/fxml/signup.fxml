@@ -12,106 +12,95 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SignUpView">
+<AnchorPane prefHeight="1050.0" prefWidth="1680.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SignUpView">
     <children>
-        <StackPane prefHeight="1050.0" prefWidth="1680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
-            <effect>
-                <DropShadow />
-            </effect>
-            <children>
-                <HBox alignment="CENTER" prefHeight="1050.0" prefWidth="1680.0">
-                    <children>
-                        <ImageView fitHeight="1050.0" fitWidth="1680.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/Black-Luster-resized.jpg" />
-                            </image>
-                        </ImageView>
-                    </children>
-                </HBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                    <StackPane.margin>
-                        <Insets bottom="45.0" left="45.0" right="45.0" top="45.0" />
-                    </StackPane.margin>
-                    <children>
-                        <VBox id="signupVBox" alignment="TOP_CENTER" blendMode="HARD_LIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="528.0" prefWidth="520.0" style="-fx-background-color: white;">
-                            <effect>
-                                <DropShadow />
-                            </effect>
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 2em; -fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #55027c;" text="SignUp" />
-                                <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
-                                    <VBox.margin>
-                                        <Insets top="35.0" />
-                                    </VBox.margin>
-                                    <children>
-                                        <TextField fx:id="userNameField" prefHeight="31.0" prefWidth="244.0" promptText="username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
-                                        <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/User-Symbol.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </HBox>
-                                <HBox alignment="CENTER_RIGHT" layoutX="60.0" layoutY="90.0" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
-                                    <children>
-                                        <TextField fx:id="nickNameField" prefHeight="31.0" prefWidth="331.0" promptText="nickname" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
-                                        <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/User-Symbol.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets top="35.0" />
-                                    </VBox.margin>
-                                </HBox>
-                                <HBox alignment="CENTER_RIGHT" layoutX="60.0" layoutY="130.0" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
-                                    <children>
-                                        <PasswordField fx:id="passWordField" promptText="password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-                                            <HBox.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                            </HBox.margin>
-                                        </PasswordField>
-                                        <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/Password-Symbol.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets top="35.0" />
-                                    </VBox.margin>
-                                </HBox>
-                                <Button fx:id="signUpButton" mnemonicParsing="false" onMouseClicked="#signUpClicked" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px; -fx-text-fill: white;" text="SignUp">
-                                    <VBox.margin>
-                                        <Insets top="35.0" />
-                                    </VBox.margin>
-                                </Button>
-                                <HBox alignment="BOTTOM_CENTER" prefHeight="97.0" prefWidth="410.0" VBox.vgrow="ALWAYS">
-                                    <children>
-                                        <Pane prefHeight="70.0" prefWidth="337.0">
-                                            <children>
-                                                <Text layoutX="70.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-family: Quicksand;" text="Have an account?" />
-                                                <Label fx:id="errorLabel" alignment="CENTER" layoutY="76.0" prefHeight="30.0" prefWidth="337.0" style="-fx-text-fill: black; -fx-font-size: 15;" />
-                                                <Label fx:id="loginLabel" alignment="CENTER" layoutX="203.0" layoutY="38.0" onMouseClicked="#loginClicked" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px;" text="Login" textFill="WHITE" />
-                                            </children>
-                                        </Pane>
-                                    </children>
-                                </HBox>
-                            </children>
-                            <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </padding>
-                        </VBox>
-                    </children>
-                </VBox>
-            </children>
-        </StackPane>
-        <Button fx:id="backButton" blendMode="HARD_LIGHT" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="80.0" prefWidth="250.0" style="-fx-background-radius: 100px; -fx-text-fill: white;" text="Back" />
+          <HBox alignment="CENTER" prefHeight="1050.0" prefWidth="1680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                  <ImageView fitHeight="1050.0" fitWidth="1680.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../images/Black-Luster-resized.jpg" />
+                      </image>
+                  </ImageView>
+              </children>
+          </HBox>
+          <VBox alignment="CENTER" prefHeight="1050.0" prefWidth="1680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                  <VBox id="signupVBox" alignment="TOP_CENTER" blendMode="HARD_LIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="528.0" prefWidth="520.0" style="-fx-background-color: white;">
+                      <effect>
+                          <DropShadow />
+                      </effect>
+                      <children>
+                          <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 2em; -fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #55027c;" text="SignUp" />
+                          <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
+                              <VBox.margin>
+                                  <Insets top="35.0" />
+                              </VBox.margin>
+                              <children>
+                                  <TextField fx:id="userNameField" prefHeight="31.0" prefWidth="244.0" promptText="username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+                                  <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@../images/User-Symbol.png" />
+                                      </image>
+                                  </ImageView>
+                              </children>
+                          </HBox>
+                          <HBox alignment="CENTER_RIGHT" layoutX="60.0" layoutY="90.0" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
+                              <children>
+                                  <TextField fx:id="nickNameField" prefHeight="31.0" prefWidth="331.0" promptText="nickname" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+                                  <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@../images/User-Symbol.png" />
+                                      </image>
+                                  </ImageView>
+                              </children>
+                              <VBox.margin>
+                                  <Insets top="35.0" />
+                              </VBox.margin>
+                          </HBox>
+                          <HBox alignment="CENTER_RIGHT" layoutX="60.0" layoutY="130.0" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
+                              <children>
+                                  <PasswordField fx:id="passWordField" promptText="password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                                      <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                      </HBox.margin>
+                                  </PasswordField>
+                                  <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@../images/Password-Symbol.png" />
+                                      </image>
+                                  </ImageView>
+                              </children>
+                              <VBox.margin>
+                                  <Insets top="35.0" />
+                              </VBox.margin>
+                          </HBox>
+                          <Button fx:id="signUpButton" mnemonicParsing="false" onMouseClicked="#signUpClicked" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px; -fx-text-fill: white;" text="SignUp">
+                              <VBox.margin>
+                                  <Insets top="35.0" />
+                              </VBox.margin>
+                          </Button>
+                          <HBox alignment="BOTTOM_CENTER" prefHeight="97.0" prefWidth="410.0" VBox.vgrow="ALWAYS">
+                              <children>
+                                  <Pane prefHeight="70.0" prefWidth="337.0">
+                                      <children>
+                                          <Text layoutX="70.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-family: Quicksand;" text="Have an account?" />
+                                          <Label fx:id="errorLabel" alignment="CENTER" layoutY="76.0" prefHeight="30.0" prefWidth="337.0" style="-fx-text-fill: black; -fx-font-size: 15;" />
+                                          <Label fx:id="loginLabel" alignment="CENTER" layoutX="203.0" layoutY="38.0" onMouseClicked="#loginClicked" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px;" text="Login" textFill="WHITE" />
+                                      </children>
+                                  </Pane>
+                              </children>
+                          </HBox>
+                      </children>
+                      <padding>
+                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                      </padding>
+                  </VBox>
+              </children>
+          </VBox>
+        <Button fx:id="backButton" blendMode="HARD_LIGHT" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="80.0" prefWidth="250.0" style="-fx-background-radius: 100px; -fx-text-fill: white;" text="Back" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
     </children>
     <stylesheets>
         <URL value="@../CSS/register.css" />
