@@ -66,10 +66,7 @@ public class MainPhase1View {
         if (matcher.find()) {
             return true;
         }
-        if (command.equals(Commands.AttackDirect.toString())) {
-            return true;
-        }
-        return false;
+        return command.equals(Commands.AttackDirect.toString());
     }
 
     private boolean shouldIShowTheFiled(String command) {

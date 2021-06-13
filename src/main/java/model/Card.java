@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Card {
     private boolean isFacedUp;
+    private boolean isItInChainLink;
     private String name;
     private String description;
     private int startEffectTurn = -1;
     private int price;
-    private static ArrayList<Card> cards = new ArrayList<>();
     private int equipID;
     public static int id = 0;
-    private boolean isItInChainLink;
+    private final static ArrayList<Card> cards = new ArrayList<>();
 
     public Card() {
     }

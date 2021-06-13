@@ -80,7 +80,7 @@ public class TrapEffectActivate {
 
     private void destroySpell(int counter) {
         while (counter > 0) {
-            if(!isThereAnyCardLeft() && duelWithUser.getEnemyBoard() == null){
+            if (!isThereAnyCardLeft() && duelWithUser.getEnemyBoard() == null) {
                 break;
             }
             effectView.output("field zone/ spell zone?");
@@ -198,7 +198,7 @@ public class TrapEffectActivate {
             } else if (input.equals("field zone")) {
                 int address = effectView.getAddress();
                 if (address > 5 || address < 1) {
-                    effectView.output("invalid selection");
+                    effectView.output(Output.InvalidSelection.toString());
                     continue;
                 }
                 Card card = spellAndTrapTerritory.get(address);
@@ -226,7 +226,7 @@ public class TrapEffectActivate {
                 graveyard.add(card);
                 spellAndTrapTerritory.put(address, null);
             } else {
-                effectView.output("invalid command");
+                effectView.output(Output.InvalidCommand.toString());
             }
         }
     }
@@ -314,7 +314,7 @@ public class TrapEffectActivate {
             effectView.showGraveyardForCardsEffects(true, false);
             int address = effectView.getAddress();
             if (graveyard.size() < address || address < 1) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
             } else if (!(graveyard.get(address - 1) instanceof MonsterCard)) {
                 effectView.output("the chosen card is not a monster");
             } else {

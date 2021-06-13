@@ -7,8 +7,6 @@ public enum Output {
     SummonedSuccessfully("summoned successfully"),
     CardSelected("card selected"),
     CardIsNotVisible("card is not visible"),
-    Yes("yes"),
-    No("no"),
     ILost("I lost"),
     IWon("I won"),
     InvalidNickname("invalid nick name"),
@@ -19,7 +17,7 @@ public enum Output {
     ItsNotYourTurnToPLayThisKindOfMove("it’s not your turn to play this kind of moves"),
     InvalidSelection("invalid selection");
 
-    private String output;
+    private final String output;
 
     Output(String output) {
         this.output = output;

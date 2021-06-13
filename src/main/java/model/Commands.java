@@ -15,7 +15,7 @@ public enum Commands {
     Surrender("surrender"),
     DisSelect("select -d"),
     NextPhase("next phase");
-    private String command;
+    private final String command;
 
     Commands(String command) {
         this.command = command;

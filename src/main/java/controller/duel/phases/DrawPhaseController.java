@@ -32,13 +32,13 @@ public class DrawPhaseController {
                 return "No cards is in your deck";
             }
             Card newCard = mainDeck.get(mainDeck.size() - 1);
-            if (newCard.getName().equals("Scanner")){
-                ((MonsterCard)newCard).setItScanner(true);
+            if (newCard.getName().equals("Scanner")) {
+                ((MonsterCard) newCard).setItScanner(true);
             }
             playerHand.add(newCard);
             mainDeck.remove(mainDeck.size() - 1);
             return "new card added to the hand : " + playerHand.get(playerHand.size() - 1).getName();
-        }else{
+        } else {
             duelWithUser.getMyBoard().setItEffectedByTimeSeal(false);
             return "this turn you couldn't draw a card";
         }
@@ -48,7 +48,7 @@ public class DrawPhaseController {
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
         for (Card card : mainDeck) {
             if (card.getName().equals(cardName)) {
-                if (card.getName().equals("Scanner")){
+                if (card.getName().equals("Scanner")) {
                     ((MonsterCard) card).setItScanner(true);
                 }
                 duelWithUser.getMyBoard().getPlayerHand().add(card);

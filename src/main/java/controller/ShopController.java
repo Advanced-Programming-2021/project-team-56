@@ -1,7 +1,6 @@
 package controller;
 
 import model.Card;
-import model.MonsterCard;
 import model.User;
 
 import java.util.ArrayList;
@@ -43,13 +42,13 @@ public class ShopController {
         Comparator<Card> comparator = Comparator.comparing(Card::getName);
         Collections.sort(cards, comparator);
         StringBuilder cardsDemo = new StringBuilder();
-        for (int i = 0; i < cards.size(); i++) {
-            cardsDemo.append(cards.get(i).getName() + ":" + cards.get(i).getPrice() + "\n");
+        for (Card card : cards) {
+            cardsDemo.append(card.getName() + ":" + card.getPrice() + "\n");
         }
         return cardsDemo.toString();
     }
 
-    public  String buyCard(String cardName, String username) {
+    public String buyCard(String cardName, String username) {
         if (!isThereAnyCardWithThisName(cardName)) {
             return "there is no card with this name";
         }

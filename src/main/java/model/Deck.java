@@ -3,10 +3,10 @@ package model;
 import java.util.ArrayList;
 
 public class Deck {
-    private ArrayList<Card> mainDeck = new ArrayList<>();
-    private ArrayList<Card> sideDeck = new ArrayList<>();
-    private ArrayList<Card> deckCards = new ArrayList<>();
-    private ArrayList<Card> userCards = new ArrayList<>();
+    private final ArrayList<Card> mainDeck = new ArrayList<>();
+    private final ArrayList<Card> sideDeck = new ArrayList<>();
+    private final ArrayList<Card> deckCards = new ArrayList<>();
+    private final ArrayList<Card> userCards = new ArrayList<>();
     private boolean isActivated = false;
     private String deckName;
 
@@ -14,10 +14,6 @@ public class Deck {
         this.deckName = deckName;
     }
 
-    public Deck() {
-    }
-
-    //////////////?
     public Deck(Deck deck) {
         mainDeck.addAll(deck.getMainDeck());
         sideDeck.addAll(deck.getSideDeck());
@@ -56,24 +52,15 @@ public class Deck {
     }
 
     public boolean isDeckValid() {
-        if (this.mainDeck.size() >= 40) {
-            return true;
-        }
-        return false;
+        return this.mainDeck.size() >= 40;
     }
 
     public boolean isMainDeckFull() {
-        if (mainDeck.size() == 60) {
-            return true;
-        }
-        return false;
+        return mainDeck.size() == 60;
     }
 
     public boolean isSideDeckFull() {
-        if (sideDeck.size() == 15) {
-            return true;
-        }
-        return false;
+        return sideDeck.size() == 15;
     }
 
     public boolean isThreeCardsWithThisNameInDeck(String cardName) {

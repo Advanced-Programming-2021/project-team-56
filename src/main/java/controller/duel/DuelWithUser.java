@@ -31,7 +31,7 @@ public class DuelWithUser {
     private int phaseCounter = 1;
     private int turnCounter;
     private int tempTurnCounter;
-    private Board[] boards = new Board[2];
+    private final Board[] boards = new Board[2];
     private int startTurn;
 
     {
@@ -276,14 +276,13 @@ public class DuelWithUser {
                 return "no card found in the given position";
             }
             getMyBoard().setSelectedCard(getMyBoard().getFieldSpell());
-            return Output.CardSelected.toString();
         } else {
             if (getEnemyBoard().getFieldSpell() == null) {
                 return "no card found in the given position";
             }
             getMyBoard().setSelectedCard(getEnemyBoard().getFieldSpell());
-            return Output.CardSelected.toString();
         }
+        return Output.CardSelected.toString();
     }
 
     public String deselectCard() {
@@ -564,10 +563,7 @@ public class DuelWithUser {
         if (getMyBoard().getUser().getNickname().equals(nickname)) {
             return true;
         }
-        if (getEnemyBoard().getUser().getNickname().equals(nickname)) {
-            return true;
-        }
-        return false;
+        return getEnemyBoard().getUser().getNickname().equals(nickname);
     }
 
     public int getPhaseCounter() {

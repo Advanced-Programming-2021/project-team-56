@@ -148,7 +148,7 @@ public class DeckMenuController {
         ArrayList<Card> cards;
         if (mainOrSide.equals("side")) cards = deck.getSideDeck();
         else cards = deck.getMainDeck();
-        Comparator<Card> comparator = Comparator.comparing(Card :: getName);
+        Comparator<Card> comparator = Comparator.comparing(Card::getName);
         cards.sort(comparator);
         String result = "Deck: " + deckName + "\nSide deck:\nMonsters:\n";
         StringBuilder monsters = new StringBuilder();

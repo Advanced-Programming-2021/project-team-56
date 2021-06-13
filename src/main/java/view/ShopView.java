@@ -55,7 +55,7 @@ public class ShopView {
                 continue;
             }
             matcher = menuEnter.matcher(command);
-            if (matcher.find()){
+            if (matcher.find()) {
                 System.out.println(Output.MenuNavigationIsNotPossible);
                 continue;
             }

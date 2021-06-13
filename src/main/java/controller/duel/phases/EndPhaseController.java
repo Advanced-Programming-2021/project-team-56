@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class EndPhaseController {
     private static EndPhaseController endPhaseController;
-    private DuelWithUser duelWithUser = DuelWithUser.getInstance();
+    private final DuelWithUser duelWithUser = DuelWithUser.getInstance();
 
     private EndPhaseController() {
 

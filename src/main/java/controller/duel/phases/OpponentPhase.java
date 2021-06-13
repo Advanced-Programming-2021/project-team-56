@@ -21,8 +21,7 @@ public class OpponentPhase {
     private final SpellEffectActivate spellEffectActivate;
     private final TrapEffectActivate trapEffectActivate;
     private final TrapEffectCanActivate trapEffectCanActivate;
-
-    private ArrayList<Card> chainLink = new ArrayList<>();
+    private final ArrayList<Card> chainLink = new ArrayList<>();
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     {
@@ -69,7 +68,7 @@ public class OpponentPhase {
         }
         while (true) {
             String command = effectView.input();
-            if (isThisActionNotAllowed(command)){
+            if (isThisActionNotAllowed(command)) {
                 System.out.println(Output.ItsNotYourTurnToPLayThisKindOfMove);
                 continue;
             } else if (command.equals("cancel")) {
@@ -218,7 +217,7 @@ public class OpponentPhase {
         return false;
     }
 
-    private boolean isThisActionNotAllowed(String command){
+    private boolean isThisActionNotAllowed(String command) {
         if (command.equals(Commands.DisSelect.toString())) {
             return true;
         } else if (command.startsWith(Commands.Select.toString())) {
@@ -231,10 +230,7 @@ public class OpponentPhase {
             return true;
         } else if (command.equals(Commands.FlipSummon.toString())) {
             return true;
-        } else if (command.equals(Commands.AttackDirect.toString())) {
-            return true;
-        }
-        return false;
+        } else return command.equals(Commands.AttackDirect.toString());
     }
 
     public void startChainLink() {

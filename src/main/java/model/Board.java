@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Board {
-    private ArrayList<Card> graveyard = new ArrayList<>();
-    private Deck playerDeck;
-    private HashMap<Integer, Card> spellAndTrapTerritory = new HashMap<>();
-    private HashMap<Integer, MonsterCard> monsterTerritory = new HashMap<>();
-    private ArrayList<Card> playerHand = new ArrayList<>();
-    private User user;
+    private final ArrayList<Card> graveyard = new ArrayList<>();
+    private final Deck playerDeck;
+    private final HashMap<Integer, Card> spellAndTrapTerritory = new HashMap<>();
+    private final HashMap<Integer, MonsterCard> monsterTerritory = new HashMap<>();
+    private final ArrayList<Card> playerHand = new ArrayList<>();
+    private final User user;
     private SpellCard fieldSpell;
     private Card selectedCard;
     private int LP = 8000;

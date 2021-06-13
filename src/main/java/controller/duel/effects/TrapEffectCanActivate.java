@@ -107,15 +107,10 @@ public class TrapEffectCanActivate {
             return false;
         }
         if (duelWithUser.getTurnCounter() % 2 == 0) {
-            if (duelWithUser.getMyBoard().getStartedTurn() == 3) {
-                return true;
-            }
+            return duelWithUser.getMyBoard().getStartedTurn() == 3;
         } else {
-            if (duelWithUser.getMyBoard().getStartedTurn() == 2) {
-                return true;
-            }
+            return duelWithUser.getMyBoard().getStartedTurn() == 2;
         }
-        return false;
     }
 
     private boolean canIActivateMindCrush() {
@@ -127,12 +122,12 @@ public class TrapEffectCanActivate {
 
 
     private boolean canIActivateCallOfHunted() {
-       if (SpellEffectCanActivate.getInstance().isMyMonsterTerritoryFull()){
-           return false;
-       }
+        if (SpellEffectCanActivate.getInstance().isMyMonsterTerritoryFull()) {
+            return false;
+        }
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
-        for (int i = 0; i < graveyard.size(); i++) {
-            if (graveyard.get(i) instanceof MonsterCard) {
+        for (Card card : graveyard) {
+            if (card instanceof MonsterCard) {
                 return true;
             }
         }

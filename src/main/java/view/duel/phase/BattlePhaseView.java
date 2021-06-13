@@ -90,10 +90,7 @@ public class BattlePhaseView {
 
     private boolean isGameOver() {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
-        if (duelWithUser.getEnemyBoard().getLP() <= 0 || duelWithUser.getMyBoard().getLP() <= 0) {
-            return true;
-        }
-        return false;
+        return duelWithUser.getEnemyBoard().getLP() <= 0 || duelWithUser.getMyBoard().getLP() <= 0;
     }
 
     private String afterAttack() {

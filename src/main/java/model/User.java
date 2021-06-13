@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class User {
 
-    private static ArrayList<User> users = new ArrayList<>();
+    private final static ArrayList<User> users = new ArrayList<>();
     private String username;
     private String password;
     private int score = 0;
     private String nickname;
     private int money = 100000;
-    private ArrayList<Deck> decks = new ArrayList<>();
-    private ArrayList<Card> userAllCards = new ArrayList<>();
-    private ArrayList<Integer> playerLP = new ArrayList<>();
+    private final ArrayList<Deck> decks = new ArrayList<>();
+    private final ArrayList<Card> userAllCards = new ArrayList<>();
+    private final ArrayList<Integer> playerLP = new ArrayList<>();
 
     public User(String username, String nickname, String password) {
         setUsername(username);

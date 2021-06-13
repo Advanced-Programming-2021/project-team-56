@@ -112,8 +112,8 @@ public class SpellEffectCanActivate {
         if (isMyMonsterTerritoryFull()) {
             return false;
         }
-        boolean isMyGraveyardEmpty = !spellEffectCanActivate.isThereMonsterInGraveyard(1);
-        boolean isEnemyGraveyardEmpty = !spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(2);
         return !isMyGraveyardEmpty || !isEnemyGraveyardEmpty;
     }
 
@@ -201,21 +201,21 @@ public class SpellEffectCanActivate {
         return false;
     }
 
-    public boolean isThereMonsterInGraveyard(int player) {
+    public boolean isThereNoMonsterInGraveyard(int player) {
         ArrayList<Card> graveyard;
         if (player == 1) {
             graveyard = duelWithUser.getMyBoard().getGraveyard();
-        } else if(player == 2){
+        } else if (player == 2) {
             graveyard = duelWithUser.getEnemyBoard().getGraveyard();
-        }else {
-            return false;
+        } else {
+            return true;
         }
         for (Card card : graveyard) {
             if (card instanceof MonsterCard) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public boolean swordOfDarkDestructionCanActivate() {

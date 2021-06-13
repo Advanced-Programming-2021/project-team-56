@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class TrapCard extends Card {
-    private static ArrayList<TrapCard> trapCards = new ArrayList<>();
+    private final static ArrayList<TrapCard> trapCards = new ArrayList<>();
     private String icon;
     private String status;
     private String type;

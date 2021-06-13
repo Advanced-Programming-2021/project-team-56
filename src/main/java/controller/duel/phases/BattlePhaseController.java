@@ -62,7 +62,7 @@ public class BattlePhaseController {
             duelWithUser.getMyBoard().setItEffectedByMirrorFace(false);
             return "your faced up cards were destroyed";
         }
-        if (duelWithUser.getMyBoard().isItAttackNegated()){
+        if (duelWithUser.getMyBoard().isItAttackNegated()) {
             duelWithUser.getMyBoard().setItAttackNegated(false);
             return "your attack was blocked";
         }
@@ -131,7 +131,7 @@ public class BattlePhaseController {
             duelWithUser.getMyBoard().setItEffectedByMirrorFace(false);
             return "your faced up cards were destroyed";
         }
-        if (duelWithUser.getMyBoard().isItAttackNegated()){
+        if (duelWithUser.getMyBoard().isItAttackNegated()) {
             duelWithUser.getMyBoard().setItAttackNegated(false);
             return "your attack was blocked";
         }
@@ -155,7 +155,7 @@ public class BattlePhaseController {
         if (myMonster.getName().equals("The Calculator")) {
             theCalculatorEffect(1);
         }
-        if(enemyMonster != null) {
+        if (enemyMonster != null) {
             if (enemyMonster.getName().equals("The Calculator")) {
                 theCalculatorEffect(2);
             }

@@ -6,7 +6,6 @@ import model.*;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class SpellEffectActivate {
@@ -102,8 +101,8 @@ public class SpellEffectActivate {
     }
 
     private void monsterRebornActivate() {
-        boolean isMyGraveyardEmpty = !spellEffectCanActivate.isThereMonsterInGraveyard(1);
-        boolean isEnemyGraveyardEmpty = !spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(2);
         MonsterCard monsterCard;
         if (!isMyGraveyardEmpty && !isEnemyGraveyardEmpty) {
             monsterCard = choosingCardFromBothYards(false);
@@ -119,8 +118,8 @@ public class SpellEffectActivate {
         if (!isScannerInMyBoard()) {
             return;
         }
-        boolean isMyGraveyardEmpty = !spellEffectCanActivate.isThereMonsterInGraveyard(1);
-        boolean isEnemyGraveyardEmpty = !spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(2);
         MonsterCard monsterCard;
         if (!isMyGraveyardEmpty && !isEnemyGraveyardEmpty) {
             monsterCard = choosingCardFromBothYards(true);

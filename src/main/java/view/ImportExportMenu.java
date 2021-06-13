@@ -16,7 +16,7 @@ public class ImportExportMenu {
         return importExportMenu;
     }
 
-    public void run(){
+    public void run() {
         while (true) {
             String command = LoginMenuView.scan.nextLine().trim();
             if (command.equals("menu exit")) {

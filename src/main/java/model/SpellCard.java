@@ -7,7 +7,7 @@ public class SpellCard extends Card {
     private String icon;
     private String status;
     private int setTurn;
-    private static ArrayList<SpellCard> spellCards = new ArrayList<>();
+    private final static ArrayList<SpellCard> spellCards = new ArrayList<>();
 
     public SpellCard() {
 
