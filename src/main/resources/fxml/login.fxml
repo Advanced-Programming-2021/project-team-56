@@ -17,7 +17,6 @@
 
 <AnchorPane prefHeight="1050.0" prefWidth="1680.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginView">
     <children>
-        <Button id="loginBackButton" fx:id="backButton" blendMode="GREEN" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #7E588B; -fx-background-radius: 100px; -fx-text-fill: white;" text="Back" />
           <HBox prefHeight="1050.0" prefWidth="1680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
                   <VBox id="leftSideLoginVBox" alignment="BOTTOM_LEFT" prefHeight="1050.0" prefWidth="840.0" style="-fx-background-color: #5e008a;" HBox.hgrow="ALWAYS" />
@@ -85,6 +84,7 @@
                   </VBox>
               </children>
           </VBox>
+        <Button id="loginBackButton" fx:id="backButton" blendMode="GREEN" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #7E588B; -fx-background-radius: 100px; -fx-text-fill: white;" text="Back" />
     </children>
     <stylesheets>
         <URL value="@../CSS/register.css" />
