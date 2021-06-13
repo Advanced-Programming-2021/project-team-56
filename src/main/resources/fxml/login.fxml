@@ -15,78 +15,104 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1050.0" prefWidth="1680.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginView">
+<AnchorPane prefHeight="1050.0" prefWidth="1680.0" style="-fx-background-color: transparent;"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginView">
     <children>
-          <HBox prefHeight="1050.0" prefWidth="1680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <children>
-                  <VBox id="leftSideLoginVBox" alignment="BOTTOM_LEFT" prefHeight="1050.0" prefWidth="840.0" style="-fx-background-color: #5e008a;" HBox.hgrow="ALWAYS" />
-                  <VBox id="rightSideLoginVBox" prefHeight="1050.0" prefWidth="840.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS" />
-              </children>
-          </HBox>
-          <VBox alignment="CENTER" prefHeight="1050.0" prefWidth="1680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <children>
-                  <VBox id="loginVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="468.0" prefWidth="544.0" style="-fx-background-color: white;">
-                      <effect>
-                          <DropShadow />
-                      </effect>
-                      <children>
-                          <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 2em; -fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #55027c;" text="Login" />
-                          <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
-                              <VBox.margin>
-                                  <Insets top="40.0" />
-                              </VBox.margin>
-                              <children>
-                                  <TextField fx:id="userNameField" prefHeight="31.0" prefWidth="329.0" promptText="Username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
-                                  <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                                      <image>
-                                          <Image url="@../images/User-Symbol.png" />
-                                      </image>
-                                  </ImageView>
-                              </children>
-                          </HBox>
-                          <HBox alignment="CENTER_RIGHT" layoutX="60.0" layoutY="130.0" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
-                              <children>
-                                  <PasswordField fx:id="passWordField" promptText="Password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-                                      <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                      </HBox.margin>
-                                  </PasswordField>
-                                  <ImageView fx:id="passWordSecurityImage" fitHeight="21.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                      <image>
-                                          <Image url="@../images/Password-Symbol.png" />
-                                      </image>
-                                  </ImageView>
-                              </children>
-                              <VBox.margin>
-                                  <Insets top="40.0" />
-                              </VBox.margin>
-                          </HBox>
-                          <Button fx:id="loginButton" mnemonicParsing="false" onMouseClicked="#loginClicked" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px; -fx-text-fill: white;" text="Login">
-                              <VBox.margin>
-                                  <Insets top="40.0" />
-                              </VBox.margin>
-                          </Button>
-                          <HBox alignment="BASELINE_RIGHT" prefHeight="92.0" prefWidth="330.0" VBox.vgrow="ALWAYS">
-                              <children>
-                                  <Pane prefHeight="194.0" prefWidth="551.0">
-                                      <children>
-                                          <Text layoutX="152.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-family: Quicksand;" text="Need an account?" />
-                                          <Label fx:id="signupLabel" alignment="CENTER" layoutX="294.0" layoutY="39.0" onMouseClicked="#signUpClicked" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #55027c; -fx-background-radius: 100px;" text="Signup" textFill="WHITE" />
-                              <Label fx:id="errorLabel" alignment="CENTER" layoutY="77.0" prefHeight="30.0" prefWidth="524.0" style="-fx-text-fill: black; -fx-font-size: 15;" />
-                                      </children>
-                                  </Pane>
-                              </children>
-                          </HBox>
-                      </children>
-                      <padding>
-                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                      </padding>
-                  </VBox>
-              </children>
-          </VBox>
-        <Button id="loginBackButton" fx:id="backButton" blendMode="GREEN" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #7E588B; -fx-background-radius: 100px; -fx-text-fill: white;" text="Back" />
+        <HBox prefHeight="1050.0" prefWidth="1680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox id="leftSideLoginVBox" alignment="BOTTOM_LEFT" prefHeight="1050.0" prefWidth="840.0"
+                      style="-fx-background-color: #5e008a;" HBox.hgrow="ALWAYS"/>
+                <VBox id="rightSideLoginVBox" prefHeight="1050.0" prefWidth="840.0" style="-fx-background-color: white;"
+                      HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <VBox alignment="CENTER" prefHeight="1050.0" prefWidth="1680.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox id="loginVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                      prefHeight="468.0" prefWidth="544.0" style="-fx-background-color: white;">
+                    <effect>
+                        <DropShadow/>
+                    </effect>
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                              style="-fx-font-size: 2em; -fx-font-family: Quicksand; -fx-font-weight: bold; -fx-fill: #55027c;"
+                              text="Login"/>
+                        <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefHeight="43.0" prefWidth="331.0"
+                              style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
+                            <VBox.margin>
+                                <Insets top="40.0"/>
+                            </VBox.margin>
+                            <children>
+                                <TextField fx:id="userNameField" prefHeight="31.0" prefWidth="329.0"
+                                           promptText="Username" style="-fx-background-color: transparent;"
+                                           HBox.hgrow="ALWAYS"/>
+                                <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/User-Symbol.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" layoutX="60.0" layoutY="130.0" maxWidth="-Infinity"
+                              prefHeight="43.0" prefWidth="331.0"
+                              style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
+                            <children>
+                                <PasswordField fx:id="passWordField" promptText="Password"
+                                               style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    </HBox.margin>
+                                </PasswordField>
+                                <ImageView fx:id="passWordSecurityImage" fitHeight="21.0" fitWidth="25.0"
+                                           pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Password-Symbol.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="40.0"/>
+                            </VBox.margin>
+                        </HBox>
+                        <Button fx:id="loginButton" mnemonicParsing="false" onMouseClicked="#loginClicked"
+                                prefHeight="35.0" prefWidth="220.0"
+                                style="-fx-background-color: #55027c; -fx-background-radius: 100px; -fx-text-fill: white;"
+                                text="Login">
+                            <VBox.margin>
+                                <Insets top="40.0"/>
+                            </VBox.margin>
+                        </Button>
+                        <HBox alignment="BASELINE_RIGHT" prefHeight="92.0" prefWidth="330.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Pane prefHeight="194.0" prefWidth="551.0">
+                                    <children>
+                                        <Text layoutX="152.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              style="-fx-font-weight: bold; -fx-font-family: Quicksand;"
+                                              text="Need an account?"/>
+                                        <Label fx:id="signupLabel" alignment="CENTER" layoutX="294.0" layoutY="39.0"
+                                               onMouseClicked="#signUpClicked" prefHeight="30.0" prefWidth="50.0"
+                                               style="-fx-background-color: #55027c; -fx-background-radius: 100px;"
+                                               text="Signup" textFill="WHITE"/>
+                                        <Label fx:id="errorLabel" alignment="CENTER" layoutY="77.0" prefHeight="30.0"
+                                               prefWidth="524.0" style="-fx-text-fill: black; -fx-font-size: 15;"/>
+                                    </children>
+                                </Pane>
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                </VBox>
+            </children>
+        </VBox>
+        <Button id="loginBackButton" fx:id="backButton" blendMode="GREEN" layoutX="10.0" layoutY="950.0"
+                mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="80.0" prefWidth="250.0"
+                style="-fx-background-color: #7E588B; -fx-background-radius: 100px; -fx-text-fill: white;" text="Back"/>
     </children>
     <stylesheets>
-        <URL value="@../CSS/register.css" />
+        <URL value="@../CSS/register.css"/>
     </stylesheets>
 </AnchorPane>
