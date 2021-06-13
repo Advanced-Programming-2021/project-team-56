@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class User {
 
-    private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser;
+    private final static ArrayList<User> users = new ArrayList<>();
     private String username;
     private String password;
     private int score = 0;
     private String nickname;
     private int money = 100000;
-    private ArrayList<Deck> decks = new ArrayList<>();
-    private ArrayList<Card> userAllCards = new ArrayList<>();
-    private ArrayList<Integer> playerLP = new ArrayList<>();
+    private final ArrayList<Deck> decks = new ArrayList<>();
+    private final ArrayList<Card> userAllCards = new ArrayList<>();
+    private final ArrayList<Integer> playerLP = new ArrayList<>();
 
     public User(String username, String nickname, String password) {
         setUsername(username);
@@ -69,17 +69,11 @@ public class User {
                 maxLP = playerLP.get(i);
             }
         }
-        //TODO isn't this code done when you're clearing: clearLP
-        for (int i = 0; i < playerLP.size(); i++) {
-            playerLP.remove(0);
-        }
         return maxLP;
     }
 
     public void clearLP(){
-        for (int i = 0; i < playerLP.size(); i++) {
-            playerLP.remove(0);
-        }
+        playerLP.clear();
     }
 
     public int getScore() {
@@ -141,15 +135,6 @@ public class User {
     public boolean isDeckWithThisNameExistent(String deckName) {
         for (Deck deck : decks) {
             if (deck.getDeckName().equals(deckName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isCardWithThisNameExistent(String cardName) {
-        for (Card card : userAllCards) {
-            if (card.getName().equals(cardName)) {
                 return true;
             }
         }

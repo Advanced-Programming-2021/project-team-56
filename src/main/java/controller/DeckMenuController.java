@@ -6,9 +6,7 @@ import model.MonsterCard;
 import model.User;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.StringTokenizer;
 
 public class DeckMenuController {
 
@@ -137,7 +135,7 @@ public class DeckMenuController {
                         .append(deck.getSideDeck().size()).append(", ").append(validity).append("\n");
             }
         }
-        result += activeDeck.toString() + "Other decks:\n" + inActiveDecks.toString();
+        result += activeDeck + "Other decks:\n" + inActiveDecks;
         return result;
     }
 
@@ -150,7 +148,7 @@ public class DeckMenuController {
         ArrayList<Card> cards;
         if (mainOrSide.equals("side")) cards = deck.getSideDeck();
         else cards = deck.getMainDeck();
-        Comparator<Card> comparator = Comparator.comparing(Card :: getName);
+        Comparator<Card> comparator = Comparator.comparing(Card::getName);
         cards.sort(comparator);
         String result = "Deck: " + deckName + "\nSide deck:\nMonsters:\n";
         StringBuilder monsters = new StringBuilder();
@@ -162,7 +160,7 @@ public class DeckMenuController {
                 spellsAndTraps.append(card.getName()).append(": ").append(card.getDescription()).append("\n");
             }
         }
-        result += monsters.toString() + "Spells and Traps:\n" + spellsAndTraps.toString();
+        result += monsters + "Spells and Traps:\n" + spellsAndTraps;
         return result;
     }
 

@@ -7,7 +7,7 @@ public class DuelMenuController {
 
     private static DuelMenuController duelMenuController;
 
-    private DuelMenuController(){
+    private DuelMenuController() {
     }
 
     public static DuelMenuController getInstance() {
@@ -52,33 +52,13 @@ public class DuelMenuController {
     private boolean isPlayersDeckValid(User user) {
         for (Deck deck : user.getDecks()) {
             if (deck.isDeckActivated()) {
-                if (deck.isDeckValid()) {
-                    return true;
-                }
-                return false;
+                return deck.isDeckValid();
             }
         }
         return false;
     }
 
     private boolean isRoundsNumberValid(String numberOfRounds) {
-        if (numberOfRounds.equals("1") || numberOfRounds.equals("3")) {
-            return true;
-        }
-        return false;
-    }
-
-    public String canUserDuel(String username, String numberOfRounds) {
-        User user = User.getUserByUsername(username);
-        if (!isPlayersDeckActive(user)) {
-            return username + " has no active deck";
-        }
-        if (!isPlayersDeckValid(user)) {
-            return username + "'s deck is invalid";
-        }
-        if (!isRoundsNumberValid(numberOfRounds)) {
-            return "number of rounds is not supported";
-        }
-        return "duel is valid";
+        return numberOfRounds.equals("1") || numberOfRounds.equals("3");
     }
 }

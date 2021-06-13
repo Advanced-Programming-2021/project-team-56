@@ -1,15 +1,11 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
-import model.Board;
-import model.Card;
-import model.MonsterCard;
+import model.*;
 
-import model.SpellCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class SpellEffectActivate {
@@ -50,7 +46,7 @@ public class SpellEffectActivate {
                 changeOfHeartActivate();
                 effectView.output(getRidOfSpell());
                 break;
-            case "Harpie’s Feather Duster":
+            case "Harpie's Feather Duster":
                 harpiesFeatherDusterActivate();
                 effectView.output(getRidOfSpell());
                 break;
@@ -99,42 +95,159 @@ public class SpellEffectActivate {
                 break;
             }
         }
-        spellEffectActivate.spellAbsorption();
         duelWithUser.getMyBoard().getGraveyard().add(spell);
         duelWithUser.getMyBoard().setSelectedCard(null);
         return "spell activated";
     }
 
     private void monsterRebornActivate() {
-        ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
-        ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
-        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
-        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(2);
         MonsterCard monsterCard;
-        int address;
-        if (isMyGraveyardEmpty && isEnemyGraveyardEmpty) {
-            effectView.showGraveyardForCardsEffects(true, true);
-            address = effectView.getAddress();
-            if (address > myGraveyard.size()) {
-                address -= myGraveyard.size();
-                monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
-                enemyGraveyard.remove(address - 1);
-            } else {
-                monsterCard = (MonsterCard) myGraveyard.get(address - 1);
-                myGraveyard.remove(address - 1);
-            }
-        } else if (isMyGraveyardEmpty) {
-            effectView.showGraveyardForCardsEffects(true, false);
-            address = effectView.getAddress();
-            monsterCard = (MonsterCard) myGraveyard.get(address - 1);
-            myGraveyard.remove(address - 1);
+        if (!isMyGraveyardEmpty && !isEnemyGraveyardEmpty) {
+            monsterCard = choosingCardFromBothYards(false);
+        } else if (!isMyGraveyardEmpty) {
+            monsterCard = choosingCardFromMyYard(false);
         } else {
-            effectView.showGraveyardForCardsEffects(false, true);
-            address = effectView.getAddress();
-            monsterCard = (MonsterCard) enemyGraveyard.get(address - 1);
-            enemyGraveyard.remove(address - 1);
+            monsterCard = choosingCardFromEnemyYard(false);
         }
         monsterReborn(monsterCard, true);
+    }
+
+    public void scannerEffect() {
+        if (!isScannerInMyBoard()) {
+            return;
+        }
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(2);
+        MonsterCard monsterCard;
+        if (!isMyGraveyardEmpty && !isEnemyGraveyardEmpty) {
+            monsterCard = choosingCardFromBothYards(true);
+        } else if (!isMyGraveyardEmpty) {
+            monsterCard = choosingCardFromMyYard(true);
+        } else if (!isEnemyGraveyardEmpty) {
+            monsterCard = choosingCardFromEnemyYard(true);
+        } else {
+            return;
+        }
+        scanTheAttributesForScanner(monsterCard);
+    }
+
+    private boolean isScannerInMyBoard() {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            MonsterCard monster = monsterTerritory.get(i);
+            if (monster != null && monster.isItScanner()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void scanTheAttributesForScanner(MonsterCard monsterCard) {
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
+        for (int i = 1; i < 6; i++) {
+            MonsterCard monster = monsterTerritory.get(i);
+            if (monster != null && monster.isItScanner()) {
+                monster.setName(monsterCard.getName());
+                monster.setAttack(monsterCard.getAttack());
+                monster.setDefence(monsterCard.getDefence());
+                monster.setAttribute(monsterCard.getAttribute());
+                monster.setCardType(monsterCard.getCardType());
+                monster.setLevel(monsterCard.getLevel());
+                monster.setDescription(monsterCard.getDescription());
+            }
+        }
+    }
+
+    private MonsterCard choosingCardFromBothYards(boolean isItScanner) {
+        MonsterCard monsterCard;
+        ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
+        ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        while (true) {
+            if (isItScanner) {
+                effectView.output("choose a card from graveyard to scan it's attributes for your scanner");
+            }
+            effectView.showGraveyardForCardsEffects(true, true);
+            int address = effectView.getAddress() - 1;
+            if (isAddressValid(myGraveyard.size() + enemyGraveyard.size(), address)) {
+                if (address > myGraveyard.size()) {
+                    address -= myGraveyard.size();
+                    if (enemyGraveyard.get(address) instanceof MonsterCard) {
+                        monsterCard = (MonsterCard) enemyGraveyard.get(address);
+                        if (!isItScanner) {
+                            enemyGraveyard.remove(address);
+                        }
+                    } else {
+                        effectView.output(Output.InvalidSelection.toString());
+                        continue;
+                    }
+                } else {
+                    if (myGraveyard.get(address) instanceof MonsterCard) {
+                        monsterCard = (MonsterCard) myGraveyard.get(address);
+                        if (!isItScanner) {
+                            myGraveyard.remove(address);
+                        }
+                    } else {
+                        effectView.output(Output.InvalidSelection.toString());
+                        continue;
+                    }
+                }
+                break;
+            }
+            effectView.output(Output.InvalidSelection.toString());
+        }
+        return monsterCard;
+    }
+
+    private MonsterCard choosingCardFromMyYard(boolean isItScanner) {
+        ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
+        MonsterCard monsterCard;
+        while (true) {
+            if (isItScanner) {
+                effectView.output("choose a card from graveyard to scan it's attributes for your scanner");
+            }
+            effectView.showGraveyardForCardsEffects(true, false);
+            int address = effectView.getAddress() - 1;
+            if (isAddressValid(myGraveyard.size(), address)) {
+                if (myGraveyard.get(address) instanceof MonsterCard) {
+                    monsterCard = (MonsterCard) myGraveyard.get(address);
+                    if (!isItScanner) {
+                        myGraveyard.remove(address);
+                    }
+                    break;
+                }
+            }
+            effectView.output(Output.InvalidSelection.toString());
+        }
+        return monsterCard;
+    }
+
+    private MonsterCard choosingCardFromEnemyYard(boolean isItScanner) {
+        ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        MonsterCard monsterCard;
+        while (true) {
+            if (isItScanner) {
+                effectView.output("choose a card from graveyard to scan it's attributes for your scanner");
+            }
+            effectView.showGraveyardForCardsEffects(false, true);
+            int address = effectView.getAddress() - 1;
+            if (isAddressValid(enemyGraveyard.size(), address)) {
+                if (enemyGraveyard.get(address) instanceof MonsterCard) {
+                    monsterCard = (MonsterCard) enemyGraveyard.get(address);
+                    if (!isItScanner) {
+                        enemyGraveyard.remove(address);
+                    }
+                    break;
+                }
+            }
+            effectView.output(Output.InvalidSelection.toString());
+        }
+        return monsterCard;
+    }
+
+    private boolean isAddressValid(int max, int input) {
+        return input < max && input != 0;
     }
 
     public void monsterReborn(MonsterCard monsterCard, boolean isItMonsterRebornEffect) {
@@ -145,10 +258,9 @@ public class SpellEffectActivate {
         monsterCard.setStartEffectTurn(-1);
         monsterCard.setLastTimeAttackedTurn(0);
         monsterCard.setSummonedTurn(0);
-        monsterCard.setItScanner(monsterCard.getName().equals("Scanner"));
         if (isItMonsterRebornEffect) {
             while (true) {
-                effectView.output("do you want to summon it in attack position or defence position?");
+                effectView.output("do you want to summon " + monsterCard.getName() + " in attack position or defence position?");
                 String input = effectView.input();
                 if (input.equals("attack position")) {
                     monsterCard.setInAttackPosition(true);
@@ -157,7 +269,7 @@ public class SpellEffectActivate {
                     monsterCard.setInAttackPosition(false);
                     break;
                 } else {
-                    effectView.output("invalid command");
+                    effectView.output(Output.InvalidCommand.toString());
                 }
             }
         }
@@ -167,7 +279,10 @@ public class SpellEffectActivate {
                 break;
             }
         }
-        effectView.output("summoned successfully");
+        effectView.output(Output.SummonedSuccessfully.toString());
+        if (monsterCard.isItScanner()) {
+            scannerEffect();
+        }
     }
 
     private void changeOfHeartActivate() {
@@ -177,7 +292,7 @@ public class SpellEffectActivate {
             effectView.output("which monster would you mind to takeover?");
             int address = effectView.getAddress();
             if (address > 5 || address < 1) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
             } else if (enemyMonsterTerritory.get(address) == null) {
                 effectView.output("there is no monster on the address");
             } else {
@@ -201,7 +316,7 @@ public class SpellEffectActivate {
             effectView.showDeck();
             int address = effectView.getAddress() - 1;
             if (address < 0 || address >= mainDeck.size()) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
             } else if (!(mainDeck.get(address) instanceof SpellCard)) {
                 effectView.output("selected card isn't a spell card");
             } else if (!((SpellCard) mainDeck.get(address)).getIcon().equals("Field")) {
@@ -260,32 +375,27 @@ public class SpellEffectActivate {
                 ritualSummon(false, output);
                 break;
             } else {
-                effectView.output("invalid command");
+                effectView.output(Output.InvalidCommand.toString());
             }
         }
-        //TODO For Test view this shuffle is like a booger
-        Collections.shuffle(duelWithUser.getMyBoard().getMainDeck());
-        effectView.output("summoned successfully");
+//        Collections.shuffle(duelWithUser.getMyBoard().getMainDeck());
+        effectView.output(Output.SummonedSuccessfully.toString());
     }
 
     private void ritualSummon(boolean attackPosition, int address) {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         MonsterCard monsterCard = null;
+        String cardName;
         if (address == 1) {
-            for (int i = 0; i < playerHand.size(); i++) {
-                if (playerHand.get(i).getName().equals("Crab Turtle")) {
-                    monsterCard = (MonsterCard) playerHand.get(i);
-                    playerHand.remove(i);
-                    break;
-                }
-            }
+            cardName = "Crab Turtle";
         } else {
-            for (int i = 0; i < playerHand.size(); i++) {
-                if (playerHand.get(i).getName().equals("Skull Guardian")) {
-                    monsterCard = (MonsterCard) playerHand.get(i);
-                    playerHand.remove(i);
-                    break;
-                }
+            cardName = "Skull Guardian";
+        }
+        for (int i = 0; i < playerHand.size(); i++) {
+            if (playerHand.get(i).getName().equals(cardName)) {
+                monsterCard = (MonsterCard) playerHand.get(i);
+                playerHand.remove(i);
+                break;
             }
         }
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
@@ -302,17 +412,19 @@ public class SpellEffectActivate {
 
     private void payingTributeForRitualSummon(int totalLevel) {
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
-        while (totalLevel < 8) {
+        while (totalLevel > 0) {
+            effectView.output("please make a tribute for ritual summon from list below");
             effectView.showDeck();
             int address = effectView.getAddress() - 1;
             if (address < 0 || address >= mainDeck.size()) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
             } else if (!isItValidTribute(address)) {
                 effectView.output("selected card can't be tributed");
             } else {
-                totalLevel += ((MonsterCard) mainDeck.get(address)).getLevel();
-                effectView.output(mainDeck.get(address).getName() + "was removed from deck");
-                duelWithUser.getMyBoard().getGraveyard().add(mainDeck.get(address));
+                MonsterCard tribute = ((MonsterCard) mainDeck.get(address));
+                totalLevel -= tribute.getLevel();
+                effectView.output(tribute.getName() + " was removed from deck");
+                duelWithUser.getMyBoard().getGraveyard().add(tribute);
                 mainDeck.remove(address);
             }
         }
@@ -518,7 +630,7 @@ public class SpellEffectActivate {
         while (true) {
             int address = effectView.getAddress();
             if (address > 5 || address < 1) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
             } else {
                 MonsterCard monster = monsterTerritory.get(address);
                 if (monster == null) {
@@ -575,7 +687,7 @@ public class SpellEffectActivate {
         while (true) {
             int address = effectView.getAddress();
             if (address > 5 || address < 1) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
             } else {
                 if (monsterTerritory.get(address) == null) {
                     effectView.output("there is no monster on the address");
@@ -663,7 +775,7 @@ public class SpellEffectActivate {
         while (true) {
             int address = effectView.getAddress();
             if (address > 5 || address < 1) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
             } else {
                 if (monsterTerritory.get(address) == null) {
                     effectView.output("there is no monster on the address");

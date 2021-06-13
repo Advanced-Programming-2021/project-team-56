@@ -2,8 +2,8 @@ package view.duel;
 
 import controller.duel.DuelWithUser;
 import model.Card;
-import model.MonsterCard;
 import view.LoginMenuView;
+import model.Output;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -54,12 +54,12 @@ public class EffectView {
         while (true) {
             System.out.println("Give an address");
             String result = LoginMenuView.scan.nextLine().trim();
-            Pattern number = Pattern.compile("[\\d]+");
+            Pattern number = Pattern.compile("^([\\d]+)$");
             Matcher matcher = number.matcher(result);
             if (matcher.find()) {
                 return Integer.parseInt(result);
             } else {
-                System.out.println("invalid selection");
+                System.out.println(Output.InvalidCommand);
             }
         }
     }
@@ -67,22 +67,20 @@ public class EffectView {
     public void showGraveyardForCardsEffects(boolean player1, boolean player2) {
         ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
         ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
-        int j = 1;
+        StringBuilder stringBuilder = new StringBuilder();
+        int j = 0;
         if (player1) {
-            for (int i = 0; i < myGraveyard.size(); i++) {
-                if (myGraveyard.get(i) instanceof MonsterCard) {
-                    j++;
-                    System.out.println(j + ": " + myGraveyard.get(i).getName());
-                }
+            for (Card card : myGraveyard) {
+                j++;
+                stringBuilder.append(j + ": " + card.getName() + "\n");
             }
         }
         if (player2) {
-            for (int i = 0; i < enemyGraveyard.size(); i++) {
-                if (enemyGraveyard.get(i) instanceof MonsterCard) {
-                    j++;
-                    System.out.println(j + ": " + enemyGraveyard.get(i).getName());
-                }
+            for (Card card : enemyGraveyard) {
+                j++;
+                stringBuilder.append(j + ": " + card.getName() + "\n");
             }
         }
+        System.out.print(stringBuilder);
     }
 }

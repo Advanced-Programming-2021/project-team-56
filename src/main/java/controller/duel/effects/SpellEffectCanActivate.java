@@ -1,11 +1,8 @@
 package controller.duel.effects;
 
-import model.Board;
+import model.*;
 
 import controller.duel.DuelWithUser;
-import model.Card;
-import model.MonsterCard;
-import model.SpellCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -40,7 +37,7 @@ public class SpellEffectCanActivate {
                 return canAdvancedRitualArtActivate() != 0;
             case "Pot of Greed":
                 return potOfGreedCanActivate();
-            case "Harpie’s Feather Duster":
+            case "Harpie's Feather Duster":
                 return TrapEffectCanActivate.getInstance().canIActivateSpaceTyphoonOrTwinTwister();
             case "Change of Heart":
                 return canChangeOfHeartActivate();
@@ -83,13 +80,13 @@ public class SpellEffectCanActivate {
         if (isMyMonsterTerritoryFull()) {
             return 0;
         }
-        if (!doseHandIncludeCrabTurtle() && !doseHandIncludeSkullGuardian()) {
+        if (!doseHandIncludeIt("Skull Guardian") && !doseHandIncludeIt("Crab Turtle")) {
             return 0;
         }
         if (!areThereEnoughTributeFromDeck(7)) {
             return 0;
         }
-        if (doseHandIncludeCrabTurtle() && doseHandIncludeSkullGuardian() && areThereEnoughTributeFromDeck(8)) {
+        if (doseHandIncludeIt("Crab Turtle") && doseHandIncludeIt("Skull Guardian") && areThereEnoughTributeFromDeck(8)) {
             while (true) {
                 effectView.output("Crab Turtle or Skull Guardian ?");
                 String input = effectView.input();
@@ -99,13 +96,13 @@ public class SpellEffectCanActivate {
                 if (input.equals("Skull Guardian")) {
                     return 2;
                 }
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidCommand.toString());
             }
         }
-        if (doseHandIncludeSkullGuardian()) {
+        if (doseHandIncludeIt("Skull Guardian")) {
             return 2;
         }
-        if (doseHandIncludeCrabTurtle() && areThereEnoughTributeFromDeck(8)) {
+        if (doseHandIncludeIt("Crab Turtle") && areThereEnoughTributeFromDeck(8)) {
             return 1;
         }
         return 0;
@@ -115,35 +112,25 @@ public class SpellEffectCanActivate {
         if (isMyMonsterTerritoryFull()) {
             return false;
         }
-        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(1);
-        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereMonsterInGraveyard(2);
-        return isMyGraveyardEmpty || isEnemyGraveyardEmpty;
+        boolean isMyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(1);
+        boolean isEnemyGraveyardEmpty = spellEffectCanActivate.isThereNoMonsterInGraveyard(2);
+        return !isMyGraveyardEmpty || !isEnemyGraveyardEmpty;
     }
 
     private boolean areThereEnoughTributeFromDeck(int totalLevel) {
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
-        for (int i = 0; i < mainDeck.size(); i++) {
-            if (mainDeck.get(i) instanceof MonsterCard) {
-                totalLevel -= ((MonsterCard) mainDeck.get(i)).getLevel();
+        for (Card card : mainDeck) {
+            if (card instanceof MonsterCard) {
+                totalLevel -= ((MonsterCard) card).getLevel();
             }
         }
         return totalLevel <= 0;
     }
 
-    private boolean doseHandIncludeCrabTurtle() {
+    private boolean doseHandIncludeIt(String cardName) {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i).getName().equals("Crab Turtle")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean doseHandIncludeSkullGuardian() {
-        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (int i = 0; i < playerHand.size(); i++) {
-            if (playerHand.get(i).getName().equals("Skull Guardian")) {
+        for (Card card : playerHand) {
+            if (card.getName().equals(cardName)) {
                 return true;
             }
         }
@@ -152,9 +139,9 @@ public class SpellEffectCanActivate {
 
     public boolean canTeraformingActivate() {
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
-        for (int i = 0; i < mainDeck.size(); i++) {
-            if (mainDeck.get(i) instanceof SpellCard) {
-                if (((SpellCard) mainDeck.get(i)).getIcon().equals("Field")) {
+        for (Card card : mainDeck) {
+            if (card instanceof SpellCard) {
+                if (((SpellCard) card).getIcon().equals("Field")) {
                     return true;
                 }
             }
@@ -214,19 +201,21 @@ public class SpellEffectCanActivate {
         return false;
     }
 
-    public boolean isThereMonsterInGraveyard(int player) {
+    public boolean isThereNoMonsterInGraveyard(int player) {
         ArrayList<Card> graveyard;
         if (player == 1) {
             graveyard = duelWithUser.getMyBoard().getGraveyard();
-        } else {
+        } else if (player == 2) {
             graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        } else {
+            return true;
         }
-        for (int i = 0; i < graveyard.size(); i++) {
-            if (graveyard.get(i) instanceof MonsterCard) {
-                return true;
+        for (Card card : graveyard) {
+            if (card instanceof MonsterCard) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public boolean swordOfDarkDestructionCanActivate() {

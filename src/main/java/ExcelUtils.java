@@ -6,7 +6,6 @@ import model.TrapCard;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,13 +39,13 @@ public class ExcelUtils {
     public void run() throws IOException {
         String prjDir = System.getProperty("user.dir");
         String excelPath = prjDir + "/data/Monster.xlsx";
-        FileInputStream files = new FileInputStream(new File(excelPath));
+        FileInputStream files = new FileInputStream(excelPath);
         XSSFWorkbook workbook = new XSSFWorkbook(files);
         XSSFSheet sheet = workbook.getSheetAt(0);
         createMonsterCardObjects(sheet);
         prjDir = System.getProperty("user.dir");
         excelPath = prjDir + "/data/SpellTrap.xlsx";
-        files = new FileInputStream(new File(excelPath));
+        files = new FileInputStream(excelPath);
         workbook = new XSSFWorkbook(files);
         sheet = workbook.getSheetAt(0);
         createSpellCards(sheet);

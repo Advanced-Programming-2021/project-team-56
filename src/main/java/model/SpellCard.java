@@ -6,8 +6,8 @@ public class SpellCard extends Card {
     private String type;
     private String icon;
     private String status;
-    private int setTurned;
-    private static ArrayList<SpellCard> spellCards = new ArrayList<>();
+    private int setTurn;
+    private final static ArrayList<SpellCard> spellCards = new ArrayList<>();
 
     public SpellCard() {
 
@@ -47,6 +47,14 @@ public class SpellCard extends Card {
 
     public String getIcon() {
         return icon;
+    }
+
+    public int getSetTurn() {
+        return setTurn;
+    }
+
+    public void setSetTurn(int setTurn) {
+        this.setTurn = setTurn;
     }
 
     @Override

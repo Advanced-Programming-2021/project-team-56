@@ -3,6 +3,7 @@ package controller.duel.effects;
 import controller.duel.DuelWithUser;
 import model.Card;
 import model.MonsterCard;
+import model.Output;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -78,51 +79,73 @@ public class TrapEffectActivate {
     }
 
     private void destroySpell(int counter) {
-        HashMap<Integer, Card> spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
-        ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
         while (counter > 0) {
+            if (!isThereAnyCardLeft() && duelWithUser.getEnemyBoard() == null) {
+                break;
+            }
             effectView.output("field zone/ spell zone?");
             String input = effectView.input();
             if (input.equals("field zone")) {
-                Card spellField = duelWithUser.getEnemyBoard().getFieldSpell();
-                if (spellField == null) {
-                    effectView.output("there is no card on the field zone");
+                if (killFieldSpell() == 0) {
                     continue;
                 }
-                effectView.output("card " + spellField.getName() + "was destroyed");
-                graveyard.add(spellField);
-                duelWithUser.getEnemyBoard().setFieldSpell(null);
             } else if (input.equals("spell zone")) {
-                int address = effectView.getAddress();
-                if (address > 5 || address < 1) {
-                    effectView.output("invalid selection");
+                if (killSpellZone() == 0) {
                     continue;
                 }
-                Card card = spellTerritory.get(address);
-                if (card == null) {
-                    effectView.output("there is no card on the address");
-                    continue;
-                }
-                HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
-                if (card.getName().equals("Call of the Haunted") && card.getIsFacedUp()) {
-                    for (int j = 1; j < 6; j++) {
-                        MonsterCard monster = monsterTerritory.get(j);
-                        if (monster != null && !monster.isItControlledByChangeOfHeart() && monster.isItHunted()) {
-                            graveyard.add(monster);
-                            monsterTerritory.put(j, null);
-                            break;
-                        }
-                    }
-                }
-                effectView.output("card " + card.getName() + "was destroyed");
-                graveyard.add(card);
-                spellTerritory.put(address, null);
+            } else {
+                effectView.output(Output.InvalidCommand.toString());
+                continue;
             }
             counter--;
-            if (!isThereAnyCardLeft()) {
-                break;
+        }
+    }
+
+    private int killSpellZone() {
+        if (!isThereAnyCardLeft()) {
+            effectView.output("there is no spell left on the spell zone");
+            return 0;
+        }
+        HashMap<Integer, Card> spellTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
+        ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        int address = effectView.getAddress();
+        if (address > 5 || address < 1) {
+            effectView.output(Output.InvalidSelection.toString());
+            return 0;
+        }
+        Card card = spellTerritory.get(address);
+        if (card == null) {
+            effectView.output("there is no card on the address");
+            return 0;
+        }
+        HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getEnemyBoard().getMonsterTerritory();
+        if (card.getName().equals("Call of the Haunted") && card.getIsFacedUp()) {
+            for (int j = 1; j < 6; j++) {
+                MonsterCard monster = monsterTerritory.get(j);
+                if (monster != null && !monster.isItControlledByChangeOfHeart() && monster.isItHunted()) {
+                    graveyard.add(monster);
+                    monsterTerritory.put(j, null);
+                    break;
+                }
             }
         }
+        effectView.output("card " + card.getName() + " was destroyed");
+        graveyard.add(card);
+        spellTerritory.put(address, null);
+        return 1;
+    }
+
+    private int killFieldSpell() {
+        ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        Card spellField = duelWithUser.getEnemyBoard().getFieldSpell();
+        if (spellField == null) {
+            effectView.output("there is no card on the field zone");
+            return 0;
+        }
+        effectView.output("card " + spellField.getName() + " was destroyed");
+        graveyard.add(spellField);
+        duelWithUser.getEnemyBoard().setFieldSpell(null);
+        return 1;
     }
 
     private boolean isThereAnyCardLeft() {
@@ -175,7 +198,7 @@ public class TrapEffectActivate {
             } else if (input.equals("field zone")) {
                 int address = effectView.getAddress();
                 if (address > 5 || address < 1) {
-                    effectView.output("invalid selection");
+                    effectView.output(Output.InvalidSelection.toString());
                     continue;
                 }
                 Card card = spellAndTrapTerritory.get(address);
@@ -203,7 +226,7 @@ public class TrapEffectActivate {
                 graveyard.add(card);
                 spellAndTrapTerritory.put(address, null);
             } else {
-                effectView.output("invalid command");
+                effectView.output(Output.InvalidCommand.toString());
             }
         }
     }
@@ -291,7 +314,7 @@ public class TrapEffectActivate {
             effectView.showGraveyardForCardsEffects(true, false);
             int address = effectView.getAddress();
             if (graveyard.size() < address || address < 1) {
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidSelection.toString());
             } else if (!(graveyard.get(address - 1) instanceof MonsterCard)) {
                 effectView.output("the chosen card is not a monster");
             } else {
@@ -307,7 +330,7 @@ public class TrapEffectActivate {
         duelWithUser.getEnemyBoard().setItEffectedBySoleiman(true);
     }
 
-    private void trapHoleActivate(){
+    private void trapHoleActivate() {
         duelWithUser.getEnemyBoard().setAmIAffectedByTrapHole(true);
     }
 }

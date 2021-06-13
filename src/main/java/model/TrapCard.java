@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class TrapCard extends Card {
-    private static ArrayList<TrapCard> trapCards = new ArrayList<>();
+    private final static ArrayList<TrapCard> trapCards = new ArrayList<>();
     private String icon;
     private String status;
     private String type;
@@ -11,6 +11,14 @@ public class TrapCard extends Card {
 
     public TrapCard() {
 
+    }
+
+    public int getSetTurn() {
+        return setTurn;
+    }
+
+    public void setSetTurn(int setTurn) {
+        this.setTurn = setTurn;
     }
 
     public TrapCard(Card card) {
@@ -37,10 +45,6 @@ public class TrapCard extends Card {
         this.status = status;
     }
 
-    public void setSetTurn(int turn) {
-        this.setTurn = turn;
-    }
-
     public String getType() {
         return type;
     }
@@ -51,10 +55,6 @@ public class TrapCard extends Card {
 
     public String getIcon() {
         return icon;
-    }
-
-    public int getSetTurn() {
-        return this.setTurn;
     }
 
     @Override

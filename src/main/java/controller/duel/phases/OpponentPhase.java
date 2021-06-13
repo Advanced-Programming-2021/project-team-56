@@ -4,9 +4,7 @@ import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.TrapEffectActivate;
 import controller.duel.effects.TrapEffectCanActivate;
-import model.Card;
-import model.SpellCard;
-import model.TrapCard;
+import model.*;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -23,8 +21,7 @@ public class OpponentPhase {
     private final SpellEffectActivate spellEffectActivate;
     private final TrapEffectActivate trapEffectActivate;
     private final TrapEffectCanActivate trapEffectCanActivate;
-
-    private ArrayList<Card> chainLink = new ArrayList<>();
+    private final ArrayList<Card> chainLink = new ArrayList<>();
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     {
@@ -52,6 +49,7 @@ public class OpponentPhase {
     public void run() {
         duelWithUser.increaseTempTurnCounter();
         if (!isItPossibleToAddACardToTheChain()) {
+            duelWithUser.decreaseTempTurnCounter();
             return;
         }
         effectView.output("now it will be " + duelWithUser.getMyBoard().getUser().getUsername() + "’s turn");
@@ -62,50 +60,20 @@ public class OpponentPhase {
             if (input.equals("yes")) {
                 break;
             } else if (input.equals("no")) {
+                duelWithUser.decreaseTempTurnCounter();
                 return;
             } else {
-                effectView.output("invalid command");
+                effectView.output(Output.InvalidCommand.toString());
             }
         }
         while (true) {
             String command = effectView.input();
-            if (command.equals("select -d")) {
-                effectView.output("it’s not your turn to play this kind of moves");
+            if (isThisActionNotAllowed(command)) {
+                System.out.println(Output.ItsNotYourTurnToPLayThisKindOfMove);
                 continue;
-            }
-            if (command.startsWith("select")) {
-                effectView.output("it’s not your turn to play this kind of moves");
-                continue;
-            }
-            if (command.equals("summon")) {
-                effectView.output("it’s not your turn to play this kind of moves");
-                continue;
-            }
-            if (command.equals("set")) {
-                effectView.output("it’s not your turn to play this kind of moves");
-                continue;
-            }
-            if (command.equals("set --position attack") || command.equals("set --position defence")) {
-                effectView.output("it’s not your turn to play this kind of moves");
-                continue;
-            }
-            if (command.equals("flip-summon")) {
-                effectView.output("it’s not your turn to play this kind of moves");
-                continue;
-            }
-            Matcher matcher = attack.matcher(command);
-            if (matcher.find()) {
-                effectView.output("it’s not your turn to play this kind of moves");
-                continue;
-            }
-            if (command.equals("attack direct")) {
-                effectView.output("it’s not your turn to play this kind of moves");
-                continue;
-            }
-            if (command.equals("cancel")) {
+            } else if (command.equals("cancel")) {
                 break;
-            }
-            if (command.equals("activate effect")) {
+            } else if (command.equals("activate effect")) {
                 int result = activateEffect();
                 if (result == 0) {
                     continue;
@@ -114,7 +82,12 @@ public class OpponentPhase {
                 }
                 return;
             }
-            effectView.output("invalid command");
+            Matcher matcher = attack.matcher(command);
+            if (matcher.find()) {
+                effectView.output(Output.ItsNotYourTurnToPLayThisKindOfMove.toString());
+                continue;
+            }
+            effectView.output(Output.InvalidCommand.toString());
         }
     }
 
@@ -122,10 +95,10 @@ public class OpponentPhase {
         HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
         int address = effectView.getAddress();
         if (address > 5 || address < 1) {
-            effectView.output("invalid selection");
+            effectView.output(Output.InvalidSelection.toString());
             return 0;
         }
-        Card card = spellAndTrapTerritory.get(address - 1);
+        Card card = spellAndTrapTerritory.get(address);
         if (card == null) {
             effectView.output("there is no spell or trap on this address");
             return 0;
@@ -141,20 +114,24 @@ public class OpponentPhase {
                 return 0;
             }
             if (trapEffectCanActivate.checkSpellAndTrapPossibility(spell.getName())) {
-                spellEffectActivate.spellAbsorption();
-                chainLink.add(spell);
-                spell.setItInChainLink(true);
-                return 1;
+                if (spell.getSetTurn() < duelWithUser.getTurnCounter()) {
+                    spellEffectActivate.spellAbsorption();
+                    chainLink.add(spell);
+                    spell.setItInChainLink(true);
+                    return 1;
+                }
             }
         } else {
             TrapCard trap = (TrapCard) card;
             if (trapEffectCanActivate.checkSpellAndTrapPossibility(trap.getName())) {
-                chainLink.add(trap);
-                trap.setItInChainLink(true);
-                if (isTrapCardCounterAttackType(trap.getName())){
-                    return 2;
+                if (trap.getSetTurn() < duelWithUser.getTurnCounter()) {
+                    chainLink.add(trap);
+                    trap.setItInChainLink(true);
+                    if (isTrapCardCounterAttackType(trap.getName())) {
+                        return 2;
+                    }
+                    return 1;
                 }
-                return 1;
             }
         }
         return 0;
@@ -166,7 +143,6 @@ public class OpponentPhase {
             case "Solemn Warning":
             case "Magic Jammer":
                 return true;
-
         }
         return false;
     }
@@ -181,6 +157,7 @@ public class OpponentPhase {
             }
             if ((card instanceof TrapCard)) {
                 trapEffectActivate.trapAndQuickSpellCaller(card.getName());
+                getRidOfTrapOrQuickPlaySpell(card);
                 duelWithUser.decreaseTempTurnCounter();
                 continue;
             }
@@ -207,13 +184,15 @@ public class OpponentPhase {
     }
 
     private void getRidOfTrapOrQuickPlaySpell(Card card) {
-        HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
-        for (int i = 1; i < 6; i++) {
-            if (spellAndTrapTerritory.get(i) == card) {
-                spellAndTrapTerritory.put(i, null);
+        if (!card.getName().equals("Call of the Haunted")) {
+            HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+            for (int i = 1; i < 6; i++) {
+                if (spellAndTrapTerritory.get(i) == card) {
+                    spellAndTrapTerritory.put(i, null);
+                }
             }
+            duelWithUser.getMyBoard().getGraveyard().add(card);
         }
-        duelWithUser.getMyBoard().getGraveyard().add(card);
     }
 
     private boolean isItPossibleToAddACardToTheChain() {
@@ -221,11 +200,41 @@ public class OpponentPhase {
         for (int i = 1; i < 6; i++) {
             Card card = spellAndTrapTerritory.get(i);
             if (card != null && !card.isItInChainLink()) {
+                if (card instanceof SpellCard) {
+                    if (((SpellCard) card).getSetTurn() >= duelWithUser.getTurnCounter()) {
+                        return false;
+                    }
+                } else {
+                    if (((TrapCard) card).getSetTurn() >= duelWithUser.getTurnCounter()) {
+                        return false;
+                    }
+                }
                 if (trapEffectCanActivate.checkSpellAndTrapPossibility(card.getName())) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private boolean isThisActionNotAllowed(String command) {
+        if (command.equals(Commands.DisSelect.toString())) {
+            return true;
+        } else if (command.startsWith(Commands.Select.toString())) {
+            return true;
+        } else if (command.equals(Commands.Summon.toString())) {
+            return true;
+        } else if (command.equals(Commands.Set.toString())) {
+            return true;
+        } else if (command.equals(Commands.SetAttackPosition.toString()) || command.equals(Commands.SetDefencePosition.toString())) {
+            return true;
+        } else if (command.equals(Commands.FlipSummon.toString())) {
+            return true;
+        } else return command.equals(Commands.AttackDirect.toString());
+    }
+
+    public void startChainLink() {
+        opponentPhase.run();
+        opponentPhase.resolveTheChainLink();
     }
 }

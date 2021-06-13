@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Board {
-    private ArrayList<Card> graveyard = new ArrayList<>();
-    private Deck playerDeck;
-    private HashMap<Integer, Card> spellAndTrapTerritory = new HashMap<>();
-    private HashMap<Integer, MonsterCard> monsterTerritory = new HashMap<>();
-    private ArrayList<Card> playerHand = new ArrayList<>();
-    private User user;
+    private final ArrayList<Card> graveyard = new ArrayList<>();
+    private final Deck playerDeck;
+    private final HashMap<Integer, Card> spellAndTrapTerritory = new HashMap<>();
+    private final HashMap<Integer, MonsterCard> monsterTerritory = new HashMap<>();
+    private final ArrayList<Card> playerHand = new ArrayList<>();
+    private final User user;
     private SpellCard fieldSpell;
     private Card selectedCard;
     private int LP = 8000;
@@ -27,7 +27,6 @@ public class Board {
 
     public Board(User user) {
         this.playerDeck = new Deck(user.getActivatedDeck());
-        //TODO Collections.shuffle(this.playerDeck.getMainDeck());
         this.user = user;
         this.monsterTerritory.put(5, null);
         this.monsterTerritory.put(3, null);
@@ -41,10 +40,26 @@ public class Board {
         this.spellAndTrapTerritory.put(4, null);
     }
 
-    public void setPlayerHand() {
+    public void setPlayerHandForFirstPlayer() {
         for (int i = 0; i < 5; i++) {
-            playerHand.add(playerDeck.getMainDeck().get(0));
+            Card newCard = playerDeck.getMainDeck().get(0);
+            if (newCard.getName().equals("Scanner")){
+                ((MonsterCard)newCard).setItScanner(true);
+            }
+            playerHand.add(newCard);
             playerDeck.getMainDeck().remove(0);
+        }
+    }
+
+    public void setPlayerHandForSecondPlayer() {
+        for (int i = 0; i < 5; i++) {
+            int index = playerDeck.getMainDeck().size() - 1;
+            Card newCard = playerDeck.getMainDeck().get(index);
+            if (newCard.getName().equals("Scanner")){
+                ((MonsterCard)newCard).setItScanner(true);
+            }
+            playerHand.add(newCard);
+            playerDeck.getMainDeck().remove(index);
         }
     }
 

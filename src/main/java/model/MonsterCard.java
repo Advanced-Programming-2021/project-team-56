@@ -20,6 +20,7 @@ public class MonsterCard extends Card {
     private int lastTimeChangedPositionTurn;
     private int lastTimeAttackedTurn;
     private int summonedTurn;
+    private boolean isItScanner;
     private String cardType;
     private String monsterType;
     private ArrayList<Integer> equipId = new ArrayList<>();
@@ -187,5 +188,13 @@ public class MonsterCard extends Card {
 
     public void setItHunted(boolean itHunted) {
         isItHunted = itHunted;
+    }
+
+    public void setItScanner(boolean itScanner) {
+        isItScanner = itScanner;
+    }
+
+    public boolean isItScanner() {
+        return isItScanner;
     }
 }

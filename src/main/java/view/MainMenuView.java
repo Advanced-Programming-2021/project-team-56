@@ -1,5 +1,7 @@
 package view;
 
+import model.Output;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +38,7 @@ public class MainMenuView {
                 System.out.println("user logged out successfully!");
                 return;
             }
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
     }
 
@@ -64,10 +66,10 @@ public class MainMenuView {
                 return;
             }
             if (menuName.equals("Import/Export")) {
-                //TODO Make a Import/Export Menu
+                ImportExportMenu.getInstance().run();
             }
         } else {
-            System.out.println("invalid command");
+            System.out.println(Output.InvalidCommand);
         }
     }
 }
