@@ -34,8 +34,6 @@ public class SignUpView {
         NodeEditor.editNode(0.8, loginLabel, signUpButton, userNameField, nickNameField, passWordField);
     }
 
-
-
     public void backClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.ENTRANCE);
     }
