@@ -88,16 +88,11 @@ public class MainGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//        readFromJson();
         Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/entrance.fxml"));
         Scene scene = instantiateScene(fxml);
         setScene(scene);
         editStage(primaryStage);
         primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitHint(null);
-        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
 
     }
@@ -112,7 +107,10 @@ public class MainGUI extends Application {
 
     private void editStage(Stage stage) {
         setStage(stage);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.setFullScreen(true);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setFullScreenExitHint(null);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
     }
 
 
