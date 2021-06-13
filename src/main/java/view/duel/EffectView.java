@@ -2,7 +2,6 @@ package view.duel;
 
 import controller.duel.DuelWithUser;
 import model.Card;
-import model.MonsterCard;
 import view.LoginMenuView;
 import model.Output;
 
@@ -68,18 +67,20 @@ public class EffectView {
     public void showGraveyardForCardsEffects(boolean player1, boolean player2) {
         ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
         ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
+        StringBuilder stringBuilder = new StringBuilder();
         int j = 0;
         if (player1) {
             for (Card card : myGraveyard) {
                 j++;
-                System.out.println(j + ": " + card.getName());
+                stringBuilder.append(j + ": " + card.getName() + "\n");
             }
         }
         if (player2) {
             for (Card card : enemyGraveyard) {
                 j++;
-                System.out.println(j + ": " + card.getName());
+                stringBuilder.append(j + ": " + card.getName() + "\n");
             }
         }
+        System.out.print(stringBuilder);
     }
 }

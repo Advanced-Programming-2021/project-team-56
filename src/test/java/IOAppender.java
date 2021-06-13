@@ -497,7 +497,30 @@ public class IOAppender {
                 "next phase\n" +
                 "select --monster 2\n" +
                 "attack 1\n" +
-                "surrender\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "select --hand Advanced Ritual Art --force\n" +
+                "select --hand Twin Twisters --force\n" +
+                "next phase\n" +
+                "next phase\n" +
+                "select --hand 6\n" +
+                "activate effect\n" +
+                "some random sentence\n" +
+                "field zone\n" +
+                "field zone\n" +
+                "spell zone\n" +
+                "1\n" +
+                "select --hand 5\n" +
+                "activate effect\n" +
+                "58\n" +
+                "38\n" +
+                "1\n" +
+                "38\n" +
+                "attack position\n" +
+                "increase --LP 500\n" +
+                "duel set-winner AmirNic\n" +
+                "duel set-winner AmirNick\n" +
                 "menu exit");
         outputStringBuilder.append("invalid command\r\n" +
                 "MehrNick, please choose between Rock, Paper or Scissors:\r\n" +
@@ -633,6 +656,7 @@ public class IOAppender {
                 "card selected\r\n" +
                 "Terratiger, the Empowered Warrior: ATK, DEF = 1800, 1200\n" +
                 "When this card is Normal Summoned: You can Special Summon 1 Level 4 or lower Normal Monster from your hand in Defense Position.\r\n" +
+//up to here
                 "do you want to activate this card effect?\r\n" +
                 "Give an address\r\n" +
                 "invalid command\r\n" +
@@ -1950,73 +1974,73 @@ public class IOAppender {
                 "\tc\tc\tc\tc\tc\n" +
                 "AmirNick:6400\n" +
                 "card selected\r\n" +
-                "1: Mirage Dragon\r\n" +
-                "2: Torrential Tribute\r\n" +
-                "3: Mind Crush\r\n" +
-                "4: Pot of Greed\r\n" +
-                "5: Pot of Greed\r\n" +
-                "6: Terratiger, the Empowered Warrior\r\n" +
-                "7: Scanner\r\n" +
-                "8: Beast King Barbaros\r\n" +
-                "9: Skull Guardian\r\n" +
+                "1: Mirage Dragon\n" +
+                "2: Torrential Tribute\n" +
+                "3: Mind Crush\n" +
+                "4: Pot of Greed\n" +
+                "5: Pot of Greed\n" +
+                "6: Terratiger, the Empowered Warrior\n" +
+                "7: Scanner\n" +
+                "8: Beast King Barbaros\n" +
+                "9: Skull Guardian\n" +
                 "Give an address\r\n" +
                 "invalid selection\r\n" +
-                "1: Mirage Dragon\r\n" +
-                "2: Torrential Tribute\r\n" +
-                "3: Mind Crush\r\n" +
-                "4: Pot of Greed\r\n" +
-                "5: Pot of Greed\r\n" +
-                "6: Terratiger, the Empowered Warrior\r\n" +
-                "7: Scanner\r\n" +
-                "8: Beast King Barbaros\r\n" +
-                "9: Skull Guardian\r\n" +
+                "1: Mirage Dragon\n" +
+                "2: Torrential Tribute\n" +
+                "3: Mind Crush\n" +
+                "4: Pot of Greed\n" +
+                "5: Pot of Greed\n" +
+                "6: Terratiger, the Empowered Warrior\n" +
+                "7: Scanner\n" +
+                "8: Beast King Barbaros\n" +
+                "9: Skull Guardian\n" +
                 "Give an address\r\n" +
                 "invalid selection\r\n" +
-                "1: Mirage Dragon\r\n" +
-                "2: Torrential Tribute\r\n" +
-                "3: Mind Crush\r\n" +
-                "4: Pot of Greed\r\n" +
-                "5: Pot of Greed\r\n" +
-                "6: Terratiger, the Empowered Warrior\r\n" +
-                "7: Scanner\r\n" +
-                "8: Beast King Barbaros\r\n" +
-                "9: Skull Guardian\r\n" +
+                "1: Mirage Dragon\n" +
+                "2: Torrential Tribute\n" +
+                "3: Mind Crush\n" +
+                "4: Pot of Greed\n" +
+                "5: Pot of Greed\n" +
+                "6: Terratiger, the Empowered Warrior\n" +
+                "7: Scanner\n" +
+                "8: Beast King Barbaros\n" +
+                "9: Skull Guardian\n" +
                 "Give an address\r\n" +
                 "do you want to summon Scanner in attack position or defence position?\r\n" +
                 "invalid command\r\n" +
                 "do you want to summon Scanner in attack position or defence position?\r\n" +
                 "summoned successfully\r\n" +
                 "choose a card from graveyard to scan it's attributes for your scanner\r\n" +
-                "1: Mirage Dragon\r\n" +
-                "2: Torrential Tribute\r\n" +
-                "3: Mind Crush\r\n" +
-                "4: Pot of Greed\r\n" +
-                "5: Pot of Greed\r\n" +
-                "6: Terratiger, the Empowered Warrior\r\n" +
-                "7: Beast King Barbaros\r\n" +
-                "8: Skull Guardian\r\n" +
+                "1: Mirage Dragon\n" +
+                "2: Torrential Tribute\n" +
+                "3: Mind Crush\n" +
+                "4: Pot of Greed\n" +
+                "5: Pot of Greed\n" +
+                "6: Terratiger, the Empowered Warrior\n" +
+                "7: Beast King Barbaros\n" +
+                "8: Skull Guardian\n" +
                 "Give an address\r\n" +
                 "invalid selection\r\n" +
                 "choose a card from graveyard to scan it's attributes for your scanner\r\n" +
-                "1: Mirage Dragon\r\n" +
-                "2: Torrential Tribute\r\n" +
-                "3: Mind Crush\r\n" +
-                "4: Pot of Greed\r\n" +
-                "5: Pot of Greed\r\n" +
-                "6: Terratiger, the Empowered Warrior\r\n" +
-                "7: Beast King Barbaros\r\n" +
-                "8: Skull Guardian\r\n" +
+                "1: Mirage Dragon\n" +
+                "2: Torrential Tribute\n" +
+                "3: Mind Crush\n" +
+                "4: Pot of Greed\n" +
+                "5: Pot of Greed\n" +
+                "6: Terratiger, the Empowered Warrior\n" +
+                "7: Beast King Barbaros\n" +
+                "8: Skull Guardian\n" +
                 "Give an address\r\n" +
                 "invalid selection\r\n" +
                 "choose a card from graveyard to scan it's attributes for your scanner\r\n" +
-                "1: Mirage Dragon\r\n" +
-                "2: Torrential Tribute\r\n" +
-                "3: Mind Crush\r\n" +
-                "4: Pot of Greed\r\n" +
-                "5: Pot of Greed\r\n" +
-                "6: Terratiger, the Empowered Warrior\r\n" +
-                "7: Beast King Barbaros\r\n" +
-                "8: Skull Guardian\r\n" +
+                "1: Mirage Dragon\n" +
+                "2: Torrential Tribute\n" +
+                "3: Mind Crush\n" +
+                "4: Pot of Greed\n" +
+                "5: Pot of Greed\n" +
+                "6: Terratiger, the Empowered Warrior\n" +
+                "7: Beast King Barbaros\n" +
+                "8: Skull Guardian\n" +
                 "Give an address\r\n" +
                 "spell activated\r\n" +
                 "MehrNick:8000\n" +
@@ -2068,7 +2092,361 @@ public class IOAppender {
                 "\t\t\t\t\t\t50\n" +
                 "\tc\tc\n" +
                 "AmirNick:6400\n" +
-                "Mehrshad won the whole match\r\n");
+                "phase: battle phase\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "7\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t5\n" +
+                "\tE\tE\tOO\tOO\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "card selected\r\n" +
+                "both you and your opponent monster cards are destroyed and no one receives damage\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "8\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "phase: Main Phase 2\r\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "8\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "phase: End Phase\n" +
+                "MehrNick:8000\n" +
+                "\tc\tc\tc\n" +
+                "48\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "8\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "O\t\t\t\t\t\t6\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\t\t\t\t\t\t50\n" +
+                "\tc\tc\n" +
+                "AmirNick:6400\n" +
+                "its MehrNick’s turn\r\n" +
+                "phase: draw phase\r\n" +
+                "new card added to the hand : Harpie's Feather Duster\r\n" +
+                "AmirNick:6400\n" +
+                "\tc\tc\n" +
+                "50\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "6\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t8\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t47\n" +
+                "\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card with name Advanced Ritual Art got added to your hand\r\n" +
+                "card with name Twin Twisters got added to your hand\r\n" +
+                "phase: standby phase\r\n" +
+                "AmirNick:6400\n" +
+                "\tc\tc\n" +
+                "50\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "6\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t8\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t45\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "phase: Main Phase 1\r\n" +
+                "AmirNick:6400\n" +
+                "\tc\tc\n" +
+                "50\n" +
+                "\tE\tE\tH\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "6\t\t\t\t\t\tO\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t8\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t45\n" +
+                "\tc\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "field zone/ spell zone?\r\n" +
+                "invalid command\r\n" +
+                "field zone/ spell zone?\r\n" +
+                "card Forest was destroyed\r\n" +
+                "field zone/ spell zone?\r\n" +
+                "there is no card on the field zone\r\n" +
+                "field zone/ spell zone?\r\n" +
+                "Give an address\r\n" +
+                "card Torrential Tribute was destroyed\r\n" +
+                "AmirNick:6400\n" +
+                "\tc\tc\n" +
+                "50\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "8\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t9\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t45\n" +
+                "\tc\tc\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "card selected\r\n" +
+                "you should ritual summon right now\r\n" +
+                "please make a tribute for ritual summon from list below\r\n" +
+                "1: Umiiruka\r\n" +
+                "2: Magic Jamamer\r\n" +
+                "3: Magic Jamamer\r\n" +
+                "4: The Tricky\r\n" +
+                "5: Change of Heart\r\n" +
+                "6: Change of Heart\r\n" +
+                "7: Raigeki\r\n" +
+                "8: Raigeki\r\n" +
+                "9: Suijin\r\n" +
+                "10: Blue-Eyes white dragon\r\n" +
+                "11: Flame manipulator\r\n" +
+                "12: Command Knight\r\n" +
+                "13: Spell Absorption\r\n" +
+                "14: Spell Absorption\r\n" +
+                "15: Monster Reborn\r\n" +
+                "16: Monster Reborn\r\n" +
+                "17: Monster Reborn\r\n" +
+                "18: Marshmallon\r\n" +
+                "19: Mystical space typhoon\r\n" +
+                "20: Mystical space typhoon\r\n" +
+                "21: Mystical space typhoon\r\n" +
+                "22: United We Stand\r\n" +
+                "23: United We Stand\r\n" +
+                "24: United We Stand\r\n" +
+                "25: Yomi Ship\r\n" +
+                "26: Exploder Dragon\r\n" +
+                "27: Messenger of peace\r\n" +
+                "28: Messenger of peace\r\n" +
+                "29: Herald of Creation\r\n" +
+                "30: Call of The Haunted\r\n" +
+                "31: Call of The Haunted\r\n" +
+                "32: Trap Hole\r\n" +
+                "33: Trap Hole\r\n" +
+                "34: Man-Eater Bug\r\n" +
+                "35: Texchanger\r\n" +
+                "36: Supply Squad\r\n" +
+                "37: Supply Squad\r\n" +
+                "38: Battle OX\r\n" +
+                "39: Battle OX\r\n" +
+                "40: Dark Hole\r\n" +
+                "41: Yami\r\n" +
+                "42: Advanced Ritual Art\r\n" +
+                "43: Gate Guardian\r\n" +
+                "44: The Calculator\r\n" +
+                "45: Closed Forest\r\n" +
+                "Give an address\r\n" +
+                "invalid selection\r\n" +
+                "please make a tribute for ritual summon from list below\r\n" +
+                "1: Umiiruka\r\n" +
+                "2: Magic Jamamer\r\n" +
+                "3: Magic Jamamer\r\n" +
+                "4: The Tricky\r\n" +
+                "5: Change of Heart\r\n" +
+                "6: Change of Heart\r\n" +
+                "7: Raigeki\r\n" +
+                "8: Raigeki\r\n" +
+                "9: Suijin\r\n" +
+                "10: Blue-Eyes white dragon\r\n" +
+                "11: Flame manipulator\r\n" +
+                "12: Command Knight\r\n" +
+                "13: Spell Absorption\r\n" +
+                "14: Spell Absorption\r\n" +
+                "15: Monster Reborn\r\n" +
+                "16: Monster Reborn\r\n" +
+                "17: Monster Reborn\r\n" +
+                "18: Marshmallon\r\n" +
+                "19: Mystical space typhoon\r\n" +
+                "20: Mystical space typhoon\r\n" +
+                "21: Mystical space typhoon\r\n" +
+                "22: United We Stand\r\n" +
+                "23: United We Stand\r\n" +
+                "24: United We Stand\r\n" +
+                "25: Yomi Ship\r\n" +
+                "26: Exploder Dragon\r\n" +
+                "27: Messenger of peace\r\n" +
+                "28: Messenger of peace\r\n" +
+                "29: Herald of Creation\r\n" +
+                "30: Call of The Haunted\r\n" +
+                "31: Call of The Haunted\r\n" +
+                "32: Trap Hole\r\n" +
+                "33: Trap Hole\r\n" +
+                "34: Man-Eater Bug\r\n" +
+                "35: Texchanger\r\n" +
+                "36: Supply Squad\r\n" +
+                "37: Supply Squad\r\n" +
+                "38: Battle OX\r\n" +
+                "39: Battle OX\r\n" +
+                "40: Dark Hole\r\n" +
+                "41: Yami\r\n" +
+                "42: Advanced Ritual Art\r\n" +
+                "43: Gate Guardian\r\n" +
+                "44: The Calculator\r\n" +
+                "45: Closed Forest\r\n" +
+                "Give an address\r\n" +
+                "Battle OX was removed from deck\r\n" +
+                "please make a tribute for ritual summon from list below\r\n" +
+                "1: Umiiruka\r\n" +
+                "2: Magic Jamamer\r\n" +
+                "3: Magic Jamamer\r\n" +
+                "4: The Tricky\r\n" +
+                "5: Change of Heart\r\n" +
+                "6: Change of Heart\r\n" +
+                "7: Raigeki\r\n" +
+                "8: Raigeki\r\n" +
+                "9: Suijin\r\n" +
+                "10: Blue-Eyes white dragon\r\n" +
+                "11: Flame manipulator\r\n" +
+                "12: Command Knight\r\n" +
+                "13: Spell Absorption\r\n" +
+                "14: Spell Absorption\r\n" +
+                "15: Monster Reborn\r\n" +
+                "16: Monster Reborn\r\n" +
+                "17: Monster Reborn\r\n" +
+                "18: Marshmallon\r\n" +
+                "19: Mystical space typhoon\r\n" +
+                "20: Mystical space typhoon\r\n" +
+                "21: Mystical space typhoon\r\n" +
+                "22: United We Stand\r\n" +
+                "23: United We Stand\r\n" +
+                "24: United We Stand\r\n" +
+                "25: Yomi Ship\r\n" +
+                "26: Exploder Dragon\r\n" +
+                "27: Messenger of peace\r\n" +
+                "28: Messenger of peace\r\n" +
+                "29: Herald of Creation\r\n" +
+                "30: Call of The Haunted\r\n" +
+                "31: Call of The Haunted\r\n" +
+                "32: Trap Hole\r\n" +
+                "33: Trap Hole\r\n" +
+                "34: Man-Eater Bug\r\n" +
+                "35: Texchanger\r\n" +
+                "36: Supply Squad\r\n" +
+                "37: Supply Squad\r\n" +
+                "38: Battle OX\r\n" +
+                "39: Dark Hole\r\n" +
+                "40: Yami\r\n" +
+                "41: Advanced Ritual Art\r\n" +
+                "42: Gate Guardian\r\n" +
+                "43: The Calculator\r\n" +
+                "44: Closed Forest\r\n" +
+                "Give an address\r\n" +
+                "selected card can't be tributed\r\n" +
+                "please make a tribute for ritual summon from list below\r\n" +
+                "1: Umiiruka\r\n" +
+                "2: Magic Jamamer\r\n" +
+                "3: Magic Jamamer\r\n" +
+                "4: The Tricky\r\n" +
+                "5: Change of Heart\r\n" +
+                "6: Change of Heart\r\n" +
+                "7: Raigeki\r\n" +
+                "8: Raigeki\r\n" +
+                "9: Suijin\r\n" +
+                "10: Blue-Eyes white dragon\r\n" +
+                "11: Flame manipulator\r\n" +
+                "12: Command Knight\r\n" +
+                "13: Spell Absorption\r\n" +
+                "14: Spell Absorption\r\n" +
+                "15: Monster Reborn\r\n" +
+                "16: Monster Reborn\r\n" +
+                "17: Monster Reborn\r\n" +
+                "18: Marshmallon\r\n" +
+                "19: Mystical space typhoon\r\n" +
+                "20: Mystical space typhoon\r\n" +
+                "21: Mystical space typhoon\r\n" +
+                "22: United We Stand\r\n" +
+                "23: United We Stand\r\n" +
+                "24: United We Stand\r\n" +
+                "25: Yomi Ship\r\n" +
+                "26: Exploder Dragon\r\n" +
+                "27: Messenger of peace\r\n" +
+                "28: Messenger of peace\r\n" +
+                "29: Herald of Creation\r\n" +
+                "30: Call of The Haunted\r\n" +
+                "31: Call of The Haunted\r\n" +
+                "32: Trap Hole\r\n" +
+                "33: Trap Hole\r\n" +
+                "34: Man-Eater Bug\r\n" +
+                "35: Texchanger\r\n" +
+                "36: Supply Squad\r\n" +
+                "37: Supply Squad\r\n" +
+                "38: Battle OX\r\n" +
+                "39: Dark Hole\r\n" +
+                "40: Yami\r\n" +
+                "41: Advanced Ritual Art\r\n" +
+                "42: Gate Guardian\r\n" +
+                "43: The Calculator\r\n" +
+                "44: Closed Forest\r\n" +
+                "Give an address\r\n" +
+                "Battle OX was removed from deck\r\n" +
+                "do you want to put it in attack position or defence position\r\n" +
+                "summoned successfully\r\n" +
+                "spell activated\r\n" +
+                "AmirNick:6400\n" +
+                "\tc\tc\n" +
+                "50\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "8\t\t\t\t\t\tE\n" +
+                "\n" +
+                "--------------------------\n" +
+                "\n" +
+                "E\t\t\t\t\t\t12\n" +
+                "\tE\tE\tOO\tE\tE\n" +
+                "\tE\tE\tE\tE\tE\n" +
+                "\t\t\t\t\t\t43\n" +
+                "\tc\tc\tc\n" +
+                "MehrNick:8000\n" +
+                "LP of MehrNick increased by 500\r\n" +
+                "invalid nick name\r\n" +
+                "AmirAli won the whole match\r\n");
     }
 
     public static void profileViewIOAppender(StringBuilder inputStringBuilder, StringBuilder outputStringBuilder) {

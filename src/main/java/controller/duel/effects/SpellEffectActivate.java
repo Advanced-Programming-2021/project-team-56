@@ -166,7 +166,7 @@ public class SpellEffectActivate {
         ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
         ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
         while (true) {
-            if (isItScanner){
+            if (isItScanner) {
                 effectView.output("choose a card from graveyard to scan it's attributes for your scanner");
             }
             effectView.showGraveyardForCardsEffects(true, true);
@@ -205,7 +205,7 @@ public class SpellEffectActivate {
         ArrayList<Card> myGraveyard = duelWithUser.getMyBoard().getGraveyard();
         MonsterCard monsterCard;
         while (true) {
-            if (isItScanner){
+            if (isItScanner) {
                 effectView.output("choose a card from graveyard to scan it's attributes for your scanner");
             }
             effectView.showGraveyardForCardsEffects(true, false);
@@ -228,7 +228,7 @@ public class SpellEffectActivate {
         ArrayList<Card> enemyGraveyard = duelWithUser.getEnemyBoard().getGraveyard();
         MonsterCard monsterCard;
         while (true) {
-            if (isItScanner){
+            if (isItScanner) {
                 effectView.output("choose a card from graveyard to scan it's attributes for your scanner");
             }
             effectView.showGraveyardForCardsEffects(false, true);
@@ -281,7 +281,7 @@ public class SpellEffectActivate {
             }
         }
         effectView.output(Output.SummonedSuccessfully.toString());
-        if (monsterCard.isItScanner()){
+        if (monsterCard.isItScanner()) {
             scannerEffect();
         }
     }
@@ -379,28 +379,24 @@ public class SpellEffectActivate {
                 effectView.output(Output.InvalidCommand.toString());
             }
         }
-        Collections.shuffle(duelWithUser.getMyBoard().getMainDeck());
+//        Collections.shuffle(duelWithUser.getMyBoard().getMainDeck());
         effectView.output(Output.SummonedSuccessfully.toString());
     }
 
     private void ritualSummon(boolean attackPosition, int address) {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         MonsterCard monsterCard = null;
+        String cardName;
         if (address == 1) {
-            for (int i = 0; i < playerHand.size(); i++) {
-                if (playerHand.get(i).getName().equals("Crab Turtle")) {
-                    monsterCard = (MonsterCard) playerHand.get(i);
-                    playerHand.remove(i);
-                    break;
-                }
-            }
+            cardName = "Crab Turtle";
         } else {
-            for (int i = 0; i < playerHand.size(); i++) {
-                if (playerHand.get(i).getName().equals("Skull Guardian")) {
-                    monsterCard = (MonsterCard) playerHand.get(i);
-                    playerHand.remove(i);
-                    break;
-                }
+            cardName = "Skull Guardian";
+        }
+        for (int i = 0; i < playerHand.size(); i++) {
+            if (playerHand.get(i).getName().equals(cardName)) {
+                monsterCard = (MonsterCard) playerHand.get(i);
+                playerHand.remove(i);
+                break;
             }
         }
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
@@ -417,7 +413,8 @@ public class SpellEffectActivate {
 
     private void payingTributeForRitualSummon(int totalLevel) {
         ArrayList<Card> mainDeck = duelWithUser.getMyBoard().getMainDeck();
-        while (totalLevel < 8) {
+        while (totalLevel > 0) {
+            effectView.output("please make a tribute for ritual summon from list below");
             effectView.showDeck();
             int address = effectView.getAddress() - 1;
             if (address < 0 || address >= mainDeck.size()) {
@@ -425,9 +422,10 @@ public class SpellEffectActivate {
             } else if (!isItValidTribute(address)) {
                 effectView.output("selected card can't be tributed");
             } else {
-                totalLevel += ((MonsterCard) mainDeck.get(address)).getLevel();
-                effectView.output(mainDeck.get(address).getName() + "was removed from deck");
-                duelWithUser.getMyBoard().getGraveyard().add(mainDeck.get(address));
+                MonsterCard tribute = ((MonsterCard) mainDeck.get(address));
+                totalLevel -= tribute.getLevel();
+                effectView.output(tribute.getName() + " was removed from deck");
+                duelWithUser.getMyBoard().getGraveyard().add(tribute);
                 mainDeck.remove(address);
             }
         }

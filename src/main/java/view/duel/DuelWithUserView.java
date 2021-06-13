@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DuelWithUserView {
-    static Pattern increaseLP=Pattern.compile("^increase --LP (\\d+)$");
-    static Pattern setWinner= Pattern.compile("^duel set-winner (\\S+)$");
+    static Pattern increaseLP = Pattern.compile("^increase --LP (\\d+)$");
+    static Pattern setWinner = Pattern.compile("^duel set-winner (\\S+)$");
 
     private static DuelWithUserView duelWithUserView;
 
@@ -62,8 +62,8 @@ public class DuelWithUserView {
         Matcher matcher = increaseLP.matcher(command);
         if (matcher.find()) {
             System.out.println(duelWithUser.increaseMyLP(Integer.parseInt(matcher.group(1))));
-        }
-        if (command.equals(Commands.Surrender.toString())){
+            return Output.TheGameContinues.toString();
+        } else if (command.equals(Commands.Surrender.toString())) {
             return Output.ILost.toString();
         }
         matcher = setWinner.matcher(command);
@@ -72,8 +72,9 @@ public class DuelWithUserView {
                 return duelWithUser.setWinner(matcher.group(1));
             }
             System.out.println(Output.InvalidNickname);
+            return Output.TheGameContinues.toString();
         }
-        return Output.TheGameContinues.toString();
+        return Output.InvalidCommand.toString();
     }
 
     public void printEndMessage(String output) {

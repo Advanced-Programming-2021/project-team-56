@@ -1,11 +1,8 @@
 package controller.duel.effects;
 
-import model.Board;
+import model.*;
 
 import controller.duel.DuelWithUser;
-import model.Card;
-import model.MonsterCard;
-import model.SpellCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -83,13 +80,13 @@ public class SpellEffectCanActivate {
         if (isMyMonsterTerritoryFull()) {
             return 0;
         }
-        if (!doseHandIncludeCrabTurtle() && !doseHandIncludeSkullGuardian()) {
+        if (!doseHandIncludeIt("Skull Guardian") && !doseHandIncludeIt("Crab Turtle")) {
             return 0;
         }
         if (!areThereEnoughTributeFromDeck(7)) {
             return 0;
         }
-        if (doseHandIncludeCrabTurtle() && doseHandIncludeSkullGuardian() && areThereEnoughTributeFromDeck(8)) {
+        if (doseHandIncludeIt("Crab Turtle") && doseHandIncludeIt("Skull Guardian") && areThereEnoughTributeFromDeck(8)) {
             while (true) {
                 effectView.output("Crab Turtle or Skull Guardian ?");
                 String input = effectView.input();
@@ -99,13 +96,13 @@ public class SpellEffectCanActivate {
                 if (input.equals("Skull Guardian")) {
                     return 2;
                 }
-                effectView.output("invalid selection");
+                effectView.output(Output.InvalidCommand.toString());
             }
         }
-        if (doseHandIncludeSkullGuardian()) {
+        if (doseHandIncludeIt("Skull Guardian")) {
             return 2;
         }
-        if (doseHandIncludeCrabTurtle() && areThereEnoughTributeFromDeck(8)) {
+        if (doseHandIncludeIt("Crab Turtle") && areThereEnoughTributeFromDeck(8)) {
             return 1;
         }
         return 0;
@@ -130,20 +127,10 @@ public class SpellEffectCanActivate {
         return totalLevel <= 0;
     }
 
-    private boolean doseHandIncludeCrabTurtle() {
+    private boolean doseHandIncludeIt(String cardName) {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         for (Card card : playerHand) {
-            if (card.getName().equals("Crab Turtle")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean doseHandIncludeSkullGuardian() {
-        ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
-        for (Card card : playerHand) {
-            if (card.getName().equals("Skull Guardian")) {
+            if (card.getName().equals(cardName)) {
                 return true;
             }
         }

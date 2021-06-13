@@ -47,10 +47,11 @@ public class StandByPhaseView {
                 continue;
             }
             result = duelWithUserView.cheatCodeExecute(command);
-            if (!result.equals(Output.TheGameContinues.toString())) {
+            if (result.equals(Output.InvalidCommand.toString())) {
+                System.out.println(result);
+            } else if (!result.equals(Output.TheGameContinues.toString())) {
                 return result;
             }
-            System.out.println(Output.InvalidCommand);
         }
         OpponentPhase.getInstance().startChainLink();
         return Output.TheGameContinues.toString();

@@ -126,7 +126,8 @@ public class Initialize {
         cardsToAdd.put("Mystical space typhoon", 3);
         cardsToAdd.put("Monster Reborn", 3);
         cardsToAdd.put("notExist", 1);
-        cardsToAdd.put("Change of Heart", 3);
+        cardsToAdd.put("Change of Heart", 2);
+        cardsToAdd.put("Twin Twisters", 1);
     }
 
     public static void sideCardsSetAppender(HashMap<String, Integer> cardsToAdd) {

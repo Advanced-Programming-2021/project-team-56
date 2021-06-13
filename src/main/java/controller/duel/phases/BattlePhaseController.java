@@ -588,7 +588,7 @@ public class BattlePhaseController {
                     effectView.output("ok");
                     return;
                 } else {
-                    effectView.output("invalid command");
+                    effectView.output(Output.InvalidCommand.toString());
                 }
             }
         }
