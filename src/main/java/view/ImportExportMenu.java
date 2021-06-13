@@ -1,7 +1,5 @@
 package view;
 
-import model.Output;
-
 public class ImportExportMenu {
     private static ImportExportMenu importExportMenu;
 
