@@ -1,6 +1,9 @@
 package model;
 
+import model.enums.AvatarURL;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 public class User {
 
@@ -8,6 +11,7 @@ public class User {
     private final static ArrayList<User> users = new ArrayList<>();
     private String username;
     private String password;
+    private String avatarURL;
     private int score = 0;
     private String nickname;
     private int money = 100000;
@@ -19,6 +23,7 @@ public class User {
         setUsername(username);
         setPassword(password);
         setNickname(nickname);
+        setUsersRandomAvatarURL();
         users.add(this);
     }
 
@@ -60,6 +65,10 @@ public class User {
 
     public ArrayList<Integer> getPlayerLP() {
         return playerLP;
+    }
+
+    public String getAvatarURL() {
+        return avatarURL;
     }
 
     public int getMaxLP() {
@@ -118,6 +127,21 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public void setAvatarURL(String avatarURL) {
+        this.avatarURL = avatarURL;
+    }
+
+    public void setUsersRandomAvatarURL() {
+        AvatarURL[] avatarURLs= AvatarURL.class.getEnumConstants();
+        int avatarURLsLength = AvatarURL.class.getEnumConstants().length;
+        int randomNumber = new Random().nextInt(avatarURLsLength);
+        for (int i = 0; i < avatarURLsLength; i++) {
+            if (i == randomNumber) {
+                 this.avatarURL = avatarURLs[i].value;
+            }
+        }
     }
 
     public static void setCurrentUser(User currentUser) {

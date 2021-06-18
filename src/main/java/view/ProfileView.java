@@ -5,17 +5,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.User;
+import model.enums.AvatarURL;
 import model.enums.MenuURL;
 import view.FxmlController;
 
 import java.io.IOException;
 
 public class ProfileView {
+
+    public ImageView avatarChangeArrow;
     public ImageView userAvatar;
     public Label userNameLabel;
     public Label actionLabel;
@@ -26,14 +31,30 @@ public class ProfileView {
     public Button changeInfoButton;
     public Label errorLabel;
     public Pane currentInfoPane;
+    public GridPane avatarImagesGridPane;
 
     @FXML
     public void initialize() {
         userNameLabel.setText(User.getCurrentUser().getUsername());
-        //todo : set avatar image
+        userAvatar.setImage(new Image(User.getCurrentUser().getAvatarURL()));
         currentInfoValue.setText(User.getCurrentUser().getNickname());
+        editAvatarChangeArrow();
     }
 
+    private void editAvatarChangeArrow() {
+        avatarChangeArrow.setOnMouseClicked(event -> {
+            avatarImagesGridPane.setStyle("-fx-background-color: black");
+            AvatarURL[] avatarURLS = AvatarURL.class.getEnumConstants();
+            for (int i = 0, k = 0; i < 5; i++, k += 5) {
+                for (int j = 0; j < 5; j++) {
+                    ImageView avatar = new ImageView(new Image(avatarURLS[j + k].value));
+                    avatar.setFitWidth(80);
+                    avatar.setFitHeight(80);
+                    avatarImagesGridPane.add(avatar, j, i);
+                }
+            }
+        });
+    }
 
     public void loadChangePasswordMenu(MouseEvent mouseEvent) {
         actionLabel.setText("Change Password:");

@@ -1,4 +1,4 @@
-#signupRoot {
+#signupRoot, #loginRoot {
     -fx-background-size: cover;
     -fx-background-image: url(../images/Black-Luster-resized.jpg);
 }
@@ -24,25 +24,4 @@
 
 #signupVBox, #loginVBox {
     -fx-background-radius: 10;
-}
-
-
-#rightSideLoginVBox {
-    -fx-background-size: cover;
-    -fx-background-image: url(../images/yu-gi-oh-signupwallpaper.jpg);
-}
-
-#leftSideLoginVBox {
-    -fx-background-size: cover;
-    -fx-background-image: url(../images/Yu-Gi-Oh-DarkMagicianCouple.jpg);
-}
-
-#rightSideVBox {
-    -fx-background-size: cover;
-    -fx-background-image: url(../images/Black-Purple-Hexagon-Background.png);
-}
-
-#leftSideVBox {
-    -fx-background-size: cover;
-    -fx-background-image: url(../images/Yu-Gi-Oh-Dark-Magician.png);
 }
