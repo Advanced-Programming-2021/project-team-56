@@ -1,3 +1,8 @@
+#signupRoot {
+    -fx-background-size: cover;
+    -fx-background-image: url(../images/Black-Luster-resized.jpg);
+}
+
 #backButton {
     -fx-background-color: #500274;
     -fx-border-width: 10px;
