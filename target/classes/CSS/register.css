@@ -1,0 +1,48 @@
+#signupRoot {
+    -fx-background-size: cover;
+    -fx-background-image: url(../images/Black-Luster-resized.jpg);
+}
+
+#backButton {
+    -fx-background-color: #500274;
+    -fx-border-width: 10px;
+    -fx-border-color: #17061f;
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-background-radius: 40;
+    -fx-border-radius: 35;
+}
+
+#loginBackButton {
+    -fx-border-width: 10px;
+    -fx-border-color: #F2B9FE;
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-background-radius: 40;
+    -fx-border-radius: 35;
+}
+
+#signupVBox, #loginVBox {
+    -fx-background-radius: 10;
+}
+
+
+#rightSideLoginVBox {
+    -fx-background-size: cover;
+    -fx-background-image: url(../images/yu-gi-oh-signupwallpaper.jpg);
+}
+
+#leftSideLoginVBox {
+    -fx-background-size: cover;
+    -fx-background-image: url(../images/Yu-Gi-Oh-DarkMagicianCouple.jpg);
+}
+
+#rightSideVBox {
+    -fx-background-size: cover;
+    -fx-background-image: url(../images/Black-Purple-Hexagon-Background.png);
+}
+
+#leftSideVBox {
+    -fx-background-size: cover;
+    -fx-background-image: url(../images/Yu-Gi-Oh-Dark-Magician.png);
+}

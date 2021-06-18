@@ -1,0 +1,44 @@
+.root {
+    -fx-background-image: url(../images/Black-Purple-Hexagon-Background.png);
+    -fx-background-size: cover;
+}
+
+Button {
+    -fx-background-color: #500274;
+    -fx-border-width: 10px;
+    -fx-border-color: #17061f;
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-background-radius: 40;
+    -fx-border-radius: 35;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: #8bd6ff;
+    -fx-border-width: 20;
+    -fx-border-radius: 6;
+    -fx-background-radius: 99999;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #8bd6ff;
+    -fx-background-radius: 5em;
+}
