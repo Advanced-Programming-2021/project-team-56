@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import model.User;
 import model.enums.MenuURL;
 import view.FxmlController;
@@ -24,6 +25,7 @@ public class ProfileView {
     public TextField newInfoField;
     public Button changeInfoButton;
     public Label errorLabel;
+    public Pane currentInfoPane;
 
     @FXML
     public void initialize() {
@@ -38,17 +40,22 @@ public class ProfileView {
         currentInfoTitle.setText("Current password:");
         currentInfoValue.setText(User.getCurrentUser().getPassword());
         textFieldTitle.setText("New password");
-        changeInfoButton.setText("Change password");
+        changeInfoButton.setText("change password");
+        currentInfoPane.getChildren().remove(currentInfoValue);
+        TextField currentPasswordField = new TextField();
+        currentPasswordField.setPrefWidth(362);
+        currentPasswordField.setPrefHeight(21);
+        String cssAddress = getClass().getResource("/CSS/profile.css").toExternalForm();
+        currentPasswordField.getStylesheets().add(cssAddress);
+        currentInfoPane.getChildren().add(currentPasswordField);
+        currentPasswordField.setLayoutX(currentPasswordField.getLayoutX() + 266);
         errorLabel.setText("");
     }
 
-    public void loadChangeNickNameMenu(MouseEvent mouseEvent) {
-        actionLabel.setText("Change Nickname:");
-        currentInfoTitle.setText("Current nickname:");
+    public void loadChangeNickNameMenu(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(MenuURL.PROFILE);
+        userNameLabel.setText(User.getCurrentUser().getUsername());
         currentInfoValue.setText(User.getCurrentUser().getNickname());
-        textFieldTitle.setText("New nickname");
-        changeInfoButton.setText("Change nickname");
-        errorLabel.setText("");
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
@@ -56,7 +63,7 @@ public class ProfileView {
     }
 
     public void changeInfoClicked(MouseEvent mouseEvent) {
-        if (changeInfoButton.getText().equals("Change nickname")) changeNickName();
+        if (changeInfoButton.getText().equals("change nickname")) changeNickName();
         else changePassWord();
     }
 

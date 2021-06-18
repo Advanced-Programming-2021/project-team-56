@@ -118,7 +118,7 @@
                                         <Font name="System Bold" size="20.0" />
                                     </font>
                                 </Label>
-                                <Pane prefHeight="37.0" prefWidth="780.0">
+                                <Pane prefHeight="37.0" prefWidth="780.0" fx:id="currentInfoPane">
                                     <children>
                                         <Label fx:id="currentInfoTitle" layoutY="8.0" prefHeight="30.0" prefWidth="183.0" text="current nickname:" textFill="WHITE">
                                             <font>
