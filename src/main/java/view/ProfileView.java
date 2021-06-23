@@ -84,10 +84,10 @@ public class ProfileView {
 
     public void loadChangePasswordMenu(MouseEvent mouseEvent) {
         actionLabel.setText("Change Password:");
-        currentInfoTitle.setText("Current password:");
+        currentInfoTitle.setText("Current Password:");
         currentInfoValue.setText(User.getCurrentUser().getPassword());
-        textFieldTitle.setText("New password");
-        changeInfoButton.setText("change password");
+        textFieldTitle.setText("New Password");
+        changeInfoButton.setText("Change Password");
         currentInfoPane.getChildren().remove(currentInfoValue);
         TextField currentPasswordField = new TextField();
         currentPasswordField.setPrefWidth(362);
