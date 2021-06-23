@@ -21,7 +21,7 @@ import view.components.NodeEditor;
 import java.io.IOException;
 
 public class ProfileView {
-
+    public static TextField currentPassWordField;
     public ImageView avatarChangeArrow;
     public ImageView userAvatar;
     public Label userNameLabel;
@@ -97,6 +97,7 @@ public class ProfileView {
         currentInfoPane.getChildren().add(currentPasswordField);
         currentPasswordField.setLayoutX(currentPasswordField.getLayoutX() + 266);
         errorLabel.setText("");
+        ProfileView.currentPassWordField = currentPasswordField;
     }
 
     public void loadChangeNickNameMenu(MouseEvent mouseEvent) throws IOException {
@@ -128,7 +129,11 @@ public class ProfileView {
             errorLabel.setText("Password's field is empty");
             return;
         }
+        if (currentPassWordField.getText().equals("")) {
+            errorLabel.setText("current password's field is empty");
+            return;
+        }
         errorLabel.setText(ProfileController.getInstance().
-                changePasswords(newInfoField.getText(), User.getCurrentUser().getUsername()));
+                changePasswords(currentPassWordField.getText(), newInfoField.getText(), User.getCurrentUser().getUsername()));
     }
 }

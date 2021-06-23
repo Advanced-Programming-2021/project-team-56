@@ -24,7 +24,10 @@ public class ProfileController {
         }
     }
 
-    public String changePasswords(String newPassword, String username) {
+    public String changePasswords(String currentPassWord, String newPassword, String username) {
+        if (!User.getUserByUsername(username).getPassword().equals(currentPassWord)) {
+            return "current password is invalid";
+        }
         if (User.getCurrentUser().getPassword().equals(newPassword)) {
             return "please enter a new password";
         }
