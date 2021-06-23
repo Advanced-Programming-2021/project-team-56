@@ -8,3 +8,22 @@
     -fx-border-color: #242551;
     -fx-text-inner-color: #fff;
 }
+
+GridPane {
+    -fx-background-color: black;
+    -fx-background-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-color: #500274;
+    -fx-border-radius: 5;
+}
+
+#avatarPane {
+    -fx-background-color: black;
+    -fx-background-radius: 9999;
+    -fx-background-size: cover;
+    /**/
+    /*-fx-background-image: url(../images/Magic-Circle.png);*/
+    -fx-border-radius: 9999;
+    -fx-border-width: 5;
+    -fx-border-color: #d79a25;
+}
