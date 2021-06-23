@@ -9,12 +9,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import model.User;
 import model.enums.AvatarURL;
 import model.enums.MenuURL;
-import view.FxmlController;
+import view.components.NodeEditor;
 
 import java.io.IOException;
 
@@ -38,21 +40,45 @@ public class ProfileView {
         userNameLabel.setText(User.getCurrentUser().getUsername());
         userAvatar.setImage(new Image(User.getCurrentUser().getAvatarURL()));
         currentInfoValue.setText(User.getCurrentUser().getNickname());
+        editAvatarsGridPane();
         editAvatarChangeArrow();
     }
 
     private void editAvatarChangeArrow() {
+        NodeEditor.setNodesGlow(1, avatarChangeArrow);
         avatarChangeArrow.setOnMouseClicked(event -> {
-            avatarImagesGridPane.setStyle("-fx-background-color: black");
-            AvatarURL[] avatarURLS = AvatarURL.class.getEnumConstants();
-            for (int i = 0, k = 0; i < 5; i++, k += 5) {
-                for (int j = 0; j < 5; j++) {
-                    ImageView avatar = new ImageView(new Image(avatarURLS[j + k].value));
-                    avatar.setFitWidth(80);
-                    avatar.setFitHeight(80);
-                    avatarImagesGridPane.add(avatar, j, i);
-                }
+            avatarImagesGridPane.setVisible(!avatarImagesGridPane.isVisible());
+        });
+    }
+
+    private void editAvatarsGridPane() {
+        avatarImagesGridPane.setVisible(false);
+        avatarImagesGridPane.getStylesheets().add("/CSS/profile.css");
+        avatarImagesGridPane.setOnMouseExited(event -> {
+            avatarImagesGridPane.setVisible(false);
+        });
+        AvatarURL[] avatarURLS = AvatarURL.class.getEnumConstants();
+        int maxRowImagesNumber = (int) Math.ceil((double)avatarURLS.length / 2);
+        avatarImagesGridPane.setPrefWidth(205 * maxRowImagesNumber + 45);
+        for (int i = 0, k = 0; i < 2; i++, k += maxRowImagesNumber) {
+            for (int j = 0; j < maxRowImagesNumber; j++) {
+                if (j + k == avatarURLS.length) break;
+                Circle imageCircle = new Circle(100);
+                imageCircle.setFill(new ImagePattern(new Image(avatarURLS[j + k].value)));
+                setChangeAvatarOnClicked(imageCircle, avatarURLS[j + k].value);
+                Circle backgroundCircle = new Circle(100);
+                backgroundCircle.setFill(Paint.valueOf("#500274"));
+                NodeEditor.setNodesGlow(0.1, imageCircle);
+                avatarImagesGridPane.add(backgroundCircle, j, i);
+                avatarImagesGridPane.add(imageCircle, j, i);
             }
+        }
+    }
+
+    private void setChangeAvatarOnClicked(Circle imageCircle, String avatarURL) {
+        imageCircle.setOnMouseClicked(event -> {
+            ProfileController.getInstance().changeUserAvatar(avatarURL);
+            userAvatar.setImage(new Image(avatarURL));
         });
     }
 

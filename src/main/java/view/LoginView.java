@@ -35,7 +35,7 @@ public class LoginView {
     public void initialize() {
         ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(backButton));
         MainGUI.editMenuButtons(buttons);
-        NodeEditor.setNodesGlow(userNameField, passWordField, loginButton, signupLabel);
+        NodeEditor.setNodesGlow(0.8, userNameField, passWordField, loginButton, signupLabel);
     }
 
     public void loginClicked(MouseEvent mouseEvent) throws IOException {

@@ -2,9 +2,6 @@ package controller;
 
 import model.User;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class ProfileController {
 
     private static ProfileController profileController;
@@ -33,6 +30,10 @@ public class ProfileController {
         }
         User.getUserByUsername(username).setPassword(newPassword);
         return "password changed successfully";
+    }
+
+    public void changeUserAvatar(String newAvatarURL) {
+        User.getCurrentUser().setAvatarURL(newAvatarURL);
     }
 
 }
