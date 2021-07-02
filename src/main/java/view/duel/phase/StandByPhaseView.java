@@ -5,7 +5,6 @@ import controller.duel.phases.OpponentPhase;
 import controller.duel.phases.StandByPhaseController;
 import model.Commands;
 import model.Output;
-import view.LoginMenuView;
 import view.duel.DuelWithUserView;
 
 import java.util.regex.Matcher;
@@ -37,24 +36,24 @@ public class StandByPhaseView {
             return result;
         }
         while (true) {
-            String command = LoginMenuView.scan.nextLine().trim();
-            if (command.equals(Commands.NextPhase.toString())) {
-                break;
-            } else if (isThisActionNotAllowed(command)) {
-                System.out.println(Output.YouCantDoThisAction);
-                continue;
-            } else if (duelWithUserView.isItValidInAllOfThePhases(command)) {
-                continue;
-            }
-            result = duelWithUserView.cheatCodeExecute(command);
-            if (result.equals(Output.InvalidCommand.toString())) {
-                System.out.println(result);
-            } else if (!result.equals(Output.TheGameContinues.toString())) {
-                return result;
-            }
+//            String command = LoginMenuView.scan.nextLine().trim();
+//            if (command.equals(Commands.NextPhase.toString())) {
+//                break;
+//            } else if (isThisActionNotAllowed(command)) {
+//                System.out.println(Output.YouCantDoThisAction);
+//                continue;
+//            } else if (duelWithUserView.isItValidInAllOfThePhases(command)) {
+//                continue;
+//            }
+//            result = duelWithUserView.cheatCodeExecute(command);
+//            if (result.equals(Output.InvalidCommand.toString())) {
+//                System.out.println(result);
+//            } else if (!result.equals(Output.TheGameContinues.toString())) {
+//                return result;
+//            }
         }
-        OpponentPhase.getInstance().startChainLink();
-        return Output.TheGameContinues.toString();
+//        OpponentPhase.getInstance().startChainLink();
+//        return Output.TheGameContinues.toString();
     }
 
     private boolean isThisActionNotAllowed(String command) {

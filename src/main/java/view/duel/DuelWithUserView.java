@@ -3,7 +3,6 @@ package view.duel;
 import controller.duel.DuelWithUser;
 import model.Commands;
 import model.Output;
-import view.LoginMenuView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,18 +42,18 @@ public class DuelWithUserView {
     }
 
     private void showGraveYardView() {
-        String command;
-        while (true) {
-            command = LoginMenuView.scan.nextLine();
-            if (command.equals("show")) {
-                System.out.print(DuelWithUser.getInstance().showGraveYard());
-                continue;
-            }
-            if (command.equals("back")) {
-                break;
-            }
-            System.out.println(Output.InvalidCommand);
-        }
+//        String command;
+//        while (true) {
+//            command = LoginMenuView.scan.nextLine();
+//            if (command.equals("show")) {
+//                System.out.print(DuelWithUser.getInstance().showGraveYard());
+//                continue;
+//            }
+//            if (command.equals("back")) {
+//                break;
+//            }
+//            System.out.println(Output.InvalidCommand);
+//        }
     }
 
     public String cheatCodeExecute(String command) {

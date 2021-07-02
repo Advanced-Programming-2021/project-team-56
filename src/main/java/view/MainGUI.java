@@ -2,6 +2,7 @@ package view;
 
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.com.google.gson.reflect.TypeToken;
+import controller.SoundPlayer;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.User;
+import model.enums.SoundURL;
 import view.components.SceneSizeChangeListener;
 
 import java.awt.*;
@@ -64,6 +66,7 @@ public class MainGUI extends Application {
                 public void handle(MouseEvent event) {
                     button.setEffect(new Glow(0.6));
                     button.setLayoutY(button.getLayoutY() - 5);
+                    SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
                     try {
                         new Robot().mouseMove((int) MouseInfo.getPointerInfo().getLocation().getX(),
                                 (int) MouseInfo.getPointerInfo().getLocation().getY() - 2);

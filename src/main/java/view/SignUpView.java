@@ -31,7 +31,7 @@ public class SignUpView {
     public void initialize() {
         ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(backButton));
         MainGUI.editMenuButtons(buttons);
-        NodeEditor.setNodesGlow(0.8, loginLabel, signUpButton, userNameField, nickNameField, passWordField);
+        NodeEditor.editNode(0.8, loginLabel, signUpButton, userNameField, nickNameField, passWordField);
     }
 
 

@@ -164,7 +164,7 @@
                         </VBox>
                         <Button id="changePasswordButton" fx:id="changeInfoButton" mnemonicParsing="false"
                                 onMouseClicked="#changeInfoClicked" prefHeight="80.0" prefWidth="200.0"
-                                text="change nickname" textFill="WHITE">
+                                text="Change Nickname" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="15.0"/>
                             </font>

@@ -1,5 +1,6 @@
 package view;
 
+import controller.LoginMenuController;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -60,5 +61,10 @@ public class MainView {
 
     public void goBackToLoginMenu(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.ENTRANCE);
+    }
+
+    public void logout(MouseEvent mouseEvent) throws IOException {
+        LoginMenuController.getInstance().logout();
+        FxmlController.getInstance().setSceneFxml(MenuURL.LOGIN);
     }
 }
