@@ -9,6 +9,7 @@ public class Card {
     private String description;
     private int startEffectTurn = -1;
     private int price;
+    private String imageURL;
     private int equipID;
     public static int id = 0;
     private final static ArrayList<Card> cards = new ArrayList<>();
@@ -74,6 +75,10 @@ public class Card {
         return price;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
     public static Card getCardByName(String cardName) {
         for (Card card : cards) {
             if (card.getName().equals(cardName)) {
@@ -85,6 +90,10 @@ public class Card {
 
     public void setFacedUp(boolean isFacedUp) {
         this.isFacedUp = isFacedUp;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public int getEquipID() {

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static model.enums.MenuURL.SCOREBOARD;
+import static model.enums.MenuURL.SHOP;
 
 public class MainView {
 
@@ -52,7 +53,8 @@ public class MainView {
         FxmlController.getInstance().setSceneFxml(MenuURL.PROFILE);
     }
 
-    public void goToShopMenu(MouseEvent mouseEvent) {
+    public void goToShopMenu(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(SHOP);
     }
 
     public void goToImportExportMenu(MouseEvent mouseEvent) {

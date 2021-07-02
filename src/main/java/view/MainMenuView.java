@@ -54,7 +54,7 @@ public class MainMenuView {
                 return;
             }
             if (menuName.equals("Shop")) {
-                ShopView.getInstance().run(username);
+                ShopMenuView.getInstance().run(username);
                 return;
             }
             if (menuName.equals("Deck")) {
