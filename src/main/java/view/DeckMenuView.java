@@ -107,13 +107,13 @@ public class DeckMenuView {
     }
 
     private void checkCreateDeckCommand(String command, String username) {
-        Matcher matcher = createDeck.matcher(command);
-        if (matcher.find()) {
-            String result = DeckMenuController.getInstance().createDeck(matcher.group(1), username);
-            System.out.println(result);
-        } else {
-            System.out.println("invalid command");
-        }
+//        Matcher matcher = createDeck.matcher(command);
+//        if (matcher.find()) {
+//            String result = DeckMenuController.getInstance().createDeck(matcher.group(1), username);
+//            System.out.println(result);
+//        } else {
+//            System.out.println("invalid command");
+//        }
     }
 
     private void checkDeleteDeckCommand(String command, String username) {

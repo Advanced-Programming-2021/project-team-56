@@ -21,8 +21,8 @@ public class DeckMenuController {
         return deckMenuController;
     }
 
-    public String createDeck(String deckName, String username) {
-        User user = User.getUserByUsername(username);
+    public String createDeck(String deckName) {
+        User user = User.getCurrentUser();
         if (user.isDeckWithThisNameExistent(deckName)) {
             return "deck with name " + deckName + " already exists";
         }

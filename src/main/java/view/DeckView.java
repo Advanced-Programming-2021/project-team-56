@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -32,6 +33,9 @@ public class DeckView {
     public Button backButton;
     public ScrollPane scrollPane;
     public ImageView newDeckButton;
+    public VBox deckCreationVBox;
+    public Label deckCreationResultLabel;
+    public TextField deckNameTextField;
 
 
     @FXML
@@ -40,13 +44,15 @@ public class DeckView {
         editMenuButtons(new ArrayList<>(Collections.singletonList(backButton)));
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(deckListVBox);
+        editNewDeckButton();
+        deckCreationVBox.setVisible(false);
     }
 
     private VBox instantiateDeckListVBox() {
         VBox deckListVBox = new VBox();
         //TODO test deck adding
         for (int i = 0; i < 20; i++) {
-            DeckMenuController.getInstance().createDeck("Deck" + (i + 1), User.getCurrentUser().getUsername());
+            DeckMenuController.getInstance().createDeck("Deck" + (i + 1));
         }
 
         String allDecksInformation = DeckMenuController.getInstance().getUsersDeckInformation();
@@ -106,14 +112,14 @@ public class DeckView {
         Image trashBinImage = new Image("/images/TrashBinResized.png");
         Image activateTextImage = new Image ("/images/Texts/ActivateText.png");
         ImageView trashImageView = new ImageView(trashBinImage);
-        trashImageView.setFitWidth(50);
-        trashImageView.setFitHeight(72.344944774851316907391673746814);
+        trashImageView.setFitWidth(25);
+        trashImageView.setFitHeight(36);
         ImageView editImageView = new ImageView(editImage);
-        editImageView.setFitWidth(100);
-        editImageView.setFitHeight(80);
+        editImageView.setFitWidth(50);
+        editImageView.setFitHeight(40);
         ImageView activateTextImageView = new ImageView(activateTextImage);
-        activateTextImageView.setFitWidth(200);
-        editImageView.setFitHeight(50);
+        activateTextImageView.setFitWidth(100);
+        activateTextImageView.setFitHeight(50);
         putCommandsOnImageViews(trashImageView, editImageView, activateTextImageView, deckName);
         HBox deckEditAndDeleteHBox = new HBox(50, activateTextImageView, editImageView, trashImageView);
         deckEditAndDeleteHBox.setAlignment(Pos.CENTER_RIGHT);
@@ -189,7 +195,6 @@ public class DeckView {
         editNode(1, deckInformationHBox);
         deckInformationHBox.setPadding(new Insets(10, 5, 10, 5));
         deckInformationHBox.setPrefSize(1500, 100);
-        //TODO Highlight the active deck
         if (User.getCurrentUser().getDeckByDeckName(deckNameLabel.getText()).isDeckActivated()) {
             deckInformationHBox.setStyle("-fx-border-color: #ffffff; -fx-border-width: 6; -fx-background-color: black");
         } else {
@@ -198,7 +203,48 @@ public class DeckView {
         return deckInformationHBox;
     }
 
+    private void editNewDeckButton() {
+        newDeckButton.setOnMouseEntered(event -> {
+            newDeckButton.setBlendMode(BlendMode.GREEN);
+            newDeckButton.setEffect(new Glow(1));
+            SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
+        });
+        newDeckButton.setOnMouseExited(event -> {
+            newDeckButton.setBlendMode(BlendMode.SRC_OVER);
+            newDeckButton.setEffect(null);
+        });
+        newDeckButton.setOnMouseClicked(event -> {
+            deckCreationVBox.setVisible(true);
+        });
+    }
+
     public void goToMainMenu(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+    }
+
+    public void makeDeckCreationVBoxInvisible(MouseEvent mouseEvent) {
+        deckCreationResultLabel.setText("");
+        deckNameTextField.setText("");
+        deckCreationVBox.setVisible(false);
+    }
+
+    public void createDeck(MouseEvent mouseEvent) {
+        if (deckNameTextField.getText().length() == 0) {
+            deckCreationResultLabel.setText("Deck Name's Text field is empty");
+        } else {
+            if (deckNameTextField.getText().matches("\\S+")) {
+                deckCreationResultLabel.setText(DeckMenuController.getInstance().createDeck(deckNameTextField.getText()));
+                addNewDecksInformationHBox(deckNameTextField.getText());
+            } else {
+                deckCreationResultLabel.setText("Invalid Deck Name format!");
+            }
+        }
+    }
+
+    private void addNewDecksInformationHBox(String deckName) {
+        VBox parentVBox = (VBox) scrollPane.getContent();
+        parentVBox.getChildren().add(makeDeckInformationHBox(makeRowNumberLabel(parentVBox.getChildren().size() + 1),
+                makeDeckNameLabel(deckName), makeDeckNumberOfCardsLabel(Integer.toString(User.getCurrentUser().
+                        getDeckByDeckName(deckName).getDeckCards().size())), makeDeckEditAndDeleteHBox(deckName)));
     }
 }
