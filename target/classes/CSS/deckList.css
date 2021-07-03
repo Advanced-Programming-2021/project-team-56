@@ -18,6 +18,11 @@ Label {
     -fx-font-family: "Times New Roman";
 }
 
+VBox Label {
+    -fx-font-size: 30px;
+    -fx-font-family: "Times New Roman";
+}
+
 #titleHBox {
     -fx-blend-mode: HARD_LIGHT;
     -fx-border-color: #8bd6ff;
@@ -28,6 +33,10 @@ Label {
 
 VBox {
     -fx-background-color: black;
+}
+
+TextField {
+    -fx-text-fill: white;
 }
 
 .scroll-pane {
