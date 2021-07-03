@@ -26,7 +26,7 @@ public class Board {
 
 
     public Board(User user) {
-        this.playerDeck = new Deck(user.getActivatedDeck());
+        this.playerDeck = new Deck(user.getActiveDeck());
         this.user = user;
         this.monsterTerritory.put(5, null);
         this.monsterTerritory.put(3, null);

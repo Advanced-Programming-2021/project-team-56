@@ -34,17 +34,15 @@ public class DeckMenuController {
         return "deck created successfully!";
     }
 
-    public String deleteDeck(String deckName, String username) {
-        User user = User.getUserByUsername(username);
-        if (user.isDeckWithThisNameExistent(deckName)) {
-            user.removeDeckFromDecks(user.getDeckByDeckName(deckName));
-            return "deck deleted successfully";
-        }
-        return "deck with name " + deckName + " does not exist";
+    public void deleteDeck(String deckName) {
+        User user = User.getCurrentUser();
+        user.removeDeckFromDecks(user.getDeckByDeckName(deckName));
+//        }
+//        return "deck with name " + deckName + " does not exist";
     }
 
-    public String setActive(String deckName, String username) {
-        User user = User.getUserByUsername(username);
+    public String setActive(String deckName) {
+        User user = User.getCurrentUser();
         if (user.isDeckWithThisNameExistent(deckName)) {
             Deck targetDeck = user.getDeckByDeckName(deckName);
             user.setDeckActivate(targetDeck);
@@ -114,6 +112,15 @@ public class DeckMenuController {
             }
         }
         return "card with name " + cardName + " does not exist in main deck";
+    }
+
+    public String getUsersDeckInformation() {
+        StringBuilder decksInformation = new StringBuilder();
+        for (Deck deck : User.getCurrentUser().getDecks()) {
+            decksInformation.append(deck.getDeckName()).append(" ")
+                    .append(deck.getDeckCards().size()).append("\n");
+        }
+        return decksInformation.toString();
     }
 
     public String showUsersDecks(String username) {

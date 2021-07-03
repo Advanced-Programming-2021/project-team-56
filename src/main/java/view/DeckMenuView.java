@@ -119,21 +119,21 @@ public class DeckMenuView {
     private void checkDeleteDeckCommand(String command, String username) {
         Matcher matcher = deleteDeck.matcher(command);
         if (matcher.find()) {
-            String result = DeckMenuController.getInstance().deleteDeck(matcher.group(1), username);
-            System.out.println(result);
+//            String result = DeckMenuController.getInstance().deleteDeck(matcher.group(1), username);
+//            System.out.println(result);
         } else {
             System.out.println("invalid command");
         }
     }
 
     private void checkSetDeckActivateCommand(String command, String username) {
-        Matcher matcher = setActive.matcher(command);
-        if (matcher.find()) {
-            String result = DeckMenuController.getInstance().setActive(matcher.group(1), username);
-            System.out.println(result);
-        } else {
-            System.out.println("invalid command");
-        }
+//        Matcher matcher = setActive.matcher(command);
+//        if (matcher.find()) {
+//            String result = DeckMenuController.getInstance().setActive(matcher.group(1), username);
+//            System.out.println(result);
+//        } else {
+//            System.out.println("invalid command");
+//        }
     }
 
     private void checkAddCardCommand(String command, String username) {

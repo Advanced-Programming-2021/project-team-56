@@ -17,7 +17,7 @@ public class SoundPlayer {
     }
 
     public void playAudioClip(SoundURL soundURL) {
-        AudioClip audio = new AudioClip(SoundPlayer.class.getResource(soundURL.value).toExternalForm());
-        new Thread(audio::play).start();
+//        AudioClip audio = new AudioClip(SoundPlayer.class.getResource(soundURL.value).toExternalForm());
+//        new Thread(audio::play).start();
     }
 }

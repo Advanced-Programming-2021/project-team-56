@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static model.enums.MenuURL.DECK;
 import static model.enums.MenuURL.SCOREBOARD;
 
 public class MainView {
@@ -42,7 +43,8 @@ public class MainView {
     public void goToDuelMenu(MouseEvent mouseEvent) {
     }
 
-    public void goToDeckMenu(MouseEvent mouseEvent) {
+    public void goToDeckMenu(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(DECK);
     }
 
     public void goToScoreboard(MouseEvent mouseEvent) throws IOException {
