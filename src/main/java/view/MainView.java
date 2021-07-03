@@ -1,5 +1,6 @@
 package view;
 
+import controller.LoginMenuController;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static model.enums.MenuURL.DECK;
 import static model.enums.MenuURL.SCOREBOARD;
 import static model.enums.MenuURL.SHOP;
 
@@ -42,7 +44,8 @@ public class MainView {
     public void goToDuelMenu(MouseEvent mouseEvent) {
     }
 
-    public void goToDeckMenu(MouseEvent mouseEvent) {
+    public void goToDeckMenu(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(DECK);
     }
 
     public void goToScoreboard(MouseEvent mouseEvent) throws IOException {
@@ -62,5 +65,10 @@ public class MainView {
 
     public void goBackToLoginMenu(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.ENTRANCE);
+    }
+
+    public void logout(MouseEvent mouseEvent) throws IOException {
+        LoginMenuController.getInstance().logout();
+        FxmlController.getInstance().setSceneFxml(MenuURL.LOGIN);
     }
 }

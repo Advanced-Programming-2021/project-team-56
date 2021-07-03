@@ -18,14 +18,14 @@ public class ImportExportMenu {
 
     public void run() {
         while (true) {
-            String command = LoginMenuView.scan.nextLine().trim();
-            if (command.equals("menu exit")) {
-                return;
-            }
-            if (command.equals("menu show-current")) {
-                System.out.println("Import/Export menu");
-                continue;
-            }
+//            String command = LoginMenuView.scan.nextLine().trim();
+//            if (command.equals("menu exit")) {
+//                return;
+//            }
+//            if (command.equals("menu show-current")) {
+//                System.out.println("Import/Export menu");
+//                continue;
+//            }
             System.out.println(Output.InvalidCommand);
         }
     }

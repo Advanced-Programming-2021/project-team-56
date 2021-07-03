@@ -191,7 +191,7 @@ public class User {
         targetDeck.setDeckActive();
     }
 
-    public Deck getActivatedDeck() {
+    public Deck getActiveDeck() {
         for (Deck deck : decks) {
             if (deck.isDeckActivated()) {
                 return deck;

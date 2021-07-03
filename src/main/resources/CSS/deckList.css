@@ -1,0 +1,67 @@
+.root {
+    -fx-background-image: url(../images/Black-Purple-Hexagon-Background.png);
+    -fx-background-size: cover;
+}
+
+Button {
+    -fx-background-color: #500274;
+    -fx-border-width: 10px;
+    -fx-border-color: #17061f;
+    -fx-font-family: sample;
+    -fx-text-fill: white;
+    -fx-background-radius: 40;
+    -fx-border-radius: 35;
+    -fx-font-size: 25;
+}
+
+Label {
+    -fx-font-family: "Times New Roman";
+}
+
+VBox Label {
+    -fx-font-size: 30px;
+    -fx-font-family: "Times New Roman";
+}
+
+#titleHBox {
+    -fx-blend-mode: HARD_LIGHT;
+    -fx-border-color: #8bd6ff;
+    -fx-border-radius: 6 6 0 0;
+    -fx-border-width: 10;
+    -fx-padding: 0 0 0 5;
+}
+
+VBox {
+    -fx-background-color: black;
+}
+
+TextField {
+    -fx-text-fill: white;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: #8bd6ff;
+    -fx-border-width: 10;
+    -fx-border-radius: 0 0 6 6;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #8bd6ff;
+    -fx-background-radius: 5em;
+}

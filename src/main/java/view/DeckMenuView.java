@@ -6,8 +6,6 @@ import controller.ShopController;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static view.MainMenuView.menuEnter;
-
 public class DeckMenuView {
 
     private static DeckMenuView deckMenuView;
@@ -45,27 +43,27 @@ public class DeckMenuView {
 
     public void run(String username) {
         while (true) {
-            String command = LoginMenuView.scan.nextLine().trim();
-            if (command.equals("menu show-current")) {
-                System.out.println("Deck Menu");
-                continue;
-            }
-            if (command.equals("menu exit")) {
-                return;
-            }
-            Matcher matcher = menuEnter.matcher(command);
-            if (matcher.find()) {
-                System.out.println("menu navigation is not possible");
-                continue;
-            }
-            if (command.startsWith("deck")) {
-                checkDeckCommands(command, username);
-                continue;
-            }
-            if (command.startsWith("card show ")) {
-                System.out.println(ShopController.getInstance().checkCardShowCommand(command));
-                continue;
-            }
+//            String command = LoginMenuView.scan.nextLine().trim();
+//            if (command.equals("menu show-current")) {
+//                System.out.println("Deck Menu");
+//                continue;
+//            }
+//            if (command.equals("menu exit")) {
+//                return;
+//            }
+//            Matcher matcher = menuEnter.matcher(command);
+//            if (matcher.find()) {
+//                System.out.println("menu navigation is not possible");
+//                continue;
+//            }
+//            if (command.startsWith("deck")) {
+//                checkDeckCommands(command, username);
+//                continue;
+//            }
+//            if (command.startsWith("card show ")) {
+//                System.out.println(ShopController.getInstance().checkCardShowCommand(command));
+//                continue;
+//            }
             System.out.println("invalid command");
         }
     }
@@ -109,33 +107,33 @@ public class DeckMenuView {
     }
 
     private void checkCreateDeckCommand(String command, String username) {
-        Matcher matcher = createDeck.matcher(command);
-        if (matcher.find()) {
-            String result = DeckMenuController.getInstance().createDeck(matcher.group(1), username);
-            System.out.println(result);
-        } else {
-            System.out.println("invalid command");
-        }
+//        Matcher matcher = createDeck.matcher(command);
+//        if (matcher.find()) {
+//            String result = DeckMenuController.getInstance().createDeck(matcher.group(1), username);
+//            System.out.println(result);
+//        } else {
+//            System.out.println("invalid command");
+//        }
     }
 
     private void checkDeleteDeckCommand(String command, String username) {
         Matcher matcher = deleteDeck.matcher(command);
         if (matcher.find()) {
-            String result = DeckMenuController.getInstance().deleteDeck(matcher.group(1), username);
-            System.out.println(result);
+//            String result = DeckMenuController.getInstance().deleteDeck(matcher.group(1), username);
+//            System.out.println(result);
         } else {
             System.out.println("invalid command");
         }
     }
 
     private void checkSetDeckActivateCommand(String command, String username) {
-        Matcher matcher = setActive.matcher(command);
-        if (matcher.find()) {
-            String result = DeckMenuController.getInstance().setActive(matcher.group(1), username);
-            System.out.println(result);
-        } else {
-            System.out.println("invalid command");
-        }
+//        Matcher matcher = setActive.matcher(command);
+//        if (matcher.find()) {
+//            String result = DeckMenuController.getInstance().setActive(matcher.group(1), username);
+//            System.out.println(result);
+//        } else {
+//            System.out.println("invalid command");
+//        }
     }
 
     private void checkAddCardCommand(String command, String username) {

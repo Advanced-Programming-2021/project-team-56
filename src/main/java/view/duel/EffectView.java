@@ -2,7 +2,6 @@ package view.duel;
 
 import controller.duel.DuelWithUser;
 import model.Card;
-import view.LoginMenuView;
 import model.Output;
 
 import java.util.ArrayList;
@@ -39,7 +38,8 @@ public class EffectView {
     }
 
     public String input() {
-        return LoginMenuView.scan.nextLine().trim();
+//        return LoginMenuView.scan.nextLine().trim();
+        return null;
     }
 
     public void showDeck() {
@@ -52,15 +52,15 @@ public class EffectView {
 
     public int getAddress() {
         while (true) {
-            System.out.println("Give an address");
-            String result = LoginMenuView.scan.nextLine().trim();
-            Pattern number = Pattern.compile("^([\\d]+)$");
-            Matcher matcher = number.matcher(result);
-            if (matcher.find()) {
-                return Integer.parseInt(result);
-            } else {
-                System.out.println(Output.InvalidCommand);
-            }
+//            System.out.println("Give an address");
+//            String result = LoginMenuView.scan.nextLine().trim();
+//            Pattern number = Pattern.compile("^([\\d]+)$");
+//            Matcher matcher = number.matcher(result);
+//            if (matcher.find()) {
+//                return Integer.parseInt(result);
+//            } else {
+//                System.out.println(Output.InvalidCommand);
+//            }
         }
     }
 

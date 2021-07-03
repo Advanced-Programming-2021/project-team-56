@@ -5,7 +5,6 @@ import controller.duel.phases.EndPhaseController;
 import controller.duel.phases.OpponentPhase;
 import model.Commands;
 import model.Output;
-import view.LoginMenuView;
 import view.duel.DuelWithUserView;
 
 import java.util.regex.Matcher;
@@ -32,26 +31,26 @@ public class EndPhaseView {
         EndPhaseController.getInstance().run();
         System.out.print("phase: End Phase\n" + duelWithUser.showField());
         while (true) {
-            String command = LoginMenuView.scan.nextLine().trim();
-            if (command.equals(Commands.NextPhase.toString())) {
-                break;
-            } else if (isThisActionNotAllowed(command)) {
-                System.out.println(Output.YouCantDoThisAction);
-                continue;
-            } else if (duelWithUserView.isItValidInAllOfThePhases(command)) {
-                continue;
-            }
-            String result = duelWithUserView.cheatCodeExecute(command);
-            if (result.equals(Output.InvalidCommand.toString())) {
-                System.out.println(result);
-            } else if (!result.equals(Output.TheGameContinues.toString())) {
-                return result;
-            }
+//            String command = LoginMenuView.scan.nextLine().trim();
+//            if (command.equals(Commands.NextPhase.toString())) {
+//                break;
+//            } else if (isThisActionNotAllowed(command)) {
+//                System.out.println(Output.YouCantDoThisAction);
+//                continue;
+//            } else if (duelWithUserView.isItValidInAllOfThePhases(command)) {
+//                continue;
+//            }
+//            String result = duelWithUserView.cheatCodeExecute(command);
+//            if (result.equals(Output.InvalidCommand.toString())) {
+//                System.out.println(result);
+//            } else if (!result.equals(Output.TheGameContinues.toString())) {
+//                return result;
+//            }
         }
-        OpponentPhase.getInstance().startChainLink();
-        String nickname = duelWithUser.getEnemyBoard().getUser().getNickname();
-        System.out.println("its " + nickname + "’s turn");
-        return Output.TheGameContinues.toString();
+//        OpponentPhase.getInstance().startChainLink();
+//        String nickname = duelWithUser.getEnemyBoard().getUser().getNickname();
+//        System.out.println("its " + nickname + "’s turn");
+//        return Output.TheGameContinues.toString();
     }
 
     private boolean isThisActionNotAllowed(String command) {

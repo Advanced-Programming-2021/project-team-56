@@ -1,5 +1,4 @@
 import controller.LoginMenuController;
-import view.LoginMenuView;
 import view.MainGUI;
 
 import java.io.IOException;

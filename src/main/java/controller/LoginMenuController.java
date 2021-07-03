@@ -37,6 +37,10 @@ public class LoginMenuController {
         return LOGIN_SUCCESSFUL.value;
     }
 
+    public void logout() {
+        User.setCurrentUser(null);
+    }
+
     public String register(String username, String password, String nickname) {
         if (User.isThisUsernameAlreadyTaken(username)) {
             return "user with username " + "\"" + username + "\"" + " already exists";

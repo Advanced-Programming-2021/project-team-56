@@ -1,17 +1,12 @@
 package view;
 
 import controller.LoginMenuController;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import model.enums.MenuURL;
 import view.components.NodeEditor;
 
@@ -35,7 +30,7 @@ public class LoginView {
     public void initialize() {
         ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(backButton));
         MainGUI.editMenuButtons(buttons);
-        NodeEditor.setNodesGlow(0.8, userNameField, passWordField, loginButton, signupLabel);
+        NodeEditor.editNode(0.8, userNameField, passWordField, loginButton, signupLabel);
     }
 
     public void loginClicked(MouseEvent mouseEvent) throws IOException {

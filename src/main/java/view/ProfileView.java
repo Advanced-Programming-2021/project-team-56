@@ -45,7 +45,7 @@ public class ProfileView {
     }
 
     private void editAvatarChangeArrow() {
-        NodeEditor.setNodesGlow(1, avatarChangeArrow);
+        NodeEditor.editNode(1, avatarChangeArrow);
         avatarChangeArrow.setOnMouseClicked(event -> {
             avatarImagesGridPane.setVisible(!avatarImagesGridPane.isVisible());
         });
@@ -68,7 +68,7 @@ public class ProfileView {
                 setChangeAvatarOnClicked(imageCircle, avatarURLS[j + k].value);
                 Circle backgroundCircle = new Circle(100);
                 backgroundCircle.setFill(Paint.valueOf("#500274"));
-                NodeEditor.setNodesGlow(0.1, imageCircle);
+                NodeEditor.editNode(0.1, imageCircle);
                 avatarImagesGridPane.add(backgroundCircle, j, i);
                 avatarImagesGridPane.add(imageCircle, j, i);
             }
@@ -84,10 +84,10 @@ public class ProfileView {
 
     public void loadChangePasswordMenu(MouseEvent mouseEvent) {
         actionLabel.setText("Change Password:");
-        currentInfoTitle.setText("Current password:");
+        currentInfoTitle.setText("Current Password:");
         currentInfoValue.setText(User.getCurrentUser().getPassword());
-        textFieldTitle.setText("New password");
-        changeInfoButton.setText("change password");
+        textFieldTitle.setText("New Password");
+        changeInfoButton.setText("Change Password");
         currentInfoPane.getChildren().remove(currentInfoValue);
         TextField currentPasswordField = new TextField();
         currentPasswordField.setPrefWidth(362);
