@@ -9,7 +9,8 @@ public enum MenuURL {
     DECK("/fxml/deck/deckList.fxml"),
     SIGNUP("/fxml/signup.fxml"),
     SCOREBOARD("/fxml/scoreboard.fxml"),
-    PROFILE("/fxml/profile.fxml");
+    PROFILE("/fxml/profile.fxml"),
+    SHOP("/fxml/shop.fxml");
 
 
 

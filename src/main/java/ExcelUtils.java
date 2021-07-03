@@ -97,6 +97,7 @@ public class ExcelUtils {
                         break;
                 }
             }
+            monsterCard.setImageURL(getClass().getResource("/images/Cards/Monsters/"+ monsterCard.getName() +".jpg").toExternalForm());
             cards.add(monsterCard);
             monsterCards.add(monsterCard);
         }
@@ -135,6 +136,7 @@ public class ExcelUtils {
                         break;
                 }
             }
+            spellCard.setImageURL(getClass().getResource("/images/Cards/SpellTrap/"+ spellCard.getName() +".jpg").toExternalForm());
             spellCards.add(spellCard);
             cards.add(spellCard);
         }
@@ -173,6 +175,7 @@ public class ExcelUtils {
                         break;
                 }
             }
+            trapCard.setImageURL(getClass().getResource("/images/Cards/SpellTrap/"+ trapCard.getName() +".jpg").toExternalForm());
             trapCards.add(trapCard);
             cards.add(trapCard);
         }
