@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import model.Card;
 import model.enums.MenuURL;
 
 import java.io.IOException;
@@ -57,6 +58,7 @@ public class MainView {
     }
 
     public void goToShopMenu(MouseEvent mouseEvent) throws IOException {
+        ShopView.currentCard = Card.getCardByName("Battle OX");
         FxmlController.getInstance().setSceneFxml(SHOP);
     }
 
