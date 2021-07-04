@@ -94,13 +94,13 @@
                        textFill="WHITE"/>
                 <HBox id="createNewDeckVBox" prefWidth="500.0" style="-fx-spacing: 200;">
                     <children>
-                        <Button mnemonicParsing="false" onMouseClicked="#makeDeckCreationVBoxInvisible"
+                        <Button fx:id="deckCreationVBoxBackButton" mnemonicParsing="false" onMouseClicked="#makeDeckCreationVBoxInvisible"
                                 prefWidth="250.0" text="Back">
                             <padding>
                                 <Insets bottom="3.0"/>
                             </padding>
                         </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#createDeck" prefWidth="250.0" text="Create">
+                        <Button fx:id="deckCreationVBoxCreateButton" mnemonicParsing="false" onMouseClicked="#createDeck" prefWidth="250.0" text="Create">
                             <padding>
                                 <Insets bottom="3.0"/>
                             </padding>

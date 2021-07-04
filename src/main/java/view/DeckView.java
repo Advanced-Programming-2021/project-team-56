@@ -36,6 +36,8 @@ public class DeckView {
     public VBox deckCreationVBox;
     public Label deckCreationResultLabel;
     public TextField deckNameTextField;
+    public Button deckCreationVBoxBackButton;
+    public Button deckCreationVBoxCreateButton;
 
 
     @FXML
@@ -44,7 +46,7 @@ public class DeckView {
         editMenuButtons(new ArrayList<>(Collections.singletonList(backButton)));
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(deckListVBox);
-        editNewDeckButton();
+        editCreationVBoxButtons();
         deckCreationVBox.setVisible(false);
     }
 
@@ -203,7 +205,7 @@ public class DeckView {
         return deckInformationHBox;
     }
 
-    private void editNewDeckButton() {
+    private void editCreationVBoxButtons() {
         newDeckButton.setOnMouseEntered(event -> {
             newDeckButton.setBlendMode(BlendMode.GREEN);
             newDeckButton.setEffect(new Glow(1));
@@ -216,6 +218,7 @@ public class DeckView {
         newDeckButton.setOnMouseClicked(event -> {
             deckCreationVBox.setVisible(true);
         });
+        editNode(0.6, deckCreationVBoxBackButton, deckCreationVBoxCreateButton);
     }
 
     public void goToMainMenu(MouseEvent mouseEvent) throws IOException {

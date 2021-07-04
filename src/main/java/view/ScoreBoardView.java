@@ -1,6 +1,7 @@
 package view;
 
 import controller.ScoreBoardController;
+import controller.SoundPlayer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -17,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import model.enums.MenuURL;
+import model.enums.SoundURL;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -121,6 +123,7 @@ public class ScoreBoardView {
             @Override
             public void handle(MouseEvent event) {
                 individualHBox.setEffect(new Glow(1));
+                SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
             }
         });
         individualHBox.setOnMouseExited(new EventHandler<MouseEvent>() {
