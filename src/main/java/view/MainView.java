@@ -14,9 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static model.enums.MenuURL.DECK;
-import static model.enums.MenuURL.SCOREBOARD;
-import static model.enums.MenuURL.SHOP;
+import static model.enums.MenuURL.*;
 
 public class MainView {
 
@@ -46,7 +44,7 @@ public class MainView {
     }
 
     public void goToDeckMenu(MouseEvent mouseEvent) throws IOException {
-        FxmlController.getInstance().setSceneFxml(DECK);
+        FxmlController.getInstance().setSceneFxml(DECK_LIST);
     }
 
     public void goToScoreboard(MouseEvent mouseEvent) throws IOException {

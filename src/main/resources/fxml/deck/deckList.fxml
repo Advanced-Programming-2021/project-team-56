@@ -14,58 +14,54 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1050.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DeckView">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DeckListView">
     <children>
-        <ScrollPane fx:id="scrollPane" blendMode="HARD_LIGHT" layoutX="140.0" layoutY="125.0" prefHeight="800.0"
-                    prefWidth="1500.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="140.0"
-                    AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="125.0"/>
-        <Button fx:id="backButton" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" onMouseClicked="#goToMainMenu"
-                prefHeight="80.0" prefWidth="250.0" text="Back" AnchorPane.bottomAnchor="20.0"
-                AnchorPane.leftAnchor="10.0"/>
-        <HBox id="titleHBox" alignment="CENTER_LEFT" blendMode="HARD_LIGHT" layoutX="140.0" layoutY="25.0"
-              prefHeight="100.0" prefWidth="1500.0"
-              style="-fx-spacing: 100; -fx-background-color: black; -fx-background-radius: 10;"
-              AnchorPane.bottomAnchor="925.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="40.0"
-              AnchorPane.topAnchor="25.0">
+        <VBox layoutX="140.0" layoutY="25.0" style="-fx-background-radius: 20;" AnchorPane.bottomAnchor="125.0"
+              AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="25.0">
             <children>
-                <Label contentDisplay="CENTER" prefHeight="100.0" prefWidth="255.0" text="Number" textFill="#D4B1F5">
-                    <font>
-                        <Font size="30.0"/>
-                    </font>
-                </Label>
-                <Label prefHeight="100.0" prefWidth="315.0" text="Name" textFill="#8bd6ff">
-                    <font>
-                        <Font size="30.0"/>
-                    </font>
-                </Label>
-                <Label prefHeight="100.0" prefWidth="370.0" text="#Cards" textFill="#D4B1F5">
-                    <font>
-                        <Font size="30.0"/>
-                    </font>
-                </Label>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="250.0">
+                <HBox id="titleHBox" alignment="CENTER_LEFT" blendMode="HARD_LIGHT" prefHeight="100.0"
+                      prefWidth="1500.0"
+                      style="-fx-spacing: 100; -fx-background-color: black; -fx-background-radius: 50;">
                     <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="190.0" text="New Deck"
-                               textFill="#8bd6ff">
+                        <Label contentDisplay="CENTER" prefHeight="100.0" prefWidth="255.0" text="Number"
+                               textFill="#D4B1F5">
                             <font>
                                 <Font size="30.0"/>
                             </font>
                         </Label>
-                        <ImageView id="newDeck" fx:id="newDeckButton" fitHeight="40.0" fitWidth="40.0"
-                                   pickOnBounds="true" preserveRatio="true" rotate="-90.0">
-                            <image>
-                                <Image url="@../../images/Down-Arrow.png"/>
-                            </image>
-                        </ImageView>
+                        <Label prefHeight="100.0" prefWidth="790.0" text="Name" textFill="#8bd6ff">
+                            <font>
+                                <Font size="30.0"/>
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="250.0">
+                            <children>
+                                <Label alignment="CENTER" prefHeight="100.0" prefWidth="190.0" text="New Deck"
+                                       textFill="#8bd6ff">
+                                    <font>
+                                        <Font size="30.0"/>
+                                    </font>
+                                </Label>
+                                <ImageView id="newDeck" fx:id="newDeckButton" fitHeight="40.0" fitWidth="40.0"
+                                           pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+                                    <image>
+                                        <Image url="@../../images/Down-Arrow.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </HBox>
                     </children>
                 </HBox>
+                <ScrollPane fx:id="scrollPane" blendMode="HARD_LIGHT" prefHeight="800.0" prefWidth="1500.0"/>
             </children>
-        </HBox>
+        </VBox>
+        <Button fx:id="backButton" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" onMouseClicked="#goToMainMenu"
+                prefHeight="80.0" prefWidth="250.0" text="Back" AnchorPane.bottomAnchor="20.0"
+                AnchorPane.leftAnchor="10.0"/>
         <VBox fx:id="deckCreationVBox" alignment="CENTER_LEFT" layoutX="920.0" layoutY="140.0" prefHeight="300.0"
               prefWidth="700.0"
               style="-fx-background-radius: 50; -fx-background-color: black; -fx-border-color: #37445A; -fx-border-radius: 30; -fx-border-width: 10;"
-              AnchorPane.bottomAnchor="610.0" AnchorPane.leftAnchor="920.0" AnchorPane.rightAnchor="60.0"
-              AnchorPane.topAnchor="140.0">
+              AnchorPane.bottomAnchor="610.0" AnchorPane.topAnchor="140.0">
             <children>
                 <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
@@ -92,15 +88,17 @@
                 </HBox>
                 <Label fx:id="deckCreationResultLabel" alignment="CENTER" prefHeight="100.0" prefWidth="700.0"
                        textFill="WHITE"/>
-                <HBox id="createNewDeckVBox" prefWidth="500.0" style="-fx-spacing: 200;">
+                <HBox id="createNewDeckVBox">
                     <children>
-                        <Button fx:id="deckCreationVBoxBackButton" mnemonicParsing="false" onMouseClicked="#makeDeckCreationVBoxInvisible"
-                                prefWidth="250.0" text="Back">
+                        <Button fx:id="deckCreationVBoxBackButton" mnemonicParsing="false"
+                                onMouseClicked="#makeDeckCreationVBoxInvisible" prefWidth="250.0" text="Back">
                             <padding>
                                 <Insets bottom="3.0"/>
                             </padding>
                         </Button>
-                        <Button fx:id="deckCreationVBoxCreateButton" mnemonicParsing="false" onMouseClicked="#createDeck" prefWidth="250.0" text="Create">
+                        <HBox prefWidth="200.0"/>
+                        <Button fx:id="deckCreationVBoxCreateButton" mnemonicParsing="false"
+                                onMouseClicked="#createDeck" prefWidth="250.0" text="Create">
                             <padding>
                                 <Insets bottom="3.0"/>
                             </padding>

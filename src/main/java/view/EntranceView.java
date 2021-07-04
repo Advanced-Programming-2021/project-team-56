@@ -43,7 +43,6 @@ public class EntranceView {
         } else {
             Image image = new Image("/images/Cursor/X.png");
             MainGUI.getScene().setCursor(new ImageCursor(image, image.getWidth() / 2, image.getHeight() / 2));
-            SoundPlayer.getInstance().playAudioClip(SoundURL.BUZZER);
             Timeline changeCursorBack = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -52,6 +51,7 @@ public class EntranceView {
                 }
             }));
             changeCursorBack.play();
+            SoundPlayer.getInstance().playAudioClip(SoundURL.BUZZER);
         }
     }
 
