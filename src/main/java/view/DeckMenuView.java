@@ -145,45 +145,45 @@ public class DeckMenuView {
     }
 
     private String checkAddCardToSideDeckCommand(String command, String username) {
-        DeckMenuController deckMenuController = DeckMenuController.getInstance();
-        Matcher matcher = addToSideDeck1.matcher(command);
-        if (matcher.find()) {
-            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, true);
-        }
-        matcher = addToSideDeck2.matcher(command);
-        if (matcher.find()) {
-            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, true);
-        }
-        matcher = addToSideDeck3.matcher(command);
-        if (matcher.find()) {
-            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, true);
-        }
-        matcher = addToSideDeck4.matcher(command);
-        if (matcher.find()) {
-            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, true);
-        }
-        matcher = addToSideDeck5.matcher(command);
-        if (matcher.find()) {
-            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, true);
-
-        }
-        matcher = addToSideDeck6.matcher(command);
-        if (matcher.find()) {
-            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, true);
-        }
+//        DeckMenuController deckMenuController = DeckMenuController.getInstance();
+//        Matcher matcher = addToSideDeck1.matcher(command);
+//        if (matcher.find()) {
+//            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, true);
+//        }
+//        matcher = addToSideDeck2.matcher(command);
+//        if (matcher.find()) {
+//            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, true);
+//        }
+//        matcher = addToSideDeck3.matcher(command);
+//        if (matcher.find()) {
+//            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, true);
+//        }
+//        matcher = addToSideDeck4.matcher(command);
+//        if (matcher.find()) {
+//            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, true);
+//        }
+//        matcher = addToSideDeck5.matcher(command);
+//        if (matcher.find()) {
+//            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, true);
+//
+//        }
+//        matcher = addToSideDeck6.matcher(command);
+//        if (matcher.find()) {
+//            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, true);
+//        }
         return "invalid command";
     }
 
     private String checkAddCardToMainDeckCommand(String command, String username) {
-        DeckMenuController deckMenuController = DeckMenuController.getInstance();
-        Matcher matcher = addToMainDeck1.matcher(command);
-        if (matcher.find()) {
-            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, false);
-        }
-        matcher = addToMainDeck2.matcher(command);
-        if (matcher.find()) {
-            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, false);
-        }
+//        DeckMenuController deckMenuController = DeckMenuController.getInstance();
+//        Matcher matcher = addToMainDeck1.matcher(command);
+//        if (matcher.find()) {
+//            return deckMenuController.addToDeck(matcher.group(2), matcher.group(1), username, false);
+//        }
+//        matcher = addToMainDeck2.matcher(command);
+//        if (matcher.find()) {
+//            return deckMenuController.addToDeck(matcher.group(1), matcher.group(2), username, false);
+//        }
         return "invalid command";
     }
 

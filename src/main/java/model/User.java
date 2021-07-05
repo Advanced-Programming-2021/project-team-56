@@ -216,4 +216,14 @@ public class User {
         }
     }
 
+    public String getNumberOfCardsInUsersAllCards(String cardName) {
+        int cardCounter = 0;
+        for (Card card : userAllCards) {
+            if (cardName.equals(card.getName())) {
+                cardCounter++;
+            }
+        }
+        return Integer.toString(cardCounter);
+    }
+
 }

@@ -41,25 +41,15 @@ public class DeckMenuController {
 //        return "deck with name " + deckName + " does not exist";
     }
 
-    public String setActive(String deckName) {
+    public void setActive(String deckName) {
         User user = User.getCurrentUser();
-        if (user.isDeckWithThisNameExistent(deckName)) {
-            Deck targetDeck = user.getDeckByDeckName(deckName);
-            user.setDeckActivate(targetDeck);
-            return "deck activated successfully";
-        }
-        return "deck with name " + deckName + " does not exist";
+        Deck targetDeck = user.getDeckByDeckName(deckName);
+        user.setDeckActivate(targetDeck);
     }
 
-    public String addToDeck(String deckName, String cardName, String username, boolean isAddToSide) {
-        User user = User.getUserByUsername(username);
+    public String addToDeck(String deckName, String cardName, boolean isAddToSide) {
+        User user = User.getCurrentUser();
         Deck deck = user.getDeckByDeckName(deckName);
-        if (deck == null) {
-            return "deck with name " + deckName + " does not exist";
-        }
-        if (!deck.isCardWithThisNameExistent(cardName)) {
-            return "card with name " + cardName + " does not exists";
-        }
         if (isAddToSide) {
             if (deck.isSideDeckFull()) {
                 return "side deck is full";

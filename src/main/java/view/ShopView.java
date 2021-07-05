@@ -46,6 +46,7 @@ public class ShopView {
     @FXML
     public void initialize() {
         cardsGridPane.setStyle("-fx-background-color: #41415D");
+        numberOfCardLabel.setText(ShopController.getInstance().getNumberOfCardInUsersCards("Battle OX"));
         setHBoxBackGround();
         addCards();
         setOnMouseEnteredAndExited(buyButton);
@@ -114,11 +115,8 @@ public class ShopView {
                 cardPriceLabel.setText(String.valueOf(Card.getCards().get(cardIndex).getPrice()));
                 Image image = new Image(Card.getCards().get(cardIndex).getImageURL());
                 cardImage.setImage(image);
-                int numberOfCard = 0;
-                for (Card card : User.getCurrentUser().getUserAllCards()) {
-                    if (card.getName().equals(Card.getCards().get(cardIndex))) numberOfCard++;
-                }
-                numberOfCardLabel.setText(String.valueOf(numberOfCard));
+                numberOfCardLabel.setText(ShopController.getInstance()
+                        .getNumberOfCardInUsersCards(Card.getCards().get(cardIndex).getName()));
             }
         });
     }
