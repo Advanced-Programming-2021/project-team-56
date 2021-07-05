@@ -11,69 +11,68 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1050.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DeckView">
+<AnchorPane prefHeight="1050.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DeckView">
     <children>
-        <VBox alignment="TOP_CENTER" prefHeight="1050.0" prefWidth="480.0" spacing="100.0"
-              style="-fx-background-color: #0E061E; -fx-background-radius: 50; -fx-border-color: #DBBEF6; -fx-border-radius: 50; -fx-border-width: 5;"
-              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="TOP_CENTER" prefHeight="1050.0" prefWidth="480.0" spacing="100.0" style="-fx-background-color: #0E061E; -fx-background-radius: 50; -fx-border-color: #DBBEF6; -fx-border-radius: 50; -fx-border-width: 5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label fx:id="deckNameLabel" alignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="Times New Roman" size="35.0"/>
+                        <Font name="Times New Roman" size="35.0" />
                     </font>
                 </Label>
-                <ImageView fx:id="clickedCardImage" fitHeight="583.3729216152019" fitWidth="400.0" pickOnBounds="true"
-                           preserveRatio="true"/>
+                <ImageView fx:id="clickedCardImage" fitHeight="583.3729216152019" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
             </children>
             <padding>
-                <Insets top="50.0"/>
+                <Insets top="50.0" />
             </padding>
         </VBox>
-        <VBox layoutX="525.0" layoutY="100.0" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="525.0"
-              AnchorPane.topAnchor="100.0">
+        <VBox layoutX="525.0" layoutY="100.0" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="100.0">
             <children>
-                <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0"
-                       style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 10; -fx-border-radius: 5;"
-                       text="Main Deck" textFill="WHITE">
+                <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 10; -fx-border-radius: 5;" text="Main Deck" textFill="WHITE">
                     <font>
-                        <Font name="Times New Roman" size="35.0"/>
+                        <Font name="Times New Roman" size="35.0" />
                     </font>
                 </Label>
-                <VBox prefHeight="450.0" prefWidth="800.0"
-                      style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #0E061E; -fx-border-width: 10; -fx-border-radius: 10;">
+                <VBox prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #0E061E; -fx-border-width: 10; -fx-border-radius: 10;">
                     <children>
-                        <AnchorPane fx:id="firstRowAnchorPane" prefHeight="150.0" prefWidth="800.0"/>
-                        <AnchorPane fx:id="secondRowAnchorPane" prefHeight="150.0" prefWidth="800.0"/>
-                        <AnchorPane fx:id="thirdRowAnchorPane" prefHeight="150.0" prefWidth="800.0"/>
+                        <AnchorPane fx:id="firstRowMainDeckAnchorPane" prefHeight="150.0" prefWidth="800.0" />
+                        <AnchorPane fx:id="secondRowMainDeckAnchorPane" prefHeight="150.0" prefWidth="800.0" />
+                        <AnchorPane fx:id="thirdRowMainDeckAnchorPane" prefHeight="150.0" prefWidth="800.0" />
                     </children>
                 </VBox>
             </children>
         </VBox>
-        <VBox layoutX="525.0" layoutY="750.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="525.0"
-              AnchorPane.topAnchor="750.0">
+        <VBox layoutX="525.0" layoutY="750.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="750.0">
             <children>
-                <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0"
-                       style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 10; -fx-border-radius: 5;"
-                       styleClass="deckType" text="Side Deck" textFill="WHITE">
+                <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 10; -fx-border-radius: 5;" styleClass="deckType" text="Side Deck" textFill="WHITE">
                     <font>
-                        <Font name="Times New Roman" size="35.0"/>
+                        <Font name="Times New Roman" size="35.0" />
                     </font>
                 </Label>
-                <HBox prefHeight="150.0" prefWidth="800.0"
-                      style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #0E061E; -fx-border-width: 10; -fx-border-radius: 10;">
+                <HBox prefHeight="150.0" prefWidth="800.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #0E061E; -fx-border-width: 10; -fx-border-radius: 10;">
                     <children>
-                        <AnchorPane fx:id="sideDeckAnchorPane" prefHeight="150.0" prefWidth="800.0"/>
+                        <AnchorPane fx:id="sideDeckAnchorPane" prefHeight="150.0" prefWidth="800.0" />
                     </children>
                 </HBox>
             </children>
         </VBox>
-        <ScrollPane fx:id="userCardsScrollPane" layoutX="1132.0" layoutY="296.0" prefHeight="1050.0" prefWidth="310.0"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-        <Button fx:id="backButton" layoutX="15.0" layoutY="970.0" mnemonicParsing="false" prefHeight="50.0"
-                prefWidth="200.0" text="Back" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="15.0"/>
+        <ScrollPane fx:id="userCardsScrollPane" layoutX="1132.0" layoutY="296.0" prefHeight="1050.0" prefWidth="310.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Button fx:id="backButton" layoutX="15.0" layoutY="970.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Back" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="15.0" />
+      <VBox fx:id="errorVBox" alignment="TOP_CENTER" layoutX="625.0" layoutY="325.0" prefHeight="400.0" prefWidth="600.0" spacing="100.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: #DBBEF6;" AnchorPane.bottomAnchor="325.0" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="455.0" AnchorPane.topAnchor="325.0">
+         <children>
+            <Label fx:id="errorLabel" alignment="CENTER" prefHeight="170.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="25.0" />
+               </font>
+            </Label>
+            <Button fx:id="errorVBoxBackButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Back" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" top="50.0" />
+         </padding>
+      </VBox>
     </children>
     <stylesheets>
-        <URL value="@../../CSS/deck.css"/>
+        <URL value="@../../CSS/deck.css" />
     </stylesheets>
 </AnchorPane>

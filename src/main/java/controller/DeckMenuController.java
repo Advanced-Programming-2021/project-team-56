@@ -60,7 +60,7 @@ public class DeckMenuController {
             }
         }
         if (deck.isThreeCardsWithThisNameInDeck(cardName)) {
-            return "there are already three cards with name " + cardName + " in deck " + deckName;
+            return "there are already three cards with name\n" + cardName + "\nin deck\n" + deckName;
         }
         if (isAddToSide) {
             deck.addCardToSideDeck(cardName);
