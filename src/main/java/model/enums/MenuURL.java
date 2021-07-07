@@ -11,7 +11,8 @@ public enum MenuURL {
     SIGNUP("/fxml/signup.fxml"),
     SCOREBOARD("/fxml/scoreboard.fxml"),
     PROFILE("/fxml/profile.fxml"),
-    SHOP("/fxml/shop.fxml");
+    SHOP("/fxml/shop.fxml"),
+    DUEL("/fxml/duel.fxml");
 
 
 

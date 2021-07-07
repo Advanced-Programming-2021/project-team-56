@@ -72,11 +72,11 @@ public class DuelMenuView {
     }
 
     private void checkDuelWithUser(String firstPlayerUsername, String secondPlayerUsername, String numberOfRounds) {
-        String result = DuelMenuController.getInstance().canUsersDuel(firstPlayerUsername, secondPlayerUsername, numberOfRounds);
-        if (result.equals("duel is valid")) {
-            System.out.println(DuelWithUser.getInstance().run(firstPlayerUsername, secondPlayerUsername, numberOfRounds));
-            return;
-        }
-        System.out.println(result);
+//        String result = DuelMenuController.getInstance().canUsersDuel(firstPlayerUsername, secondPlayerUsername, numberOfRounds);
+//        if (result.equals("duel is valid")) {
+//            System.out.println(DuelWithUser.getInstance().run(firstPlayerUsername, secondPlayerUsername, numberOfRounds));
+//            return;
+//        }
+//        System.out.println(result);
     }
 }

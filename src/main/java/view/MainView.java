@@ -40,7 +40,8 @@ public class MainView {
 
     }
 
-    public void goToDuelMenu(MouseEvent mouseEvent) {
+    public void goToDuelMenu(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(DUEL);
     }
 
     public void goToDeckMenu(MouseEvent mouseEvent) throws IOException {
