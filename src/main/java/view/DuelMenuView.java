@@ -26,23 +26,6 @@ public class DuelMenuView {
 
     public void run(String username) {
         while (true) {
-//            String command = LoginMenuView.scan.nextLine().trim();
-//            Matcher menuEnterMatcher = menuEnter.matcher(command);
-//            if (menuEnterMatcher.find()) {
-//                System.out.println("menu navigation is not possible");
-//                continue;
-//            }
-//            if (command.equals("menu exit")) {
-//                return;
-//            }
-//            if (command.equals("menu show-current")) {
-//                System.out.println("Duel Menu");
-//                continue;
-//            }
-//            if (command.startsWith("duel")) {
-//                checkDuelWithUserCommand(command, username);
-//                continue;
-//            }
             System.out.println(Output.InvalidCommand);
         }
     }

@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 public class ShopController {
 
     private static ShopController shopController;
-    static Pattern cardShow = Pattern.compile("^card show ([\\S][\\S ]*)$");
 
     private ShopController() {
     }

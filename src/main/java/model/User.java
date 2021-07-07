@@ -1,6 +1,5 @@
 package model;
 
-import javafx.scene.image.Image;
 import model.enums.AvatarURL;
 
 import java.util.ArrayList;
