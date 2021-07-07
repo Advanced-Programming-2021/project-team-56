@@ -1,0 +1,54 @@
+.root {
+    -fx-background-image: url(../images/Black-Purple-Hexagon-Background.png);
+    -fx-background-size: cover;
+}
+
+Button {
+    -fx-background-color: #0E061E;
+    -fx-border-width: 5px;
+    -fx-border-color:  #DBBEF6;
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: white;
+    -fx-background-radius: 40;
+    -fx-border-radius: 35;
+    -fx-font-size: 25;
+}
+
+GridPane {
+    -fx-border-width: 5px;
+    -fx-border-radius: 5;
+    -fx-border-color: #280079;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #500274;
+    -fx-background-size: 20px;
+
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #0E061E;
+    -fx-background-size: 20px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #a500ff;
+}
+
+.scroll-bar:vertical *.increment-arrow,
+.scroll-bar:vertical *.decrement-arrow {
+    -fx-background-color: black;
+    -fx-background-image: url(../images/Millenium-Eye.png);
+    -fx-background-size: cover;
+}
+
+.scroll-bar:vertical *.increment-button,
+.scroll-bar:vertical *.decrement-button {
+    -fx-background-color: black;
+    -fx-background-image: url(../images/Millenium-Eye.png);
+    -fx-background-size: cover;
+}

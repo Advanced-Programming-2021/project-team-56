@@ -17,6 +17,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import model.Card;
+import model.Deck;
 import model.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
@@ -42,6 +44,7 @@ public class DeckListView {
 
     @FXML
     public void initialize() {
+
         VBox deckListVBox = instantiateDeckListVBox();
         editMenuButtons(new ArrayList<>(Collections.singletonList(backButton)));
         scrollPane.setFitToWidth(true);
@@ -56,7 +59,6 @@ public class DeckListView {
         for (int i = 0; i < 20; i++) {
             DeckMenuController.getInstance().createDeck("Deck" + (i + 1));
         }
-
         String allDecksInformation = DeckMenuController.getInstance().getUsersDeckInformation();
         if (allDecksInformation.length() == 0) {
             return deckListVBox;

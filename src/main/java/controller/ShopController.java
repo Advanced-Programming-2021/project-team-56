@@ -39,6 +39,10 @@ public class ShopController {
         user.increaseMoney(moneyAmount);
         return "your money increased by the value of " + amount + "!";
     }
+
+    public String getNumberOfCardInUsersCards(String cardName) {
+        return User.getCurrentUser().getNumberOfCardsInUsersAllCards(cardName);
+    }
 }
 
 

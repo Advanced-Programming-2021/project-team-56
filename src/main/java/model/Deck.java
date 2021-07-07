@@ -27,6 +27,16 @@ public class Deck {
         return userCards;
     }
 
+    public String getNumberOfCardsInUserCards(String cardName) {
+        int cardCount = 0;
+        for (Card card : userCards) {
+            if (card.getName().equals(cardName)) {
+                cardCount++;
+            }
+        }
+        return String.valueOf(cardCount);
+    }
+
     public void setDeckActive() {
         this.isActivated = true;
     }
