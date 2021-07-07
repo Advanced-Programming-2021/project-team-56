@@ -37,8 +37,6 @@ public class DeckMenuController {
     public void deleteDeck(String deckName) {
         User user = User.getCurrentUser();
         user.removeDeckFromDecks(user.getDeckByDeckName(deckName));
-//        }
-//        return "deck with name " + deckName + " does not exist";
     }
 
     public void setActive(String deckName) {
@@ -52,22 +50,22 @@ public class DeckMenuController {
         Deck deck = user.getDeckByDeckName(deckName);
         if (isAddToSide) {
             if (deck.isSideDeckFull()) {
-                return "side deck is full";
+                return "Side deck is full";
             }
         } else {
             if (deck.isMainDeckFull()) {
-                return "main deck is full";
+                return "Main deck is full";
             }
         }
         if (deck.isThreeCardsWithThisNameInDeck(cardName)) {
-            return "there are already three cards with name\n" + cardName + "\nin deck\n" + deckName;
+            return "There are already three cards with name\n" + cardName + "\nin deck " + deckName;
         }
         if (isAddToSide) {
             deck.addCardToSideDeck(cardName);
         } else {
             deck.addCardToMainDeck(cardName);
         }
-        return "card added successfully";
+        return "Card added successfully";
     }
 
     public String removeFromSideDeck(String deckName, String cardName, String username) {
@@ -87,11 +85,8 @@ public class DeckMenuController {
         return "card with name " + cardName + " does not exist in side deck";
     }
 
-    public String removeFromMainDeck(String deckName, String cardName, String username) {
-        User user = User.getUserByUsername(username);
-        if (!user.isDeckWithThisNameExistent(deckName)) {
-            return "deck with name " + deckName + " does not exist";
-        }
+    public String removeFromMainDeck(String deckName, String cardName) {
+        User user = User.getCurrentUser();
         Deck deck = user.getDeckByDeckName(deckName);
         for (Card card : deck.getMainDeck()) {
             if (card.getName().equals(cardName)) {

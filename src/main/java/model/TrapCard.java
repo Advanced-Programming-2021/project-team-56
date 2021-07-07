@@ -22,7 +22,7 @@ public class TrapCard extends Card {
     }
 
     public TrapCard(Card card) {
-        super(card.getName(), card.getDescription(), card.getPrice());
+        super(card.getName(), card.getDescription(), card.getImageURL(),  card.getPrice());
         TrapCard trapCard = (TrapCard) card;
         this.type = trapCard.getType();
         this.icon = trapCard.getIcon();

@@ -14,7 +14,7 @@ public class SpellCard extends Card {
     }
 
     public SpellCard(Card card) {
-        super(card.getName(), card.getDescription(), card.getPrice());
+        super(card.getName(), card.getDescription(), card.getImageURL(), card.getPrice());
         SpellCard spellCard = (SpellCard) card;
         this.type = spellCard.getType();
         this.icon = spellCard.getIcon();

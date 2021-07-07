@@ -35,42 +35,47 @@
                 </Label>
                 <VBox prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #0E061E; -fx-border-width: 10; -fx-border-radius: 10;">
                     <children>
-                        <AnchorPane fx:id="firstRowMainDeckAnchorPane" prefHeight="150.0" prefWidth="800.0" />
-                        <AnchorPane fx:id="secondRowMainDeckAnchorPane" prefHeight="150.0" prefWidth="800.0" />
-                        <AnchorPane fx:id="thirdRowMainDeckAnchorPane" prefHeight="150.0" prefWidth="800.0" />
+                        <AnchorPane fx:id="mainDeckAnchorPane" prefHeight="450.0" prefWidth="800.0" />
                     </children>
                 </VBox>
             </children>
         </VBox>
-        <VBox layoutX="525.0" layoutY="750.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="750.0">
+        <VBox layoutX="525.0" layoutY="750.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="750.0">
             <children>
                 <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 10; -fx-border-radius: 5;" styleClass="deckType" text="Side Deck" textFill="WHITE">
                     <font>
                         <Font name="Times New Roman" size="35.0" />
                     </font>
                 </Label>
-                <HBox prefHeight="150.0" prefWidth="800.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #0E061E; -fx-border-width: 10; -fx-border-radius: 10;">
+                <HBox prefHeight="175.0" prefWidth="800.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #0E061E; -fx-border-width: 10; -fx-border-radius: 10;">
                     <children>
-                        <AnchorPane fx:id="sideDeckAnchorPane" prefHeight="150.0" prefWidth="800.0" />
+                        <AnchorPane fx:id="sideDeckAnchorPane" prefHeight="175.0" prefWidth="800.0" />
                     </children>
                 </HBox>
             </children>
         </VBox>
         <ScrollPane fx:id="userCardsScrollPane" layoutX="1132.0" layoutY="296.0" prefHeight="1050.0" prefWidth="310.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Button fx:id="backButton" layoutX="15.0" layoutY="970.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Back" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="15.0" />
-      <VBox fx:id="errorVBox" alignment="TOP_CENTER" layoutX="625.0" layoutY="325.0" prefHeight="400.0" prefWidth="600.0" spacing="100.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: #DBBEF6;" AnchorPane.bottomAnchor="325.0" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="455.0" AnchorPane.topAnchor="325.0">
-         <children>
-            <Label fx:id="errorLabel" alignment="CENTER" prefHeight="170.0" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Times New Roman" size="25.0" />
-               </font>
-            </Label>
-            <Button fx:id="errorVBoxBackButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Back" />
-         </children>
-         <padding>
-            <Insets bottom="10.0" top="50.0" />
-         </padding>
-      </VBox>
+        <Button fx:id="backButton" layoutX="15.0" layoutY="970.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Back" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="15.0" />
+        <VBox fx:id="addCardToDeckVBox" alignment="TOP_CENTER" layoutX="625.0" layoutY="325.0" prefHeight="400.0" prefWidth="600.0" spacing="50.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: #DBBEF6;" AnchorPane.bottomAnchor="325.0" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="455.0" AnchorPane.topAnchor="325.0">
+            <children>
+                <Label fx:id="addCardToDeckTextLabel" alignment="CENTER" prefHeight="170.0" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Times New Roman" size="25.0" />
+                    </font>
+                </Label>
+            <HBox fx:id="addCardToDeckHBox" alignment="CENTER" spacing="10.0">
+               <children>
+                  <Button fx:id="mainDeckAddButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="Main Deck" />
+                  <Button fx:id="sideDeckAddButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="Side Deck" />
+               </children>
+            </HBox>
+                <Button fx:id="addCardToDeckBackButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Back" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" top="20.0" />
+            </padding>
+        </VBox>
+      <Button fx:id="removeButton" layoutX="300.0" layoutY="970.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remove" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="300.0" />
     </children>
     <stylesheets>
         <URL value="@../../CSS/deck.css" />

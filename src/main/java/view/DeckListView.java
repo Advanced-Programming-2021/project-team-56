@@ -59,15 +59,6 @@ public class DeckListView {
         for (int i = 0; i < 20; i++) {
             DeckMenuController.getInstance().createDeck("Deck" + (i + 1));
         }
-//        Deck deck = User.getCurrentUser().getDeckByDeckName("Deck1");
-//        for (Card card : deck.getUserCards()) {
-//            System.out.println(DeckMenuController.getInstance().addToDeck(deck.getDeckName(), card.getName(), false));
-//        }
-//        System.out.println("Deck Cards: " + deck.getDeckCards() + "\n\n\n\n\n");
-//        System.out.println("Main Deck Cards: " + deck.getMainDeck() + "\n\n\n\n\n");
-//        System.out.println("Side Deck Cards: " + deck.getSideDeck() + "\n\n\n\n\n");
-//        System.out.println(DeckMenuController.getInstance().showUsersDecks(User.getCurrentUser().getUsername()));
-
         String allDecksInformation = DeckMenuController.getInstance().getUsersDeckInformation();
         if (allDecksInformation.length() == 0) {
             return deckListVBox;

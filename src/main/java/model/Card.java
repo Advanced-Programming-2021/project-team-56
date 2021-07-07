@@ -21,9 +21,10 @@ public class Card {
         this.equipID = equipID;
     }
 
-    public Card(String name, String description, int price) {
+    public Card(String name, String description, String imageURL, int price) {
         this.name = name;
         this.description = description;
+        this.imageURL = imageURL;
         this.price = price;
     }
 

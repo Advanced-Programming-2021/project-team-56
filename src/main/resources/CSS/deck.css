@@ -7,7 +7,7 @@ Button {
     -fx-background-color: #0E061E;
     -fx-border-width: 5px;
     -fx-border-color:  #DBBEF6;
-    -fx-font-family: sample;
+    -fx-font-family: "Times New Roman";
     -fx-text-fill: white;
     -fx-background-radius: 40;
     -fx-border-radius: 35;
