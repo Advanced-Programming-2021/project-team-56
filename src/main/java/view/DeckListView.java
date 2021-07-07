@@ -56,9 +56,10 @@ public class DeckListView {
     private VBox instantiateDeckListVBox() {
         VBox deckListVBox = new VBox();
         //TODO test deck adding
-        for (int i = 0; i < 20; i++) {
-            DeckMenuController.getInstance().createDeck("Deck" + (i + 1));
-        }
+//        for (int i = 0; i < 20; i++) {
+//            DeckMenuController.getInstance().createDeck("Deck" + (i + 1));
+//        }
+
         String allDecksInformation = DeckMenuController.getInstance().getUsersDeckInformation();
         if (allDecksInformation.length() == 0) {
             return deckListVBox;
@@ -160,7 +161,6 @@ public class DeckListView {
         });
         setOnMouseExitedForImageViews(editDeckImageView);
         editDeckImageView.setOnMouseClicked(event -> {
-            //TODO go to Deck page
             HBox deckInformationHBox = (HBox) editDeckImageView.getParent().getParent();
             Label deckNameLabel = (Label) deckInformationHBox.getChildren().get(1);
             DeckView.setDeckName(deckNameLabel.getText());
@@ -247,7 +247,9 @@ public class DeckListView {
         } else {
             if (deckNameTextField.getText().matches("\\S+")) {
                 deckCreationResultLabel.setText(DeckMenuController.getInstance().createDeck(deckNameTextField.getText()));
-                addNewDecksInformationHBox(deckNameTextField.getText());
+                if (deckCreationResultLabel.getText().equals("deck created successfully!")) {
+                    addNewDecksInformationHBox(deckNameTextField.getText());
+                }
             } else {
                 deckCreationResultLabel.setText("Invalid Deck Name format!");
             }

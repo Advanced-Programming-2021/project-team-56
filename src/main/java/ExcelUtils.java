@@ -97,7 +97,7 @@ public class ExcelUtils {
                         break;
                 }
             }
-            monsterCard.setImageURL(getClass().getResource("/images/Cards/Monsters/"+ monsterCard.getName() +".jpg").toExternalForm());
+            monsterCard.setImageURL("/images/Cards/Monsters/"+ monsterCard.getName() +".jpg");
             cards.add(monsterCard);
             monsterCards.add(monsterCard);
         }

@@ -1,14 +1,12 @@
 package view;
 
 import controller.DeckMenuController;
-import controller.SoundPlayer;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -20,7 +18,6 @@ import model.Card;
 import model.Deck;
 import model.User;
 import model.enums.MenuURL;
-import model.enums.SoundURL;
 import view.components.NodeEditor;
 
 import java.io.IOException;
@@ -58,20 +55,19 @@ public class DeckView {
 
     @FXML
     public void initialize() {
+        makeUserCardsScrollPane();
+        deckNameLabel.setText(deck.getDeckName());
+        initializeMainDeckCards();
+        initializeSideDeckCards();
+        editButtons();
         editAddCardToDeckVBox();
+    }
+
+    private void makeUserCardsScrollPane() {
         GridPane userCardsGridPane = makeUserCardsGridPane();
         userCardsScrollPane.setContent(userCardsGridPane);
         userCardsScrollPane.setFitToWidth(true);
         userCardsScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        deckNameLabel.setText(deck.getDeckName());
-        editButtons();
-        initializeMainDeckCards();
-        initializeSideDeckCards();
-    }
-
-    private void editAddCardToDeckVBox() {
-        addCardToDeckVBox.setVisible(false);
-        addCardToDeckBackButton.setOnMouseClicked(event -> addCardToDeckVBox.setVisible(false));
     }
 
     public void initializeMainDeckCards() {
@@ -91,6 +87,11 @@ public class DeckView {
                 cardImageView.setLayoutX(sideDeckAnchorPane.getChildren().get(i - 1).getLayoutX() + 35);
             }
         }
+    }
+
+    private void editAddCardToDeckVBox() {
+        addCardToDeckVBox.setVisible(false);
+        addCardToDeckBackButton.setOnMouseClicked(event -> addCardToDeckVBox.setVisible(false));
     }
 
     private ImageView instantiateCardImage(Card card, int cardIndex, boolean isSideDeckCardImageView) {
@@ -128,11 +129,7 @@ public class DeckView {
                 label.setText(String.valueOf(Integer.parseInt(label.getText()) + 1));
             });
         });
-        cardImageView.setOnMouseEntered(event -> {
-            SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
-            cardImageView.setEffect(new Glow(0.6));
-        });
-        cardImageView.setOnMouseExited(event -> cardImageView.setEffect(null));
+        NodeEditor.editNode(0.6, cardImageView);
         return cardImageView;
     }
 
@@ -164,21 +161,14 @@ public class DeckView {
 
     private GridPane makeUserCardsGridPane() {
         //TODO there is a gap between curt of the something.. ask the gang wtf is going on
-        GridPane gridPane = new GridPane();
-        editGridPane(gridPane);
+        GridPane gridPane = instantiateGridPane();
         ArrayList<Card> userAllCards = User.getCurrentUser().getUserAllCards();
         for (int i = 0; i < userAllCards.size(); i++) {
             Card card = userAllCards.get(i);
             if (!userDeckCards.containsKey(card.getName())) {
-                Rectangle cardImageRectangle = new Rectangle(200, 291.6864608076009501187648456057);
-                editCardImageRectangle(cardImageRectangle, card);
-                Label numberOfCardInUserDeckCards = new Label(deck.getNumberOfCardsInUserCards(card.getName()));
-                numberOfCardInUserDeckCards.setStyle("-fx-text-fill: white; -fx-font-family: 'Times New Roman'; -fx-font-size: 25px");
-                userDeckCards.put(card.getName(), numberOfCardInUserDeckCards);
-                Circle backgroundCircle = new Circle(30, Paint.valueOf("#0E061E"));
-                Circle magicCircle = new Circle(30, new ImagePattern(new Image("/images/Magic-Circle.png")));
-                StackPane numberLabel = new StackPane(backgroundCircle, magicCircle, numberOfCardInUserDeckCards);
-                HBox userDeckCardHBox = new HBox(5, cardImageRectangle, numberLabel);
+                Rectangle cardImageRectangle = instantiateCardImageRectangle(card);
+                StackPane userCardsAmountStackPane = instantiateUserCardsAmountNode(card.getName());
+                HBox userDeckCardHBox = new HBox(5, cardImageRectangle, userCardsAmountStackPane);
                 userDeckCardHBox.setAlignment(Pos.CENTER);
                 gridPane.add(userDeckCardHBox, 0, i);
             }
@@ -186,13 +176,16 @@ public class DeckView {
         return gridPane;
     }
 
-    private void editGridPane(GridPane gridPane) {
+    private GridPane instantiateGridPane() {
+        GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10, 5, 10, 10));
         gridPane.setVgap(5);
         gridPane.setStyle("-fx-background-color: #0E061E");
+        return gridPane;
     }
 
-    private void editCardImageRectangle(Rectangle rectangle, Card card) {
+    private Rectangle instantiateCardImageRectangle(Card card) {
+        Rectangle rectangle = new Rectangle(200, 291.6864608076009501187648456057);
         rectangle.setFill(new ImagePattern(new Image(card.getImageURL())));
         rectangle.setOnMouseClicked(event -> {
             addCardToDeckHBox.setVisible(true);
@@ -226,6 +219,16 @@ public class DeckView {
             }
         });
         NodeEditor.editNode(0.3, rectangle);
+        return rectangle;
+    }
+
+    private StackPane instantiateUserCardsAmountNode(String cardName) {
+        Label numberOfCardInUserDeckCards = new Label(deck.getNumberOfCardsInUserCards(cardName));
+        numberOfCardInUserDeckCards.setStyle("-fx-text-fill: white; -fx-font-family: 'Times New Roman'; -fx-font-size: 25px");
+        userDeckCards.put(cardName, numberOfCardInUserDeckCards);
+        Circle backgroundCircle = new Circle(30, Paint.valueOf("#0E061E"));
+        Circle magicCircle = new Circle(30, new ImagePattern(new Image("/images/Magic-Circle.png")));
+        return new StackPane(backgroundCircle, magicCircle, numberOfCardInUserDeckCards);
     }
 
     private void editButtons() {
