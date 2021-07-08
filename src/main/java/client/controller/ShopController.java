@@ -1,7 +1,7 @@
-package controller;
+package client.controller;
 
-import model.Card;
-import model.User;
+import server.model.Card;
+import server.model.User;
 
 public class ShopController {
 

@@ -1,8 +1,8 @@
-package controller;
+package client.controller;
 
-import model.User;
+import server.model.User;
 
-import static model.enums.ProcessResult.*;
+import static server.model.enums.ProcessResult.*;
 
 public class LoginMenuController {
 

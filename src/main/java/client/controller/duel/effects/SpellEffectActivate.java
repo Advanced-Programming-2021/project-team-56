@@ -1,9 +1,10 @@
-package controller.duel.effects;
+package client.controller.duel.effects;
 
-import controller.duel.DuelWithUser;
-import model.*;
+import client.controller.duel.DuelWithUser;
+import server.model.*;
 
 import view.duel.EffectView;
+import client.controller.duel.effects.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

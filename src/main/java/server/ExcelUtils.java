@@ -1,11 +1,11 @@
 package server;
 
-import model.Card;
-import model.MonsterCard;
-import model.SpellCard;
-import model.TrapCard;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import server.model.Card;
+import server.model.MonsterCard;
+import server.model.SpellCard;
+import server.model.TrapCard;
 
 import java.io.FileInputStream;
 import java.io.IOException;

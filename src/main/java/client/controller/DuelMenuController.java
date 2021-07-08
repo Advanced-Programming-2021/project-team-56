@@ -1,7 +1,7 @@
-package controller;
+package client.controller;
 
-import model.Deck;
-import model.User;
+import server.model.Deck;
+import server.model.User;
 
 public class DuelMenuController {
 

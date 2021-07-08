@@ -1,14 +1,14 @@
-package controller.duel.phases;
+package client.controller.duel.phases;
 
-import controller.duel.DuelWithUser;
-import controller.duel.effects.SpellEffectActivate;
-import controller.duel.effects.SpellEffectCanActivate;
-import model.Card;
-import model.MonsterCard;
-import model.SpellCard;
-import model.TrapCard;
+import client.controller.duel.DuelWithUser;
+import client.controller.duel.effects.SpellEffectActivate;
+import client.controller.duel.effects.SpellEffectCanActivate;
+import server.model.Card;
+import server.model.MonsterCard;
+import server.model.SpellCard;
+import server.model.TrapCard;
 import view.duel.EffectView;
-import model.Output;
+import server.model.Output;
 
 import java.util.ArrayList;
 import java.util.HashMap;

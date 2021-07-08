@@ -1,8 +1,8 @@
-package controller.duel.effects;
+package client.controller.duel.effects;
 
-import model.*;
+import server.model.*;
 
-import controller.duel.DuelWithUser;
+import client.controller.duel.DuelWithUser;
 import view.duel.EffectView;
 
 import java.util.ArrayList;

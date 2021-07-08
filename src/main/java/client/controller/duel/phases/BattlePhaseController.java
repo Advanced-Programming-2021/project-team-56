@@ -1,11 +1,11 @@
-package controller.duel.phases;
+package client.controller.duel.phases;
 
-import controller.duel.DuelWithUser;
-import controller.duel.effects.SpellEffectActivate;
-import model.Board;
-import model.Card;
-import model.MonsterCard;
-import model.Output;
+import client.controller.duel.DuelWithUser;
+import client.controller.duel.effects.SpellEffectActivate;
+import server.model.Board;
+import server.model.Card;
+import server.model.MonsterCard;
+import server.model.Output;
 import view.duel.EffectView;
 
 import java.util.ArrayList;

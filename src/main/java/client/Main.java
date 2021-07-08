@@ -1,3 +1,5 @@
+package client;
+
 import view.MainGUI;
 
 import java.io.IOException;

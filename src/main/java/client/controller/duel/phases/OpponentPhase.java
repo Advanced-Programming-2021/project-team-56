@@ -1,10 +1,10 @@
-package controller.duel.phases;
+package client.controller.duel.phases;
 
-import controller.duel.DuelWithUser;
-import controller.duel.effects.SpellEffectActivate;
-import controller.duel.effects.TrapEffectActivate;
-import controller.duel.effects.TrapEffectCanActivate;
-import model.*;
+import client.controller.duel.DuelWithUser;
+import client.controller.duel.effects.SpellEffectActivate;
+import client.controller.duel.effects.TrapEffectActivate;
+import client.controller.duel.effects.TrapEffectCanActivate;
+import server.model.*;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class OpponentPhase {
     private final SpellEffectActivate spellEffectActivate;
     private final TrapEffectActivate trapEffectActivate;
     private final TrapEffectCanActivate trapEffectCanActivate;
-    private final ArrayList<Card> chainLink = new ArrayList<>();
+    private final ArrayList<model.Card> chainLink = new ArrayList<>();
     static Pattern attack = Pattern.compile("^attack (\\d+)$");
 
     {
@@ -42,7 +42,7 @@ public class OpponentPhase {
         return opponentPhase;
     }
 
-    public ArrayList<Card> getChainLink() {
+    public ArrayList<model.Card> getChainLink() {
         return chainLink;
     }
 
@@ -63,7 +63,7 @@ public class OpponentPhase {
                 duelWithUser.decreaseTempTurnCounter();
                 return;
             } else {
-                effectView.output(Output.InvalidCommand.toString());
+                effectView.output(model.Output.InvalidCommand.toString());
             }
         }
         while (true) {

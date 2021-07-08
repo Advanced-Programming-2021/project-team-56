@@ -1,8 +1,8 @@
-package controller.duel.phases;
+package client.controller.duel.phases;
 
-import controller.duel.DuelWithUser;
-import model.Card;
-import model.MonsterCard;
+import client.controller.duel.DuelWithUser;
+import server.model.Card;
+import server.model.MonsterCard;
 
 import java.util.ArrayList;
 

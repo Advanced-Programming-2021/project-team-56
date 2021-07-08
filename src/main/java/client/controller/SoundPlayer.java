@@ -1,7 +1,7 @@
-package controller;
+package client.controller;
 
 import javafx.scene.media.AudioClip;
-import model.enums.SoundURL;
+import server.model.enums.SoundURL;
 
 public class SoundPlayer {
 

@@ -1,6 +1,6 @@
-package view;
-import controller.DeckMenuController;
-import controller.SoundPlayer;
+package client.view;
+import client.controller.DeckMenuController;
+import client.controller.SoundPlayer;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,18 +17,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import model.Card;
-import model.Deck;
-import model.User;
-import model.enums.MenuURL;
-import model.enums.SoundURL;
+import server.model.Card;
+import server.model.Deck;
+import server.model.User;
+import server.model.enums.MenuURL;
+import server.model.enums.SoundURL;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import static view.MainGUI.editMenuButtons;
-import static view.components.NodeEditor.editNode;
+import static client.view.components.NodeEditor.editNode;
 
 public class DeckListView {
 
@@ -165,7 +165,7 @@ public class DeckListView {
             Label deckNameLabel = (Label) deckInformationHBox.getChildren().get(1);
             DeckView.setDeckName(deckNameLabel.getText());
             try {
-                FxmlController.getInstance().setSceneFxml(MenuURL.DECK);
+               FxmlController.getInstance().setSceneFxml(MenuURL.DECK);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,4 +1,4 @@
-package model.popup;
+package server.model.popup;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

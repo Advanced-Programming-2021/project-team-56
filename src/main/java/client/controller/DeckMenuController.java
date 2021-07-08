@@ -1,9 +1,9 @@
-package controller;
+package client.controller;
 
-import model.Card;
-import model.Deck;
-import model.MonsterCard;
-import model.User;
+import server.model.Card;
+import server.model.Deck;
+import server.model.MonsterCard;
+import server.model.User;
 
 import java.util.ArrayList;
 import java.util.Comparator;

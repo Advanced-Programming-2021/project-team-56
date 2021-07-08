@@ -1,12 +1,9 @@
-package view.duel;
+package client.view.duel;
 
-import controller.duel.DuelWithUser;
-import model.Card;
-import model.Output;
+import client.controller.duel.DuelWithUser;
+import server.model.Card;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class EffectView {
 

@@ -1,11 +1,11 @@
-package view.components;
+package client.view.components;
 
-import controller.SoundPlayer;
+import client.controller.SoundPlayer;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
-import model.enums.SoundURL;
+import server.model.enums.SoundURL;
 
 public class NodeEditor {
 
