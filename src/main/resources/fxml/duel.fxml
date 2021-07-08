@@ -6,6 +6,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -13,7 +15,17 @@
 
 <AnchorPane prefHeight="1050.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.duel.DuelView">
    <children>
-      <VBox layoutX="554.0" layoutY="312.0" prefHeight="504.0" prefWidth="593.0" style="-fx-background-color: #500274; -fx-background-radius: 60;">
+      <ImageView fitHeight="1270.0" fitWidth="636.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <image>
+            <Image url="@../images/Transparent/Yugi-Mutou.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="1050.0" fitWidth="627.0" layoutX="968.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/Transparent/Chazz-Princeton.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="540.0" layoutY="100.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #500274; -fx-background-radius: 60;" AnchorPane.bottomAnchor="450.0" AnchorPane.leftAnchor="540.0" AnchorPane.rightAnchor="540.0" AnchorPane.topAnchor="100.0">
          <children>
             <Label alignment="CENTER" prefHeight="67.0" prefWidth="593.0" text="Start Duel" textFill="#878787">
                <font>
@@ -41,7 +53,7 @@
                   <ComboBox fx:id="numberOfRoundsComboBox" prefHeight="64.0" prefWidth="160.0" style="-fx-background-radius: 30; -fx-background-color: rgb(169,145,181);" />
                </children>
             </HBox>
-            <Button fx:id="startButton" onMouseClicked="#startClicked" mnemonicParsing="false" prefHeight="78.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-background-color: #434356;" text="start" textFill="WHITE">
+            <Button fx:id="startButton" mnemonicParsing="false" onMouseClicked="#startClicked" prefHeight="78.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-background-color: #434356;" text="start" textFill="WHITE">
                <VBox.margin>
                   <Insets left="196.0" top="50.0" />
                </VBox.margin>
@@ -59,7 +71,7 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="backButton" onMouseClicked="#backClicked" layoutX="20.0" layoutY="940.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="250.0" style="-fx-background-radius: 50; -fx-background-color: #434356;" text="Back" textFill="WHITE">
+      <Button fx:id="backButton" layoutX="20.0" layoutY="940.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="88.0" prefWidth="250.0" style="-fx-background-radius: 50; -fx-background-color: #434356;" text="Back" textFill="WHITE">
          <font>
             <Font name="Times New Roman" size="28.0" />
          </font>

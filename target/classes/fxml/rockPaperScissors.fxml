@@ -36,7 +36,7 @@
             </ImageView>
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutY="25.0" prefHeight="75.0" prefWidth="1680.0" text="Rock-Paper-Scissors" textFill="#f9abff">
+      <Label alignment="CENTER" layoutX="736.0" layoutY="25.0" prefHeight="75.0" prefWidth="276.0" text="Rock-Paper-Scissors" textFill="#f9abff">
          <font>
             <Font name="Times New Roman" size="31.0" />
          </font>
