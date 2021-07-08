@@ -25,7 +25,7 @@
             <Image url="@../images/Transparent/Chazz-Princeton.png" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutX="540.0" layoutY="100.0" prefHeight="500.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #500274; -fx-background-radius: 60;" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="580.0" AnchorPane.rightAnchor="580.0" AnchorPane.topAnchor="150.0">
+      <VBox alignment="CENTER" layoutX="540.0" layoutY="100.0" prefHeight="500.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #500274; -fx-background-radius: 60;" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="150.0">
          <children>
             <Label alignment="CENTER" prefHeight="67.0" text="Start Duel" textFill="#878787">
                <font>
