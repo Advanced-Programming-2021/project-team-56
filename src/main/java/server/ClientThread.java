@@ -5,27 +5,30 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 
 public class ClientThread extends Thread {
-    Socket client;
+    private final Socket client;
+    private DataInputStream inStream;
+    private DataOutputStream outStream;
 
-    ClientThread(Socket inSocket) {
+    public ClientThread(Socket inSocket) {
         client = inSocket;
     }
 
     public void run() {
         try {
-            DataInputStream inStream = new DataInputStream(client.getInputStream());
-            DataOutputStream outStream = new DataOutputStream(client.getOutputStream());
-            String clientMessage = "", serverMessage = "";
+            inStream = new DataInputStream(client.getInputStream());
+            outStream = new DataOutputStream(client.getOutputStream());
+            String clientMessage = "";
+            String serverMessage = "";
             while (!clientMessage.equals("bye")) {
-                clientMessage = inStream.readUTF();
-                outStream.writeUTF(serverMessage);
+                outStream.writeUTF("");
                 outStream.flush();
+                clientMessage = inStream.readUTF();
             }
             inStream.close();
             outStream.close();
             client.close();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             System.out.println("Client - exit!! ");
         }
