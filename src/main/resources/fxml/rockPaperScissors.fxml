@@ -17,26 +17,26 @@
         <URL value="@../CSS/duel.css" />
     </stylesheets>
    <children>
-      <HBox layoutX="478.0" layoutY="584.0" prefHeight="233.0" prefWidth="735.0">
+      <HBox layoutX="522.0" layoutY="627.0" prefHeight="233.0" prefWidth="735.0" AnchorPane.leftAnchor="522.0" AnchorPane.rightAnchor="408.0">
          <children>
-            <ImageView onMouseClicked="#rockClicked" fx:id="rockImageView" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="rockImageView" fitHeight="250.0" fitWidth="250.0" onMouseClicked="#rockClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/RockPaperScissors/rock1.jpg" />
                </image>
             </ImageView>
-            <ImageView onMouseClicked="#paperClicked" fx:id="paperImageView" fitHeight="250.0" fitWidth="250.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="paperImageView" fitHeight="250.0" fitWidth="250.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#paperClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/RockPaperScissors/paper1.jpg" />
                </image>
             </ImageView>
-            <ImageView onMouseClicked="#scissorsClicked" fx:id="scissorsImageView" fitHeight="250.0" fitWidth="250.0" layoutX="260.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="scissorsImageView" fitHeight="250.0" fitWidth="250.0" layoutX="260.0" layoutY="10.0" onMouseClicked="#scissorsClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/RockPaperScissors/scissors1.jpg" />
                </image>
             </ImageView>
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="713.0" layoutY="25.0" prefHeight="75.0" prefWidth="276.0" text="Rock-Paper-Scissors" textFill="#f9abff">
+      <Label alignment="CENTER" layoutX="736.0" layoutY="25.0" prefHeight="75.0" prefWidth="276.0" text="Rock-Paper-Scissors" textFill="#f9abff">
          <font>
             <Font name="Times New Roman" size="31.0" />
          </font>
@@ -46,7 +46,7 @@
             <Font name="Times New Roman" size="30.0" />
          </font>
       </Label>
-      <VBox fx:id="resultVBox" layoutX="458.0" layoutY="241.0" prefHeight="300.0" prefWidth="770.0" style="-fx-background-color: #37445A;">
+      <VBox fx:id="resultVBox" layoutX="513.0" layoutY="236.0" prefHeight="300.0" prefWidth="770.0" style="-fx-background-color: #37445A; -fx-border-width: 10; -fx-border-radius: 5; -fx-border-color: #DBBEF6;">
          <children>
             <Label fx:id="winnerLabel" alignment="CENTER" prefHeight="40.0" prefWidth="770.0" text="" textFill="WHITE">
                <font>
@@ -69,12 +69,12 @@
                   <Insets left="130.0" right="130.0" top="60.0" />
                </VBox.margin>
                <children>
-                  <Button onMouseClicked="#button1Clicked" fx:id="button1" mnemonicParsing="false" prefHeight="76.0" prefWidth="195.0" style="-fx-background-radius: 50; -fx-background-color: #1B2948;" text="" textFill="WHITE">
+                  <Button fx:id="button1" mnemonicParsing="false" onMouseClicked="#button1Clicked" prefHeight="76.0" prefWidth="195.0" style="-fx-background-radius: 50; -fx-background-color: #1B2948; -fx-border-radius: 50; -fx-border-color: #DBBEF6; -fx-border-width: 5;" text="" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </Button>
-                  <Button onMouseClicked="#button2Clicked" fx:id="button2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="198.0" style="-fx-background-radius: 50; -fx-background-color: #1B2948;" text="Button" textFill="WHITE">
+                  <Button fx:id="button2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#button2Clicked" prefHeight="76.0" prefWidth="198.0" style="-fx-background-radius: 50; -fx-background-color: #1B2948; -fx-border-radius: 50; -fx-border-color: #DBBEF6; -fx-border-width: 5;" text="Button" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="120.0" />
                      </HBox.margin>

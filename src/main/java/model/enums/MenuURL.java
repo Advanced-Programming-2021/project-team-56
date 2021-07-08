@@ -12,7 +12,8 @@ public enum MenuURL {
     SCOREBOARD("/fxml/scoreboard.fxml"),
     PROFILE("/fxml/profile.fxml"),
     SHOP("/fxml/shop.fxml"),
-    DUEL("/fxml/duel.fxml");
+    DUEL("/fxml/duel.fxml"),
+    ROCK_PAPER_SCISSORS("/fxml/rockPaperScissors.fxml");
 
 
 

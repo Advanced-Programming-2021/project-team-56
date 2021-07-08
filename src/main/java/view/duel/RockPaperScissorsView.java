@@ -46,7 +46,7 @@ public class RockPaperScissorsView {
         setOnMouseEnteredAndExited(rockImageView, RockPaperScissors.ROCK);
         setOnMouseEnteredAndExited(paperImageView, RockPaperScissors.PAPER);
         setOnMouseEnteredAndExited(scissorsImageView, RockPaperScissors.SCISSORS);
-        turnLabel.setText(user1.getUsername());
+        turnLabel.setText(user1.getUsername() + "'s Turn");
         button1.setText(user1.getUsername());
         button2.setText(user2.getUsername());
         NodeEditor.editNode(1, button1, button2);
@@ -71,7 +71,7 @@ public class RockPaperScissorsView {
     public void rockClicked(MouseEvent mouseEvent) {
         if (rockPaperScissors1 == null) {
             rockPaperScissors1 = RockPaperScissors.ROCK;
-            turnLabel.setText(user2.getUsername());
+            turnLabel.setText(user2.getUsername() + "'s Turn");
         } else {
             rockPaperScissors2 = RockPaperScissors.ROCK;
             decideResult();
@@ -81,7 +81,7 @@ public class RockPaperScissorsView {
     public void paperClicked(MouseEvent mouseEvent) {
         if (rockPaperScissors1 == null) {
             rockPaperScissors1 = RockPaperScissors.PAPER;
-            turnLabel.setText(user2.getUsername());
+            turnLabel.setText(user2.getUsername() + "'s Turn");
         } else {
             rockPaperScissors2 = RockPaperScissors.PAPER;
             decideResult();
@@ -91,7 +91,7 @@ public class RockPaperScissorsView {
     public void scissorsClicked(MouseEvent mouseEvent) {
         if (rockPaperScissors1 == null) {
             rockPaperScissors1 = RockPaperScissors.SCISSORS;
-            turnLabel.setText(user2.getUsername());
+            turnLabel.setText(user2.getUsername() + "'s Turn");
         } else {
             rockPaperScissors2 = RockPaperScissors.SCISSORS;
             decideResult();
@@ -117,8 +117,8 @@ public class RockPaperScissorsView {
 
     private void showResultVBox(User winner, User looser) {
         resultVBox.setVisible(true);
-        winnerLabel.setText(winner.getUsername() + " won");
-        questionLabel.setText(winner.getUsername() + ", please choose the first player to go:");
+        winnerLabel.setText(winner.getUsername() + " Won");
+        questionLabel.setText(winner.getUsername() + ", Please choose the first player to go:");
     }
 
 

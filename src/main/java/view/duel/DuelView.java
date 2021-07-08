@@ -38,7 +38,7 @@ public class DuelView{
         FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
     }
 
-    public void startClicked(MouseEvent mouseEvent) {
+    public void startClicked(MouseEvent mouseEvent) throws IOException {
         if (opponentUserName.getText().equals("")) {
             errorLabel.setText("opponent's username field is empty");
         } else if (numberOfRoundsComboBox.getValue() == null) {
@@ -49,6 +49,7 @@ public class DuelView{
             if (result.equals("duel is valid")) {
                 RockPaperScissorsView.user1 = User.getCurrentUser();
                 RockPaperScissorsView.user2 = User.getUserByUsername(opponentUserName.getText());
+                FxmlController.getInstance().setSceneFxml(MenuURL.ROCK_PAPER_SCISSORS);
             }
         }
     }
