@@ -1,7 +1,5 @@
 package view;
 
-import com.gilecode.yagson.YaGson;
-import com.gilecode.yagson.com.google.gson.reflect.TypeToken;
 import controller.SoundPlayer;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -15,20 +13,13 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import model.User;
 import model.enums.SoundURL;
-import view.components.SceneSizeChangeListener;
 
 import java.awt.*;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainGUI extends Application {
 

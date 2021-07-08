@@ -1,6 +1,5 @@
 package view;
 
-import controller.LoginMenuController;
 import controller.SoundPlayer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,6 +14,7 @@ import javafx.util.Duration;
 import model.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
+import server.Data;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class EntranceView {
     }
 
     public void exitClicked(MouseEvent mouseEvent) {
-        LoginMenuController.getInstance().updateJson();
+        Data.getInstance().updateJson();
         System.exit(0);
     }
 

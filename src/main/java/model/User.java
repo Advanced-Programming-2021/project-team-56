@@ -39,6 +39,7 @@ public class User {
         return null;
     }
 
+
     public static boolean isThisUsernameAlreadyTaken(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username))

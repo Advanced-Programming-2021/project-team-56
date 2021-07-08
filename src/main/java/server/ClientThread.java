@@ -1,5 +1,7 @@
 package server;
 
+import model.User;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -20,9 +22,9 @@ public class ClientThread extends Thread {
             String clientMessage = "";
             String serverMessage = "";
             while (!clientMessage.equals("bye")) {
+                clientMessage = inStream.readUTF();
                 outStream.writeUTF("");
                 outStream.flush();
-                clientMessage = inStream.readUTF();
             }
             inStream.close();
             outStream.close();
@@ -32,5 +34,9 @@ public class ClientThread extends Thread {
         } finally {
             System.out.println("Client - exit!! ");
         }
+    }
+
+    public String process(String clientMessage){
+        return "o";
     }
 }
