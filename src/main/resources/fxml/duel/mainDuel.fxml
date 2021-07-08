@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="1050.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.duel.MainDuelView">
+
+    <stylesheets>
+        <URL value="@../../CSS/mainDuel.css" />
+    </stylesheets>
+   <children>
+      <HBox prefHeight="80.0" style="-fx-background-color: #242551;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+         <children>
+            <VBox prefHeight="970.0" prefWidth="510.0" style="-fx-background-color: #0E061E; -fx-border-color: #500274; -fx-border-width: 5; -fx-border-radius: 2;">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="135.0">
+                     <children>
+                        <Label fx:id="opponentLPLabel" alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="460.0" text=" LP : 8000" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="35.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
+                           <children>
+                              <Pane fx:id="opponentLPBar" prefHeight="60.0" prefWidth="460.0" style="-fx-background-color: #8800d4; -fx-background-radius: 18;" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" right="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="700.0">
+                     <children>
+                        <ImageView fx:id="clickedCardImageView" fitHeight="680.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Duel/Back-card.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="135.0">
+                     <children>
+                        <Label fx:id="currentLPLabel" alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="460.0" text=" LP : 8000" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="35.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
+                           <children>
+                              <Pane fx:id="myLPBar" prefHeight="60.0" prefWidth="460.0" style="-fx-background-color: #8800d4; -fx-background-radius: 18;" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" right="20.0" />
+                     </padding>
+                  </VBox>
+               </children></VBox>
+            <AnchorPane fx:id="fieldAnchorPane" prefHeight="970.0" prefWidth="921.5" />
+            <VBox prefHeight="970.0" prefWidth="248.5" style="-fx-background-color: #0E061E; -fx-border-color: #500274; -fx-border-width: 5; -fx-border-radius: 2;" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

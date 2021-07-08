@@ -1,0 +1,4 @@
+HBox AnchorPane {
+    -fx-background-image: url(../images/Duel/Field/fie_normal.png);
+    -fx-background-size: cover;
+}
