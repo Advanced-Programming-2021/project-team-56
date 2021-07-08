@@ -1,12 +1,12 @@
-package client.controller.duel;
+package controller.duel;
 
-import client.controller.duel.effects.SpellEffectActivate;
-import client.controller.duel.effects.SpellEffectCanActivate;
-import server.model.*;
+import controller.duel.effects.SpellEffectActivate;
+import controller.duel.effects.SpellEffectCanActivate;
+import model.*;
 import view.duel.DuelWithUserView;
 import view.duel.EffectView;
 import view.duel.FirstToGoDeterminerView;
-import client.view.duel.phase.*;
+import view.duel.phase.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

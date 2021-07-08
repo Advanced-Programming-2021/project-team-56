@@ -1,9 +1,9 @@
-package client.controller.duel.effects;
+package controller.duel.effects;
 
-import client.controller.duel.DuelWithUser;
-import client.controller.duel.phases.MainPhase1Controller;
-import server.model.Card;
-import server.model.MonsterCard;
+import controller.duel.DuelWithUser;
+import controller.duel.phases.MainPhase1Controller;
+import model.Card;
+import model.MonsterCard;
 
 import java.util.ArrayList;
 import java.util.HashMap;

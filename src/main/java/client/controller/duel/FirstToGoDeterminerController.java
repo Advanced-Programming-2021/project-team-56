@@ -1,4 +1,4 @@
-package client.controller.duel;
+package controller.duel;
 
 
 public class FirstToGoDeterminerController {

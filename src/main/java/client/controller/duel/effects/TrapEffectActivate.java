@@ -1,9 +1,9 @@
-package client.controller.duel.effects;
+package controller.duel.effects;
 
-import client.controller.duel.DuelWithUser;
-import server.model.Card;
-import server.model.MonsterCard;
-import server.model.Output;
+import controller.duel.DuelWithUser;
+import model.Card;
+import model.MonsterCard;
+import model.Output;
 import view.duel.EffectView;
 
 import java.util.ArrayList;
