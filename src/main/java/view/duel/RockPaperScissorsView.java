@@ -9,12 +9,17 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.User;
+import model.enums.MenuURL;
+import view.FxmlController;
 import view.components.NodeEditor;
+
+import java.io.IOException;
 
 public class RockPaperScissorsView {
 
@@ -26,6 +31,8 @@ public class RockPaperScissorsView {
     public Label questionLabel;
     public Button button1;
     public Button button2;
+    public AnchorPane anchorPane;
+    public Button backButton;
     private RockPaperScissors rockPaperScissors1 = null;
     private RockPaperScissors rockPaperScissors2 = null;
     public ImageView rockImageView;
@@ -49,8 +56,14 @@ public class RockPaperScissorsView {
         turnLabel.setText(user1.getUsername() + "'s Turn");
         button1.setText(user1.getUsername());
         button2.setText(user2.getUsername());
-        NodeEditor.editNode(1, button1, button2);
+        NodeEditor.editNode(1,backButton, button1, button2);
         resultVBox.setVisible(false);
+        anchorPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              //  resultVBox.setVisible(false);
+            }
+        });
     }
 
     private void setOnMouseEnteredAndExited(ImageView imageView, RockPaperScissors rockPaperScissors) {
@@ -96,6 +109,10 @@ public class RockPaperScissorsView {
             rockPaperScissors2 = RockPaperScissors.SCISSORS;
             decideResult();
         }
+    }
+
+    public void backClicked(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
     }
 
     private void decideResult() {
