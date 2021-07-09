@@ -72,7 +72,7 @@ public class ShopView {
             Image image = new Image(Card.getCards().get(i).getImageURL());
             rectangle.setFill(new ImagePattern(image));
             cardsGridPane.add(rectangle, column++, row);
-            GridPane.setMargin(rectangle, new Insets(29));
+            GridPane.setMargin(rectangle, new Insets(30));
         }
     }
 
