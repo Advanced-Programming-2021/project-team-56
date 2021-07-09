@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="1050.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.duel.DuelView">
+<AnchorPane prefHeight="1050.0" prefWidth="1680.0" style="-fx-background-color: #0E061E;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.duel.DuelView">
 
     <stylesheets>
         <URL value="@../../CSS/mainDuel.css" />
@@ -190,15 +190,6 @@
                   </VBox>
               </children>
           </VBox>
-      <VBox alignment="CENTER" layoutX="539.0" layoutY="80.0" style="-fx-background-color: #0E061E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="539.0" AnchorPane.rightAnchor="229.0" AnchorPane.topAnchor="80.0">
-         <children>
-            <ImageView fitHeight="960.0" fitWidth="912.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/Duel/Field/fie_normal.png" />
-               </image>
-            </ImageView>
-         </children>
-      </VBox>
       <VBox fx:id="settingVBox" alignment="CENTER" layoutX="80.0" layoutY="20.0" prefHeight="300.0" prefWidth="500.0" spacing="100.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 6; -fx-border-radius: 8;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="1100.0" AnchorPane.topAnchor="20.0">
          <children>
             <Label text="Setting" textFill="#8800d4">
@@ -225,5 +216,14 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </VBox>
+      <AnchorPane layoutY="85.0" prefHeight="960.0" prefWidth="912.0" AnchorPane.leftAnchor="538.5" AnchorPane.rightAnchor="229.5">
+         <children>
+            <ImageView fitHeight="960.0" fitWidth="912.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/Duel/Field/fie_normal.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
