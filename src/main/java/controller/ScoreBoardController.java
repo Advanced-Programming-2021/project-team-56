@@ -1,6 +1,6 @@
 package controller;
 
-import server.model.User;
+import server.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

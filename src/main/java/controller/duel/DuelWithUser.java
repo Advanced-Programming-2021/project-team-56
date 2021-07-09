@@ -3,6 +3,7 @@ package controller.duel;
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
 import model.*;
+import server.User;
 import view.duel.DuelWithUserView;
 import view.duel.EffectView;
 import view.duel.FirstToGoDeterminerView;

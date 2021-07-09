@@ -15,17 +15,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import model.Card;
-import model.User;
+import server.User;
 import model.enums.MenuURL;
-import view.components.NodeEditor;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class ShopView {

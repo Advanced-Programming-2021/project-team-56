@@ -1,5 +1,7 @@
 package model;
 
+import server.User;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

@@ -1,6 +1,6 @@
 package controller;
 
-import server.model.User;
+import server.User;
 
 public class ProfileController {
 

@@ -17,11 +17,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import server.model.Card;
-import server.model.Deck;
-import server.model.User;
-import server.model.enums.MenuURL;
-import server.model.enums.SoundURL;
+import server.User;
+import model.enums.MenuURL;
+import model.enums.SoundURL;
 
 import java.io.IOException;
 import java.util.ArrayList;

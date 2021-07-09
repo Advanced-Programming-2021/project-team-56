@@ -1,13 +1,10 @@
 package view;
 
-import controller.LoginMenuController;
-import javafx.animation.TranslateTransition;
+import server.LoginController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
-import model.Card;
 import model.enums.MenuURL;
 
 import java.io.IOException;
@@ -68,7 +65,7 @@ public class MainView {
     }
 
     public void logout(MouseEvent mouseEvent) throws IOException {
-        LoginMenuController.getInstance().logout();
+        LoginController.getInstance().logout();
         FxmlController.getInstance().setSceneFxml(MenuURL.LOGIN);
     }
 }

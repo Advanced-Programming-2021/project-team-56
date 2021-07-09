@@ -32,7 +32,7 @@ public class User {
         return users;
     }
 
-    public static User getUserByUsername(String username) {
+    public static synchronized User getUserByUsername(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username))
                 return user;
@@ -41,7 +41,7 @@ public class User {
     }
 
 
-    public static boolean isThisUsernameAlreadyTaken(String username) {
+    public static synchronized boolean isThisUsernameAlreadyTaken(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username))
                 return true;
@@ -49,7 +49,7 @@ public class User {
         return false;
     }
 
-    public static boolean isThisNicknameAlreadyTaken(String nickname) {
+    public static synchronized boolean isThisNicknameAlreadyTaken(String nickname) {
         for (User user : users) {
             if (user.getNickname().equals(nickname))
                 return true;

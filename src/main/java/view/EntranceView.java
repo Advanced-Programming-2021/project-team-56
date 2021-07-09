@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
-import model.User;
+import server.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
 import server.Data;

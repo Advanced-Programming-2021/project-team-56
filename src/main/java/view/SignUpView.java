@@ -1,6 +1,5 @@
 package view;
 
-import controller.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -51,8 +50,15 @@ public class SignUpView {
             errorLabel.setText(EMPTY_FIELD_PASSWORD.value);
             return;
         }
-        errorLabel.setText(LoginMenuController.getInstance()
-                .register(userNameField.getText(), passWordField.getText(), nickNameField.getText()));
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Sign-Up " + userNameField.getText() +
+                     " " + passWordField.getText() + " " + nickNameField.getText());
+            ClientSocket.dataOutputStream.flush();
+            String serverResponse = ClientSocket.dataInputStream.readUTF();
+            errorLabel.setText(serverResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void loginClicked(MouseEvent mouseEvent) throws IOException {

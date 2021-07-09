@@ -1,6 +1,5 @@
 package view;
 
-import controller.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,14 +41,17 @@ public class LoginView {
             errorLabel.setText(EMPTY_FIELD_PASSWORD.value);
             return;
         }
-        String result = LoginMenuController.getInstance().logIn(userNameField.getText(), passWordField.getText());
-        errorLabel.setText(result);
+        ClientSocket.dataOutputStream.writeUTF("Login " + userNameField.getText() +
+                " " + passWordField.getText());
+        ClientSocket.dataOutputStream.flush();
+        String serverResponse = ClientSocket.dataInputStream.readUTF();
+        errorLabel.setText(serverResponse);
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if (result.equals(LOGIN_SUCCESSFUL.value)) {
+        if (serverResponse.equals(LOGIN_SUCCESSFUL.value)) {
             FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
         }
     }

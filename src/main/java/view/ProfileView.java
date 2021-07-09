@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import model.User;
+import server.User;
 import model.enums.AvatarURL;
 import model.enums.MenuURL;
 import view.components.NodeEditor;

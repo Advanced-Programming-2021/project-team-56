@@ -2,7 +2,6 @@ package server;
 
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.com.google.gson.reflect.TypeToken;
-import model.User;
 
 import java.io.FileWriter;
 import java.io.IOException;

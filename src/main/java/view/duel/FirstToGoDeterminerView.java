@@ -1,10 +1,7 @@
 package view.duel;
 
-import controller.duel.FirstToGoDeterminerController;
-import model.Output;
-import model.User;
+import server.User;
 
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class FirstToGoDeterminerView {

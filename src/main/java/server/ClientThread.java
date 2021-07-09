@@ -1,7 +1,5 @@
 package server;
 
-import model.User;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -23,7 +21,7 @@ public class ClientThread extends Thread {
             String serverMessage = "";
             while (!clientMessage.equals("bye")) {
                 clientMessage = inStream.readUTF();
-                outStream.writeUTF("");
+                outStream.writeUTF(process(clientMessage));
                 outStream.flush();
             }
             inStream.close();
@@ -36,7 +34,14 @@ public class ClientThread extends Thread {
         }
     }
 
-    public String process(String clientMessage){
-        return "o";
+    public String process(String clientMessage) {
+        if (clientMessage.startsWith("Login")) {
+            String[] token = clientMessage.split(" ");
+            return LoginController.getInstance().logIn(token[1], token[2]);
+        } else if (clientMessage.startsWith("Sign-Up")) {
+            String[] token = clientMessage.split(" ");
+            return LoginController.getInstance().register(token[1], token[2], token[3]);
+        }
+        return "";
     }
 }

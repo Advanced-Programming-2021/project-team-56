@@ -1,20 +1,18 @@
-package client.controller;
+package server;
 
-import server.model.User;
+import static model.enums.ProcessResult.*;
 
-import static server.model.enums.ProcessResult.*;
+public class LoginController {
 
-public class LoginMenuController {
+    private static LoginController loginController;
 
-    private static LoginMenuController loginMenuController;
-
-    private LoginMenuController() {
+    private LoginController() {
     }
 
-    public static LoginMenuController getInstance() {
-        if (loginMenuController == null)
-            loginMenuController = new LoginMenuController();
-        return loginMenuController;
+    public static LoginController getInstance() {
+        if (loginController == null)
+            loginController = new LoginController();
+        return loginController;
     }
 
     public String logIn(String username, String password) {
