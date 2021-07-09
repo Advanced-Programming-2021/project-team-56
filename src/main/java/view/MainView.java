@@ -55,7 +55,6 @@ public class MainView {
     }
 
     public void goToShopMenu(MouseEvent mouseEvent) throws IOException {
-        ShopView.currentCard = Card.getCardByName("Battle OX");
         FxmlController.getInstance().setSceneFxml(SHOP);
     }
 

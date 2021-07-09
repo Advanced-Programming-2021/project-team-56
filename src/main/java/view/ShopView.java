@@ -1,6 +1,7 @@
 package view;
 
 import controller.ShopController;
+import controller.SoundPlayer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -20,6 +21,7 @@ import javafx.scene.shape.Rectangle;
 import model.Card;
 import model.User;
 import model.enums.MenuURL;
+import model.enums.SoundURL;
 import view.components.NodeEditor;
 
 import java.io.IOException;
@@ -30,7 +32,7 @@ import java.util.Arrays;
 
 public class ShopView {
 
-    public static Card currentCard;
+    public Card currentCard;
     public ScrollPane cardsScrollPane;
     public GridPane cardsGridPane;
     public HBox cardsHBox;
@@ -45,8 +47,10 @@ public class ShopView {
 
     @FXML
     public void initialize() {
-        cardsGridPane.setStyle("-fx-background-color: #41415D");
-        numberOfCardLabel.setText(ShopController.getInstance().getNumberOfCardInUsersCards("Battle OX"));
+
+        cardsGridPane.setStyle("-fx-background-color: #0E061E");
+        cardsScrollPane.setContent(cardsGridPane);
+//        numberOfCardLabel.setText(ShopController.getInstance().getNumberOfCardInUsersCards("Battle OX"));
         setHBoxBackGround();
         addCards();
         setOnMouseEnteredAndExited(buyButton);
@@ -68,7 +72,7 @@ public class ShopView {
             Image image = new Image(Card.getCards().get(i).getImageURL());
             rectangle.setFill(new ImagePattern(image));
             cardsGridPane.add(rectangle, column++, row);
-            GridPane.setMargin(rectangle, new Insets(30));
+            GridPane.setMargin(rectangle, new Insets(29));
         }
     }
 
@@ -91,6 +95,7 @@ public class ShopView {
         node.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
                 DropShadow borderGlow = new DropShadow();
                 borderGlow.setColor(Color.RED);
                 borderGlow.setWidth(70);
@@ -110,6 +115,8 @@ public class ShopView {
         rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                errorLabel.setText("");
+                buyButton.setVisible(true);
                 currentCard = Card.getCards().get(cardIndex);
                 cardNameLabel.setText(Card.getCards().get(cardIndex).getName());
                 cardPriceLabel.setText(String.valueOf(Card.getCards().get(cardIndex).getPrice()));
@@ -117,6 +124,9 @@ public class ShopView {
                 cardImage.setImage(image);
                 numberOfCardLabel.setText(ShopController.getInstance()
                         .getNumberOfCardInUsersCards(Card.getCards().get(cardIndex).getName()));
+                if (Integer.parseInt(cardPriceLabel.getText()) > Integer.parseInt(capitalLabel.getText())) {
+                    buyButton.setVisible(false);
+                }
             }
         });
     }
@@ -124,7 +134,7 @@ public class ShopView {
     public void buyClicked(MouseEvent mouseEvent) {
         String result = ShopController.getInstance().buyCard(currentCard.getName());
         if (result.equals("")) {
-            errorLabel.setText("buying was successfully");
+            errorLabel.setText("Buy successful");
             capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
             int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
             numberOfCardLabel.setText(String.valueOf(numberOfCard));
