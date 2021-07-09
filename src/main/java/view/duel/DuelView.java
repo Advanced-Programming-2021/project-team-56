@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextFlow;
+import model.GameCard;
 import model.User;
 import model.enums.MenuURL;
 import view.FxmlController;
@@ -42,6 +43,9 @@ public class DuelView {
     public Button backToMainMenuButton;
     public Button continueButton;
     public VBox settingVBox;
+    public HBox myHandHBox;
+    public ImageView playerHandImageView;
+    public ImageView myHandImageView1;
 
     public static void setPlayers(String firstPlayerName, String secondPlayerName) {
         firstPlayer = User.getUserByUsername(firstPlayerName);
@@ -56,6 +60,10 @@ public class DuelView {
     public void initialize() {
 //        root.setStyle("-fx-background-image: url(../resources/images/Duel/Field/Converted/fie_normal.png); -fx-background-size: cover");
         settingVBox.setVisible(false);
+//        playerHandImageView.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
+        myHandImageView1.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
+        GameCard gameCard = (GameCard) myHandImageView1.getImage();
+        System.out.println(gameCard.getCard().getName());
         initializePlayersInformation();
         editSettingHBox();
         //changeFieldImage(null);
