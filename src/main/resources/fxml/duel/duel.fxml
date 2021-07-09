@@ -41,164 +41,160 @@
                </padding>
             </HBox>
          </children></HBox>
-        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
-            <children>
-                <VBox prefHeight="970.0" style="-fx-background-color: #0E061E; -fx-border-color: #500274; -fx-border-width: 5; -fx-border-radius: 2;">
-                    <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="135.0">
-                            <children>
-                                <Label fx:id="opponentLPLabel" alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="460.0" text=" LP : 8000" textFill="WHITE">
-                                    <font>
-                                        <Font name="Times New Roman" size="35.0" />
-                                    </font>
-                                </Label>
-                                <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
-                                    <children>
-                                        <Pane fx:id="opponentLPBar" prefHeight="60.0" prefWidth="500.0" style="-fx-background-color: #8800d4; -fx-background-radius: 18;" />
-                                    </children>
-                                </HBox>
-                            </children>
-                            <padding>
-                                <Insets bottom="5.0" left="20.0" right="20.0" />
-                            </padding>
-                        </VBox>
-                  <HBox alignment="CENTER_LEFT" spacing="5.0">
-                     <children>
-                        <ImageView fx:id="clickedCardImageView" fitHeight="680.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../images/Duel/Back-card.jpg" />
-                           </image>
-                        </ImageView>
-                        <VBox />
-                     </children>
-                  </HBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="135.0">
-                            <children>
-                                <Label fx:id="myLPLabel" alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="460.0" text=" LP : 8000" textFill="WHITE">
-                                    <font>
-                                        <Font name="Times New Roman" size="35.0" />
-                                    </font>
-                                </Label>
-                                <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
-                                    <children>
-                                        <Pane fx:id="myLPBar" prefHeight="60.0" prefWidth="500.0" style="-fx-background-color: #8800d4; -fx-background-radius: 18;" />
-                                    </children>
-                                </HBox>
-                            </children>
-                            <padding>
-                                <Insets bottom="5.0" left="20.0" right="20.0" />
-                            </padding>
-                        </VBox>
-                    </children>
-                </VBox>
-            <VBox alignment="CENTER" style="-fx-background-color: #0E061E;">
+          <VBox prefWidth="538.5" style="-fx-background-color: #0E061E; -fx-border-color: #500274; -fx-border-width: 5; -fx-border-radius: 2;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="80.0">
+              <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="135.0">
+                      <children>
+                          <Label fx:id="opponentLPLabel" alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="460.0" text=" LP : 8000" textFill="WHITE">
+                              <font>
+                                  <Font name="Times New Roman" size="35.0" />
+                              </font>
+                          </Label>
+                          <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
+                              <children>
+                                  <Pane fx:id="opponentLPBar" prefHeight="60.0" prefWidth="500.0" style="-fx-background-color: #8800d4; -fx-background-radius: 18;" />
+                              </children>
+                          </HBox>
+                      </children>
+                      <padding>
+                          <Insets bottom="5.0" left="20.0" right="20.0" />
+                      </padding>
+                  </VBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
-                      <AnchorPane fx:id="fieldAnchorPane" prefHeight="970.0" prefWidth="921.5" />
+                  <ImageView fx:id="clickedCardImageView" fitHeight="680.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Duel/Back-card.jpg" />
+                     </image>
+                  </ImageView>
+                  <VBox />
                </children>
-            </VBox>
-                <VBox prefHeight="970.0" style="-fx-background-color: #0E061E; -fx-border-color: #500274; -fx-border-width: 5; -fx-border-radius: 2;">
-                    <children>
-                        <VBox alignment="CENTER" prefHeight="400.0" spacing="30.0">
-                            <children>
-                                <StackPane prefHeight="250.0">
-                                    <children>
-                                        <Circle fill="#500274" radius="110.0" stroke="BLACK" strokeType="INSIDE" />
-                                        <Circle fx:id="opponentMagicCircle" fill="DODGERBLUE" radius="110.0" stroke="BLACK" strokeType="INSIDE" />
-                                        <Circle fx:id="opponentAvatar" fill="DODGERBLUE" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
-                                    </children>
-                                </StackPane>
-                                <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                    <children>
-                                        <Label prefHeight="50.0" text="Username:" textFill="#8800d4">
-                                            <font>
-                                                <Font name="Times New Roman" size="20.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="opponentUsernameLabel" prefHeight="50.0" textFill="WHITE">
-                                            <font>
-                                                <Font name="Times New Roman" size="15.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                    <padding>
-                                        <Insets left="5.0" />
-                                    </padding>
-                                </HBox>
-                                <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                    <children>
-                                        <Label prefHeight="50.0" text="Nickname:" textFill="#8800d4">
-                                            <font>
-                                                <Font name="Times New Roman" size="20.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="opponentNicknameLabel" prefHeight="50.0" textFill="WHITE">
-                                            <font>
-                                                <Font name="Times New Roman" size="15.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                    <padding>
-                                        <Insets left="5.0" />
-                                    </padding>
-                                </HBox>
-                            </children>
-                            <padding>
-                                <Insets bottom="10.0" />
-                            </padding>
-                        </VBox>
-                        <TextFlow fx:id="textFlow" prefHeight="170.0" style="-fx-border-color: #500274; -fx-border-width: 5 0 5 0;" />
-                        <VBox alignment="CENTER" prefHeight="400.0" spacing="30.0">
-                            <children>
-                                <StackPane prefHeight="250.0">
-                                    <children>
-                                        <Circle fill="#500274" radius="110.0" stroke="BLACK" strokeType="INSIDE" />
-                                        <Circle fx:id="myMagicCircle" fill="DODGERBLUE" radius="110.0" stroke="BLACK" strokeType="INSIDE" />
-                                        <Circle fx:id="myAvatarCircle" fill="DODGERBLUE" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
-                                    </children>
-                                </StackPane>
-                                <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                    <children>
-                                        <Label prefHeight="50.0" text="Username:" textFill="#8800d4">
-                                            <font>
-                                                <Font name="Times New Roman" size="20.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="myUsernameLabel" prefHeight="50.0" textFill="WHITE">
-                                            <font>
-                                                <Font name="Times New Roman" size="15.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                    <padding>
-                                        <Insets left="5.0" />
-                                    </padding>
-                                </HBox>
-                                <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                    <children>
-                                        <Label prefHeight="50.0" text="Nickname:" textFill="#8800d4">
-                                            <font>
-                                                <Font name="Times New Roman" size="20.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="myNicknameLabel" prefHeight="50.0" textFill="WHITE">
-                                            <font>
-                                                <Font name="Times New Roman" size="15.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                    <padding>
-                                        <Insets left="5.0" />
-                                    </padding>
-                                </HBox>
-                            </children>
-                            <padding>
-                                <Insets bottom="10.0" />
-                            </padding>
-                        </VBox>
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
+            </HBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="135.0">
+                      <children>
+                          <Label fx:id="myLPLabel" alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="460.0" text=" LP : 8000" textFill="WHITE">
+                              <font>
+                                  <Font name="Times New Roman" size="35.0" />
+                              </font>
+                          </Label>
+                          <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
+                              <children>
+                                  <Pane fx:id="myLPBar" prefHeight="60.0" prefWidth="500.0" style="-fx-background-color: #8800d4; -fx-background-radius: 18;" />
+                              </children>
+                          </HBox>
+                      </children>
+                      <padding>
+                          <Insets bottom="5.0" left="20.0" right="20.0" />
+                      </padding>
+                  </VBox>
+              </children>
+          </VBox>
+          <VBox prefWidth="220.0" style="-fx-background-color: #0E061E; -fx-border-color: #500274; -fx-border-width: 5; -fx-border-radius: 2;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+              <children>
+                  <VBox alignment="CENTER" prefHeight="400.0" spacing="30.0">
+                      <children>
+                          <StackPane prefHeight="250.0">
+                              <children>
+                                  <Circle fill="#500274" radius="110.0" stroke="BLACK" strokeType="INSIDE" />
+                                  <Circle fx:id="opponentMagicCircle" fill="DODGERBLUE" radius="110.0" stroke="BLACK" strokeType="INSIDE" />
+                                  <Circle fx:id="opponentAvatar" fill="DODGERBLUE" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
+                              </children>
+                          </StackPane>
+                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                              <children>
+                                  <Label prefHeight="50.0" text="Username:" textFill="#8800d4">
+                                      <font>
+                                          <Font name="Times New Roman" size="20.0" />
+                                      </font>
+                                  </Label>
+                                  <Label fx:id="opponentUsernameLabel" prefHeight="50.0" textFill="WHITE">
+                                      <font>
+                                          <Font name="Times New Roman" size="15.0" />
+                                      </font>
+                                  </Label>
+                              </children>
+                              <padding>
+                                  <Insets left="5.0" />
+                              </padding>
+                          </HBox>
+                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                              <children>
+                                  <Label prefHeight="50.0" text="Nickname:" textFill="#8800d4">
+                                      <font>
+                                          <Font name="Times New Roman" size="20.0" />
+                                      </font>
+                                  </Label>
+                                  <Label fx:id="opponentNicknameLabel" prefHeight="50.0" textFill="WHITE">
+                                      <font>
+                                          <Font name="Times New Roman" size="15.0" />
+                                      </font>
+                                  </Label>
+                              </children>
+                              <padding>
+                                  <Insets left="5.0" />
+                              </padding>
+                          </HBox>
+                      </children>
+                      <padding>
+                          <Insets bottom="10.0" />
+                      </padding>
+                  </VBox>
+                  <TextFlow fx:id="textFlow" prefHeight="170.0" style="-fx-border-color: #500274; -fx-border-width: 5 0 5 0;" />
+                  <VBox alignment="CENTER" prefHeight="400.0" spacing="30.0">
+                      <children>
+                          <StackPane prefHeight="250.0">
+                              <children>
+                                  <Circle fill="#500274" radius="110.0" stroke="BLACK" strokeType="INSIDE" />
+                                  <Circle fx:id="myMagicCircle" fill="DODGERBLUE" radius="110.0" stroke="BLACK" strokeType="INSIDE" />
+                                  <Circle fx:id="myAvatarCircle" fill="DODGERBLUE" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
+                              </children>
+                          </StackPane>
+                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                              <children>
+                                  <Label prefHeight="50.0" text="Username:" textFill="#8800d4">
+                                      <font>
+                                          <Font name="Times New Roman" size="20.0" />
+                                      </font>
+                                  </Label>
+                                  <Label fx:id="myUsernameLabel" prefHeight="50.0" textFill="WHITE">
+                                      <font>
+                                          <Font name="Times New Roman" size="15.0" />
+                                      </font>
+                                  </Label>
+                              </children>
+                              <padding>
+                                  <Insets left="5.0" />
+                              </padding>
+                          </HBox>
+                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                              <children>
+                                  <Label prefHeight="50.0" text="Nickname:" textFill="#8800d4">
+                                      <font>
+                                          <Font name="Times New Roman" size="20.0" />
+                                      </font>
+                                  </Label>
+                                  <Label fx:id="myNicknameLabel" prefHeight="50.0" textFill="WHITE">
+                                      <font>
+                                          <Font name="Times New Roman" size="15.0" />
+                                      </font>
+                                  </Label>
+                              </children>
+                              <padding>
+                                  <Insets left="5.0" />
+                              </padding>
+                          </HBox>
+                      </children>
+                      <padding>
+                          <Insets bottom="10.0" />
+                      </padding>
+                  </VBox>
+              </children>
+          </VBox>
+      <VBox alignment="CENTER" layoutX="539.0" layoutY="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="539.0" AnchorPane.rightAnchor="229.0" AnchorPane.topAnchor="80.0">
+         <children>
+                <AnchorPane fx:id="fieldAnchorPane" prefHeight="960.0" prefWidth="912.0" />
+         </children>
+      </VBox>
       <VBox fx:id="settingVBox" alignment="CENTER" layoutX="80.0" layoutY="20.0" prefHeight="300.0" prefWidth="500.0" spacing="100.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 6; -fx-border-radius: 8;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="1100.0" AnchorPane.topAnchor="20.0">
          <children>
             <Label text="Setting" textFill="#8800d4">
