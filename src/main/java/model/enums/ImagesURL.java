@@ -1,4 +1,4 @@
-package server.model.enums;
+package model.enums;
 
 public enum ImagesURL {
     Cursor1("images/Cursor/Cursor1.png"),

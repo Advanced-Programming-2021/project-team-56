@@ -1,4 +1,4 @@
-package server.model;
+package model;
 
 public enum Commands {
     SetAttackPosition("set --position attack"),

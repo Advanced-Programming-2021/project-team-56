@@ -1,5 +1,4 @@
-package client;
-
+import view.ClientSocket;
 import view.MainGUI;
 
 import java.io.IOException;

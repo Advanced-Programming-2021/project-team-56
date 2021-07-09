@@ -1,4 +1,4 @@
-package server.model.enums;
+package model.enums;
 
 public enum Errors {
 

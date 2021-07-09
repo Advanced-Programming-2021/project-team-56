@@ -28,7 +28,7 @@
         </VBox>
         <VBox layoutX="525.0" layoutY="100.0" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="100.0">
             <children>
-                <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 10; -fx-border-radius: 5;" text="client.Main Deck" textFill="WHITE">
+                <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 10; -fx-border-radius: 5;" text="Main Deck" textFill="WHITE">
                     <font>
                         <Font name="Times New Roman" size="35.0" />
                     </font>
@@ -65,7 +65,7 @@
                 </Label>
             <HBox fx:id="addCardToDeckHBox" alignment="CENTER" spacing="10.0">
                <children>
-                  <Button fx:id="mainDeckAddButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="client.Main Deck" />
+                  <Button fx:id="mainDeckAddButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="Main Deck" />
                   <Button fx:id="sideDeckAddButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="Side Deck" />
                </children>
             </HBox>

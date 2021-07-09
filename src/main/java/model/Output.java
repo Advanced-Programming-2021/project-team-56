@@ -1,4 +1,4 @@
-package server.model;
+package model;
 
 public enum Output {
     YouCantDoThisAction("you can’t do this action in this phase"),

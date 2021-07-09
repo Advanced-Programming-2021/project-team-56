@@ -1,4 +1,4 @@
-package client.controller;
+package controller;
 
 import server.model.Card;
 import server.model.User;

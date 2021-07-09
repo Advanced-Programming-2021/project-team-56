@@ -1,5 +1,6 @@
-package server.model;
+package server;
 
+import model.*;
 import model.enums.AvatarURL;
 
 import java.util.ArrayList;

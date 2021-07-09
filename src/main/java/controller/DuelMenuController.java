@@ -1,4 +1,4 @@
-package client.controller;
+package controller;
 
 import server.model.Deck;
 import server.model.User;
