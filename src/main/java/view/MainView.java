@@ -41,8 +41,7 @@ public class MainView {
     }
 
     public void goToDuelMenu(MouseEvent mouseEvent) throws IOException {
-        //TODO Temporary
-        FxmlController.getInstance().setSceneFxml(MAIN_DUEL);
+        FxmlController.getInstance().setSceneFxml(DUEL);
     }
 
     public void goToDeckMenu(MouseEvent mouseEvent) throws IOException {

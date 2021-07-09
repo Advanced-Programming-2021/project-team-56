@@ -16,7 +16,7 @@ public class DuelMenuController {
         return duelMenuController;
     }
 
-    public String canUsersDuel(String firstPlayerUsername, String secondPlayerUsername, String numberOfRounds) {
+    public String canUsersDuel(String firstPlayerUsername, String secondPlayerUsername) {
         User firstPlayer = User.getUserByUsername(firstPlayerUsername);
         User secondPlayer = User.getUserByUsername(secondPlayerUsername);
         if (!User.isThisUsernameAlreadyTaken(secondPlayerUsername)) {
@@ -33,9 +33,6 @@ public class DuelMenuController {
         }
         if (!isPlayersDeckValid(secondPlayer)) {
             return secondPlayerUsername + "'s deck is invalid";
-        }
-        if (!isRoundsNumberValid(numberOfRounds)) {
-            return "number of rounds is not supported";
         }
         return "duel is valid";
     }
@@ -56,9 +53,5 @@ public class DuelMenuController {
             }
         }
         return false;
-    }
-
-    private boolean isRoundsNumberValid(String numberOfRounds) {
-        return numberOfRounds.equals("1") || numberOfRounds.equals("3");
     }
 }
