@@ -6,8 +6,6 @@ import java.net.Socket;
 
 public class ClientThread extends Thread {
     private final Socket client;
-    private DataInputStream inStream;
-    private DataOutputStream outStream;
 
     public ClientThread(Socket inSocket) {
         client = inSocket;
@@ -15,13 +13,14 @@ public class ClientThread extends Thread {
 
     public void run() {
         try {
-            inStream = new DataInputStream(client.getInputStream());
-            outStream = new DataOutputStream(client.getOutputStream());
+            DataInputStream inStream = new DataInputStream(client.getInputStream());
+            DataOutputStream outStream = new DataOutputStream(client.getOutputStream());
             String clientMessage = "";
-            String serverMessage = "";
+            String serverMessage;
             while (!clientMessage.equals("bye")) {
                 clientMessage = inStream.readUTF();
-                outStream.writeUTF(process(clientMessage));
+                serverMessage = process(clientMessage);
+                outStream.writeUTF(serverMessage);
                 outStream.flush();
             }
             inStream.close();

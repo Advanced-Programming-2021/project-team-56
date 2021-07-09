@@ -7,8 +7,8 @@ public class ServerMain {
     public static void main(String[] args) throws Exception {
         try {
             ExcelUtils.getInstance().run();
-            Data.getInstance().readFromJson();
-            ServerSocket server = new ServerSocket(8888);
+//            Data.getInstance().readFromJson();
+            ServerSocket server = new ServerSocket(7788);
             System.out.println("Server Started Running....");
             while (true) {
                 Socket client = server.accept();
@@ -16,7 +16,7 @@ public class ServerMain {
                 sct.start();
             }
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 }
