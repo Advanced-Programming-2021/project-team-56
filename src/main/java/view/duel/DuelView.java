@@ -1,6 +1,7 @@
 package view.duel;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,7 +10,12 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextFlow;
 import model.User;
-import view.MainGUI;
+import model.enums.MenuURL;
+import view.FxmlController;
+import view.components.NodeEditor;
+
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DuelView {
 
@@ -32,6 +38,10 @@ public class DuelView {
     public Label myUsernameLabel;
     public Label myNicknameLabel;
     public TextFlow textFlow;
+    public HBox settingHBox;
+    public Button backToMainMenuButton;
+    public Button continueButton;
+    public VBox settingVBox;
 
     public static void setPlayers(String firstPlayerName, String secondPlayerName) {
         firstPlayer = User.getUserByUsername(firstPlayerName);
@@ -44,9 +54,10 @@ public class DuelView {
 
     @FXML
     public void initialize() {
-        System.out.println(numberOfRounds);
 //        root.setStyle("-fx-background-image: url(../resources/images/Duel/Field/Converted/fie_normal.png); -fx-background-size: cover");
+        settingVBox.setVisible(false);
         initializePlayersInformation();
+        editSettingHBox();
         changeFieldImage(null);
 
     }
@@ -60,6 +71,35 @@ public class DuelView {
         myAvatarCircle.setFill(new ImagePattern(new Image(firstPlayer.getAvatarURL())));
         myUsernameLabel.setText(firstPlayer.getUsername());
         myNicknameLabel.setText(firstPlayer.getNickname());
+    }
+
+    private void editSettingHBox() {
+        NodeEditor.editNode(0.6, settingHBox);
+        settingHBox.setOnMouseClicked(event -> {
+            settingVBox.setVisible(true);
+            AtomicBoolean isAnyButtonPressed = new AtomicBoolean(false);
+            new Thread(() -> {
+                continueButton.setOnMouseClicked(continueButtonEvent -> {
+                    isAnyButtonPressed.set(true);
+                    settingVBox.setVisible(false);
+                });
+                backToMainMenuButton.setOnMouseClicked(backButtonEvent -> {
+                    isAnyButtonPressed.set(true);
+                    try {
+                        FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }).start();
+            while (!isAnyButtonPressed.get()) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void changeFieldImage(String fieldURL) {
