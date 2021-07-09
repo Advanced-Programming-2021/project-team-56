@@ -43,7 +43,7 @@
          </children></HBox>
         <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
             <children>
-                <VBox prefHeight="970.0" prefWidth="550.0" style="-fx-background-color: #0E061E; -fx-border-color: #500274; -fx-border-width: 5; -fx-border-radius: 2;">
+                <VBox prefHeight="970.0" style="-fx-background-color: #0E061E; -fx-border-color: #500274; -fx-border-width: 5; -fx-border-radius: 2;">
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="135.0">
                             <children>
@@ -91,7 +91,11 @@
                         </VBox>
                     </children>
                 </VBox>
-                <AnchorPane fx:id="fieldAnchorPane" prefHeight="970.0" prefWidth="921.5" />
+            <VBox alignment="CENTER" style="-fx-background-color: #0E061E;">
+               <children>
+                      <AnchorPane fx:id="fieldAnchorPane" prefHeight="970.0" prefWidth="921.5" />
+               </children>
+            </VBox>
                 <VBox prefHeight="970.0" style="-fx-background-color: #0E061E; -fx-border-color: #500274; -fx-border-width: 5; -fx-border-radius: 2;">
                     <children>
                         <VBox alignment="CENTER" prefHeight="400.0" spacing="30.0">
