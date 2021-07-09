@@ -1,12 +1,15 @@
 package view;
 
 import controller.LoginMenuController;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import model.enums.MenuURL;
 import view.components.NodeEditor;
 
@@ -44,13 +47,15 @@ public class LoginView {
         }
         String result = LoginMenuController.getInstance().logIn(userNameField.getText(), passWordField.getText());
         errorLabel.setText(result);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         if (result.equals(LOGIN_SUCCESSFUL.value)) {
-            FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+            Timeline goToMainMenuTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+                try {
+                    FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }));
+            goToMainMenuTimeline.play();
         }
     }
 

@@ -1,9 +1,8 @@
 package view.duel;
 
-import javafx.application.Application;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -11,15 +10,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.User;
 import model.enums.MenuURL;
 import view.FxmlController;
+import view.MainGUI;
 import view.components.NodeEditor;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class RockPaperScissorsView {
 
@@ -31,8 +33,8 @@ public class RockPaperScissorsView {
     public Label questionLabel;
     public Button button1;
     public Button button2;
-    public AnchorPane anchorPane;
     public Button backButton;
+    public HBox resultVBoxButtonsHBox;
     private RockPaperScissors rockPaperScissors1 = null;
     private RockPaperScissors rockPaperScissors2 = null;
     public ImageView rockImageView;
@@ -56,14 +58,9 @@ public class RockPaperScissorsView {
         turnLabel.setText(user1.getUsername() + "'s Turn");
         button1.setText(user1.getUsername());
         button2.setText(user2.getUsername());
-        NodeEditor.editNode(1,backButton, button1, button2);
+        NodeEditor.editNode(1, button1, button2);
+        MainGUI.editMenuButtons(new ArrayList<Button>(Collections.singletonList(backButton)));
         resultVBox.setVisible(false);
-        anchorPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              //  resultVBox.setVisible(false);
-            }
-        });
     }
 
     private void setOnMouseEnteredAndExited(ImageView imageView, RockPaperScissors rockPaperScissors) {
@@ -112,13 +109,14 @@ public class RockPaperScissorsView {
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
-        FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
+        FxmlController.getInstance().setSceneFxml(MenuURL.DUEL_PREPARATION);
     }
 
     private void decideResult() {
         if (rockPaperScissors1 == rockPaperScissors2) {
             rockPaperScissors1 = null;
-            turnLabel.setText(user1.getUsername());
+            showDrawResult();
+            turnLabel.setText(user1.getUsername() + "'s Turn");
         } else if (rockPaperScissors1 == RockPaperScissors.ROCK && rockPaperScissors2 == RockPaperScissors.PAPER)
             showResultVBox(user2, user1);
         else if (rockPaperScissors1 == RockPaperScissors.ROCK && rockPaperScissors2 == RockPaperScissors.SCISSORS)
@@ -132,18 +130,34 @@ public class RockPaperScissorsView {
         else showResultVBox(user1, user2);
     }
 
+    private void showDrawResult() {
+        turnLabel.setVisible(false);
+        resultVBoxButtonsHBox.setVisible(false);
+        resultVBox.setVisible(true);
+        questionLabel.setText("Draw, please try again!");
+        Timeline hideDrawResultTimeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            resultVBoxButtonsHBox.setVisible(true);
+            turnLabel.setVisible(true);
+            resultVBox.setVisible(false);
+        }));
+        hideDrawResultTimeline.play();
+    }
+
     private void showResultVBox(User winner, User looser) {
+        turnLabel.setVisible(false);
         resultVBox.setVisible(true);
         winnerLabel.setText(winner.getUsername() + " Won");
         questionLabel.setText(winner.getUsername() + ", Please choose the first player to go:");
     }
 
 
-    public void button1Clicked(MouseEvent mouseEvent) {
-        //todo
+    public void button1Clicked(MouseEvent mouseEvent) throws IOException {
+        DuelView.setPlayers(button1.getText(), button2.getText());
+        FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
     }
 
-    public void button2Clicked(MouseEvent mouseEvent) {
-        //todo
+    public void button2Clicked(MouseEvent mouseEvent) throws IOException {
+        DuelView.setPlayers(button2.getText(), button1.getText());
+        FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
     }
 }

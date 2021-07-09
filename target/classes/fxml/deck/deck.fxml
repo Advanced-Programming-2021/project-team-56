@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,7 +21,10 @@
                         <Font name="Times New Roman" size="35.0" />
                     </font>
                 </Label>
-                <ImageView fx:id="clickedCardImage" fitHeight="583.3729216152019" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="clickedCardImage" fitHeight="583.3729216152019" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/Duel/Back-card.jpg" />
+               </image></ImageView>
             </children>
             <padding>
                 <Insets top="50.0" />
@@ -63,19 +67,19 @@
                         <Font name="Times New Roman" size="25.0" />
                     </font>
                 </Label>
-            <HBox fx:id="addCardToDeckHBox" alignment="CENTER" spacing="10.0">
-               <children>
-                  <Button fx:id="mainDeckAddButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="Main Deck" />
-                  <Button fx:id="sideDeckAddButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="Side Deck" />
-               </children>
-            </HBox>
+                <HBox fx:id="addCardToDeckHBox" alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button fx:id="mainDeckAddButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="Main Deck" />
+                        <Button fx:id="sideDeckAddButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="Side Deck" />
+                    </children>
+                </HBox>
                 <Button fx:id="addCardToDeckBackButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Back" />
             </children>
             <padding>
                 <Insets bottom="10.0" top="20.0" />
             </padding>
         </VBox>
-      <Button fx:id="removeButton" layoutX="300.0" layoutY="970.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remove" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="300.0" />
+        <Button fx:id="removeButton" layoutX="300.0" layoutY="970.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remove" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="300.0" />
     </children>
     <stylesheets>
         <URL value="@../../CSS/deck.css" />

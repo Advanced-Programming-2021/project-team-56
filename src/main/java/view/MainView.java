@@ -1,12 +1,10 @@
 package view;
 
 import controller.LoginMenuController;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 import model.Card;
 import model.enums.MenuURL;
 
@@ -41,7 +39,7 @@ public class MainView {
     }
 
     public void goToDuelMenu(MouseEvent mouseEvent) throws IOException {
-        FxmlController.getInstance().setSceneFxml(DUEL);
+        FxmlController.getInstance().setSceneFxml(DUEL_PREPARATION);
     }
 
     public void goToDeckMenu(MouseEvent mouseEvent) throws IOException {

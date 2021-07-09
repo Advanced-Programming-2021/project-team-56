@@ -1,56 +1,70 @@
 package view.duel;
 
-import controller.DuelMenuController;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.TextFlow;
 import model.User;
-import model.enums.MenuURL;
-import view.FxmlController;
-import view.components.NodeEditor;
+import view.MainGUI;
 
-import java.io.IOException;
+public class DuelView {
 
-public class DuelView{
+    private static User firstPlayer;
+    private static User secondPlayer;
+    private static int numberOfRounds;
 
-    public TextField opponentUserName;
-    public ComboBox numberOfRoundsComboBox;
-    public Button startButton;
-    public Button backButton;
-    public Label errorLabel;
+    public AnchorPane fieldAnchorPane;
+    public Label opponentLPLabel;
+    public Pane opponentLPBar;
+    public ImageView clickedCardImageView;
+    public Label myLPLabel;
+    public Pane myLPBar;
+    public Circle opponentMagicCircle;
+    public Circle opponentAvatar;
+    public Label opponentUsernameLabel;
+    public Label opponentNicknameLabel;
+    public Circle myMagicCircle;
+    public Circle myAvatarCircle;
+    public Label myUsernameLabel;
+    public Label myNicknameLabel;
+    public TextFlow textFlow;
 
+    public static void setPlayers(String firstPlayerName, String secondPlayerName) {
+        firstPlayer = User.getUserByUsername(firstPlayerName);
+        secondPlayer = User.getUserByUsername(secondPlayerName);
+    }
+
+    public static void setNumberOfRounds(int numberOfRounds) {
+        DuelView.numberOfRounds = numberOfRounds;
+    }
+
+    @FXML
     public void initialize() {
-        ObservableList<Integer> items = FXCollections.observableArrayList(1, 3);
-        numberOfRoundsComboBox.setItems(items);
-        NodeEditor.editNode(1, startButton, backButton);
+        System.out.println(numberOfRounds);
+//        root.setStyle("-fx-background-image: url(../resources/images/Duel/Field/Converted/fie_normal.png); -fx-background-size: cover");
+        initializePlayersInformation();
+        changeFieldImage(null);
+
     }
 
-    public void backClicked(MouseEvent mouseEvent) throws IOException {
-        FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+    private void initializePlayersInformation() {
+        opponentMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
+        opponentAvatar.setFill(new ImagePattern(new Image(secondPlayer.getAvatarURL())));
+        opponentUsernameLabel.setText(secondPlayer.getUsername());
+        opponentNicknameLabel.setText(secondPlayer.getNickname());
+        myMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
+        myAvatarCircle.setFill(new ImagePattern(new Image(firstPlayer.getAvatarURL())));
+        myUsernameLabel.setText(firstPlayer.getUsername());
+        myNicknameLabel.setText(firstPlayer.getNickname());
     }
 
-    public void startClicked(MouseEvent mouseEvent) throws IOException {
-        if (opponentUserName.getText().equals("")) {
-            errorLabel.setText("opponent's username field is empty");
-        } else if (numberOfRoundsComboBox.getValue() == null) {
-            errorLabel.setText("please set number of rounds");
-        } else {
-            String result = DuelMenuController.getInstance().canUsersDuel(User.getCurrentUser().getUsername(), opponentUserName.getText());
-            errorLabel.setText(result);
-            if (result.equals("duel is valid")) {
-                RockPaperScissorsView.user1 = User.getCurrentUser();
-                RockPaperScissorsView.user2 = User.getUserByUsername(opponentUserName.getText());
-                FxmlController.getInstance().setSceneFxml(MenuURL.ROCK_PAPER_SCISSORS);
-            }
-        }
+    private void changeFieldImage(String fieldURL) {
+        BackgroundSize backgroundSize = new BackgroundSize(1680, 1050, true, true, false, true);
+        fieldAnchorPane.setBackground(new Background(new BackgroundImage(new Image("/images/Duel/Field/fie_normal.png")
+                , BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize)));
     }
 }

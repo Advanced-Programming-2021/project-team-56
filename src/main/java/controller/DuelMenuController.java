@@ -20,7 +20,7 @@ public class DuelMenuController {
         User firstPlayer = User.getUserByUsername(firstPlayerUsername);
         User secondPlayer = User.getUserByUsername(secondPlayerUsername);
         if (!User.isThisUsernameAlreadyTaken(secondPlayerUsername)) {
-            return "there is no player with this username";
+            return "There is no player with this username";
         }
         if (!isPlayersDeckActive(firstPlayer)) {
             return firstPlayerUsername + " has no active deck";
@@ -34,7 +34,7 @@ public class DuelMenuController {
         if (!isPlayersDeckValid(secondPlayer)) {
             return secondPlayerUsername + "'s deck is invalid";
         }
-        return "duel is valid";
+        return "Duel is valid";
     }
 
     private boolean isPlayersDeckActive(User user) {

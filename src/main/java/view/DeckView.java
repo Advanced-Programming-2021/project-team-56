@@ -160,7 +160,6 @@ public class DeckView {
     }
 
     private GridPane makeUserCardsGridPane() {
-        //TODO there is a gap between curt of the something.. ask the gang wtf is going on
         GridPane gridPane = instantiateGridPane();
         ArrayList<Card> userAllCards = User.getCurrentUser().getUserAllCards();
         for (int i = 0; i < userAllCards.size(); i++) {
