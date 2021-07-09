@@ -58,7 +58,7 @@ public class DuelView {
         settingVBox.setVisible(false);
         initializePlayersInformation();
         editSettingHBox();
-        changeFieldImage(null);
+        //changeFieldImage(null);
 
     }
 
