@@ -27,7 +27,7 @@
                 <Image url="@../images/Transparent/Yugi-Mutou.png" />
             </image>
         </ImageView>
-        <HBox alignment="CENTER" layoutX="465.0" layoutY="400.0" prefHeight="233.0" prefWidth="750.0">
+        <HBox alignment="CENTER" layoutX="465.0" layoutY="400.0" prefHeight="233.0" prefWidth="750.0" AnchorPane.bottomAnchor="407.0" AnchorPane.leftAnchor="465.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="400.0">
             <children>
                 <ImageView fx:id="rockImageView" fitHeight="250.0" fitWidth="250.0" onMouseClicked="#rockClicked" pickOnBounds="true" preserveRatio="true">
                     <image>
