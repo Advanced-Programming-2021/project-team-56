@@ -5,7 +5,6 @@ import controller.duel.effects.SpellEffectCanActivate;
 import model.*;
 import view.duel.DuelWithUserView;
 import view.duel.EffectView;
-import view.duel.FirstToGoDeterminerView;
 import view.duel.phase.*;
 
 import java.util.ArrayList;

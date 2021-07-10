@@ -182,9 +182,6 @@ public class DuelView {
             startRound();
         })).play();
 
-//        DuelWithUser.getInstance().run(firstPlayer.getUsername(),
-//                secondPlayer.getUsername(), String.valueOf(numberOfRounds));
-
         //TODO
         //TODO
         //TODO
@@ -214,13 +211,6 @@ public class DuelView {
             showDuelInfoLabel(DrawPhaseController.getInstance().run());
             updateFromDrawPhase();
         })).play();
-
-//        roundResult = phaseCaller(firstPlayerUsername);
-//        if (roundResult == 1) {
-//            return (oneRoundWin(firstPlayerUsername, secondPlayerUsername));
-//        } else {
-//            return (oneRoundWin(secondPlayerUsername, firstPlayerUsername));
-//        }
     }
 
     private void initializePlayersInformation() {
