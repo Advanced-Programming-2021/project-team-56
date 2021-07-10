@@ -210,6 +210,7 @@ public class DuelView {
 
     private void startRound() {
         editImageViews();
+        currentPhase = Phase.DRAW;
         //TODO Last round result?
         DuelWithUser.getInstance().setUpGame(firstPlayer.getUsername(), secondPlayer.getUsername(), 0);
         updateFromDrawPhase();
