@@ -218,7 +218,7 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </VBox>
-      <AnchorPane layoutY="85.0" prefHeight="960.0" prefWidth="921.5" style="-fx-background-color: #0E061E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="758.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+      <AnchorPane layoutY="85.0" prefHeight="960.0" prefWidth="921.5" style="-fx-background-color: #0E061E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="758.5">
          <children>
             <ImageView fitHeight="970.0" fitWidth="921.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                <image>
@@ -317,6 +317,8 @@
                   <ImageView fx:id="mySpellTerritoryCardImageView4" fitHeight="105.0" fitWidth="71.88" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
+            <ImageView fx:id="opponentFieldSpellImageView" fitHeight="105.0" fitWidth="71.88" layoutX="825.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="825.0" AnchorPane.rightAnchor="83.12000274658203" AnchorPane.topAnchor="344.0" />
+            <ImageView fx:id="myFieldSpellImageView" fitHeight="105.0" fitWidth="71.88" layoutX="61.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="345.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="846.7483444213867" AnchorPane.topAnchor="524.0" />
          </children>
       </AnchorPane>
     </children>

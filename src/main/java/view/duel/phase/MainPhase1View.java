@@ -7,6 +7,7 @@ import model.Commands;
 import model.Output;
 import view.duel.DuelWithUserView;
 
+import java.util.Scanner;
 import java.util.regex.Matcher;
 
 import static view.duel.phase.BattlePhaseView.*;
@@ -37,27 +38,27 @@ public class MainPhase1View {
         DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
         System.out.print(duelWithUser.showField());
         while (true) {
-//            String command = LoginMenuView.scan.nextLine().trim();
-//            if (command.equals(Commands.NextPhase.toString())) {
-//                break;
-//            } else if (isThisActionNotAllowed(command)) {
-//                System.out.println(Output.YouCantDoThisAction);
-//                continue;
-//            } else if (shouldIShowTheFiled(command)) {
-//                System.out.print(duelWithUser.showField());
-//                continue;
-//            } else if (duelWithUserView.isItValidInAllOfThePhases(command)) {
-//                continue;
-//            }
-//            String result = duelWithUserView.cheatCodeExecute(command);
-//            if (result.equals(Output.InvalidCommand.toString())) {
-//                System.out.println(result);
-//            } else if (!result.equals(Output.TheGameContinues.toString())) {
-//                return result;
-//            }
+            String command = new Scanner(System.in).nextLine().trim();
+            if (command.equals(Commands.NextPhase.toString())) {
+                break;
+            } else if (isThisActionNotAllowed(command)) {
+                System.out.println(Output.YouCantDoThisAction);
+                continue;
+            } else if (shouldIShowTheFiled(command)) {
+                System.out.print(duelWithUser.showField());
+                continue;
+            } else if (duelWithUserView.isItValidInAllOfThePhases(command)) {
+                continue;
+            }
+            String result = duelWithUserView.cheatCodeExecute(command);
+            if (result.equals(Output.InvalidCommand.toString())) {
+                System.out.println(result);
+            } else if (!result.equals(Output.TheGameContinues.toString())) {
+                return result;
+            }
         }
-//        OpponentPhase.getInstance().startChainLink();
-//        return Output.TheGameContinues.toString();
+        OpponentPhase.getInstance().startChainLink();
+        return Output.TheGameContinues.toString();
     }
 
     private boolean isThisActionNotAllowed(String command) {
