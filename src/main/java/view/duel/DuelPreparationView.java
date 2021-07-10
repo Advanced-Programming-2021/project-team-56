@@ -1,18 +1,13 @@
 package view.duel;
 
 import controller.DuelMenuController;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import model.User;
 import model.enums.MenuURL;
 import view.FxmlController;
@@ -54,8 +49,8 @@ public class DuelPreparationView {
             DuelView.setNumberOfRounds((int) numberOfRoundsComboBox.getValue());
             errorLabel.setText(result);
             if (result.equals("Duel is valid")) {
-                RockPaperScissorsView.user1 = User.getCurrentUser();
-                RockPaperScissorsView.user2 = User.getUserByUsername(opponentUserName.getText());
+                RockPaperScissorsView.setFirstUser(User.getCurrentUser());
+                RockPaperScissorsView.setSecondUser(User.getUserByUsername(opponentUserName.getText()));
                 FxmlController.getInstance().setSceneFxml(MenuURL.ROCK_PAPER_SCISSORS);
             }
         }

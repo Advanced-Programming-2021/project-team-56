@@ -1,6 +1,10 @@
 package model;
 
+import javafx.scene.image.ImageView;
+import view.duel.DuelView;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Board {
@@ -25,6 +29,11 @@ public class Board {
     private boolean amIAffectedByTrapHole;
 
 
+    private final HashMap<Integer, GameCard> spellAndTrapTerritoryGUI = new HashMap<>();
+    private final HashMap<Integer, GameCard> monsterTerritoryGUI = new HashMap<>();
+    private final ArrayList<GameCard> playerHandGUI = new ArrayList<>();
+
+
     public Board(User user) {
         this.playerDeck = new Deck(user.getActiveDeck());
         this.user = user;
@@ -38,27 +47,51 @@ public class Board {
         this.spellAndTrapTerritory.put(1, null);
         this.spellAndTrapTerritory.put(2, null);
         this.spellAndTrapTerritory.put(4, null);
+        //TODO
+        //TODO
+//        this.monsterTerritoryGUI.put(5, null);
+//        this.monsterTerritoryGUI.put(3, null);
+//        this.monsterTerritoryGUI.put(1, null);
+//        this.monsterTerritoryGUI.put(2, null);
+//        this.monsterTerritoryGUI.put(4, null);
+//        this.spellAndTrapTerritoryGUI.put(5, null);
+//        this.spellAndTrapTerritoryGUI.put(3, null);
+//        this.spellAndTrapTerritoryGUI.put(1, null);
+//        this.spellAndTrapTerritoryGUI.put(2, null);
+//        this.spellAndTrapTerritoryGUI.put(4, null);
+        //TODO
+        //TODO
     }
 
     public void setPlayerHandForFirstPlayer() {
+//        for (int i = 0; i < 5; i++) {
+//            Card newCard = playerDeck.getMainDeck().get(0);
+//            if (newCard.getName().equals("Scanner")){
+//                ((MonsterCard)newCard).setItScanner(true);
+//            }
+//            playerHand.add(newCard);
+//            playerDeck.getMainDeck().remove(0);
+//        }
+        Collections.shuffle(playerDeck.getMainDeck());
         for (int i = 0; i < 5; i++) {
             Card newCard = playerDeck.getMainDeck().get(0);
-            if (newCard.getName().equals("Scanner")){
-                ((MonsterCard)newCard).setItScanner(true);
+            if (newCard.getName().equals("Scanner")) {
+                ((MonsterCard) newCard).setItScanner(true);
             }
-            playerHand.add(newCard);
+            DuelView.myHandImageViews.get(i).setImage(new GameCard(newCard));
             playerDeck.getMainDeck().remove(0);
         }
     }
 
     public void setPlayerHandForSecondPlayer() {
+        Collections.shuffle(playerDeck.getMainDeck());
         for (int i = 0; i < 5; i++) {
             int index = playerDeck.getMainDeck().size() - 1;
             Card newCard = playerDeck.getMainDeck().get(index);
-            if (newCard.getName().equals("Scanner")){
-                ((MonsterCard)newCard).setItScanner(true);
+            if (newCard.getName().equals("Scanner")) {
+                ((MonsterCard) newCard).setItScanner(true);
             }
-            playerHand.add(newCard);
+            DuelView.opponentHandImageViews.get(i).setImage(new GameCard(newCard, "/images/Duel/Back-card.jpg"));
             playerDeck.getMainDeck().remove(index);
         }
     }

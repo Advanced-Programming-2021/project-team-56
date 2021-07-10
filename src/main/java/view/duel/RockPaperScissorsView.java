@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -20,13 +19,13 @@ import view.components.NodeEditor;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class RockPaperScissorsView {
 
-    public static User user1;
-    public static User user2;
+    public static User firstUser;
+    public static User secondUser;
+
     public Label turnLabel;
     public VBox resultVBox;
     public Label winnerLabel;
@@ -51,13 +50,21 @@ public class RockPaperScissorsView {
         }
     }
 
+    public static void setFirstUser(User firstUser) {
+        RockPaperScissorsView.firstUser = firstUser;
+    }
+
+    public static void setSecondUser(User secondUser) {
+        RockPaperScissorsView.secondUser = secondUser;
+    }
+
     public void initialize() {
         setOnMouseEnteredAndExited(rockImageView, RockPaperScissors.ROCK);
         setOnMouseEnteredAndExited(paperImageView, RockPaperScissors.PAPER);
         setOnMouseEnteredAndExited(scissorsImageView, RockPaperScissors.SCISSORS);
-        turnLabel.setText(user1.getUsername() + "'s Turn");
-        button1.setText(user1.getUsername());
-        button2.setText(user2.getUsername());
+        turnLabel.setText(firstUser.getUsername() + "'s Turn");
+        button1.setText(firstUser.getUsername());
+        button2.setText(secondUser.getUsername());
         NodeEditor.editNode(1, button1, button2);
         MainGUI.editMenuButtons(new ArrayList<Button>(Collections.singletonList(backButton)));
         resultVBox.setVisible(false);
@@ -81,7 +88,7 @@ public class RockPaperScissorsView {
     public void rockClicked(MouseEvent mouseEvent) {
         if (rockPaperScissors1 == null) {
             rockPaperScissors1 = RockPaperScissors.ROCK;
-            turnLabel.setText(user2.getUsername() + "'s Turn");
+            turnLabel.setText(secondUser.getUsername() + "'s Turn");
         } else {
             rockPaperScissors2 = RockPaperScissors.ROCK;
             decideResult();
@@ -91,7 +98,7 @@ public class RockPaperScissorsView {
     public void paperClicked(MouseEvent mouseEvent) {
         if (rockPaperScissors1 == null) {
             rockPaperScissors1 = RockPaperScissors.PAPER;
-            turnLabel.setText(user2.getUsername() + "'s Turn");
+            turnLabel.setText(secondUser.getUsername() + "'s Turn");
         } else {
             rockPaperScissors2 = RockPaperScissors.PAPER;
             decideResult();
@@ -101,7 +108,7 @@ public class RockPaperScissorsView {
     public void scissorsClicked(MouseEvent mouseEvent) {
         if (rockPaperScissors1 == null) {
             rockPaperScissors1 = RockPaperScissors.SCISSORS;
-            turnLabel.setText(user2.getUsername() + "'s Turn");
+            turnLabel.setText(secondUser.getUsername() + "'s Turn");
         } else {
             rockPaperScissors2 = RockPaperScissors.SCISSORS;
             decideResult();
@@ -116,18 +123,18 @@ public class RockPaperScissorsView {
         if (rockPaperScissors1 == rockPaperScissors2) {
             rockPaperScissors1 = null;
             showDrawResult();
-            turnLabel.setText(user1.getUsername() + "'s Turn");
+            turnLabel.setText(firstUser.getUsername() + "'s Turn");
         } else if (rockPaperScissors1 == RockPaperScissors.ROCK && rockPaperScissors2 == RockPaperScissors.PAPER)
-            showResultVBox(user2, user1);
+            showResultVBox(secondUser, firstUser);
         else if (rockPaperScissors1 == RockPaperScissors.ROCK && rockPaperScissors2 == RockPaperScissors.SCISSORS)
-            showResultVBox(user1, user2);
+            showResultVBox(firstUser, secondUser);
         else if (rockPaperScissors1 == RockPaperScissors.PAPER && rockPaperScissors2 == RockPaperScissors.SCISSORS)
-            showResultVBox(user2, user1);
+            showResultVBox(secondUser, firstUser);
         else if (rockPaperScissors1 == RockPaperScissors.PAPER && rockPaperScissors2 == RockPaperScissors.ROCK)
-            showResultVBox(user1, user2);
+            showResultVBox(firstUser, secondUser);
         else if (rockPaperScissors1 == RockPaperScissors.SCISSORS && rockPaperScissors2 == RockPaperScissors.ROCK)
-            showResultVBox(user2, user1);
-        else showResultVBox(user1, user2);
+            showResultVBox(secondUser, firstUser);
+        else showResultVBox(firstUser, secondUser);
     }
 
     private void showDrawResult() {
