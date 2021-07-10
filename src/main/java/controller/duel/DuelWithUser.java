@@ -33,6 +33,7 @@ public class DuelWithUser {
     private int tempTurnCounter;
     private final Board[] boards = new Board[2];
     private int startTurn;
+    private int currentRoundNumber = 1;
 
     {
         duelWithUserView = DuelWithUserView.getInstance();
@@ -64,6 +65,7 @@ public class DuelWithUser {
                     duelWithUserView.printEndMessage(singleRoundWin(secondPlayerUsername,
                             numberOfWinsPlayer2, numberOfWinsPlayer1));
                 }
+                currentRoundNumber++;
             }
             if (numberOfWinsPlayer1 == 2) {
                 return (threeRoundWinner(firstPlayerUsername,
@@ -166,13 +168,11 @@ public class DuelWithUser {
     public void setUpGame(String firstPlayerUsername, String secondPlayerUsername, int lastRoundResult) {
         boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
         boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
+        //TODO Ask to update view here
         String starter = FirstToGoDeterminerView.getInstance()
                 .determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername, lastRoundResult);
-        if (starter.equals(firstPlayerUsername)) {
-            turnCounter = 2;
-        } else {
-            turnCounter = 3;
-        }
+        turnCounter = 2;
+//            turnCounter = 3;
         startTurn = turnCounter;
         boards[0].setStartedTurn(2);
         boards[1].setStartedTurn(3);

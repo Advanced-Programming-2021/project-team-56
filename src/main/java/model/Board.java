@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import static view.duel.DuelView.*;
+
 public class Board {
     private final ArrayList<Card> graveyard = new ArrayList<>();
     private final Deck playerDeck;
@@ -78,7 +80,7 @@ public class Board {
             if (newCard.getName().equals("Scanner")) {
                 ((MonsterCard) newCard).setItScanner(true);
             }
-            DuelView.myHandImageViews.get(i).setImage(new GameCard(newCard));
+            playerHand.add(newCard);
             playerDeck.getMainDeck().remove(0);
         }
     }
@@ -91,7 +93,7 @@ public class Board {
             if (newCard.getName().equals("Scanner")) {
                 ((MonsterCard) newCard).setItScanner(true);
             }
-            DuelView.opponentHandImageViews.get(i).setImage(new GameCard(newCard, "/images/Duel/Back-card.jpg"));
+            playerHand.add(newCard);
             playerDeck.getMainDeck().remove(index);
         }
     }

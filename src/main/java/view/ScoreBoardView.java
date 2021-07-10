@@ -55,8 +55,6 @@ public class ScoreBoardView {
 
     private VBox instantiateScoreboardVBox() {
         VBox scoreboardVBox = new VBox();
-//        scoreboardVBox.setBlendMode(BlendMode.SRC_ATOP);
-//        scoreboardVBox.setSpacing(10);
         scoreboardVBox.setPadding(new Insets(1, 2, 1, 2));
         makeScoreboard(scoreboardVBox, ScoreBoardController.getInstance().showScoreBoard());
         scoreboardVBox.setStyle("-fx-background-color: black");

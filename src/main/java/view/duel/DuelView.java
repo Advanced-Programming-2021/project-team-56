@@ -15,10 +15,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
-import model.Board;
-import model.GameCard;
-import model.Output;
-import model.User;
+import model.*;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
 import view.FxmlController;
@@ -167,8 +164,13 @@ public class DuelView {
         //TODO
         //TODO
         initializeImageViews();
-        new Timeline(new KeyFrame(Duration.seconds(1), event -> setUpGame(0))).play();
-//        DuelWithUser.getInstance().run(firstPlayer.getUsername(), secondPlayer.getUsername(), String.valueOf(numberOfRounds));
+
+        new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+
+        })).play();
+
+//        DuelWithUser.getInstance().run(firstPlayer.getUsername(),
+//                secondPlayer.getUsername(), String.valueOf(numberOfRounds));
 
         //TODO
         //TODO
@@ -216,120 +218,15 @@ public class DuelView {
     //TODO
     //TODO
 
-//    public String run() {
-//        int roundResult = 0;
-//        if (numberOfRounds == 3) {
-//            int numberOfWinsPlayer1 = 0;
-//            int numberOfWinsPlayer2 = 0;
-//            while (numberOfWinsPlayer1 != 2 && numberOfWinsPlayer2 != 2) {
-//                setUpGame(roundResult);
-//                roundResult = phaseCaller(firstPlayerUsername);
-//                if (roundResult == 1) {
-//                    numberOfWinsPlayer1++;
-//                    duelWithUserView.printEndMessage(singleRoundWin(firstPlayerUsername,
-//                            numberOfWinsPlayer1, numberOfWinsPlayer2));
-//                } else {
-//                    numberOfWinsPlayer2++;
-//                    duelWithUserView.printEndMessage(singleRoundWin(secondPlayerUsername,
-//                            numberOfWinsPlayer2, numberOfWinsPlayer1));
-//                }
-//            }
-//            if (numberOfWinsPlayer1 == 2) {
-//                return (threeRoundWinner(firstPlayerUsername,
-//                        secondPlayerUsername, numberOfWinsPlayer1, numberOfWinsPlayer2));
-//            } else {
-//                return (threeRoundWinner(secondPlayerUsername,
-//                        firstPlayerUsername, numberOfWinsPlayer2, numberOfWinsPlayer1));
-//            }
-//        } else {
-//            setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
-//            roundResult = phaseCaller(firstPlayerUsername);
-//            if (roundResult == 1) {
-//                return (oneRoundWin(firstPlayerUsername, secondPlayerUsername));
-//            } else {
-//                return (oneRoundWin(secondPlayerUsername, firstPlayerUsername));
-//            }
-//        }
-//    }
-//
-//    public int phaseCaller(String firstPlayerUsername) {
-//        String result;
-//        while (true) {
-//            switch (phaseCounter) {
-//                case 1:
-//                    result = DrawPhaseView.getInstance().run();
-//                    if (result.equals(Output.ILost.toString())) {
-//                        return surrender(firstPlayerUsername);
-//                    }
-//                    break;
-//                case 2:
-//                    int winner = finishTheRound(StandByPhaseView.getInstance().run(), firstPlayerUsername);
-//                    if (winner != 0) {
-//                        return winner;
-//                    }
-//                    break;
-//                case 3:
-//                    EffectView.getInstance().output("phase: Main Phase 1");
-//                    if (MainPhase1View.getInstance().run().equals(Output.ILost.toString())) {
-//                        return surrender(firstPlayerUsername);
-//                    }
-//                    break;
-//                case 4:
-//                    if (startTurn != turnCounter) {
-//                        int loser = finishTheRound(BattlePhaseView.getInstance().run(), firstPlayerUsername);
-//                        if (loser != 0) {
-//                            return loser;
-//                        }
-//                    }
-//                    break;
-//                case 5:
-//                    EffectView.getInstance().output("phase: Main Phase 2");
-//                    if (MainPhase1View.getInstance().run().equals(Output.ILost.toString())) {
-//                        return surrender(firstPlayerUsername);
-//                    }
-//                    break;
-//                case 6:
-//                    if (EndPhaseView.getInstance().run().equals(Output.ILost.toString())) {
-//                        return surrender(firstPlayerUsername);
-//                    }
-//                    break;
-//            }
-//            phaseCounter++;
-//            if (phaseCounter == 7) {
-//                phaseCounter -= 6;
-//                turnCounter++;
-//            }
-//        }
-//    }
-
-    private int finishTheRound(String result, String firstPlayerUsername) {
-//        if (result.equals(Output.IWon.toString())) {
-//            setLP();
-//            if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
-//                return 1;
-//            }
-//            return 2;
-//        } else if (result.equals(Output.ILost.toString())) {
-//            setLP();
-//            if (getEnemyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
-//                return 1;
-//            }
-//            return 2;
-//        }
-        return 0;
-    }
-
-    private void setLP() {
-//        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
-//        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
-    }
-
-    private int surrender(String firstPlayerUsername) {
-        setLP();
-//        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
-//            return 2;
-//        }
-        return 1;
+    public static void updatePlayersHands() {
+        ArrayList<Card> myHandCards = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
+        ArrayList<Card> enemyHandCards = DuelWithUser.getInstance().getEnemyBoard().getPlayerHand();
+        for (int i = 0; i < myHandCards.size(); i++) {
+            myHandImageViews.get(i).setImage(new GameCard(myHandCards.get(i)));
+        }
+        for (int i = 0; i < enemyHandCards.size(); i++) {
+            opponentHandImageViews.get(i).setImage(new GameCard(enemyHandCards.get(i), "/images/Duel/Back-card.jpg"));
+        }
     }
 
     //TODO
