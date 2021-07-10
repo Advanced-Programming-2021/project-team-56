@@ -5,8 +5,10 @@ import controller.duel.DuelWithUser;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextFlow;
+import model.Card;
 import javafx.util.Duration;
 import model.*;
 import model.enums.MenuURL;
@@ -53,6 +56,14 @@ public class DuelView {
     public Button backToMainMenuButton;
     public Button continueButton;
     public VBox settingVBox;
+    public VBox drawPhaseVBox;
+    public VBox standbyPhaseVBox;
+    public VBox mainPhase1VBox;
+    public VBox battlePhaseVBox;
+    public VBox mainPhase2VBox;
+    public VBox endPhaseVBox;
+    public ScrollPane graveYardScrollPane;
+    public GridPane graveYardGridPane;
 
     //TODO
     //TODO
@@ -180,6 +191,15 @@ public class DuelView {
         //TODO
         //TODO
 
+        graveYardScrollPane.setFitToHeight(true);
+        for (int i = 0; i < 20; i++) {
+            Image image = new Image(Card.getCardByName("Battle OX").getImageURL());
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(96);
+            imageView.setFitHeight(140);
+            graveYardGridPane.add(imageView, i, 0);
+            GridPane.setMargin(imageView, new Insets(5));
+        }
     }
 
     private void initializePlayersInformation() {

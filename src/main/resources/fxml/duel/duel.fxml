@@ -4,9 +4,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -225,6 +227,103 @@
                   <Image url="@../../images/Duel/Field/fie_normal.png" />
                </image>
             </ImageView>
+            <VBox layoutX="19.0" layoutY="120.0" prefHeight="716.0" prefWidth="40.0" spacing="10.0" AnchorPane.bottomAnchor="134.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
+               <children>
+                  <VBox fx:id="drawPhaseVBox" alignment="CENTER" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                     <children>
+                        <Label alignment="BOTTOM_CENTER" text="D" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="46.0" text="P" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="standbyPhaseVBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                     <children>
+                        <Label alignment="BOTTOM_CENTER" text="S" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="46.0" text="P" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="mainPhase1VBox" alignment="CENTER" layoutX="10.0" layoutY="130.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                     <children>
+                        <Label alignment="BOTTOM_CENTER" text="M" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="46.0" text="1" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="battlePhaseVBox" alignment="CENTER" layoutX="10.0" layoutY="250.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                     <children>
+                        <Label alignment="BOTTOM_CENTER" text="B" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="46.0" text="P" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="mainPhase2VBox" alignment="CENTER" layoutX="10.0" layoutY="370.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                     <children>
+                        <Label alignment="BOTTOM_CENTER" text="M" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="46.0" text="2" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="endPhaseVBox" alignment="CENTER" layoutX="10.0" layoutY="490.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                     <children>
+                        <Label alignment="BOTTOM_CENTER" text="E" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="TOP_CENTER" layoutX="18.0" layoutY="46.0" text="P" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="34.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <ScrollPane fx:id="graveYardScrollPane" layoutX="213.0" layoutY="395.0" prefHeight="180.0" prefWidth="546.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 3; -fx-border-radius: 20;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="397.0" AnchorPane.topAnchor="398.0">
+               <content>
+                  <GridPane fx:id="graveYardGridPane" prefHeight="180.0" style="-fx-background-color: #41415D;">
+                  </GridPane>
+               </content>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </ScrollPane>
             <HBox fx:id="myHandHBox" alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="921.5" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <ImageView fx:id="myHandImageView9" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
@@ -322,4 +421,7 @@
          </children>
       </AnchorPane>
     </children>
+    <stylesheets>
+        <URL value="@../../CSS/duel.css" />
+    </stylesheets>
 </AnchorPane>
