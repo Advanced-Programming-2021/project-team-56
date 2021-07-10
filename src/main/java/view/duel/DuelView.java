@@ -2,6 +2,7 @@ package view.duel;
 
 import controller.SoundPlayer;
 import controller.duel.DuelWithUser;
+import controller.duel.phases.DrawPhaseController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -19,17 +20,15 @@ import javafx.scene.text.TextFlow;
 import model.Card;
 import javafx.util.Duration;
 import model.*;
+import model.enums.DuelInfo;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
 import view.FxmlController;
 import view.components.NodeEditor;
-import view.duel.phase.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DuelView {
 
@@ -37,10 +36,17 @@ public class DuelView {
     private static User secondPlayer;
     private static int numberOfRounds;
 
+    public static ArrayList<ImageView> myHandImageViews;
+    public static ArrayList<ImageView> opponentHandImageViews;
+    public static ArrayList<ImageView> opponentSpellTerritoryImageViews;
+    public static ArrayList<ImageView> opponentMonsterTerritoryImageViews;
+    public static ArrayList<ImageView> myMonsterTerritoryImageViews;
+    public static ArrayList<ImageView> mySpellTerritoryCardImageViews;
+
     public AnchorPane fieldAnchorPane;
     public Label opponentLPLabel;
     public Pane opponentLPBar;
-    public ImageView clickedCardImageView;
+    public ImageView onMouseEnteredCardImageView;
     public Label myLPLabel;
     public Pane myLPBar;
     public Circle opponentMagicCircle;
@@ -125,12 +131,7 @@ public class DuelView {
     public ImageView opponentFieldSpellImageView;
     public ImageView myFieldSpellImageView;
 
-    public static ArrayList<ImageView> myHandImageViews;
-    public static ArrayList<ImageView> opponentHandImageViews;
-    public static ArrayList<ImageView> opponentSpellTerritoryImageViews;
-    public static ArrayList<ImageView> opponentMonsterTerritoryImageViews;
-    public static ArrayList<ImageView> myMonsterTerritoryImageViews;
-    public static ArrayList<ImageView> mySpellTerritoryCardImageViews;
+    public Label duelInfoLabel;
 
     //TODO
     //TODO
@@ -160,6 +161,7 @@ public class DuelView {
     @FXML
     public void initialize() {
         settingVBox.setVisible(false);
+        initializeFieldComponents();
 //        playerHandImageView.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
 //        myHandImageView1.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
 //        GameCard gameCard = (GameCard) myHandImageView1.getImage();
@@ -177,7 +179,7 @@ public class DuelView {
         initializeImageViews();
 
         new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-
+            startRound();
         })).play();
 
 //        DuelWithUser.getInstance().run(firstPlayer.getUsername(),
@@ -202,6 +204,25 @@ public class DuelView {
         }
     }
 
+    private void startRound() {
+        editImageViews();
+        //TODO Last round result?
+        DuelWithUser.getInstance().setUpGame(firstPlayer.getUsername(), secondPlayer.getUsername(), 0);
+        updateFromDrawPhase();
+        showDuelInfoLabel(DuelInfo.PHASE_DRAW.value);
+        new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            showDuelInfoLabel(DrawPhaseController.getInstance().run());
+            updateFromDrawPhase();
+        })).play();
+
+//        roundResult = phaseCaller(firstPlayerUsername);
+//        if (roundResult == 1) {
+//            return (oneRoundWin(firstPlayerUsername, secondPlayerUsername));
+//        } else {
+//            return (oneRoundWin(secondPlayerUsername, firstPlayerUsername));
+//        }
+    }
+
     private void initializePlayersInformation() {
         opponentMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
         opponentAvatar.setFill(new ImagePattern(new Image(secondPlayer.getAvatarURL())));
@@ -211,6 +232,12 @@ public class DuelView {
         myAvatarCircle.setFill(new ImagePattern(new Image(firstPlayer.getAvatarURL())));
         myUsernameLabel.setText(firstPlayer.getUsername());
         myNicknameLabel.setText(firstPlayer.getNickname());
+    }
+
+    private void initializeFieldComponents() {
+        graveYardScrollPane.setVisible(false);
+        duelInfoLabel.setVisible(false);
+
     }
 
     private void editSettingHBox() {
@@ -238,7 +265,7 @@ public class DuelView {
     //TODO
     //TODO
 
-    public static void updatePlayersHands() {
+    public void updateFromDrawPhase() {
         ArrayList<Card> myHandCards = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
         ArrayList<Card> enemyHandCards = DuelWithUser.getInstance().getEnemyBoard().getPlayerHand();
         for (int i = 0; i < myHandCards.size(); i++) {
@@ -247,6 +274,8 @@ public class DuelView {
         for (int i = 0; i < enemyHandCards.size(); i++) {
             opponentHandImageViews.get(i).setImage(new GameCard(enemyHandCards.get(i), "/images/Duel/Back-card.jpg"));
         }
+        myDeckCardsNumberLabel.setText(String.valueOf(DuelWithUser.getInstance().getMyBoard().getMainDeck().size()));
+        opponentDeckCardsNumberLabel.setText(String.valueOf(DuelWithUser.getInstance().getEnemyBoard().getMainDeck().size()));
     }
 
     //TODO
@@ -257,7 +286,6 @@ public class DuelView {
     //TODO
     //TODO
     public void setUpGame(int lastRoundResult) {
-        editImageViews();
         firstPlayerBoard = new Board(firstPlayer);
         secondPlayerBoard = new Board(secondPlayer);
         //TODO where do we need turnCounter 3?
@@ -292,32 +320,6 @@ public class DuelView {
                 mySpellTerritoryCardImageView2, mySpellTerritoryCardImageView3,
                 mySpellTerritoryCardImageView4, mySpellTerritoryCardImageView5));
     }
-
-    private void editImageViews() {
-        ArrayList<ArrayList<ImageView>> allImageViewLists = new ArrayList<>(Arrays.asList(myHandImageViews,
-                opponentHandImageViews, mySpellTerritoryCardImageViews, myMonsterTerritoryImageViews,
-                opponentSpellTerritoryImageViews, opponentMonsterTerritoryImageViews));
-        for (ArrayList<ImageView> imageViewList : allImageViewLists) {
-            for (ImageView imageView : imageViewList) {
-                //TODO getButton PRIMARY -- SECONDARY
-//                imageView.setOnMouseClicked(event -> {
-//                    System.out.println(event.getEventType());
-//                    System.out.println(event.getClickCount());
-//                    System.out.println(event.hashCode());
-//                    System.out.println(event.toString());
-//                    System.out.println(event.getButton());
-//                });
-                imageView.setOnMouseEntered(event -> {
-                    if (imageView.getImage() != null) {
-                        SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
-                        imageView.setEffect(new Glow(0.6));
-                    }
-                });
-                imageView.setOnMouseExited(event -> imageView.setEffect(null));
-            }
-        }
-    }
-
     //TODO
     //TODO
     //TODO
@@ -367,5 +369,34 @@ public class DuelView {
         BackgroundSize backgroundSize = new BackgroundSize(1680, 1050, true, true, false, true);
         fieldAnchorPane.setBackground(new Background(new BackgroundImage(new Image("/images/Duel/Field/fie_normal.png")
                 , BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize)));
+    }
+
+    private void editImageViews() {
+        ArrayList<ArrayList<ImageView>> allImageViewLists = new ArrayList<>(Arrays.asList(myHandImageViews,
+                opponentHandImageViews, mySpellTerritoryCardImageViews, myMonsterTerritoryImageViews,
+                opponentSpellTerritoryImageViews, opponentMonsterTerritoryImageViews));
+        for (ArrayList<ImageView> imageViewList : allImageViewLists) {
+            for (ImageView imageView : imageViewList) {
+                //TODO getButton PRIMARY -- SECONDARY
+//                imageView.setOnMouseClicked(event -> {
+//                    System.out.println(event.getButton());
+//                });
+                imageView.setOnMouseEntered(event -> {
+                    if (imageView.getImage() != null) {
+                        onMouseEnteredCardImageView.setImage(imageView.getImage());
+                        SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
+                        imageView.setEffect(new Glow(0.6));
+                    }
+                });
+                imageView.setOnMouseExited(event -> imageView.setEffect(null));
+            }
+        }
+    }
+
+
+    private void showDuelInfoLabel(String duelInfo) {
+        duelInfoLabel.setText(duelInfo);
+        duelInfoLabel.setVisible(true);
+        new Timeline(new KeyFrame(Duration.seconds(2), event -> duelInfoLabel.setVisible(false))).play();
     }
 }

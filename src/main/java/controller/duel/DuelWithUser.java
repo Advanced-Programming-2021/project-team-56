@@ -169,8 +169,8 @@ public class DuelWithUser {
         boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
         boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
         //TODO Ask to update view here
-        String starter = FirstToGoDeterminerView.getInstance()
-                .determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername, lastRoundResult);
+//        String starter = FirstToGoDeterminerView.getInstance()
+//                .determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername, lastRoundResult);
         turnCounter = 2;
 //            turnCounter = 3;
         startTurn = turnCounter;

@@ -66,14 +66,6 @@ public class Board {
     }
 
     public void setPlayerHandForFirstPlayer() {
-//        for (int i = 0; i < 5; i++) {
-//            Card newCard = playerDeck.getMainDeck().get(0);
-//            if (newCard.getName().equals("Scanner")){
-//                ((MonsterCard)newCard).setItScanner(true);
-//            }
-//            playerHand.add(newCard);
-//            playerDeck.getMainDeck().remove(0);
-//        }
         Collections.shuffle(playerDeck.getMainDeck());
         for (int i = 0; i < 5; i++) {
             Card newCard = playerDeck.getMainDeck().get(0);

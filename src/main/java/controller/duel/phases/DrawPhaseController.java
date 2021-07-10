@@ -37,7 +37,7 @@ public class DrawPhaseController {
             }
             playerHand.add(newCard);
             mainDeck.remove(mainDeck.size() - 1);
-            return "new card added to the hand : " + playerHand.get(playerHand.size() - 1).getName();
+            return "new card added to the hand:\n" + playerHand.get(playerHand.size() - 1).getName();
         } else {
             duelWithUser.getMyBoard().setItEffectedByTimeSeal(false);
             return "this turn you couldn't draw a card";
