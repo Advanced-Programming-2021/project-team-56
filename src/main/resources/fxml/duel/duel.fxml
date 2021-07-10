@@ -326,28 +326,28 @@
             </ScrollPane>
             <HBox fx:id="myHandHBox" alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="921.5" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <ImageView fx:id="myHandImageView9" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="myHandImageView7" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="myHandImageView5" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="myHandImageView3" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="myHandImageView1" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="myHandImageView2" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="myHandImageView4" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="myHandImageView6" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="myHandImageView8" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myHandImageView9" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myHandImageView7" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myHandImageView5" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myHandImageView3" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myHandImageView1" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myHandImageView2" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myHandImageView4" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myHandImageView6" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myHandImageView8" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
             <HBox fx:id="opponentHandHBox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="921.5" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fx:id="opponentHandImageView9" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="opponentHandImageView7" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="opponentHandImageView5" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="opponentHandImageView3" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="opponentHandImageView1" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="opponentHandImageView2" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="opponentHandImageView4" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="opponentHandImageView6" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="opponentHandImageView8" fitHeight="130.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="opponentHandImageView9" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="opponentHandImageView7" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="opponentHandImageView5" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="opponentHandImageView3" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="opponentHandImageView1" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="opponentHandImageView2" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="opponentHandImageView4" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="opponentHandImageView6" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="opponentHandImageView8" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
             <VBox alignment="CENTER" layoutX="824.0" layoutY="705.0" spacing="3.0" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="824.0" AnchorPane.rightAnchor="77.62834167480469" AnchorPane.topAnchor="705.0">
