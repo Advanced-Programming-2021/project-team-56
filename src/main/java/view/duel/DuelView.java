@@ -267,6 +267,7 @@ public class DuelView {
         ArrayList<Card> myHandCards = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
         ArrayList<Card> enemyHandCards = DuelWithUser.getInstance().getEnemyBoard().getPlayerHand();
         for (int i = 0; i < myHandCards.size(); i++) {
+            System.out.println(myHandCards.get(i).getName() + " " + myHandCards.size());
             myHandImageViews.get(i).setImage(new GameCard(myHandCards.get(i)));
         }
         for (int i = 0; i < enemyHandCards.size(); i++) {
