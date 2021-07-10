@@ -70,13 +70,14 @@ public class DuelView {
         initializePlayersInformation();
         editSettingHBox();
         //changeFieldImage(null);
+        graveYardScrollPane.setFitToHeight(true);
         for (int i = 0; i < 20; i++) {
             Image image = new Image(Card.getCardByName("Battle OX").getImageURL());
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(110);
+            imageView.setFitWidth(96);
             imageView.setFitHeight(140);
             graveYardGridPane.add(imageView, i, 0);
-            GridPane.setMargin(imageView, new Insets(20));
+            GridPane.setMargin(imageView, new Insets(5));
         }
     }
 

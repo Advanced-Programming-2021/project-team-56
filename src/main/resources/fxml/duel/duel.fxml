@@ -315,9 +315,9 @@
                   </VBox>
                </children>
             </VBox>
-            <ScrollPane fx:id="graveYardScrollPane" layoutX="213.0" layoutY="395.0" prefHeight="175.0" prefWidth="546.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 3; -fx-border-radius: 20;" AnchorPane.bottomAnchor="397.0" AnchorPane.topAnchor="398.0">
+            <ScrollPane fx:id="graveYardScrollPane" layoutX="213.0" layoutY="395.0" prefHeight="180.0" prefWidth="546.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 3; -fx-border-radius: 20;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="397.0" AnchorPane.topAnchor="398.0">
                <content>
-                  <GridPane fx:id="graveYardGridPane" prefHeight="140.0" style="-fx-background-color: #41415D;">
+                  <GridPane fx:id="graveYardGridPane" prefHeight="180.0" style="-fx-background-color: #41415D;">
                   </GridPane>
                </content>
                <padding>
@@ -328,6 +328,6 @@
       </AnchorPane>
     </children>
     <stylesheets>
-        <URL value="@../../CSS/duel.css"/>
+        <URL value="@../../CSS/duel.css" />
     </stylesheets>
 </AnchorPane>
