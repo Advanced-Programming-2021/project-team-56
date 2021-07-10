@@ -1,0 +1,62 @@
+package server;
+
+import java.util.ArrayList;
+
+public class ServerUser {
+    private final static ArrayList<ServerUser> users = new ArrayList<>();
+    private String username;
+    private String password;
+    private String nickname;
+
+    public static ArrayList<ServerUser> getUsers() {
+        return users;
+    }
+
+    public static boolean isThisUsernameAlreadyTaken(String username) {
+        for (ServerUser user : users) {
+            if (user.getUsername().equals(username))
+                return true;
+        }
+        return false;
+    }
+
+    public static synchronized ServerUser getUserByUsername(String username) {
+        for (ServerUser user : users) {
+            if (user.getUsername().equals(username))
+                return user;
+        }
+        return null;
+    }
+
+    public static boolean isThisNicknameAlreadyTaken(String nickname) {
+        for (ServerUser user : users) {
+            if (user.getNickname().equals(nickname))
+                return true;
+        }
+        return false;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNickname() {
+        return this.nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+}

@@ -1,5 +1,6 @@
 package controller;
 
+import server.ServerUser;
 import server.User;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class ScoreBoardController {
     }
 
     public String showScoreBoard() {
-        ArrayList<User> users = User.getUsers();
+        ArrayList<User> users = ServerUser.getUsers();
         Comparator<User> comparator = Comparator.comparing(User::getScore, Comparator.reverseOrder())
                 .thenComparing(User::getNickname);
         Collections.sort(users, comparator);

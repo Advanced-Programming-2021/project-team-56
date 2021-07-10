@@ -33,7 +33,7 @@ public class Data {
                         }.getType()
                 );
                 for (User user : users) {
-                    User.getUsers().add(user);
+                    ServerUser.getUsers().add(user);
                 }
             }
         } catch (IOException e) {
@@ -44,7 +44,7 @@ public class Data {
     public void updateJson() {
         try {
             FileWriter writer = new FileWriter("json.json");
-            writer.write(new YaGson().toJson(User.getUsers()));
+            writer.write(new YaGson().toJson(ServerUser.getUsers()));
             writer.close();
         } catch (IOException e) {
             System.out.println("can't create or update json");

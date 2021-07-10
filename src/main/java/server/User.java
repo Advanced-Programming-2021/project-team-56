@@ -7,62 +7,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class User {
-
-    private static User currentUser;
-    private final static ArrayList<User> users = new ArrayList<>();
     private String username;
     private String password;
+    private String nickname;
+    private static User currentUser;
     private String avatarURL;
     private int score = 0;
-    private String nickname;
     private int money = 100000;
     private final ArrayList<Deck> decks = new ArrayList<>();
     private final ArrayList<Card> userAllCards = new ArrayList<>();
     private final ArrayList<Integer> playerLP = new ArrayList<>();
 
-    public User(String username, String nickname, String password) {
-        setUsername(username);
-        setPassword(password);
-        setNickname(nickname);
+    public User() {
         setUsersRandomAvatarURL();
-        users.add(this);
-    }
-
-    public static ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public static synchronized User getUserByUsername(String username) {
-        for (User user : users) {
-            if (user.getUsername().equals(username))
-                return user;
-        }
-        return null;
-    }
-
-
-    public static synchronized boolean isThisUsernameAlreadyTaken(String username) {
-        for (User user : users) {
-            if (user.getUsername().equals(username))
-                return true;
-        }
-        return false;
-    }
-
-    public static synchronized boolean isThisNicknameAlreadyTaken(String nickname) {
-        for (User user : users) {
-            if (user.getNickname().equals(nickname))
-                return true;
-        }
-        return false;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
-
-    public String getNickname() {
-        return this.nickname;
     }
 
     public ArrayList<Integer> getPlayerLP() {
@@ -83,7 +40,7 @@ public class User {
         return maxLP;
     }
 
-    public void clearLP(){
+    public void clearLP() {
         playerLP.clear();
     }
 
@@ -115,20 +72,8 @@ public class User {
         return currentUser;
     }
 
-    public String getPassword() {
-        return this.password;
-    }
-
     public ArrayList<Card> getUserAllCards() {
         return userAllCards;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public void setAvatarURL(String avatarURL) {
@@ -136,22 +81,18 @@ public class User {
     }
 
     public void setUsersRandomAvatarURL() {
-        AvatarURL[] avatarURLs= AvatarURL.class.getEnumConstants();
+        AvatarURL[] avatarURLs = AvatarURL.class.getEnumConstants();
         int avatarURLsLength = AvatarURL.class.getEnumConstants().length;
         int randomNumber = new Random().nextInt(avatarURLsLength);
         for (int i = 0; i < avatarURLsLength; i++) {
             if (i == randomNumber) {
-                 this.avatarURL = avatarURLs[i].value;
+                this.avatarURL = avatarURLs[i].value;
             }
         }
     }
 
     public static void setCurrentUser(User currentUser) {
         User.currentUser = currentUser;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public void setMoney(int amount) {
@@ -227,4 +168,27 @@ public class User {
         return Integer.toString(cardCounter);
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNickname() {
+        return this.nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }

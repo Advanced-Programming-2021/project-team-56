@@ -26,8 +26,8 @@ public class ClientThread extends Thread {
             inStream.close();
             outStream.close();
             client.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
+
         } finally {
             System.out.println("Client - exit!! ");
         }

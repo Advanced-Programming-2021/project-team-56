@@ -1,5 +1,6 @@
 package controller;
 
+import server.ServerUser;
 import server.User;
 
 public class ProfileController {
@@ -16,7 +17,7 @@ public class ProfileController {
     }
 
     public String changeNickname(String username, String nickname) {
-        if (User.isThisNicknameAlreadyTaken(nickname)) {
+        if (ServerUser.isThisNicknameAlreadyTaken(nickname)) {
             return "user with nickname " + nickname + " already exists";
         } else {
             User.getUserByUsername(username).setNickname(nickname);

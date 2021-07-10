@@ -28,14 +28,15 @@ public class LoginController {
         User.setCurrentUser(null);
     }
 
-    public String register(String username, String password, String nickname) {
-        if (User.isThisUsernameAlreadyTaken(username)) {
+    public synchronized String register(String username, String password, String nickname) {
+        if (ServerUser.isThisUsernameAlreadyTaken(username)) {
             return "user with username " + "\"" + username + "\"" + " already exists";
         }
-        if (User.isThisNicknameAlreadyTaken(nickname)) {
+        if (ServerUser.isThisNicknameAlreadyTaken(nickname)) {
             return "user with nickname " + "\"" + nickname + "\"" + " already exists";
         }
-        new User(username, nickname, password);
+        new User();
+        new ServerUser();
         return SIGNUP_SUCCESSFUL.value;
     }
 }
