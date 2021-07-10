@@ -243,7 +243,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="standbyPhaseVBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                  <VBox fx:id="standbyPhaseVBox" onMouseClicked="#standbyPhaseClicked" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
                      <children>
                         <Label alignment="BOTTOM_CENTER" text="S" textFill="WHITE">
                            <font>
@@ -257,7 +257,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="mainPhase1VBox" alignment="CENTER" layoutX="10.0" layoutY="130.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                  <VBox fx:id="mainPhase1VBox" onMouseClicked="#mainPhase1Clicked" alignment="CENTER" layoutX="10.0" layoutY="130.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
                      <children>
                         <Label alignment="BOTTOM_CENTER" text="M" textFill="WHITE">
                            <font>
@@ -271,7 +271,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="battlePhaseVBox" alignment="CENTER" layoutX="10.0" layoutY="250.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                  <VBox fx:id="battlePhaseVBox" onMouseClicked="#battlePhaseClicked" alignment="CENTER" layoutX="10.0" layoutY="250.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
                      <children>
                         <Label alignment="BOTTOM_CENTER" text="B" textFill="WHITE">
                            <font>
@@ -285,7 +285,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="mainPhase2VBox" alignment="CENTER" layoutX="10.0" layoutY="370.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                  <VBox fx:id="mainPhase2VBox" onMouseClicked="#mainPhase2Clicked" alignment="CENTER" layoutX="10.0" layoutY="370.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
                      <children>
                         <Label alignment="BOTTOM_CENTER" text="M" textFill="WHITE">
                            <font>
@@ -299,7 +299,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="endPhaseVBox" alignment="CENTER" layoutX="10.0" layoutY="490.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
+                  <VBox fx:id="endPhaseVBox" onMouseClicked="#endPhaseClicked" alignment="CENTER" layoutX="10.0" layoutY="490.0" prefHeight="110.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-radius: 20; -fx-border-width: 3;">
                      <children>
                         <Label alignment="BOTTOM_CENTER" text="E" textFill="WHITE">
                            <font>

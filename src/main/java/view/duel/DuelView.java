@@ -5,6 +5,7 @@ import controller.duel.DuelWithUser;
 import controller.duel.phases.DrawPhaseController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -32,10 +34,15 @@ import java.util.Arrays;
 
 public class DuelView {
 
+    enum Phase {
+        DRAW, STANDBY, MAIN1, BATTLE, MAIN2, END;
+    }
+
     private static User firstPlayer;
     private static User secondPlayer;
     private static int numberOfRounds;
 
+    private Phase currentPhase;
     public static ArrayList<ImageView> myHandImageViews;
     public static ArrayList<ImageView> opponentHandImageViews;
     public static ArrayList<ImageView> opponentSpellTerritoryImageViews;
@@ -182,9 +189,6 @@ public class DuelView {
             startRound();
         })).play();
 
-//        DuelWithUser.getInstance().run(firstPlayer.getUsername(),
-//                secondPlayer.getUsername(), String.valueOf(numberOfRounds));
-
         //TODO
         //TODO
         //TODO
@@ -320,6 +324,50 @@ public class DuelView {
                 mySpellTerritoryCardImageView2, mySpellTerritoryCardImageView3,
                 mySpellTerritoryCardImageView4, mySpellTerritoryCardImageView5));
     }
+
+    private void setOnMouseEnteredImageViews() {
+        for (ImageView imageView : myHandImageViews) {
+            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    onMouseEnteredCardImageView.setImage(imageView.getImage());
+                }
+            });
+        }
+
+        for (ImageView imageView : mySpellTerritoryCardImageViews) {
+            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    onMouseEnteredCardImageView.setImage(imageView.getImage());
+                }
+            });
+        }
+
+        for (ImageView imageView : myMonsterTerritoryImageViews) {
+            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    onMouseEnteredCardImageView.setImage(imageView.getImage());
+                }
+            });
+        }
+
+        for (ImageView imageView : opponentSpellTerritoryImageViews) {
+            GameCard gameCard = (GameCard) imageView.getImage();
+            if (gameCard.getCard().getIsFacedUp()) {
+                onMouseEnteredCardImageView.setImage(imageView.getImage());
+            }
+        }
+
+        for (ImageView imageView : opponentMonsterTerritoryImageViews) {
+            GameCard gameCard = (GameCard) imageView.getImage();
+            if (gameCard.getCard().getIsFacedUp()) {
+                onMouseEnteredCardImageView.setImage(imageView.getImage());
+            }
+        }
+    }
+
     //TODO
     //TODO
     //TODO
@@ -369,6 +417,31 @@ public class DuelView {
         BackgroundSize backgroundSize = new BackgroundSize(1680, 1050, true, true, false, true);
         fieldAnchorPane.setBackground(new Background(new BackgroundImage(new Image("/images/Duel/Field/fie_normal.png")
                 , BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize)));
+    }
+
+    public void standbyPhaseClicked(MouseEvent mouseEvent) {
+        if (currentPhase == Phase.DRAW)
+            currentPhase = Phase.STANDBY;
+    }
+
+    public void mainPhase1Clicked(MouseEvent mouseEvent) {
+        if (currentPhase == Phase.STANDBY)
+            currentPhase = Phase.MAIN1;
+    }
+
+    public void battlePhaseClicked(MouseEvent mouseEvent) {
+        if (currentPhase == Phase.MAIN1)
+            currentPhase = Phase.BATTLE;
+    }
+
+    public void mainPhase2Clicked(MouseEvent mouseEvent) {
+        if (currentPhase == Phase.BATTLE)
+            currentPhase = Phase.MAIN2;
+    }
+
+    public void endPhaseClicked(MouseEvent mouseEvent) {
+        if (currentPhase == Phase.MAIN2)
+            currentPhase = Phase.END;
     }
 
     private void editImageViews() {
