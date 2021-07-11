@@ -35,8 +35,8 @@ public class BattlePhaseView {
     }
 
     public String run() {
-//        DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
-//        System.out.print("phase: battle phase\n" + duelWithUser.showField());
+        DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
+        System.out.print("phase: battle phase\n" + duelWithUser.showField());
 //        while (true) {
 //            battlePhaseController.afterBattleEffects();
 //            String command = LoginMenuView.scan.nextLine().trim();
@@ -92,7 +92,7 @@ public class BattlePhaseView {
         return duelWithUser.getEnemyBoard().getLP() <= 0 || duelWithUser.getMyBoard().getLP() <= 0;
     }
 
-    private String afterAttack() {
+    public String afterAttack() {
         System.out.print(duelWithUser.showField());
         if (isGameOver()) {
             if (duelWithUser.getMyBoard().getLP() <= 0) {
