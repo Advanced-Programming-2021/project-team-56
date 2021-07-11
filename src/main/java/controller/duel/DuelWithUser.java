@@ -188,39 +188,8 @@ public class DuelWithUser {
         return boards[(turnCounter + 1 + tempTurnCounter) % 2];
     }
 
-    public String selectCard(String command) {
-        Matcher matcher = selectMyMonster.matcher(command);
-        if (matcher.find()) {
-            return selectMonster(matcher, "me");
-        }
-        matcher = selectOpponentMonster1.matcher(command);
-        if (matcher.find()) {
-            return selectMonster(matcher, "opponent");
-        }
-        matcher = selectOpponentMonster2.matcher(command);
-        if (matcher.find()) {
-            return selectMonster(matcher, "opponent");
-        }
-        matcher = selectMySpellOrTrap.matcher(command);
-        if (matcher.find()) {
-            return selectSpellOrTrap(matcher, "me");
-        }
-        matcher = selectOpponentSpellOrTrap1.matcher(command);
-        if (matcher.find()) {
-            return selectSpellOrTrap(matcher, "opponent");
-        }
-        matcher = selectOpponentSpellOrTrap2.matcher(command);
-        if (matcher.find()) {
-            return selectSpellOrTrap(matcher, "opponent");
-        }
-        matcher = selectMyHandCard.matcher(command);
-        if (matcher.find()) {
-            return selectMyHandCard(matcher);
-        }
-        if (selectFieldCard.matcher(command).find()) {
-            return selectFieldCard(command);
-        }
-        return Output.InvalidCommand.toString();
+    public void selectCard(Card card) {
+        getMyBoard().setSelectedCard(card);
     }
 
     private String selectMonster(Matcher matcher, String whichPlayer) {

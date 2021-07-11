@@ -29,7 +29,7 @@ public class DuelWithUserView {
             System.out.println(duelWithUser.deselectCard());
             return true;
         } else if (command.startsWith(Commands.Select.toString())) {
-            System.out.println(duelWithUser.selectCard(command));
+          //  System.out.println(duelWithUser.selectCard(command));
             return true;
         } else if (command.equals(Commands.CardShowSelected.toString())) {
             System.out.println(duelWithUser.showSelectedCard());

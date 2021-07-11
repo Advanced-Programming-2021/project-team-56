@@ -3,6 +3,7 @@ package view.duel;
 import controller.SoundPlayer;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.DrawPhaseController;
+import controller.duel.phases.MainPhase1Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
@@ -524,62 +526,64 @@ public class DuelView {
 
     private void setOnMouseClickedForMyHandImageViews() {
         for (ImageView imageView : myHandImageViews) {
-            if (imageView.getImage() != null) {
-                imageView.setOnMouseClicked(event -> {
-                    //TODO
-                });
+            imageView.setOnMouseClicked(event -> {
+                if (currentPhase == PHASE_MAIN1 && imageView.getImage() != null) {
+                    onMouseClickedMyHandImageViewsInMainPhase(imageView, event);
+                }
+            });
+        }
+    }
+
+    private void onMouseClickedMyHandImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
+        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null) {
+            Card card = ((GameCard) imageView.getImage()).getCard();
+            DuelWithUser.getInstance().selectCard(card);
+        } else {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                MainPhase1Controller.getInstance().summon(false);
+                updateMyHandCards();
+                updateMyMonsterTerritory();
             }
         }
     }
 
     private void setOnMouseClickedForOpponentHandImageViews() {
         for (ImageView imageView : opponentHandImageViews) {
-            if (imageView.getImage() != null) {
-                imageView.setOnMouseClicked(event -> {
-                    //TODO
-                });
-            }
+            imageView.setOnMouseClicked(event -> {
+                //TODO
+            });
         }
-
     }
 
     private void setOnMouseClickedForMySpellAndTrapTerritoryImageViews() {
         for (ImageView imageView : mySpellAndTrapTerritoryImageViews) {
-            if (imageView.getImage() != null) {
-                imageView.setOnMouseClicked(event -> {
-                    //TODO
-                });
-            }
+            imageView.setOnMouseClicked(event -> {
+                //TODO
+            });
         }
     }
 
     private void setOnMouseClickedForOpponentSpellAndTrapTerritoryImageViews() {
         for (ImageView imageView : opponentSpellAndTrapTerritoryImageViews) {
-            if (imageView.getImage() != null) {
-                imageView.setOnMouseClicked(event -> {
-                    //TODO
-                });
-            }
+            imageView.setOnMouseClicked(event -> {
+                //TODO
+            });
         }
     }
 
     private void setOnMouseClickedForMyMonsterTerritoryImageViews() {
         for (ImageView imageView : myMonsterTerritoryImageViews) {
-            if (imageView.getImage() != null) {
-                imageView.setOnMouseClicked(event -> {
-                    //TODO
-                });
-            }
+            imageView.setOnMouseClicked(event -> {
+                //TODO
+            });
         }
     }
 
     private void setOnMouseClickedForOpponentMonsterTerritoryImageViews() {
         for (ImageView imageView : opponentMonsterTerritoryImageViews) {
-            if (imageView.getImage() != null) {
-                imageView.setOnMouseClicked(event -> {
-                    //TODO
-                });
-            }
+            imageView.setOnMouseClicked(event -> {
+                //TODO
+            });
         }
     }
 
