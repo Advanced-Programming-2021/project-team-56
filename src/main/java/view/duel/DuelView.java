@@ -218,6 +218,7 @@ public class DuelView {
         currentPhase = PHASE_DRAW;
         //TODO Last round result?
         DuelWithUser.getInstance().setUpGame(firstPlayer.getUsername(), secondPlayer.getUsername(), 0);
+        updateOpponentMonsterTerritory();
         updateFromDrawPhase();
         showDuelInfoLabel(PHASE_DRAW.value);
         new Timeline(new KeyFrame(Duration.seconds(2), event -> {
@@ -602,11 +603,16 @@ public class DuelView {
     private void setOnMouseClickedForMyMonsterTerritoryImageViews() {
         for (ImageView imageView : myMonsterTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
-                if (summonWithTribute && imageView.getImage() != null) {
-                    tributeCard(imageView, event);
-                }
-                if (currentPhase == PHASE_MAIN1 && imageView.getImage() != null) {
-                    onMouseClickedMyMonsterTerritoryImageViewsInMainPhase(imageView, event);
+                if (imageView.getImage() != null) {
+                    if (summonWithTribute) {
+                        tributeCard(imageView, event);
+                    }
+                    if (currentPhase == PHASE_MAIN1) {
+                        onMouseClickedMyMonsterTerritoryImageViewsInMainPhase(imageView, event);
+                    }
+                    if (currentPhase == PHASE_BATTLE) {
+                        onMouseClickedForMyMonsterTerritoryImageViewsInBattlePhase(imageView, event);
+                    }
                 }
             });
         }
