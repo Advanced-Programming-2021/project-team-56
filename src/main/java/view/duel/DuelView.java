@@ -290,7 +290,6 @@ public class DuelView {
     public void updateMyHandCards() {
         myHandImageViews.forEach(imageView -> imageView.setImage(null));
         ArrayList<Card> myHandCards = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
-        myHandImageViews.forEach(imageView -> imageView.setImage(null));
         for (int i = 0; i < myHandCards.size(); i++) {
             myHandImageViews.get(i).setImage(new GameCard(myHandCards.get(i)));
         }
