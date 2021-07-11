@@ -546,31 +546,6 @@ public class DuelView {
         }
     }
 
-    private void onMouseClickedMyHandImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
-        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
-                DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
-            Card card = ((GameCard) imageView.getImage()).getCard();
-            DuelWithUser.getInstance().selectCard(card);
-        } else {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                String result = MainPhase1Controller.getInstance().summon(false);
-                if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
-                else {
-                    updateMyHandCards();
-                    updateMyMonsterTerritory();
-                }
-            } else {
-                String result = MainPhase1Controller.getInstance().set();
-                if (!result.equals("set successfully") && !result.equals("summoned successfully")) showDuelInfoLabel(result);
-                else {
-                    updateMyHandCards();
-                    updateMyMonsterTerritory();
-                    updateMySpellAndTrapTerritory();
-                }
-            }
-        }
-    }
-
     private void setOnMouseClickedForOpponentHandImageViews() {
         for (ImageView imageView : opponentHandImageViews) {
             imageView.setOnMouseClicked(event -> {
@@ -598,7 +573,9 @@ public class DuelView {
     private void setOnMouseClickedForMyMonsterTerritoryImageViews() {
         for (ImageView imageView : myMonsterTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
-                //TODO
+                if (currentPhase == PHASE_MAIN1 && imageView.getImage() != null) {
+                    onMouseClickedMyMonsterTerritoryImageViewsInMainPhase(imageView, event);
+                }
             });
         }
     }
@@ -608,6 +585,57 @@ public class DuelView {
             imageView.setOnMouseClicked(event -> {
                 //TODO
             });
+        }
+    }
+
+
+    private void onMouseClickedMyHandImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
+        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
+                DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
+            Card card = ((GameCard) imageView.getImage()).getCard();
+            DuelWithUser.getInstance().selectCard(card);
+        } else {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                String result = MainPhase1Controller.getInstance().summon(false);
+                if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
+                else {
+                    updateMyHandCards();
+                    updateMyMonsterTerritory();
+                }
+            } else {
+                String result = MainPhase1Controller.getInstance().set();
+                if (!result.equals("set successfully") && !result.equals("summoned successfully"))
+                    showDuelInfoLabel(result);
+                else {
+                    updateMyHandCards();
+                    updateMyMonsterTerritory();
+                    updateMySpellAndTrapTerritory();
+                }
+            }
+        }
+    }
+
+
+    private void onMouseClickedMyMonsterTerritoryImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
+        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
+                DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
+            Card card = ((GameCard) imageView.getImage()).getCard();
+            DuelWithUser.getInstance().selectCard(card);
+        } else {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                Card card =  DuelWithUser.getInstance().getMyBoard().getSelectedCard();
+                String result = MainPhase1Controller.getInstance().changePosition(!((MonsterCard) card).getIsInAttackPosition());
+                if (!result.equals("monster card position\nchanged successfully")) showDuelInfoLabel(result);
+                else {
+                    updateMyMonsterTerritory();
+                }
+            } else {
+                String result = MainPhase1Controller.getInstance().flipSummon();
+                if (!result.equals("flip summoned successfully")) showDuelInfoLabel(result);
+                else {
+                    updateMyMonsterTerritory();
+                }
+            }
         }
     }
 

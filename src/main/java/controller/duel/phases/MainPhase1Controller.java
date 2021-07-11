@@ -177,18 +177,18 @@ public class MainPhase1Controller {
         }
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         if (monsterCard.getIsInAttackPosition() == inAttackPosition) {
-            return "this card is already in the wanted position";
+            return "this card is already\nin the wanted position";
         }
         if (!monsterCard.getIsFacedUp()) {
-            return "this card is faced down so you can't change its position";
+            return "this card is faced down\nso you can't change its position";
         }
         if (duelWithUser.getTurnCounter() == monsterCard.getLastTimeChangedPositionTurn()) {
-            return "you already changed this card position in this turn";
+            return "you already changed\nthis card position in this turn";
         }
         monsterCard.setInAttackPosition(inAttackPosition);
         monsterCard.setLastTimeChangedPositionTurn(duelWithUser.getTurnCounter());
         duelWithUser.getMyBoard().setSelectedCard(null);
-        return "monster card position changed successfully";
+        return "monster card position\nchanged successfully";
     }
 
     public String flipSummon() {
