@@ -287,6 +287,7 @@ public class DuelView {
     }
 
     public void updateMyHandCards() {
+        myHandImageViews.forEach(imageView -> imageView.setImage(null));
         ArrayList<Card> myHandCards = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
         for (int i = 0; i < myHandCards.size(); i++) {
             myHandImageViews.get(i).setImage(new GameCard(myHandCards.get(i)));
@@ -294,6 +295,7 @@ public class DuelView {
     }
 
     public void updateOpponentHandCards() {
+        opponentHandImageViews.forEach(imageView -> imageView.setImage(null));
         ArrayList<Card> enemyHandCards = DuelWithUser.getInstance().getEnemyBoard().getPlayerHand();
         for (int i = 0; i < enemyHandCards.size(); i++) {
             opponentHandImageViews.get(i).setImage(new GameCard(enemyHandCards.get(i), ""));
@@ -301,6 +303,10 @@ public class DuelView {
     }
 
     public void updateMyMonsterTerritory() {
+        myMonsterTerritoryImageViews.forEach(imageView -> {
+            imageView.setImage(null);
+            imageView.setRotate(0);
+        });
         ArrayList<Card> myMonsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritoryArrayList();
         for (int i = 0; i < myMonsterTerritory.size(); i++) {
             if (myMonsterTerritory.get(i) != null) {
@@ -318,6 +324,10 @@ public class DuelView {
     }
 
     public void updateOpponentMonsterTerritory() {
+        opponentMonsterTerritoryImageViews.forEach(imageView -> {
+            imageView.setImage(null);
+            imageView.setRotate(0);
+        });
         ArrayList<Card> opponentMonsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritoryArrayList();
         for (int i = 0; i < opponentMonsterTerritory.size(); i++) {
             if (opponentMonsterTerritory.get(i) != null) {
@@ -335,6 +345,7 @@ public class DuelView {
     }
 
     public void updateMySpellAndTrapTerritory() {
+        mySpellAndTrapTerritoryImageViews.forEach(imageView -> imageView.setImage(null));
         ArrayList<Card> mySpellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritoryArrayList();
         for (int i = 0; i < mySpellAndTrapTerritory.size(); i++) {
             if (mySpellAndTrapTerritory.get(i) != null) {
@@ -349,6 +360,7 @@ public class DuelView {
     }
 
     public void updateOpponentSpellAndTrapTerritory() {
+        opponentSpellAndTrapTerritoryImageViews.forEach(imageView -> imageView.setImage(null));
         ArrayList<Card> opponentSpellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritoryArrayList();
         for (int i = 0; i < opponentSpellAndTrapTerritory.size(); i++) {
             if (opponentSpellAndTrapTerritory.get(i) != null) {
@@ -535,14 +547,26 @@ public class DuelView {
     }
 
     private void onMouseClickedMyHandImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
-        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null) {
+        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
+                DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
             Card card = ((GameCard) imageView.getImage()).getCard();
             DuelWithUser.getInstance().selectCard(card);
         } else {
             if (event.getButton() == MouseButton.PRIMARY) {
-                MainPhase1Controller.getInstance().summon(false);
-                updateMyHandCards();
-                updateMyMonsterTerritory();
+                String result = MainPhase1Controller.getInstance().summon(false);
+                if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
+                else {
+                    updateMyHandCards();
+                    updateMyMonsterTerritory();
+                }
+            } else {
+                String result = MainPhase1Controller.getInstance().set();
+                if (!result.equals("set successfully") && !result.equals("summoned successfully")) showDuelInfoLabel(result);
+                else {
+                    updateMyHandCards();
+                    updateMyMonsterTerritory();
+                    updateMySpellAndTrapTerritory();
+                }
             }
         }
     }
