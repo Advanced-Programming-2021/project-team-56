@@ -12,7 +12,7 @@ public class GameCard extends Image {
     }
 
     public GameCard(Card card, String url) {
-        super(url);
+        super("/images/Duel/Back-card.jpg");
         this.card = card;
     }
 

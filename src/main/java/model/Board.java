@@ -118,6 +118,22 @@ public class Board {
         return spellAndTrapTerritory;
     }
 
+    public ArrayList<Card> getMonsterTerritoryArrayList() {
+        ArrayList<Card> monsterTerritory = new ArrayList<>();
+        for (int i = 1; i < 6; i++) {
+            monsterTerritory.add(this.monsterTerritory.get(i));
+        }
+        return monsterTerritory;
+    }
+
+    public ArrayList<Card> getSpellAndTrapTerritoryArrayList() {
+        ArrayList<Card> spellAndTrapTerritory = new ArrayList<>();
+        for (int i = 1; i < 6; i++) {
+            spellAndTrapTerritory.add(this.spellAndTrapTerritory.get(i));
+        }
+        return spellAndTrapTerritory;
+    }
+
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
     }

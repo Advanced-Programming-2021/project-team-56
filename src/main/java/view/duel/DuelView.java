@@ -42,10 +42,10 @@ public class DuelView {
 
     public static ArrayList<ImageView> myHandImageViews;
     public static ArrayList<ImageView> opponentHandImageViews;
-    public static ArrayList<ImageView> opponentSpellTerritoryImageViews;
+    public static ArrayList<ImageView> opponentSpellAndTrapTerritoryImageViews;
     public static ArrayList<ImageView> opponentMonsterTerritoryImageViews;
     public static ArrayList<ImageView> myMonsterTerritoryImageViews;
-    public static ArrayList<ImageView> mySpellTerritoryCardImageViews;
+    public static ArrayList<ImageView> mySpellAndTrapTerritoryImageViews;
 
     private DuelInfo currentPhase;
 
@@ -272,15 +272,99 @@ public class DuelView {
     //TODO
 
     public void updateFromDrawPhase() {
+        updateMyHandCards();
+        updateOpponentHandCards();
+        updateMyDeckCardsNumber();
+        updateOpponentDeckCardsNumber();
+    }
+
+    public void updateFromSummon() {
+        updateMyHandCards();
+        updateMySpellAndTrapTerritory();
+        updateMyMonsterTerritory();
+    }
+
+    public void updateMyHandCards() {
         ArrayList<Card> myHandCards = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
-        ArrayList<Card> enemyHandCards = DuelWithUser.getInstance().getEnemyBoard().getPlayerHand();
         for (int i = 0; i < myHandCards.size(); i++) {
             myHandImageViews.get(i).setImage(new GameCard(myHandCards.get(i)));
         }
+    }
+
+    public void updateOpponentHandCards() {
+        ArrayList<Card> enemyHandCards = DuelWithUser.getInstance().getEnemyBoard().getPlayerHand();
         for (int i = 0; i < enemyHandCards.size(); i++) {
-            opponentHandImageViews.get(i).setImage(new GameCard(enemyHandCards.get(i), "/images/Duel/Back-card.jpg"));
+            opponentHandImageViews.get(i).setImage(new GameCard(enemyHandCards.get(i), ""));
         }
+    }
+
+    public void updateMyMonsterTerritory() {
+        ArrayList<Card> myMonsterTerritory = DuelWithUser.getInstance().getMyBoard().getMonsterTerritoryArrayList();
+        for (int i = 0; i < myMonsterTerritory.size(); i++) {
+            if (myMonsterTerritory.get(i) != null) {
+                MonsterCard card = (MonsterCard) myMonsterTerritory.get(i);
+                if (!card.getIsInAttackPosition()) {
+                    myMonsterTerritoryImageViews.get(i).setRotate(90);
+                }
+                if (card.getIsFacedUp()) {
+                    myMonsterTerritoryImageViews.get(i).setImage(new GameCard(card));
+                } else {
+                    myMonsterTerritoryImageViews.get(i).setImage(new GameCard(card, ""));
+                }
+            }
+        }
+    }
+
+    public void updateOpponentMonsterTerritory() {
+        ArrayList<Card> opponentMonsterTerritory = DuelWithUser.getInstance().getEnemyBoard().getMonsterTerritoryArrayList();
+        for (int i = 0; i < opponentMonsterTerritory.size(); i++) {
+            if (opponentMonsterTerritory.get(i) != null) {
+                MonsterCard card = (MonsterCard) opponentMonsterTerritory.get(i);
+                if (!card.getIsInAttackPosition()) {
+                    opponentMonsterTerritoryImageViews.get(i).setRotate(90);
+                }
+                if (card.getIsFacedUp()) {
+                    opponentMonsterTerritoryImageViews.get(i).setImage(new GameCard(card));
+                } else {
+                    opponentMonsterTerritoryImageViews.get(i).setImage(new GameCard(card, ""));
+                }
+            }
+        }
+    }
+
+    public void updateMySpellAndTrapTerritory() {
+        ArrayList<Card> mySpellAndTrapTerritory = DuelWithUser.getInstance().getMyBoard().getSpellAndTrapTerritoryArrayList();
+        for (int i = 0; i < mySpellAndTrapTerritory.size(); i++) {
+            if (mySpellAndTrapTerritory.get(i) != null) {
+                Card card = mySpellAndTrapTerritory.get(i);
+                if (card.getIsFacedUp()) {
+                    mySpellAndTrapTerritoryImageViews.get(i).setImage(new GameCard(card));
+                } else {
+                    mySpellAndTrapTerritoryImageViews.get(i).setImage(new GameCard(card, ""));
+                }
+            }
+        }
+    }
+
+    public void updateOpponentSpellAndTrapTerritory() {
+        ArrayList<Card> opponentSpellAndTrapTerritory = DuelWithUser.getInstance().getEnemyBoard().getSpellAndTrapTerritoryArrayList();
+        for (int i = 0; i < opponentSpellAndTrapTerritory.size(); i++) {
+            if (opponentSpellAndTrapTerritory.get(i) != null) {
+                Card card = opponentSpellAndTrapTerritory.get(i);
+                if (card.getIsFacedUp()) {
+                    opponentSpellAndTrapTerritoryImageViews.get(i).setImage(new GameCard(card));
+                } else {
+                    opponentSpellAndTrapTerritoryImageViews.get(i).setImage(new GameCard(card, ""));
+                }
+            }
+        }
+    }
+
+    public void updateMyDeckCardsNumber() {
         myDeckCardsNumberLabel.setText(String.valueOf(DuelWithUser.getInstance().getMyBoard().getMainDeck().size()));
+    }
+
+    public void updateOpponentDeckCardsNumber() {
         opponentDeckCardsNumberLabel.setText(String.valueOf(DuelWithUser.getInstance().getEnemyBoard().getMainDeck().size()));
     }
 
@@ -310,7 +394,7 @@ public class DuelView {
                 opponentHandImageView2, opponentHandImageView3, opponentHandImageView4, opponentHandImageView5,
                 opponentHandImageView6, opponentHandImageView7, opponentHandImageView8, opponentHandImageView9));
 
-        opponentSpellTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentSpellTerritoryImageView1,
+        opponentSpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentSpellTerritoryImageView1,
                 opponentSpellTerritoryImageView2, opponentSpellTerritoryImageView3,
                 opponentSpellTerritoryImageView4, opponentSpellTerritoryImageView5));
 
@@ -322,52 +406,9 @@ public class DuelView {
                 myMonsterTerritoryImageView2, myMonsterTerritoryImageView3,
                 myMonsterTerritoryImageView4, myMonsterTerritoryImageView5));
 
-        mySpellTerritoryCardImageViews = new ArrayList<>(Arrays.asList(mySpellTerritoryCardImageView1,
+        mySpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(mySpellTerritoryCardImageView1,
                 mySpellTerritoryCardImageView2, mySpellTerritoryCardImageView3,
                 mySpellTerritoryCardImageView4, mySpellTerritoryCardImageView5));
-    }
-
-    private void setOnMouseEnteredImageViews() {
-//        for (ImageView imageView : myHandImageViews) {
-//            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent event) {
-//                    onMouseEnteredCardImageView.setImage(imageView.getImage());
-//                }
-//            });
-//        }
-//
-//        for (ImageView imageView : mySpellTerritoryCardImageViews) {
-//            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent event) {
-//                    onMouseEnteredCardImageView.setImage(imageView.getImage());
-//                }
-//            });
-//        }
-//
-//        for (ImageView imageView : myMonsterTerritoryImageViews) {
-//            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent event) {
-//                    onMouseEnteredCardImageView.setImage(imageView.getImage());
-//                }
-//            });
-//        }
-//
-//        for (ImageView imageView : opponentSpellTerritoryImageViews) {
-//            GameCard gameCard = (GameCard) imageView.getImage();
-//            if (gameCard.getCard().getIsFacedUp()) {
-//                onMouseEnteredCardImageView.setImage(imageView.getImage());
-//            }
-//        }
-//
-//        for (ImageView imageView : opponentMonsterTerritoryImageViews) {
-//            GameCard gameCard = (GameCard) imageView.getImage();
-//            if (gameCard.getCard().getIsFacedUp()) {
-//                onMouseEnteredCardImageView.setImage(imageView.getImage());
-//            }
-//        }
     }
 
     //TODO
@@ -446,23 +487,98 @@ public class DuelView {
     }
 
     private void editImageViews() {
+        setOnMouseClickedForImageViews();
         ArrayList<ArrayList<ImageView>> allImageViewLists = new ArrayList<>(Arrays.asList(myHandImageViews,
-                opponentHandImageViews, mySpellTerritoryCardImageViews, myMonsterTerritoryImageViews,
-                opponentSpellTerritoryImageViews, opponentMonsterTerritoryImageViews));
+                opponentHandImageViews, mySpellAndTrapTerritoryImageViews, myMonsterTerritoryImageViews,
+                opponentSpellAndTrapTerritoryImageViews, opponentMonsterTerritoryImageViews));
         for (ArrayList<ImageView> imageViewList : allImageViewLists) {
             for (ImageView imageView : imageViewList) {
-                //TODO getButton PRIMARY -- SECONDARY
-//                imageView.setOnMouseClicked(event -> {
-//                    System.out.println(event.getButton());
-//                });
                 imageView.setOnMouseEntered(event -> {
                     if (imageView.getImage() != null) {
-                        onMouseEnteredCardImageView.setImage(imageView.getImage());
+
+                        GameCard gameCard = (GameCard) imageView.getImage();
+
+                        if ((myMonsterTerritoryImageViews.contains(imageView) ||
+                                mySpellAndTrapTerritoryImageViews.contains(imageView)) && (!gameCard.getCard().getIsFacedUp())) {
+                            onMouseEnteredCardImageView.setImage(new Image(gameCard.getCard().getImageURL()));
+                        } else {
+                            onMouseEnteredCardImageView.setImage(gameCard);
+                        }
                         SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
                         imageView.setEffect(new Glow(0.6));
                     }
                 });
                 imageView.setOnMouseExited(event -> imageView.setEffect(null));
+            }
+        }
+    }
+
+    private void setOnMouseClickedForImageViews() {
+        setOnMouseClickedForMyHandImageViews();
+        setOnMouseClickedForOpponentHandImageViews();
+        setOnMouseClickedForMySpellAndTrapTerritoryImageViews();
+        setOnMouseClickedForOpponentSpellAndTrapTerritoryImageViews();
+        setOnMouseClickedForMyMonsterTerritoryImageViews();
+        setOnMouseClickedForOpponentMonsterTerritoryImageViews();
+    }
+
+    private void setOnMouseClickedForMyHandImageViews() {
+        for (ImageView imageView : myHandImageViews) {
+            if (imageView.getImage() != null) {
+                imageView.setOnMouseClicked(event -> {
+                    //TODO
+                });
+            }
+        }
+    }
+
+    private void setOnMouseClickedForOpponentHandImageViews() {
+        for (ImageView imageView : opponentHandImageViews) {
+            if (imageView.getImage() != null) {
+                imageView.setOnMouseClicked(event -> {
+                    //TODO
+                });
+            }
+        }
+
+    }
+
+    private void setOnMouseClickedForMySpellAndTrapTerritoryImageViews() {
+        for (ImageView imageView : mySpellAndTrapTerritoryImageViews) {
+            if (imageView.getImage() != null) {
+                imageView.setOnMouseClicked(event -> {
+                    //TODO
+                });
+            }
+        }
+    }
+
+    private void setOnMouseClickedForOpponentSpellAndTrapTerritoryImageViews() {
+        for (ImageView imageView : opponentSpellAndTrapTerritoryImageViews) {
+            if (imageView.getImage() != null) {
+                imageView.setOnMouseClicked(event -> {
+                    //TODO
+                });
+            }
+        }
+    }
+
+    private void setOnMouseClickedForMyMonsterTerritoryImageViews() {
+        for (ImageView imageView : myMonsterTerritoryImageViews) {
+            if (imageView.getImage() != null) {
+                imageView.setOnMouseClicked(event -> {
+                    //TODO
+                });
+            }
+        }
+    }
+
+    private void setOnMouseClickedForOpponentMonsterTerritoryImageViews() {
+        for (ImageView imageView : opponentMonsterTerritoryImageViews) {
+            if (imageView.getImage() != null) {
+                imageView.setOnMouseClicked(event -> {
+                    //TODO
+                });
             }
         }
     }
