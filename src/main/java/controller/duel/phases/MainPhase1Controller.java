@@ -7,6 +7,7 @@ import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
 import model.TrapCard;
+import view.duel.DuelView;
 import view.duel.EffectView;
 import model.Output;
 
@@ -77,40 +78,16 @@ public class MainPhase1Controller {
             if (!areThereEnoughCardsToTribute(1)) {
                 return "there are not enough cards for tribute";
             }
-            int firstAddress = effectView.getAddress();
-            if (firstAddress < 1 || firstAddress > 5) {
-                return Output.InvalidSelection.toString();
-            }
-            if (!isAddressValid(firstAddress)) {
-                return "there is no monsters on this address";
-            } else {
-                tribute(firstAddress);
-                summon(monsterCard, false, isItSet);
-                return Output.SummonedSuccessfully.toString();
-            }
+            DuelView.summonWithTribute = true;
+            DuelView.numberOfTributes = 1;
+            return "tribute 1 monster\nto summon this card";
         } else {
             if (!areThereEnoughCardsToTribute(2)) {
                 return "there are not enough cards for tribute";
             }
-            int firstAddress = effectView.getAddress();
-            if (firstAddress < 1 || firstAddress > 5) {
-                return Output.InvalidSelection.toString();
-            }
-            int secondAddress = effectView.getAddress();
-            if (secondAddress < 1 || secondAddress > 5) {
-                return Output.InvalidSelection.toString();
-            }
-            if (firstAddress == secondAddress) {
-                return "there is no monster on one of these addresses";
-            }
-            if (isAddressValid(firstAddress) && isAddressValid(secondAddress)) {
-                tribute(firstAddress);
-                tribute(secondAddress);
-                summon(monsterCard, false, isItSet);
-                return "summoned successfully";
-            } else {
-                return "there is no monster on one of these addresses";
-            }
+            DuelView.summonWithTribute = true;
+            DuelView.numberOfTributes = 2;
+            return "tribute 2 monster\nto summon this card";
         }
     }
 
@@ -363,7 +340,7 @@ public class MainPhase1Controller {
         }
     }
 
-    private void summon(MonsterCard monster, boolean isSpecialSummon, boolean isItSet) {
+    public void summon(MonsterCard monster, boolean isSpecialSummon, boolean isItSet) {
         placeMonsterOnTheField(monster);
         drawCardFromPlayerHand(monster);
         duelWithUser.getMyBoard().setSelectedCard(null);
@@ -408,13 +385,16 @@ public class MainPhase1Controller {
         return monsterTerritory.get(address) != null;
     }
 
-    private void tribute(int address) {
+    public void tribute(int address) {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         MonsterCard monsterCard = monsterTerritory.get(address);
         graveyard.add(monsterCard);
         monsterTerritory.put(address, null);
         duelWithUser.afterDeathEffect(address, monsterCard);
+        if (DuelView.numberOfTributes == 0) {
+            summon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard(), false, false);
+        }
     }
 
     private void tributeFromHand(int address) {

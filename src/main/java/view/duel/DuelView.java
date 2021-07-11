@@ -140,6 +140,8 @@ public class DuelView {
     public ImageView myFieldSpellImageView;
 
     public Label duelInfoLabel;
+    public static boolean summonWithTribute = false;
+    public static int numberOfTributes;
 
     //TODO
     //TODO
@@ -573,6 +575,9 @@ public class DuelView {
     private void setOnMouseClickedForMyMonsterTerritoryImageViews() {
         for (ImageView imageView : myMonsterTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
+                if (summonWithTribute && imageView.getImage() != null) {
+                    tributeCard(imageView, event);
+                }
                 if (currentPhase == PHASE_MAIN1 && imageView.getImage() != null) {
                     onMouseClickedMyMonsterTerritoryImageViewsInMainPhase(imageView, event);
                 }
@@ -634,6 +639,23 @@ public class DuelView {
                 if (!result.equals("flip summoned successfully")) showDuelInfoLabel(result);
                 else {
                     updateMyMonsterTerritory();
+                }
+            }
+        }
+    }
+
+    private void tributeCard(ImageView imageView, MouseEvent event) {
+        for (int i = 0; i < 5; i++) {
+            if (myMonsterTerritoryImageViews.get(i).getImage() != null) {
+                if (myMonsterTerritoryImageViews.get(i) == imageView) {
+                    numberOfTributes--;
+                    MainPhase1Controller.getInstance().tribute(i + 1);
+                    updateMyMonsterTerritory();
+                    if (numberOfTributes == 0) {
+                        updateMyMonsterTerritory();
+                        updateMyHandCards();
+                        summonWithTribute = false;
+                    }
                 }
             }
         }
