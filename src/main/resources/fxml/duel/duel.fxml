@@ -52,7 +52,7 @@
                                 <Font name="Times New Roman" size="35.0" />
                             </font>
                         </Label>
-                        <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
+                        <HBox alignment="CENTER_LEFT" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
                             <children>
                                 <Pane fx:id="opponentLPBar" prefHeight="60.0" prefWidth="500.0" style="-fx-background-color: #8800d4; -fx-background-radius: 18;" />
                             </children>
@@ -81,7 +81,7 @@
                                 <Font name="Times New Roman" size="35.0" />
                             </font>
                         </Label>
-                        <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
+                        <HBox alignment="CENTER_LEFT" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 5; -fx-border-radius: 20;">
                             <children>
                                 <Pane fx:id="myLPBar" prefHeight="60.0" prefWidth="500.0" style="-fx-background-color: #8800d4; -fx-background-radius: 18;" />
                             </children>
