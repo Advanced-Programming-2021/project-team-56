@@ -587,7 +587,13 @@ public class DuelView {
     private void setOnMouseClickedForMySpellAndTrapTerritoryImageViews() {
         for (ImageView imageView : mySpellAndTrapTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
-                //TODO
+                if (imageView != null) {
+                    switch (currentPhase) {
+                        case PHASE_MAIN1:
+                            onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(imageView, event);
+                            break;
+                    }
+                }
             });
         }
     }
@@ -655,6 +661,16 @@ public class DuelView {
                     updateMySpellAndTrapTerritory();
                 }
             }
+        }
+    }
+
+    private void onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
+        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
+                DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
+            Card card = ((GameCard) imageView.getImage()).getCard();
+            DuelWithUser.getInstance().selectCard(card);
+        } else {
+       //     String result = MainPhase1Controller.getInstance().activateSpell();
         }
     }
 
