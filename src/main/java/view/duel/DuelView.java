@@ -80,11 +80,6 @@ public class DuelView {
     public ScrollPane graveYardScrollPane;
     public GridPane graveYardGridPane;
 
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-
     public HBox myHandHBox;
     public ImageView myHandImageView1;
     public ImageView myHandImageView2;
@@ -144,22 +139,6 @@ public class DuelView {
     public static boolean summonWithTribute = false;
     public static int numberOfTributes;
 
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-
-    //TODO
-    //TODO
-    //TODO
-    Board firstPlayerBoard;
-    Board secondPlayerBoard;
-//    int turnCounter;
-//    int startTurn;
-    //TODO
-    //TODO
-    //TODO
-
     public static void setPlayers(String firstPlayerName, String secondPlayerName) {
         firstPlayer = User.getUserByUsername(firstPlayerName);
         secondPlayer = User.getUserByUsername(secondPlayerName);
@@ -172,34 +151,14 @@ public class DuelView {
     @FXML
     public void initialize() {
         initializeFieldComponents();
-//        playerHandImageView.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
-//        myHandImageView1.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
-//        GameCard gameCard = (GameCard) myHandImageView1.getImage();
-//        System.out.println(gameCard.getCard().getName());
         initializePlayersInformation();
         initializeImageViews();
         editSettingHBox();
-        //changeFieldImage(null);
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
         editPhaseVBoxes();
 
         new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             startRound();
         })).play();
-
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
 
         graveYardScrollPane.setFitToHeight(true);
         for (int i = 0; i < 20; i++) {
@@ -416,9 +375,9 @@ public class DuelView {
         int myLP = myBoard.getLP();
         //pref width = 500, lp = 8000
         opponentLPBar.setPrefWidth(500 * enemyLP / 8000);
-        opponentLPLabel.setText(String.valueOf(enemyLP));
+        opponentLPLabel.setText("LP: " + enemyLP);
         myLPBar.setPrefWidth(500 * myLP / 8000);
-        myLPLabel.setText(String.valueOf(myLP));
+        myLPLabel.setText("LP: " + myLP);
         if (enemyLP <= 0 || myLP <= 0) {
             String winnerUsername;
             if (enemyLP <= 0) {
@@ -430,12 +389,6 @@ public class DuelView {
             //TODO go back to rock paper scissors if 3 round game
             //TODO go back to mainMenu if 1 round Game
         }
-    }
-
-    private void changeFieldImage(String fieldURL) {
-        BackgroundSize backgroundSize = new BackgroundSize(1680, 1050, true, true, false, true);
-        fieldAnchorPane.setBackground(new Background(new BackgroundImage(new Image("/images/Duel/Field/fie_normal.png")
-                , BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize)));
     }
 
     private void editPhaseVBoxes() {
@@ -629,6 +582,7 @@ public class DuelView {
             DuelWithUser.getInstance().selectCard(((GameCard) imageView.getImage()).getCard());
         } else {
             if (event.getButton() == MouseButton.PRIMARY) {
+                System.out.println(((MonsterCard)DuelWithUser.getInstance().getMyBoard().getSelectedCard()).getLastTimeAttackedTurn() + "   " + DuelWithUser.getInstance().getTurnCounter());
                 showDuelInfoLabel(BattlePhaseController.getInstance().attackUser());
                 updateRound();
             }
