@@ -378,8 +378,14 @@
                         </Label>
                     </children>
                 </VBox>
-                <ImageView fx:id="opponentGraveyardImageView" fitHeight="105.0" fitWidth="71.88" layoutX="80.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="570.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="771.1283416748047" AnchorPane.topAnchor="298.0" />
-                <ImageView fx:id="myGraveyardImageView" fitHeight="105.0" fitWidth="71.88" layoutX="804.0" layoutY="569.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="804.0" AnchorPane.rightAnchor="48.12834167480469" AnchorPane.topAnchor="569.0" />
+                <ImageView fx:id="opponentGraveyardImageView" fitHeight="105.0" fitWidth="71.88" layoutX="80.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="570.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="771.1283416748047" AnchorPane.topAnchor="298.0">
+               <image>
+                  <Image url="@../../images/Duel/Back-card.jpg" />
+               </image></ImageView>
+                <ImageView fx:id="myGraveyardImageView" fitHeight="105.0" fitWidth="71.88" layoutX="804.0" layoutY="569.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="804.0" AnchorPane.rightAnchor="48.12834167480469" AnchorPane.topAnchor="569.0">
+               <image>
+                  <Image url="@../../images/Duel/Back-card.jpg" />
+               </image></ImageView>
                 <HBox alignment="CENTER" layoutX="149.0" layoutY="167.0" prefHeight="121.0" prefWidth="660.0" spacing="55.0" AnchorPane.bottomAnchor="686.0" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="170.6283416748047" AnchorPane.topAnchor="167.0">
                     <children>
                         <ImageView fx:id="opponentSpellTerritoryImageView4" fitHeight="105.0" fitWidth="71.88" pickOnBounds="true" preserveRatio="true" />
