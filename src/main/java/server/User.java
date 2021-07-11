@@ -12,14 +12,17 @@ public class User {
     private String nickname;
     private static User currentUser;
     private String avatarURL;
-    private int score = 0;
     private int money = 100000;
     private final ArrayList<Deck> decks = new ArrayList<>();
     private final ArrayList<Card> userAllCards = new ArrayList<>();
     private final ArrayList<Integer> playerLP = new ArrayList<>();
 
-    public User() {
+    public User(String username, String nickname, String password) {
+        setPassword(password);
+        setNickname(nickname);
+        setUsername(username);
         setUsersRandomAvatarURL();
+        currentUser = this;
     }
 
     public ArrayList<Integer> getPlayerLP() {
@@ -44,20 +47,12 @@ public class User {
         playerLP.clear();
     }
 
-    public int getScore() {
-        return this.score;
-    }
-
     public ArrayList<Deck> getDecks() {
         return decks;
     }
 
     public void increaseMoney(int prize) {
         this.money += prize;
-    }
-
-    public void increaseScore(int matchPoint) {
-        this.score += matchPoint;
     }
 
     public void decreaseMoney(int payment) {

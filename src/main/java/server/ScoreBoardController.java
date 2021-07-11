@@ -1,7 +1,4 @@
-package controller;
-
-import server.ServerUser;
-import server.User;
+package server;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,9 +18,9 @@ public class ScoreBoardController {
     }
 
     public String showScoreBoard() {
-        ArrayList<User> users = ServerUser.getUsers();
-        Comparator<User> comparator = Comparator.comparing(User::getScore, Comparator.reverseOrder())
-                .thenComparing(User::getNickname);
+        ArrayList<ServerUser> users = ServerUser.getUsers();
+        Comparator<ServerUser> comparator = Comparator.comparing(ServerUser::getScore, Comparator.reverseOrder())
+                .thenComparing(ServerUser::getNickname);
         Collections.sort(users, comparator);
         StringBuilder scoreBoard = new StringBuilder();
         int rank = 1;
@@ -43,10 +40,6 @@ public class ScoreBoardController {
             userCounter++;
         }
         return scoreBoard.toString();
-    }
-
-    public String getCurrentUserNickName() {
-        return User.getCurrentUser().getNickname();
     }
 
 }

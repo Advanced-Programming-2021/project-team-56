@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import model.enums.MenuURL;
+import server.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class MainView {
     }
 
     public void logout(MouseEvent mouseEvent) throws IOException {
-        LoginController.getInstance().logout();
+        User.setCurrentUser(null);
         FxmlController.getInstance().setSceneFxml(MenuURL.LOGIN);
     }
 }

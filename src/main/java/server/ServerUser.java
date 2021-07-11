@@ -7,6 +7,13 @@ public class ServerUser {
     private String username;
     private String password;
     private String nickname;
+    private int score = 0;
+
+    public ServerUser(String nickname, String password, String username){
+        setUsername(username);
+        setNickname(nickname);
+        setPassword(password);
+    }
 
     public static ArrayList<ServerUser> getUsers() {
         return users;
@@ -36,6 +43,10 @@ public class ServerUser {
         return false;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getUsername() {
         return this.username;
     }
@@ -48,15 +59,19 @@ public class ServerUser {
         return this.password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getNickname() {
         return this.nickname;
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public void increaseScore(int matchPoint) {
+        this.score += matchPoint;
+    }
+
+    public int getScore() {
+        return this.score;
     }
 }

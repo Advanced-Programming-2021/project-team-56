@@ -1,7 +1,6 @@
-package controller;
+package server;
 
 import model.Card;
-import server.User;
 
 public class ShopController {
 

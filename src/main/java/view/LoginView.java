@@ -6,7 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import model.ClientSocket;
 import model.enums.MenuURL;
+import server.User;
 import view.components.NodeEditor;
 
 import java.io.IOException;
@@ -45,6 +47,10 @@ public class LoginView {
                 " " + passWordField.getText());
         ClientSocket.dataOutputStream.flush();
         String serverResponse = ClientSocket.dataInputStream.readUTF();
+        if (serverResponse.equals("User logged in successfully!")) {
+            String nickname = getNicknameFromServer(userNameField.getText());
+            new User(userNameField.getText(), passWordField.getText(), nickname);
+        }
         errorLabel.setText(serverResponse);
         try {
             Thread.sleep(100);
@@ -54,6 +60,17 @@ public class LoginView {
         if (serverResponse.equals(LOGIN_SUCCESSFUL.value)) {
             FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
         }
+    }
+
+    private String getNicknameFromServer(String username){
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Get-NickName " + username);
+            ClientSocket.dataOutputStream.flush();
+            return ClientSocket.dataInputStream.readUTF();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return getNicknameFromServer(username);
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {

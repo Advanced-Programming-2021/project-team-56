@@ -1,4 +1,4 @@
-import view.ClientSocket;
+import model.ClientSocket;
 import view.MainGUI;
 
 import java.io.IOException;

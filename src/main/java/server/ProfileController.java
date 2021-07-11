@@ -1,7 +1,4 @@
-package controller;
-
-import server.ServerUser;
-import server.User;
+package server;
 
 public class ProfileController {
 
@@ -20,24 +17,20 @@ public class ProfileController {
         if (ServerUser.isThisNicknameAlreadyTaken(nickname)) {
             return "user with nickname " + nickname + " already exists";
         } else {
-            User.getUserByUsername(username).setNickname(nickname);
+            ServerUser.getUserByUsername(username).setNickname(nickname);
             return "nickname changed successfully";
         }
     }
 
     public String changePasswords(String currentPassWord, String newPassword, String username) {
-        if (!User.getUserByUsername(username).getPassword().equals(currentPassWord)) {
+        ServerUser user = ServerUser.getUserByUsername(username);
+        if (!user.getPassword().equals(currentPassWord)) {
             return "current password is invalid";
         }
-        if (User.getCurrentUser().getPassword().equals(newPassword)) {
+        if (user.getPassword().equals(newPassword)) {
             return "please enter a new password";
         }
-        User.getUserByUsername(username).setPassword(newPassword);
+        user.setPassword(newPassword);
         return "password changed successfully";
     }
-
-    public void changeUserAvatar(String newAvatarURL) {
-        User.getCurrentUser().setAvatarURL(newAvatarURL);
-    }
-
 }

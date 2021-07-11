@@ -16,16 +16,11 @@ public class LoginController {
     }
 
     public String logIn(String username, String password) {
-        User user = User.getUserByUsername(username);
+        ServerUser user = ServerUser.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             return LOGIN_FAILED.value;
         }
-        User.setCurrentUser(user);
         return LOGIN_SUCCESSFUL.value;
-    }
-
-    public void logout() {
-        User.setCurrentUser(null);
     }
 
     public synchronized String register(String username, String password, String nickname) {
@@ -35,8 +30,11 @@ public class LoginController {
         if (ServerUser.isThisNicknameAlreadyTaken(nickname)) {
             return "user with nickname " + "\"" + nickname + "\"" + " already exists";
         }
-        new User();
-        new ServerUser();
+        new ServerUser(nickname, password, username);
         return SIGNUP_SUCCESSFUL.value;
+    }
+
+    public String getNickname(String username) {
+        return ServerUser.getUserByUsername(username).getNickname();
     }
 }

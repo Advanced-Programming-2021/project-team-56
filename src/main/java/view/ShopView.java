@@ -1,6 +1,6 @@
 package view;
 
-import controller.ShopController;
+import server.ShopController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

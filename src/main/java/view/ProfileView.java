@@ -1,6 +1,7 @@
 package view;
 
-import controller.ProfileController;
+import model.ClientSocket;
+import server.ProfileController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -58,7 +59,7 @@ public class ProfileView {
             avatarImagesGridPane.setVisible(false);
         });
         AvatarURL[] avatarURLS = AvatarURL.class.getEnumConstants();
-        int maxRowImagesNumber = (int) Math.ceil((double)avatarURLS.length / 2);
+        int maxRowImagesNumber = (int) Math.ceil((double) avatarURLS.length / 2);
         avatarImagesGridPane.setPrefWidth(205 * maxRowImagesNumber + 45);
         for (int i = 0, k = 0; i < 2; i++, k += maxRowImagesNumber) {
             for (int j = 0; j < maxRowImagesNumber; j++) {
@@ -77,7 +78,7 @@ public class ProfileView {
 
     private void setChangeAvatarOnClicked(Circle imageCircle, String avatarURL) {
         imageCircle.setOnMouseClicked(event -> {
-            ProfileController.getInstance().changeUserAvatar(avatarURL);
+            User.getCurrentUser().setAvatarURL(avatarURL);
             userAvatar.setImage(new Image(avatarURL));
         });
     }
@@ -120,8 +121,15 @@ public class ProfileView {
             errorLabel.setText("Nickname's field is empty");
             return;
         }
-        errorLabel.setText(ProfileController.getInstance().
-                changeNickname(User.getCurrentUser().getUsername(), newInfoField.getText()));
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Change-Nickname " + User.getCurrentUser().getUsername() +
+                    " " + newInfoField.getText());
+            ClientSocket.dataOutputStream.flush();
+            String serverResponse = ClientSocket.dataInputStream.readUTF();
+            errorLabel.setText(serverResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void changePassWord() {
@@ -133,7 +141,14 @@ public class ProfileView {
             errorLabel.setText("current password's field is empty");
             return;
         }
-        errorLabel.setText(ProfileController.getInstance().
-                changePasswords(currentPassWordField.getText(), newInfoField.getText(), User.getCurrentUser().getUsername()));
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Change-Password " + currentPassWordField.getText() +
+                    " " + newInfoField.getText() + " " + User.getCurrentUser().getUsername());
+            ClientSocket.dataOutputStream.flush();
+            String serverResponse = ClientSocket.dataInputStream.readUTF();
+            errorLabel.setText(serverResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
