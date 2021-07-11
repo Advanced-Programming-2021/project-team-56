@@ -2,6 +2,7 @@ package controller.duel;
 
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
+import controller.duel.phases.DrawPhaseController;
 import model.*;
 import view.duel.DuelWithUserView;
 import view.duel.EffectView;
@@ -48,13 +49,14 @@ public class DuelWithUser {
     }
 
     public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
+        //TODO Do Not Call!!
         int roundResult = 0;
         if (rounds.equals("3")) {
             int numberOfWinsPlayer1 = 0;
             int numberOfWinsPlayer2 = 0;
             while (numberOfWinsPlayer1 != 2 && numberOfWinsPlayer2 != 2) {
                 setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
-                roundResult = phaseCaller(firstPlayerUsername);
+                roundResult = phaseCaller(firstPlayerUsername, "");
                 if (roundResult == 1) {
                     numberOfWinsPlayer1++;
                     duelWithUserView.printEndMessage(singleRoundWin(firstPlayerUsername,
@@ -75,7 +77,7 @@ public class DuelWithUser {
             }
         } else {
             setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
-            roundResult = phaseCaller(firstPlayerUsername);
+            roundResult = phaseCaller(firstPlayerUsername, "");
             if (roundResult == 1) {
                 return (oneRoundWin(firstPlayerUsername, secondPlayerUsername));
             } else {
@@ -84,12 +86,12 @@ public class DuelWithUser {
         }
     }
 
-    public int phaseCaller(String firstPlayerUsername) {
+    public int phaseCaller(String firstPlayerUsername, String phaseCounter) {
         String result;
         while (true) {
-            switch (phaseCounter) {
+            switch (Integer.parseInt(phaseCounter)) {
                 case 1:
-                    result = DrawPhaseView.getInstance().run();
+                    result = DrawPhaseController.getInstance().run();;
                     if (result.equals(Output.ILost.toString())) {
                         return surrender(firstPlayerUsername);
                     }
@@ -126,9 +128,7 @@ public class DuelWithUser {
                     }
                     break;
             }
-            phaseCounter++;
-            if (phaseCounter == 7) {
-                phaseCounter -= 6;
+            if (Integer.parseInt(phaseCounter) == 6) {
                 turnCounter++;
             }
         }

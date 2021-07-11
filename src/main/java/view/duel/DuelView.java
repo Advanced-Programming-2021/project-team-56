@@ -32,23 +32,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DuelView {
+import static model.enums.DuelInfo.*;
 
-    enum Phase {
-        DRAW, STANDBY, MAIN1, BATTLE, MAIN2, END;
-    }
+public class DuelView {
 
     private static User firstPlayer;
     private static User secondPlayer;
     private static int numberOfRounds;
 
-    private Phase currentPhase;
     public static ArrayList<ImageView> myHandImageViews;
     public static ArrayList<ImageView> opponentHandImageViews;
     public static ArrayList<ImageView> opponentSpellTerritoryImageViews;
     public static ArrayList<ImageView> opponentMonsterTerritoryImageViews;
     public static ArrayList<ImageView> myMonsterTerritoryImageViews;
     public static ArrayList<ImageView> mySpellTerritoryCardImageViews;
+
+    private DuelInfo currentPhase;
 
     public AnchorPane fieldAnchorPane;
     public Label opponentLPLabel;
@@ -183,6 +182,7 @@ public class DuelView {
         //TODO
         //TODO
         //TODO
+        editPhaseVBoxes();
         initializeImageViews();
 
         new Timeline(new KeyFrame(Duration.seconds(1), event -> {
@@ -210,14 +210,39 @@ public class DuelView {
 
     private void startRound() {
         editImageViews();
-        currentPhase = Phase.DRAW;
+        currentPhase = PHASE_DRAW;
         //TODO Last round result?
         DuelWithUser.getInstance().setUpGame(firstPlayer.getUsername(), secondPlayer.getUsername(), 0);
         updateFromDrawPhase();
-        showDuelInfoLabel(DuelInfo.PHASE_DRAW.value);
+        showDuelInfoLabel(PHASE_DRAW.value);
         new Timeline(new KeyFrame(Duration.seconds(2), event -> {
             showDuelInfoLabel(DrawPhaseController.getInstance().run());
             updateFromDrawPhase();
+        })).play();
+    }
+
+    private void processPhase() {
+        showDuelInfoLabel(currentPhase.value);
+        new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            switch (currentPhase) {
+                case PHASE_DRAW:
+                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "1");
+                    break;
+                case PHASE_STANDBY:
+                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "2");
+                    break;
+                case PHASE_MAIN1:
+                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "3");
+                    break;
+                case PHASE_BATTLE:
+                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "4");
+                    break;
+                case PHASE_MAIN2:
+                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "5");
+                    break;
+                default:
+                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "6");
+            }
         })).play();
     }
 
@@ -238,23 +263,6 @@ public class DuelView {
 
     }
 
-    private void editSettingHBox() {
-        NodeEditor.editNode(0.6, settingHBox);
-        settingHBox.setOnMouseClicked(event -> {
-            settingVBox.setVisible(true);
-            continueButton.setOnMouseClicked(continueButtonEvent -> {
-                settingVBox.setVisible(false);
-            });
-            backToMainMenuButton.setOnMouseClicked(backButtonEvent -> {
-                try {
-                    FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        });
-    }
-
     //TODO
     //TODO
     //TODO
@@ -267,7 +275,6 @@ public class DuelView {
         ArrayList<Card> myHandCards = DuelWithUser.getInstance().getMyBoard().getPlayerHand();
         ArrayList<Card> enemyHandCards = DuelWithUser.getInstance().getEnemyBoard().getPlayerHand();
         for (int i = 0; i < myHandCards.size(); i++) {
-            System.out.println(myHandCards.get(i).getName() + " " + myHandCards.size());
             myHandImageViews.get(i).setImage(new GameCard(myHandCards.get(i)));
         }
         for (int i = 0; i < enemyHandCards.size(); i++) {
@@ -321,46 +328,46 @@ public class DuelView {
     }
 
     private void setOnMouseEnteredImageViews() {
-        for (ImageView imageView : myHandImageViews) {
-            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    onMouseEnteredCardImageView.setImage(imageView.getImage());
-                }
-            });
-        }
-
-        for (ImageView imageView : mySpellTerritoryCardImageViews) {
-            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    onMouseEnteredCardImageView.setImage(imageView.getImage());
-                }
-            });
-        }
-
-        for (ImageView imageView : myMonsterTerritoryImageViews) {
-            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    onMouseEnteredCardImageView.setImage(imageView.getImage());
-                }
-            });
-        }
-
-        for (ImageView imageView : opponentSpellTerritoryImageViews) {
-            GameCard gameCard = (GameCard) imageView.getImage();
-            if (gameCard.getCard().getIsFacedUp()) {
-                onMouseEnteredCardImageView.setImage(imageView.getImage());
-            }
-        }
-
-        for (ImageView imageView : opponentMonsterTerritoryImageViews) {
-            GameCard gameCard = (GameCard) imageView.getImage();
-            if (gameCard.getCard().getIsFacedUp()) {
-                onMouseEnteredCardImageView.setImage(imageView.getImage());
-            }
-        }
+//        for (ImageView imageView : myHandImageViews) {
+//            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent event) {
+//                    onMouseEnteredCardImageView.setImage(imageView.getImage());
+//                }
+//            });
+//        }
+//
+//        for (ImageView imageView : mySpellTerritoryCardImageViews) {
+//            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent event) {
+//                    onMouseEnteredCardImageView.setImage(imageView.getImage());
+//                }
+//            });
+//        }
+//
+//        for (ImageView imageView : myMonsterTerritoryImageViews) {
+//            imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent event) {
+//                    onMouseEnteredCardImageView.setImage(imageView.getImage());
+//                }
+//            });
+//        }
+//
+//        for (ImageView imageView : opponentSpellTerritoryImageViews) {
+//            GameCard gameCard = (GameCard) imageView.getImage();
+//            if (gameCard.getCard().getIsFacedUp()) {
+//                onMouseEnteredCardImageView.setImage(imageView.getImage());
+//            }
+//        }
+//
+//        for (ImageView imageView : opponentMonsterTerritoryImageViews) {
+//            GameCard gameCard = (GameCard) imageView.getImage();
+//            if (gameCard.getCard().getIsFacedUp()) {
+//                onMouseEnteredCardImageView.setImage(imageView.getImage());
+//            }
+//        }
     }
 
     //TODO
@@ -414,29 +421,28 @@ public class DuelView {
                 , BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize)));
     }
 
-    public void standbyPhaseClicked(MouseEvent mouseEvent) {
-        if (currentPhase == Phase.DRAW)
-            currentPhase = Phase.STANDBY;
+    private void editPhaseVBoxes() {
+        editPhaseVBox(PHASE_DRAW, standbyPhaseVBox, PHASE_STANDBY);
+        editPhaseVBox(PHASE_STANDBY, mainPhase1VBox, PHASE_MAIN1);
+        editPhaseVBox(PHASE_MAIN1, battlePhaseVBox, PHASE_BATTLE);
+        editPhaseVBox(PHASE_BATTLE, mainPhase2VBox, PHASE_MAIN2);
+        editPhaseVBox(PHASE_MAIN2, endPhaseVBox, PHASE_END);
     }
 
-    public void mainPhase1Clicked(MouseEvent mouseEvent) {
-        if (currentPhase == Phase.STANDBY)
-            currentPhase = Phase.MAIN1;
-    }
-
-    public void battlePhaseClicked(MouseEvent mouseEvent) {
-        if (currentPhase == Phase.MAIN1)
-            currentPhase = Phase.BATTLE;
-    }
-
-    public void mainPhase2Clicked(MouseEvent mouseEvent) {
-        if (currentPhase == Phase.BATTLE)
-            currentPhase = Phase.MAIN2;
-    }
-
-    public void endPhaseClicked(MouseEvent mouseEvent) {
-        if (currentPhase == Phase.MAIN2)
-            currentPhase = Phase.END;
+    private void editPhaseVBox(DuelInfo phase, VBox phaseVBox, DuelInfo nextPhase) {
+        phaseVBox.setOnMouseClicked(event -> {
+            if (currentPhase == phase) {
+                currentPhase = nextPhase;
+                processPhase();
+            }
+        });
+        phaseVBox.setOnMouseEntered(event -> {
+            if (currentPhase == phase) {
+                SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
+                phaseVBox.setEffect(new Glow(0.6));
+            }
+        });
+        phaseVBox.setOnMouseExited(event -> phaseVBox.setEffect(null));
     }
 
     private void editImageViews() {
@@ -459,6 +465,23 @@ public class DuelView {
                 imageView.setOnMouseExited(event -> imageView.setEffect(null));
             }
         }
+    }
+
+    private void editSettingHBox() {
+        NodeEditor.editNode(0.6, settingHBox);
+        settingHBox.setOnMouseClicked(event -> {
+            settingVBox.setVisible(true);
+            continueButton.setOnMouseClicked(continueButtonEvent -> {
+                settingVBox.setVisible(false);
+            });
+            backToMainMenuButton.setOnMouseClicked(backButtonEvent -> {
+                try {
+                    FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
     }
 
 
