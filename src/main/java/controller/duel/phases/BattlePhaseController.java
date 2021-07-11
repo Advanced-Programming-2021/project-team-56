@@ -51,7 +51,7 @@ public class BattlePhaseController {
         }
         effectFinalDamage();
         if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
-            return "you can't attack with this card due to the effect of messenger of peace";
+            return "you can't attack with this card\ndue to the effect of messenger of peace";
         }
         opponentPhase.startChainLink();
         monster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
@@ -69,7 +69,7 @@ public class BattlePhaseController {
         int myMonsterAttack = monster.getFinalAttack();
         int enemyLife = duelWithUser.getEnemyBoard().getLP();
         duelWithUser.getEnemyBoard().setLP(enemyLife - myMonsterAttack);
-        return "your opponent receives " + myMonsterAttack + " battle damage";
+        return "your opponent receives\n" + myMonsterAttack + " battle damage";
     }
 
     private String magicCylinderConverseDamage(MonsterCard monster) {
@@ -94,7 +94,7 @@ public class BattlePhaseController {
             return "this card is not in attack position";
         }
         if (isThereSwordOfRevealingLight()) {
-            return "you can't attack because of effect of swords of revealing light";
+            return "you can't attack because of effect of\n swords of revealing light";
         }
         if (myMonster.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
             return "this card already attacked";
@@ -106,7 +106,7 @@ public class BattlePhaseController {
             }
             if (enemyMonster.getName().equals("Command knight")) {
                 if (isThereAnyOtherCardOnMonsterTerritory()) {
-                    return "you can't attack this card while there are other monsters on the combat";
+                    return "you can't attack this card while\nthere are other monsters on the combat";
                 }
             }
         }
