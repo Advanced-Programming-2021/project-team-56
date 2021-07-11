@@ -171,13 +171,13 @@ public class DuelView {
 
     @FXML
     public void initialize() {
-        settingVBox.setVisible(false);
         initializeFieldComponents();
 //        playerHandImageView.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
 //        myHandImageView1.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
 //        GameCard gameCard = (GameCard) myHandImageView1.getImage();
 //        System.out.println(gameCard.getCard().getName());
         initializePlayersInformation();
+        initializeImageViews();
         editSettingHBox();
         //changeFieldImage(null);
         //TODO
@@ -188,7 +188,6 @@ public class DuelView {
         //TODO
         //TODO
         editPhaseVBoxes();
-        initializeImageViews();
 
         new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             startRound();
@@ -211,6 +210,47 @@ public class DuelView {
             graveYardGridPane.add(imageView, i, 0);
             GridPane.setMargin(imageView, new Insets(5));
         }
+    }
+
+    private void initializeFieldComponents() {
+        settingVBox.setVisible(false);
+        graveYardScrollPane.setVisible(false);
+        duelInfoLabel.setVisible(false);
+    }
+
+    private void initializePlayersInformation() {
+        opponentMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
+        opponentAvatar.setFill(new ImagePattern(new Image(secondPlayer.getAvatarURL())));
+        opponentUsernameLabel.setText(secondPlayer.getUsername());
+        opponentNicknameLabel.setText(secondPlayer.getNickname());
+        myMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
+        myAvatarCircle.setFill(new ImagePattern(new Image(firstPlayer.getAvatarURL())));
+        myUsernameLabel.setText(firstPlayer.getUsername());
+        myNicknameLabel.setText(firstPlayer.getNickname());
+    }
+
+    private void initializeImageViews() {
+        myHandImageViews = new ArrayList<>(Arrays.asList(myHandImageView1, myHandImageView2, myHandImageView3,
+                myHandImageView4, myHandImageView5, myHandImageView6, myHandImageView7, myHandImageView8, myHandImageView9));
+        opponentHandImageViews = new ArrayList<>(Arrays.asList(opponentHandImageView1,
+                opponentHandImageView2, opponentHandImageView3, opponentHandImageView4, opponentHandImageView5,
+                opponentHandImageView6, opponentHandImageView7, opponentHandImageView8, opponentHandImageView9));
+
+        opponentSpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentSpellTerritoryImageView1,
+                opponentSpellTerritoryImageView2, opponentSpellTerritoryImageView3,
+                opponentSpellTerritoryImageView4, opponentSpellTerritoryImageView5));
+
+        opponentMonsterTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentMonsterTerritoryImageView1,
+                opponentMonsterTerritoryImageView2, opponentMonsterTerritoryImageView3,
+                opponentMonsterTerritoryImageView4, opponentMonsterTerritoryImageView5));
+
+        myMonsterTerritoryImageViews = new ArrayList<>(Arrays.asList(myMonsterTerritoryImageView1,
+                myMonsterTerritoryImageView2, myMonsterTerritoryImageView3,
+                myMonsterTerritoryImageView4, myMonsterTerritoryImageView5));
+
+        mySpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(mySpellTerritoryCardImageView1,
+                mySpellTerritoryCardImageView2, mySpellTerritoryCardImageView3,
+                mySpellTerritoryCardImageView4, mySpellTerritoryCardImageView5));
     }
 
     private void startRound() {
@@ -250,23 +290,6 @@ public class DuelView {
 //                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "6");
 //            }
         })).play();
-    }
-
-    private void initializePlayersInformation() {
-        opponentMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
-        opponentAvatar.setFill(new ImagePattern(new Image(secondPlayer.getAvatarURL())));
-        opponentUsernameLabel.setText(secondPlayer.getUsername());
-        opponentNicknameLabel.setText(secondPlayer.getNickname());
-        myMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
-        myAvatarCircle.setFill(new ImagePattern(new Image(firstPlayer.getAvatarURL())));
-        myUsernameLabel.setText(firstPlayer.getUsername());
-        myNicknameLabel.setText(firstPlayer.getNickname());
-    }
-
-    private void initializeFieldComponents() {
-        graveYardScrollPane.setVisible(false);
-        duelInfoLabel.setVisible(false);
-
     }
 
     //TODO
@@ -392,8 +415,10 @@ public class DuelView {
         int enemyLP = enemyBoard.getLP();
         int myLP = myBoard.getLP();
         //pref width = 500, lp = 8000
-        opponentLPBar.setPrefWidth(opponentLPBar.getPrefWidth() * enemyLP / 8000);
-        myLPBar.setPrefWidth(myLPBar.getPrefWidth() * myLP / 8000);
+        opponentLPBar.setPrefWidth(500 * enemyLP / 8000);
+        opponentLPLabel.setText(String.valueOf(enemyLP));
+        myLPBar.setPrefWidth(500 * myLP / 8000);
+        myLPLabel.setText(String.valueOf(myLP));
         if (enemyLP <= 0 || myLP <= 0) {
             String winnerUsername;
             if (enemyLP <= 0) {
@@ -406,94 +431,6 @@ public class DuelView {
             //TODO go back to mainMenu if 1 round Game
         }
     }
-
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    public void setUpGame(int lastRoundResult) {
-//        firstPlayerBoard = new Board(firstPlayer);
-//        secondPlayerBoard = new Board(secondPlayer);
-//        //TODO where do we need turnCounter 3?
-//        turnCounter = 2;
-//        startTurn = turnCounter;
-//        firstPlayerBoard.setStartedTurn(2);
-//        secondPlayerBoard.setStartedTurn(3);
-//        firstPlayerBoard.setPlayerHandForFirstPlayer();
-//        secondPlayerBoard.setPlayerHandForSecondPlayer();
-    }
-
-    private void initializeImageViews() {
-        myHandImageViews = new ArrayList<>(Arrays.asList(myHandImageView1, myHandImageView2, myHandImageView3,
-                myHandImageView4, myHandImageView5, myHandImageView6, myHandImageView7, myHandImageView8, myHandImageView9));
-        opponentHandImageViews = new ArrayList<>(Arrays.asList(opponentHandImageView1,
-                opponentHandImageView2, opponentHandImageView3, opponentHandImageView4, opponentHandImageView5,
-                opponentHandImageView6, opponentHandImageView7, opponentHandImageView8, opponentHandImageView9));
-
-        opponentSpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentSpellTerritoryImageView1,
-                opponentSpellTerritoryImageView2, opponentSpellTerritoryImageView3,
-                opponentSpellTerritoryImageView4, opponentSpellTerritoryImageView5));
-
-        opponentMonsterTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentMonsterTerritoryImageView1,
-                opponentMonsterTerritoryImageView2, opponentMonsterTerritoryImageView3,
-                opponentMonsterTerritoryImageView4, opponentMonsterTerritoryImageView5));
-
-        myMonsterTerritoryImageViews = new ArrayList<>(Arrays.asList(myMonsterTerritoryImageView1,
-                myMonsterTerritoryImageView2, myMonsterTerritoryImageView3,
-                myMonsterTerritoryImageView4, myMonsterTerritoryImageView5));
-
-        mySpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(mySpellTerritoryCardImageView1,
-                mySpellTerritoryCardImageView2, mySpellTerritoryCardImageView3,
-                mySpellTerritoryCardImageView4, mySpellTerritoryCardImageView5));
-    }
-
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-
-    private String singleRoundWin(String winnerUsername, int winnerScore, int looserScore) {
-        return winnerUsername + " won the game and the score is: " + winnerScore + "-" + looserScore;
-    }
-
-    private String oneRoundWin(String winnerSideUsername, String loserSideUsername) {
-        User winner = User.getUserByUsername(winnerSideUsername);
-        winner.increaseScore(1000);
-        winner.increaseMoney(winner.getMaxLP() + 1000);
-        winner.clearLP();
-        User loser = User.getUserByUsername(loserSideUsername);
-        loser.increaseMoney(100);
-        loser.clearLP();
-        return winnerSideUsername + " won the whole match";
-    }
-
-    private String threeRoundWinner(String winnerUsername, String looserUsername, int winnerScore, int looserScore) {
-        User winner = User.getUserByUsername(winnerUsername);
-        winner.increaseScore(3000);
-        winner.increaseMoney(3000 + 3 * winner.getMaxLP());
-        winner.clearLP();
-        User loser = User.getUserByUsername(looserUsername);
-        loser.clearLP();
-        loser.increaseMoney(300);
-        return winnerUsername + " won the whole match with score: " + winnerScore + "-" + looserScore;
-    }
-
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
 
     private void changeFieldImage(String fieldURL) {
         BackgroundSize backgroundSize = new BackgroundSize(1680, 1050, true, true, false, true);
