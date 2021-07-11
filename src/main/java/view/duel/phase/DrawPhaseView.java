@@ -33,7 +33,7 @@ public class DrawPhaseView {
         DuelWithUser duelWithUser = DuelWithUser.getInstance();
         DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
         System.out.println("phase: draw phase");
-        String result = "";
+        String result = DrawPhaseController.getInstance().run();
         System.out.println(result);
         System.out.print(duelWithUser.showField());
         if (result.equals("No cards is in your deck")) {
