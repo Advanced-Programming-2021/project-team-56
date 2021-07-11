@@ -229,25 +229,6 @@ public class DuelView {
     private void processPhase() {
         showDuelInfoLabel(currentPhase.value);
         new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-//            switch (currentPhase) {
-//                case PHASE_DRAW:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "1");
-//                    break;
-//                case PHASE_STANDBY:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "2");
-//                    break;
-//                case PHASE_MAIN1:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "3");
-//                    break;
-//                case PHASE_BATTLE:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "4");
-//                    break;
-//                case PHASE_MAIN2:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "5");
-//                    break;
-//                default:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "6");
-//            }
         })).play();
     }
 
@@ -582,7 +563,6 @@ public class DuelView {
             DuelWithUser.getInstance().selectCard(((GameCard) imageView.getImage()).getCard());
         } else {
             if (event.getButton() == MouseButton.PRIMARY) {
-                System.out.println(((MonsterCard)DuelWithUser.getInstance().getMyBoard().getSelectedCard()).getLastTimeAttackedTurn() + "   " + DuelWithUser.getInstance().getTurnCounter());
                 showDuelInfoLabel(BattlePhaseController.getInstance().attackUser());
                 updateRound();
             }
