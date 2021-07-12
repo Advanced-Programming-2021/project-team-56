@@ -7,6 +7,7 @@ import controller.duel.phases.DrawPhaseController;
 import controller.duel.phases.MainPhase1Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -239,7 +240,7 @@ public class DuelView {
     }
 
     public void updateAll() {
-        updateFielSpells();
+        updateFieldSpells();
         updateMyHandCards();
         updateOpponentHandCards();
         updateMyMonsterTerritory();
@@ -251,13 +252,28 @@ public class DuelView {
         updateRound();
     }
 
-    private void updateFielSpells() {
+    private void updateFieldSpells() {
         Card myFieldSpell = DuelWithUser.getInstance().getMyBoard().getFieldSpell();
         Card opponentFieldSpell = DuelWithUser.getInstance().getEnemyBoard().getFieldSpell();
         if (myFieldSpell != null)
-        myFieldSpellImageView.setImage(new GameCard(myFieldSpell));
+            myFieldSpellImageView.setImage(new GameCard(myFieldSpell));
         if (opponentFieldSpell != null)
-        opponentFieldSpellImageView.setImage(new GameCard(opponentFieldSpell));
+            opponentFieldSpellImageView.setImage(new GameCard(opponentFieldSpell));
+
+        myFieldSpellImageView.setOnMouseEntered(event -> {
+            if (myFieldSpellImageView.getImage() != null) {
+                onMouseEnteredCardImageView.setImage(myFieldSpellImageView.getImage());
+                SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
+                myFieldSpellImageView.setEffect(new Glow(0.6));
+            }
+        });
+        opponentFieldSpellImageView.setOnMouseEntered(event -> {
+            if (opponentFieldSpellImageView.getImage() != null) {
+                onMouseEnteredCardImageView.setImage(opponentFieldSpellImageView.getImage());
+                SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
+                opponentFieldSpellImageView.setEffect(new Glow(0.6));
+            }
+        });
     }
 
     public void updateFromDrawPhase() {
@@ -591,8 +607,7 @@ public class DuelView {
                     String result = MainPhase1Controller.getInstance().summon(false);
                     if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
                     else {
-                        updateMyHandCards();
-                        updateMyMonsterTerritory();
+                        summonAndSetCard(1);
                     }
                 } else {
                     String result = MainPhase1Controller.getInstance().activateSpell();
@@ -602,13 +617,44 @@ public class DuelView {
                         fieldSpellActivate(card);
                 }
             } else {
+                if (card instanceof SpellCard && ((SpellCard) card).getIcon().equals("Field")) return;
                 String result = MainPhase1Controller.getInstance().set();
                 if (!result.equals("set successfully") && !result.equals("summoned successfully"))
                     showDuelInfoLabel(result);
                 else {
+                    if (card instanceof MonsterCard) summonAndSetCard(1);
+                    else summonAndSetCard(2);
+                }
+            }
+        }
+    }
+
+    private void summonAndSetCard(int monsterOrSpell) {
+        if (monsterOrSpell == 1) {
+            for (int i = 0; i < 5; i++) {
+                ImageView monsterImageView = myMonsterTerritoryImageViews.get(i);
+                if (monsterImageView.getImage() == null) {
+                    monsterImageView.setOpacity(0);
+                    updateMyHandCards();
+                    updateMyMonsterTerritory();
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), event -> monsterImageView.setOpacity(monsterImageView.getOpacity() + 0.05)));
+                    timeline.setCycleCount(20);
+                    timeline.play();
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i < 5; i++) {
+                ImageView spellImageView = mySpellAndTrapTerritoryImageViews.get(i);
+                if (spellImageView.getImage() == null) {
+                    spellImageView.setOpacity(0);
                     updateMyHandCards();
                     updateMyMonsterTerritory();
                     updateMySpellAndTrapTerritory();
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), event -> spellImageView.setOpacity(spellImageView.getOpacity() + 0.05)));
+                    timeline.setCycleCount(20);
+                    timeline.play();
+                    break;
                 }
             }
         }
