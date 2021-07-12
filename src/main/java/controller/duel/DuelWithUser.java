@@ -195,6 +195,7 @@ public class DuelWithUser {
         boards[1].getMonsterTerritory().put(5, monsterCard1);
         boards[1].getMonsterTerritory().put(3, monsterCard3);
         boards[1].getMonsterTerritory().put(2, new MonsterCard(Card.getCardByName("Yomi Ship")));
+        boards[0].getPlayerHand().add(new MonsterCard(Card.getCardByName("Command Knight")));
     }
 
     public Board getMyBoard() {

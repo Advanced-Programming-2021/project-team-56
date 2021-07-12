@@ -190,8 +190,6 @@ public class BattlePhaseController {
     }
 
     private String isEnemyMonsterInAttackPosition(int address) {
-        //TODO Attack Position
-        System.out.println("Attack position");
         int myMonsterAttack = myMonster.getFinalAttack();
         int enemyMonsterAttack = enemyMonster.getFinalAttack();
         if (enemyMonsterAttack == myMonsterAttack) {
@@ -204,8 +202,6 @@ public class BattlePhaseController {
     }
 
     private String isEnemyMonsterInDefencePosition(int address) {
-        //TODO Defence Position
-        System.out.println("Defence position");
         int myMonsterAttack = myMonster.getFinalAttack();
         int enemyMonsterDefence = enemyMonster.getFinalDefence();
         boolean shouldFlipSummonOccur = !enemyMonster.getIsFacedUp();
@@ -407,8 +403,6 @@ public class BattlePhaseController {
     }
 
     private String bothSideHaveEqualAttack(int address) {
-        //TODO
-        System.out.println("My attack was Equal" + address);
         if (myMonster.getName().equals("Marshmallon") && enemyMonster.getName().equals("Marshmallon")) {
             return "no card is destroyed";
         }
@@ -437,8 +431,6 @@ public class BattlePhaseController {
         int damage = myMonsterAttack - enemyMonsterAttack;
         int enemyLife = duelWithUser.getEnemyBoard().getLP();
         duelWithUser.getEnemyBoard().setLP(enemyLife - damage);
-        //TODO
-        System.out.println("My attack was higher" + address + " EnemyLife: " + enemyLife);
         if (enemyMonster.getName().equals("Marshmallon")) {
             return "no card is destroyed\nand your opponent receives\n" + damage + " battle damage";
         }
@@ -465,8 +457,6 @@ public class BattlePhaseController {
                 return "no card is destroyed and you received\n" + damage + " battle damage";
             }
             destroyMyMonster(myMonster);
-            //TODO
-            System.out.println("My attack was lower" + address + " EnemyLife: " + myLife);
             return "Your monster card is destroyed\nand you received \n" + damage + " battle damage";
         }
     }

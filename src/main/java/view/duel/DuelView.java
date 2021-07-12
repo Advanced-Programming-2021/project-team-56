@@ -450,10 +450,8 @@ public class DuelView {
         for (ImageView imageView : myHandImageViews) {
             imageView.setOnMouseClicked(event -> {
                 if (imageView.getImage() != null) {
-                    switch (currentPhase) {
-                        case PHASE_MAIN1:
-                            onMouseClickedMyHandImageViewsInMainPhase(imageView, event);
-                            break;
+                    if (currentPhase == PHASE_MAIN1 || currentPhase == PHASE_MAIN2) {
+                        onMouseClickedMyHandImageViewsInMainPhase(imageView, event);
                     }
                 }
             });
@@ -472,10 +470,8 @@ public class DuelView {
         for (ImageView imageView : mySpellAndTrapTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
                 if (imageView != null) {
-                    switch (currentPhase) {
-                        case PHASE_MAIN1:
-                            onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(imageView, event);
-                            break;
+                    if (currentPhase == PHASE_MAIN1 || currentPhase == PHASE_MAIN2) {
+                        onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(imageView, event);
                     }
                 }
             });
@@ -497,7 +493,7 @@ public class DuelView {
                     if (summonWithTribute) {
                         tributeCard(imageView, event);
                     }
-                    if (currentPhase == PHASE_MAIN1) {
+                    if (currentPhase == PHASE_MAIN1 || currentPhase == PHASE_MAIN2) {
                         onMouseClickedMyMonsterTerritoryImageViewsInMainPhase(imageView, event);
                     }
                     if (currentPhase == PHASE_BATTLE) {
@@ -512,9 +508,8 @@ public class DuelView {
         for (ImageView imageView : opponentMonsterTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
                 if (imageView.getImage() != null) {
-                    switch (currentPhase) {
-                        case PHASE_BATTLE:
-                            onMouseClickedForOpponentMonsterTerritoryImageViewsInBattlePhase(imageView, event);
+                    if (currentPhase == PHASE_BATTLE) {
+                        onMouseClickedForOpponentMonsterTerritoryImageViewsInBattlePhase(imageView, event);
                     }
                 }
             });

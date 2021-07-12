@@ -55,9 +55,9 @@ public class MainPhase1Controller {
         if (isMonsterTerritoryFull()) {
             return "monster card zone is full";
         }
-//        if (duelWithUser.getTurnCounter() == duelWithUser.getLastSummonedOrSetTurn()) {
-//            return "you already summoned/set on this turn";
-//        }
+        if (duelWithUser.getTurnCounter() == duelWithUser.getLastSummonedOrSetTurn()) {
+            return "you already summoned/set on this turn";
+        }
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         if (!canThisCardBeNormalSummoned(monsterCard.getName())) {
             return "this card can't be normal summoned";

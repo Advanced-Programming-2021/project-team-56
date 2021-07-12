@@ -194,32 +194,6 @@
                 </VBox>
             </children>
         </VBox>
-        <VBox fx:id="settingVBox" alignment="CENTER" layoutX="80.0" layoutY="20.0" prefHeight="300.0" prefWidth="500.0" spacing="100.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 6; -fx-border-radius: 8;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="1100.0" AnchorPane.topAnchor="20.0">
-            <children>
-                <Label text="Setting" textFill="#8800d4">
-                    <font>
-                        <Font name="Times New Roman" size="40.0" />
-                    </font>
-                </Label>
-                <HBox alignment="CENTER" prefHeight="100.0" spacing="30.0">
-                    <children>
-                        <Button fx:id="backToMainMenuButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-background-color: #500274; -fx-border-radius: 50; -fx-border-color: #DBBEF6; -fx-border-width: 5;" text="Back to Main Menu" textFill="WHITE">
-                            <font>
-                                <Font name="Times New Roman" size="20.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="continueButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-background-color: #500274; -fx-border-radius: 50; -fx-border-color: #DBBEF6; -fx-border-width: 5;" text="Continue" textFill="WHITE">
-                            <font>
-                                <Font name="Times New Roman" size="20.0" />
-                            </font>
-                        </Button>
-                    </children>
-                </HBox>
-            </children>
-            <padding>
-                <Insets left="10.0" right="10.0" />
-            </padding>
-        </VBox>
         <AnchorPane layoutY="85.0" prefHeight="960.0" prefWidth="921.5" style="-fx-background-color: #0E061E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="758.5">
             <children>
                 <ImageView fitHeight="970.0" fitWidth="921.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
@@ -431,6 +405,32 @@
                 </Label>
             </children>
         </AnchorPane>
+        <VBox fx:id="settingVBox" alignment="CENTER" layoutX="80.0" layoutY="20.0" prefHeight="300.0" prefWidth="500.0" spacing="100.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 6; -fx-border-radius: 8;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="1100.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label text="Setting" textFill="#8800d4">
+                    <font>
+                        <Font name="Times New Roman" size="40.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER" prefHeight="100.0" spacing="30.0">
+                    <children>
+                        <Button fx:id="backToMainMenuButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-background-color: #500274; -fx-border-radius: 50; -fx-border-color: #DBBEF6; -fx-border-width: 5;" text="Back to Main Menu" textFill="WHITE">
+                            <font>
+                                <Font name="Times New Roman" size="20.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="continueButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-background-color: #500274; -fx-border-radius: 50; -fx-border-color: #DBBEF6; -fx-border-width: 5;" text="Continue" textFill="WHITE">
+                            <font>
+                                <Font name="Times New Roman" size="20.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets left="10.0" right="10.0" />
+            </padding>
+        </VBox>
     </children>
     <stylesheets>
         <URL value="@../../CSS/duel.css" />
