@@ -123,7 +123,7 @@ public class CardCreatorView {
                 if (monsterAttributeComboBox.getValue() != null) {
                     if (monsterATKTextField.getText().length() != 0) {
                         if (monsterDEFTextField.getText().length() != 0) {
-                            if (monsterLevelTextField.getText().matches("\\d")) {
+                            if (monsterLevelTextField.getText().matches("\\d*")) {
                                 setOnMouseClickedForCreateButtonForMonsterCard();
                             }
                         }
@@ -150,7 +150,6 @@ public class CardCreatorView {
 
     private void setOnMouseClickedForCreateButtonForTrapCard() {
         createButton.setOnMouseClicked(event -> {
-            System.out.println("Trap");
             TrapCard trapCard = new TrapCard(instantiateTrapCard());
             trapCard.setType((String) spellAndTrapTypeComboBox.getValue());
             trapCard.setIcon((String) spellAndTrapIconComboBox.getValue());
