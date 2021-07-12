@@ -35,13 +35,11 @@ import java.util.List;
 public class MainGUI extends Application {
 
     public static void main(String[] args) {
-       // playMusic();
         launch(args);
     }
 
     private static Stage stage;
     private static Scene scene;
-    public static MediaPlayer musicPlayer;
 
     public static Scene getScene() {
         return scene;
@@ -110,14 +108,4 @@ public class MainGUI extends Application {
         setStage(stage);
         stage.initStyle(StageStyle.UTILITY);
     }
-
-//    private void playMusic() {
-//        Media music = new Media(getClass());
-//        musicPlayer = new MediaPlayer(music);
-//        musicPlayer.setAutoPlay(true);
-//        musicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-//        musicPlayer.play();
-//    }
-
-
 }
