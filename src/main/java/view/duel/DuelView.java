@@ -42,6 +42,8 @@ public class DuelView {
     private static User firstPlayer;
     private static User secondPlayer;
     private static int numberOfRounds;
+    public static boolean summonWithTribute = false;
+    public static int numberOfTributes;
 
     public static ArrayList<ImageView> myHandImageViews;
     public static ArrayList<ImageView> opponentHandImageViews;
@@ -79,11 +81,6 @@ public class DuelView {
     public VBox endPhaseVBox;
     public ScrollPane graveYardScrollPane;
     public GridPane graveYardGridPane;
-
-    //TODO
-    //TODO
-    //TODO
-    //TODO
 
     public HBox myHandHBox;
     public ImageView myHandImageView1;
@@ -141,24 +138,8 @@ public class DuelView {
     public ImageView myFieldSpellImageView;
 
     public Label duelInfoLabel;
-    public static boolean summonWithTribute = false;
-    public static int numberOfTributes;
 
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-
-    //TODO
-    //TODO
-    //TODO
-    Board firstPlayerBoard;
-    Board secondPlayerBoard;
-//    int turnCounter;
-//    int startTurn;
-    //TODO
-    //TODO
-    //TODO
+    private boolean isStartRound = true;
 
     public static void setPlayers(String firstPlayerName, String secondPlayerName) {
         firstPlayer = User.getUserByUsername(firstPlayerName);
@@ -171,36 +152,15 @@ public class DuelView {
 
     @FXML
     public void initialize() {
-        settingVBox.setVisible(false);
         initializeFieldComponents();
-//        playerHandImageView.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
-//        myHandImageView1.setImage(new GameCard(firstPlayer.getActiveDeck().getMainDeck().get(5)));
-//        GameCard gameCard = (GameCard) myHandImageView1.getImage();
-//        System.out.println(gameCard.getCard().getName());
         initializePlayersInformation();
-        editSettingHBox();
-        //changeFieldImage(null);
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        editPhaseVBoxes();
         initializeImageViews();
+        editSettingHBox();
+        editPhaseVBoxes();
 
         new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             startRound();
         })).play();
-
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
 
         graveYardScrollPane.setFitToHeight(true);
         for (int i = 0; i < 20; i++) {
@@ -211,6 +171,47 @@ public class DuelView {
             graveYardGridPane.add(imageView, i, 0);
             GridPane.setMargin(imageView, new Insets(5));
         }
+    }
+
+    private void initializeFieldComponents() {
+        settingVBox.setVisible(false);
+        graveYardScrollPane.setVisible(false);
+        duelInfoLabel.setVisible(false);
+    }
+
+    private void initializePlayersInformation() {
+        opponentMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
+        opponentAvatar.setFill(new ImagePattern(new Image(secondPlayer.getAvatarURL())));
+        opponentUsernameLabel.setText(secondPlayer.getUsername());
+        opponentNicknameLabel.setText(secondPlayer.getNickname());
+        myMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
+        myAvatarCircle.setFill(new ImagePattern(new Image(firstPlayer.getAvatarURL())));
+        myUsernameLabel.setText(firstPlayer.getUsername());
+        myNicknameLabel.setText(firstPlayer.getNickname());
+    }
+
+    private void initializeImageViews() {
+        myHandImageViews = new ArrayList<>(Arrays.asList(myHandImageView1, myHandImageView2, myHandImageView3,
+                myHandImageView4, myHandImageView5, myHandImageView6, myHandImageView7, myHandImageView8, myHandImageView9));
+        opponentHandImageViews = new ArrayList<>(Arrays.asList(opponentHandImageView1,
+                opponentHandImageView2, opponentHandImageView3, opponentHandImageView4, opponentHandImageView5,
+                opponentHandImageView6, opponentHandImageView7, opponentHandImageView8, opponentHandImageView9));
+
+        opponentSpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentSpellTerritoryImageView1,
+                opponentSpellTerritoryImageView2, opponentSpellTerritoryImageView3,
+                opponentSpellTerritoryImageView4, opponentSpellTerritoryImageView5));
+
+        opponentMonsterTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentMonsterTerritoryImageView1,
+                opponentMonsterTerritoryImageView2, opponentMonsterTerritoryImageView3,
+                opponentMonsterTerritoryImageView4, opponentMonsterTerritoryImageView5));
+
+        myMonsterTerritoryImageViews = new ArrayList<>(Arrays.asList(myMonsterTerritoryImageView1,
+                myMonsterTerritoryImageView2, myMonsterTerritoryImageView3,
+                myMonsterTerritoryImageView4, myMonsterTerritoryImageView5));
+
+        mySpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(mySpellTerritoryCardImageView1,
+                mySpellTerritoryCardImageView2, mySpellTerritoryCardImageView3,
+                mySpellTerritoryCardImageView4, mySpellTerritoryCardImageView5));
     }
 
     private void startRound() {
@@ -228,45 +229,16 @@ public class DuelView {
     }
 
     private void processPhase() {
+        if (isStartRound) {
+            if (PHASE_END == currentPhase) {
+                isStartRound = false;
+            }
+            if (currentPhase == PHASE_BATTLE) {
+                showDuelInfoLabel("You cannot battle in first turn\nGo to the next phase");
+                return;
+            }
+        }
         showDuelInfoLabel(currentPhase.value);
-        new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-//            switch (currentPhase) {
-//                case PHASE_DRAW:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "1");
-//                    break;
-//                case PHASE_STANDBY:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "2");
-//                    break;
-//                case PHASE_MAIN1:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "3");
-//                    break;
-//                case PHASE_BATTLE:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "4");
-//                    break;
-//                case PHASE_MAIN2:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "5");
-//                    break;
-//                default:
-//                    DuelWithUser.getInstance().phaseCaller(firstPlayer.getUsername(), "6");
-//            }
-        })).play();
-    }
-
-    private void initializePlayersInformation() {
-        opponentMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
-        opponentAvatar.setFill(new ImagePattern(new Image(secondPlayer.getAvatarURL())));
-        opponentUsernameLabel.setText(secondPlayer.getUsername());
-        opponentNicknameLabel.setText(secondPlayer.getNickname());
-        myMagicCircle.setFill(new ImagePattern(new Image("/images/Magic-Circle.png")));
-        myAvatarCircle.setFill(new ImagePattern(new Image(firstPlayer.getAvatarURL())));
-        myUsernameLabel.setText(firstPlayer.getUsername());
-        myNicknameLabel.setText(firstPlayer.getNickname());
-    }
-
-    private void initializeFieldComponents() {
-        graveYardScrollPane.setVisible(false);
-        duelInfoLabel.setVisible(false);
-
     }
 
     //TODO
@@ -396,8 +368,10 @@ public class DuelView {
         int enemyLP = enemyBoard.getLP();
         int myLP = myBoard.getLP();
         //pref width = 500, lp = 8000
-        opponentLPBar.setPrefWidth(opponentLPBar.getPrefWidth() * enemyLP / 8000);
-        myLPBar.setPrefWidth(myLPBar.getPrefWidth() * myLP / 8000);
+        opponentLPBar.setPrefWidth(500 * enemyLP / 8000.0);
+        opponentLPLabel.setText("LP: " + Math.max(0, enemyLP));
+        myLPBar.setPrefWidth(500 * myLP / 8000.0);
+        myLPLabel.setText("LP: " + Math.max(0, myLP));
         if (enemyLP <= 0 || myLP <= 0) {
             String winnerUsername;
             if (enemyLP <= 0) {
@@ -409,100 +383,6 @@ public class DuelView {
             //TODO go back to rock paper scissors if 3 round game
             //TODO go back to mainMenu if 1 round Game
         }
-    }
-
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    public void setUpGame(int lastRoundResult) {
-//        firstPlayerBoard = new Board(firstPlayer);
-//        secondPlayerBoard = new Board(secondPlayer);
-//        //TODO where do we need turnCounter 3?
-//        turnCounter = 2;
-//        startTurn = turnCounter;
-//        firstPlayerBoard.setStartedTurn(2);
-//        secondPlayerBoard.setStartedTurn(3);
-//        firstPlayerBoard.setPlayerHandForFirstPlayer();
-//        secondPlayerBoard.setPlayerHandForSecondPlayer();
-    }
-
-    private void initializeImageViews() {
-        myHandImageViews = new ArrayList<>(Arrays.asList(myHandImageView1, myHandImageView2, myHandImageView3,
-                myHandImageView4, myHandImageView5, myHandImageView6, myHandImageView7, myHandImageView8, myHandImageView9));
-        opponentHandImageViews = new ArrayList<>(Arrays.asList(opponentHandImageView1,
-                opponentHandImageView2, opponentHandImageView3, opponentHandImageView4, opponentHandImageView5,
-                opponentHandImageView6, opponentHandImageView7, opponentHandImageView8, opponentHandImageView9));
-
-        opponentSpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentSpellTerritoryImageView1,
-                opponentSpellTerritoryImageView2, opponentSpellTerritoryImageView3,
-                opponentSpellTerritoryImageView4, opponentSpellTerritoryImageView5));
-
-        opponentMonsterTerritoryImageViews = new ArrayList<>(Arrays.asList(opponentMonsterTerritoryImageView1,
-                opponentMonsterTerritoryImageView2, opponentMonsterTerritoryImageView3,
-                opponentMonsterTerritoryImageView4, opponentMonsterTerritoryImageView5));
-
-        myMonsterTerritoryImageViews = new ArrayList<>(Arrays.asList(myMonsterTerritoryImageView1,
-                myMonsterTerritoryImageView2, myMonsterTerritoryImageView3,
-                myMonsterTerritoryImageView4, myMonsterTerritoryImageView5));
-
-        mySpellAndTrapTerritoryImageViews = new ArrayList<>(Arrays.asList(mySpellTerritoryCardImageView1,
-                mySpellTerritoryCardImageView2, mySpellTerritoryCardImageView3,
-                mySpellTerritoryCardImageView4, mySpellTerritoryCardImageView5));
-    }
-
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-
-    private String singleRoundWin(String winnerUsername, int winnerScore, int looserScore) {
-        return winnerUsername + " won the game and the score is: " + winnerScore + "-" + looserScore;
-    }
-
-    private String oneRoundWin(String winnerSideUsername, String loserSideUsername) {
-        User winner = User.getUserByUsername(winnerSideUsername);
-        winner.increaseScore(1000);
-        winner.increaseMoney(winner.getMaxLP() + 1000);
-        winner.clearLP();
-        User loser = User.getUserByUsername(loserSideUsername);
-        loser.increaseMoney(100);
-        loser.clearLP();
-        return winnerSideUsername + " won the whole match";
-    }
-
-    private String threeRoundWinner(String winnerUsername, String looserUsername, int winnerScore, int looserScore) {
-        User winner = User.getUserByUsername(winnerUsername);
-        winner.increaseScore(3000);
-        winner.increaseMoney(3000 + 3 * winner.getMaxLP());
-        winner.clearLP();
-        User loser = User.getUserByUsername(looserUsername);
-        loser.clearLP();
-        loser.increaseMoney(300);
-        return winnerUsername + " won the whole match with score: " + winnerScore + "-" + looserScore;
-    }
-
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-
-    private void changeFieldImage(String fieldURL) {
-        BackgroundSize backgroundSize = new BackgroundSize(1680, 1050, true, true, false, true);
-        fieldAnchorPane.setBackground(new Background(new BackgroundImage(new Image("/images/Duel/Field/fie_normal.png")
-                , BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize)));
     }
 
     private void editPhaseVBoxes() {
@@ -719,12 +599,14 @@ public class DuelView {
     }
 
     private void onMouseClickedForMyMonsterTerritoryImageViewsInBattlePhase(ImageView imageView, MouseEvent event) {
+//TODO for testing this should be commented:        if (isStartRound) return;
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
                 DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
             DuelWithUser.getInstance().selectCard(((GameCard) imageView.getImage()).getCard());
         } else {
             if (event.getButton() == MouseButton.PRIMARY) {
                 showDuelInfoLabel(BattlePhaseController.getInstance().attackUser());
+                BattlePhaseController.getInstance().afterBattleEffects();
                 updateRound();
             }
         }
@@ -734,16 +616,19 @@ public class DuelView {
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() != null) {
             if (event.getButton() == MouseButton.PRIMARY) {
                 showDuelInfoLabel(BattlePhaseController.getInstance().attackCard(getClickedOpponentMonsterImageViewAddress(imageView)));
+                BattlePhaseController.getInstance().afterBattleEffects();
                 updateRound();
                 updateMyMonsterTerritory();
                 updateOpponentMonsterTerritory();
             }
+        } else {
+            showDuelInfoLabel("Please select a card\nfrom your cards first");
         }
     }
 
     private int getClickedOpponentMonsterImageViewAddress(ImageView clickedImageView) {
         for (int i = 0; i < opponentMonsterTerritoryImageViews.size(); i++) {
-            if (opponentMonsterTerritoryImageViews.get(i).equals(clickedImageView)) {
+            if (opponentMonsterTerritoryImageViews.get(i) == clickedImageView) {
                 return i + 1;
             }
         }

@@ -37,41 +37,41 @@ public class BattlePhaseView {
     public String run() {
         DuelWithUserView duelWithUserView = DuelWithUserView.getInstance();
         System.out.print("phase: battle phase\n" + duelWithUser.showField());
-//        while (true) {
-//            battlePhaseController.afterBattleEffects();
-//            String command = LoginMenuView.scan.nextLine().trim();
-//            if (command.equals(Commands.NextPhase.toString())) {
-//                break;
-//            } else if (duelWithUserView.isItValidInAllOfThePhases(command)) {
-//                continue;
-//            } else if (isThisActionNotAllowed(command)) {
-//                System.out.println(Output.YouCantDoThisAction);
-//                continue;
-//            }
-//            Matcher matcher = attack.matcher(command);
-//            if (matcher.find()) {
-//                System.out.println(battlePhaseController.attackCard(Integer.parseInt(matcher.group(1))));
-//                String result = afterAttack();
-//                if (!result.equals(Output.TheGameContinues.toString())) {
-//                    return result;
-//                }
-//                continue;
-//            }
-//            if (command.equals(Commands.AttackDirect.toString())) {
-//                System.out.println(battlePhaseController.attackUser());
-//                String result = afterAttack();
-//                if (!result.equals(Output.TheGameContinues.toString())) {
-//                    return result;
-//                }
-//                continue;
-//            }
-//            String result = duelWithUserView.cheatCodeExecute(command);
-//            if (result.equals(Output.InvalidCommand.toString())) {
-//                System.out.println(result);
-//            } else if (!result.equals(Output.TheGameContinues.toString())) {
-//                return result;
-//            }
-//        }
+//       while (true) {
+//           battlePhaseController.afterBattleEffects();
+//           String command = LoginMenuView.scan.nextLine().trim();
+//           if (command.equals(Commands.NextPhase.toString())) {
+//               break;
+//           } else if (duelWithUserView.isItValidInAllOfThePhases(command)) {
+//               continue;
+//           } else if (isThisActionNotAllowed(command)) {
+//               System.out.println(Output.YouCantDoThisAction);
+//               continue;
+//           }
+//           Matcher matcher = attack.matcher(command);
+//           if (matcher.find()) {
+//               System.out.println(battlePhaseController.attackCard(Integer.parseInt(matcher.group(1))));
+//               String result = afterAttack();
+//               if (!result.equals(Output.TheGameContinues.toString())) {
+//                   return result;
+//               }
+//               continue;
+//           }
+//           if (command.equals(Commands.AttackDirect.toString())) {
+//               System.out.println(battlePhaseController.attackUser());
+//               String result = afterAttack();
+//               if (!result.equals(Output.TheGameContinues.toString())) {
+//                   return result;
+//               }
+//               continue;
+//           }
+//           String result = duelWithUserView.cheatCodeExecute(command);
+//           if (result.equals(Output.InvalidCommand.toString())) {
+//               System.out.println(result);
+//           } else if (!result.equals(Output.TheGameContinues.toString())) {
+//               return result;
+//           }
+//       }
         return Output.TheGameContinues.toString();
     }
 

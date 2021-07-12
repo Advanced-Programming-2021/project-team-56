@@ -49,20 +49,6 @@ public class Board {
         this.spellAndTrapTerritory.put(1, null);
         this.spellAndTrapTerritory.put(2, null);
         this.spellAndTrapTerritory.put(4, null);
-        //TODO
-        //TODO
-//        this.monsterTerritoryGUI.put(5, null);
-//        this.monsterTerritoryGUI.put(3, null);
-//        this.monsterTerritoryGUI.put(1, null);
-//        this.monsterTerritoryGUI.put(2, null);
-//        this.monsterTerritoryGUI.put(4, null);
-//        this.spellAndTrapTerritoryGUI.put(5, null);
-//        this.spellAndTrapTerritoryGUI.put(3, null);
-//        this.spellAndTrapTerritoryGUI.put(1, null);
-//        this.spellAndTrapTerritoryGUI.put(2, null);
-//        this.spellAndTrapTerritoryGUI.put(4, null);
-        //TODO
-        //TODO
     }
 
     public void setPlayerHandForFirstPlayer() {

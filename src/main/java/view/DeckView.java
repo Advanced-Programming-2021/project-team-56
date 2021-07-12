@@ -108,13 +108,10 @@ public class DeckView {
                 clickedCardImage.setImage(null);
                 if (isSideDeckCardImageView) {
                     deck.getSideDeck().remove(cardIndex);
-//                deck.getDeckCards().remove(card);
                     sideDeckAnchorPane.getChildren().clear();
                     initializeSideDeckCards();
                 } else {
-                    //TODO Somethings wrong here with the last card of main deck being removed
                     deck.getMainDeck().remove(cardIndex);
-//                deck.getDeckCards().remove(card);
                     mainDeckAnchorPane.getChildren().clear();
                     initializeMainDeckCards();
                 }

@@ -50,7 +50,6 @@ public class ShopView {
 
         cardsGridPane.setStyle("-fx-background-color: #0E061E");
         cardsScrollPane.setContent(cardsGridPane);
-//        numberOfCardLabel.setText(ShopController.getInstance().getNumberOfCardInUsersCards("Battle OX"));
         setHBoxBackGround();
         addCards();
         setOnMouseEnteredAndExited(buyButton);
