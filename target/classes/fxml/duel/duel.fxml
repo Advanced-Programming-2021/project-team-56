@@ -196,7 +196,7 @@
         </VBox>
         <AnchorPane layoutY="85.0" prefHeight="960.0" prefWidth="921.5" style="-fx-background-color: #0E061E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="758.5">
             <children>
-                <ImageView fitHeight="970.0" fitWidth="921.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                <ImageView fx:id="fieldImageView" fitHeight="970.0" fitWidth="921.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                     <image>
                         <Image url="@../../images/Duel/Field/fie_normal.png" />
                     </image>
@@ -289,15 +289,6 @@
                         </VBox>
                     </children>
                 </VBox>
-                <ScrollPane fx:id="graveYardScrollPane" layoutX="213.0" layoutY="395.0" prefHeight="180.0" prefWidth="546.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 3; -fx-border-radius: 20;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="397.0" AnchorPane.topAnchor="398.0">
-                    <content>
-                        <GridPane fx:id="graveYardGridPane" prefHeight="180.0" style="-fx-background-color: #41415D;">
-                        </GridPane>
-                    </content>
-                    <padding>
-                        <Insets left="20.0" right="20.0" />
-                    </padding>
-                </ScrollPane>
                 <HBox fx:id="myHandHBox" alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="921.5" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
                         <ImageView fx:id="myHandImageView9" fitHeight="130.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
@@ -403,6 +394,15 @@
                         <Font name="Times New Roman" size="25.0" />
                     </font>
                 </Label>
+                <ScrollPane fx:id="graveYardScrollPane" layoutX="213.0" layoutY="395.0" prefHeight="180.0" prefWidth="546.0" style="-fx-background-color: #41415D; -fx-background-radius: 20; -fx-border-color: #DBBEF6; -fx-border-width: 3; -fx-border-radius: 20;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="397.0" AnchorPane.topAnchor="398.0">
+                    <content>
+                        <GridPane fx:id="graveYardGridPane" prefHeight="180.0" style="-fx-background-color: #41415D;">
+                        </GridPane>
+                    </content>
+                    <padding>
+                        <Insets left="20.0" right="20.0" />
+                    </padding>
+                </ScrollPane>
             </children>
         </AnchorPane>
         <VBox fx:id="settingVBox" alignment="CENTER" layoutX="80.0" layoutY="20.0" prefHeight="300.0" prefWidth="500.0" spacing="100.0" style="-fx-background-color: #0E061E; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-width: 6; -fx-border-radius: 8;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="1100.0" AnchorPane.topAnchor="20.0">

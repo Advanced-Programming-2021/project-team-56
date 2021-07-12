@@ -11,6 +11,8 @@ import javafx.scene.ImageCursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import model.User;
 import model.enums.MenuURL;
@@ -22,6 +24,8 @@ import java.util.Arrays;
 
 public class EntranceView {
 
+    public static MediaPlayer musicPlayer;
+    private static boolean isMusicPlayed = false;
     public Button mainMenuButton;
     public Button loginButton;
     public Button signUpButton;
@@ -30,6 +34,10 @@ public class EntranceView {
     @FXML
     public void initialize() {
         editButtons();
+        if (!isMusicPlayed) {
+          //  playMusic();
+            isMusicPlayed = true;
+        }
     }
 
     private void editButtons() {
@@ -66,5 +74,13 @@ public class EntranceView {
 
     public void loginClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.LOGIN);
+    }
+
+    private void playMusic() {
+        Media music = new Media(getClass().getResource("/sounds/mp3/Background-Music.mp3").toExternalForm());
+        musicPlayer = new MediaPlayer(music);
+        musicPlayer.setAutoPlay(true);
+        musicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        musicPlayer.play();
     }
 }

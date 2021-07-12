@@ -515,8 +515,8 @@ public class MainPhase1Controller {
                     getRidOfTrapOrQuickPlaySpell(spell);
                     return "spell activated";
                 } else {
-                    spellEffectActivate.spellCaller(spell.getName());
                     dropSpellAndTrapOnTheGround(spell, false);
+                    spellEffectActivate.spellCaller(spell.getName());
                     return "spell activated";
                 }
             }

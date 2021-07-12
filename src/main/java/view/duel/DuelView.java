@@ -7,7 +7,9 @@ import controller.duel.phases.DrawPhaseController;
 import controller.duel.phases.MainPhase1Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -57,6 +59,7 @@ public class DuelView {
 
     private DuelInfo currentPhase;
 
+    public ImageView fieldImageView;
     public Label opponentLPLabel;
     public Pane opponentLPBar;
     public ImageView onMouseEnteredCardImageView;
@@ -172,9 +175,13 @@ public class DuelView {
         initializeImageViews();
         editSettingHBox();
         editPhaseVBoxes();
+        editGraveYardImageViews();
+
         new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             startRound();
         })).play();
+
+        graveYardScrollPane.setFitToHeight(true);
     }
 
     private void initializeFieldComponents() {
@@ -233,7 +240,7 @@ public class DuelView {
     }
 
     public void updateAll() {
-        //TODO add the new updates field spell o ...
+        updateFieldSpells();
         updateMyHandCards();
         updateOpponentHandCards();
         updateMyMonsterTerritory();
@@ -243,6 +250,30 @@ public class DuelView {
         updateMyDeckCardsNumber();
         updateOpponentDeckCardsNumber();
         updateRound();
+    }
+
+    private void updateFieldSpells() {
+        Card myFieldSpell = DuelWithUser.getInstance().getMyBoard().getFieldSpell();
+        Card opponentFieldSpell = DuelWithUser.getInstance().getEnemyBoard().getFieldSpell();
+        if (myFieldSpell != null)
+            myFieldSpellImageView.setImage(new GameCard(myFieldSpell));
+        if (opponentFieldSpell != null)
+            opponentFieldSpellImageView.setImage(new GameCard(opponentFieldSpell));
+
+        myFieldSpellImageView.setOnMouseEntered(event -> {
+            if (myFieldSpellImageView.getImage() != null) {
+                onMouseEnteredCardImageView.setImage(myFieldSpellImageView.getImage());
+                SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
+                myFieldSpellImageView.setEffect(new Glow(0.6));
+            }
+        });
+        opponentFieldSpellImageView.setOnMouseEntered(event -> {
+            if (opponentFieldSpellImageView.getImage() != null) {
+                onMouseEnteredCardImageView.setImage(opponentFieldSpellImageView.getImage());
+                SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
+                opponentFieldSpellImageView.setEffect(new Glow(0.6));
+            }
+        });
     }
 
     public void updateFromDrawPhase() {
@@ -254,12 +285,13 @@ public class DuelView {
 
     public void updateAfterActivateSpellEffect() {
         updateMyHandCards();
-        updateMySpellAndTrapTerritory();
         updateMyMonsterTerritory();
+        updateMySpellAndTrapTerritory();
         updateOpponentMonsterTerritory();
         updateOpponentSpellAndTrapTerritory();
         updateOpponentHandCards();
         updateRound();
+        new Timeline(new KeyFrame(Duration.seconds(1), event -> updateMySpellAndTrapTerritory())).play();
     }
 
     public void updateMyHandCards() {
@@ -405,6 +437,36 @@ public class DuelView {
         phaseVBox.setOnMouseExited(event -> phaseVBox.setEffect(null));
     }
 
+    private void editGraveYardImageViews() {
+        NodeEditor.editNode(0.6, myGraveyardImageView, opponentGraveyardImageView);
+        myGraveyardImageView.setOnMouseExited(event -> myGraveyardImageView.setEffect(null));
+        myGraveyardImageView.setOnMouseClicked(event -> {
+            graveYardScrollPane.setVisible(true);
+            showCardImagesInGraveYard(DuelWithUser.getInstance().getMyBoard().getGraveyard());
+        });
+        graveYardScrollPane.setOnMouseExited(event -> graveYardScrollPane.setVisible(false));
+
+        opponentGraveyardImageView.setOnMouseExited(event -> opponentGraveyardImageView.setEffect(null));
+        opponentGraveyardImageView.setOnMouseClicked(event -> {
+            graveYardScrollPane.setVisible(true);
+            showCardImagesInGraveYard(DuelWithUser.getInstance().getEnemyBoard().getGraveyard());
+        });
+        graveYardScrollPane.setOnMouseExited(event -> graveYardScrollPane.setVisible(false));
+    }
+
+    private void showCardImagesInGraveYard(ArrayList<Card> cards) {
+        for (int i = 0; i < cards.size(); i++) {
+            Image image = new Image(cards.get(i).getImageURL());
+            ImageView imageView = new ImageView(image);
+            imageView.setOnMouseEntered(event -> imageView.setEffect(new Glow(0.6)));
+            imageView.setOnMouseExited(event -> imageView.setEffect(null));
+            imageView.setFitWidth(96);
+            imageView.setFitHeight(140);
+            graveYardGridPane.add(imageView, i, 0);
+            GridPane.setMargin(imageView, new Insets(5));
+        }
+    }
+
     private void editImageViews() {
         setOnMouseClickedForImageViews();
         ArrayList<ArrayList<ImageView>> allImageViewLists = new ArrayList<>(Arrays.asList(myHandImageViews,
@@ -443,7 +505,6 @@ public class DuelView {
             DuelWithUser.getInstance().incrementTurnCounter();
             isBeginningOfARound = false;
             new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-                //Todo see here works!
                 setNewRoundFirstPlayerUsername(secondPlayer.getUsername());
                 try {
                     FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
@@ -536,9 +597,9 @@ public class DuelView {
 
 
     private void onMouseClickedMyHandImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
+        Card card = ((GameCard) imageView.getImage()).getCard();
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
-                DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
-            Card card = ((GameCard) imageView.getImage()).getCard();
+                DuelWithUser.getInstance().getMyBoard().getSelectedCard() != card) {
             DuelWithUser.getInstance().selectCard(card);
         } else {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -546,40 +607,76 @@ public class DuelView {
                     String result = MainPhase1Controller.getInstance().summon(false);
                     if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
                     else {
-                        updateMyHandCards();
-                        updateMyMonsterTerritory();
+                        summonAndSetCard(1);
                     }
                 } else {
                     String result = MainPhase1Controller.getInstance().activateSpell();
                     showDuelInfoLabel(result);
                     updateAfterActivateSpellEffect();
-                }
-                String result = MainPhase1Controller.getInstance().summon(false);
-                if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
-                else {
-                    updateMyHandCards();
-                    updateMyMonsterTerritory();
+                    if (card instanceof SpellCard && ((SpellCard) card).getIcon().equals("Field"))
+                        fieldSpellActivate(card);
                 }
             } else {
+                if (card instanceof SpellCard && ((SpellCard) card).getIcon().equals("Field")) return;
                 String result = MainPhase1Controller.getInstance().set();
                 if (!result.equals("set successfully") && !result.equals("summoned successfully"))
                     showDuelInfoLabel(result);
                 else {
-                    updateMyHandCards();
-                    updateMyMonsterTerritory();
-                    updateMySpellAndTrapTerritory();
+                    if (card instanceof MonsterCard) summonAndSetCard(1);
+                    else summonAndSetCard(2);
                 }
             }
         }
     }
 
+    private void summonAndSetCard(int monsterOrSpell) {
+        if (monsterOrSpell == 1) {
+            for (int i = 0; i < 5; i++) {
+                ImageView monsterImageView = myMonsterTerritoryImageViews.get(i);
+                if (monsterImageView.getImage() == null) {
+                    monsterImageView.setOpacity(0);
+                    updateMyHandCards();
+                    updateMyMonsterTerritory();
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), event -> monsterImageView.setOpacity(monsterImageView.getOpacity() + 0.05)));
+                    timeline.setCycleCount(20);
+                    timeline.play();
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i < 5; i++) {
+                ImageView spellImageView = mySpellAndTrapTerritoryImageViews.get(i);
+                if (spellImageView.getImage() == null) {
+                    spellImageView.setOpacity(0);
+                    updateMyHandCards();
+                    updateMyMonsterTerritory();
+                    updateMySpellAndTrapTerritory();
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), event -> spellImageView.setOpacity(spellImageView.getOpacity() + 0.05)));
+                    timeline.setCycleCount(20);
+                    timeline.play();
+                    break;
+                }
+            }
+        }
+    }
+
+    private void fieldSpellActivate(Card card) {
+        fieldImageView.setImage(new Image("/images/Duel/Field/" + card.getName() + ".png"));
+        myFieldSpellImageView.setImage(new GameCard(card));
+    }
+
     private void onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
+        Card card = ((GameCard) imageView.getImage()).getCard();
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
                 DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
-            Card card = ((GameCard) imageView.getImage()).getCard();
+            card = ((GameCard) imageView.getImage()).getCard();
             DuelWithUser.getInstance().selectCard(card);
         } else {
-            //     String result = MainPhase1Controller.getInstance().activateSpell();
+            String result = MainPhase1Controller.getInstance().activateSpell();
+            showDuelInfoLabel(result);
+            updateAfterActivateSpellEffect();
+            if (card instanceof SpellCard && ((SpellCard) card).getIcon().equals("Field"))
+                fieldSpellActivate(card);
         }
     }
 
@@ -611,7 +708,7 @@ public class DuelView {
     }
 
     private void onMouseClickedForMyMonsterTerritoryImageViewsInBattlePhase(ImageView imageView, MouseEvent event) {
-//TODO for testing this should be commented:   if (isStartRound) return;
+        if (isBeginningOfARound) return;
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
                 DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
             DuelWithUser.getInstance().selectCard(((GameCard) imageView.getImage()).getCard());

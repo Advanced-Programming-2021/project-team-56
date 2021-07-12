@@ -16,6 +16,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -106,6 +108,4 @@ public class MainGUI extends Application {
         setStage(stage);
         stage.initStyle(StageStyle.UTILITY);
     }
-
-
 }
