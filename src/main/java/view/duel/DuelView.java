@@ -395,7 +395,6 @@ public class DuelView {
         Board myBoard = DuelWithUser.getInstance().getMyBoard();
         int enemyLP = enemyBoard.getLP();
         int myLP = myBoard.getLP();
-        //pref width = 500, lp = 8000
         opponentLPBar.setPrefWidth(500 * enemyLP / 8000.0);
         opponentLPLabel.setText("LP: " + Math.max(0, enemyLP));
         myLPBar.setPrefWidth(500 * myLP / 8000.0);

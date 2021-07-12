@@ -23,7 +23,6 @@ public class MainPhase1Controller {
     private final DuelWithUser duelWithUser;
     private final EffectView effectView;
     private final SpellEffectActivate spellEffectActivate;
-    private final OpponentPhase opponentPhase;
 
     private Card effectCard;
     private boolean isSummoningInProcess;
@@ -32,7 +31,6 @@ public class MainPhase1Controller {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
         spellEffectActivate = SpellEffectActivate.getInstance();
-        opponentPhase = OpponentPhase.getInstance();
     }
 
     private MainPhase1Controller() {
@@ -357,7 +355,6 @@ public class MainPhase1Controller {
         if (monster.getAttack() >= 1000) {
             duelWithUser.getMyBoard().setMyMonsterInDangerOfTrapHole(true);
         }
-        opponentPhase.startChainLink();
         spawnKill(monster);
         if (monster.isItScanner()) {
             spellEffectActivate.scannerEffect();

@@ -2,31 +2,14 @@ package controller.duel;
 
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
-import controller.duel.phases.DrawPhaseController;
 import model.*;
-import view.duel.DuelWithUserView;
-import view.duel.EffectView;
-import view.duel.phase.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DuelWithUser {
 
     private static DuelWithUser duelWithUser;
-
-    static Pattern selectMyMonster = Pattern.compile("^select --monster (\\d+)$");
-    static Pattern selectMySpellOrTrap = Pattern.compile("^select --spell (\\d+)$");
-    static Pattern selectOpponentMonster1 = Pattern.compile("^select --monster (\\d+) --opponent$");
-    static Pattern selectOpponentMonster2 = Pattern.compile("^select --opponent --monster (\\d+)$");
-    static Pattern selectOpponentSpellOrTrap1 = Pattern.compile("^select --spell (\\d+) --opponent$");
-    static Pattern selectOpponentSpellOrTrap2 = Pattern.compile("^select --opponent --spell (\\d+)$");
-    static Pattern selectMyHandCard = Pattern.compile("^select --hand (\\d+)$");
-    static Pattern selectFieldCard = Pattern.compile("^select (?:--opponent --field|--field --opponent|--field)$");
-
-    private final DuelWithUserView duelWithUserView;
 
     private int phaseCounter = 1;
     private int turnCounter;
@@ -34,10 +17,6 @@ public class DuelWithUser {
     private final Board[] boards = new Board[2];
     private int startTurn;
     private int currentRoundNumber = 1;
-
-    {
-        duelWithUserView = DuelWithUserView.getInstance();
-    }
 
     private DuelWithUser() {
     }
@@ -56,151 +35,15 @@ public class DuelWithUser {
         turnCounter++;
     }
 
-    public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
-        int roundResult = 0;
-        if (rounds.equals("3")) {
-            int numberOfWinsPlayer1 = 0;
-            int numberOfWinsPlayer2 = 0;
-            while (numberOfWinsPlayer1 != 2 && numberOfWinsPlayer2 != 2) {
-                setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
-                roundResult = phaseCaller(firstPlayerUsername);
-                if (roundResult == 1) {
-                    numberOfWinsPlayer1++;
-                    duelWithUserView.printEndMessage(singleRoundWin(firstPlayerUsername,
-                            numberOfWinsPlayer1, numberOfWinsPlayer2));
-                } else {
-                    numberOfWinsPlayer2++;
-                    duelWithUserView.printEndMessage(singleRoundWin(secondPlayerUsername,
-                            numberOfWinsPlayer2, numberOfWinsPlayer1));
-                }
-                currentRoundNumber++;
-            }
-            if (numberOfWinsPlayer1 == 2) {
-                return (threeRoundWinner(firstPlayerUsername,
-                        secondPlayerUsername, numberOfWinsPlayer1, numberOfWinsPlayer2));
-            } else {
-                return (threeRoundWinner(secondPlayerUsername,
-                        firstPlayerUsername, numberOfWinsPlayer2, numberOfWinsPlayer1));
-            }
-        } else {
-            setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
-            roundResult = phaseCaller(firstPlayerUsername);
-            if (roundResult == 1) {
-                return (oneRoundWin(firstPlayerUsername, secondPlayerUsername));
-            } else {
-                return (oneRoundWin(secondPlayerUsername, firstPlayerUsername));
-            }
-        }
-    }
-
-    public int phaseCaller(String firstPlayerUsername) {
-        String result;
-        while (true) {
-            switch (phaseCounter) {
-                case 1:
-                    result = DrawPhaseController.getInstance().run();;
-                    if (result.equals(Output.ILost.toString())) {
-                        return surrender(firstPlayerUsername);
-                    }
-                    break;
-                case 2:
-                    int winner = finishTheRound(StandByPhaseView.getInstance().run(), firstPlayerUsername);
-                    if (winner != 0) {
-                        return winner;
-                    }
-                    break;
-                case 3:
-                    EffectView.getInstance().output("phase: Main Phase 1");
-                    if (MainPhase1View.getInstance().run().equals(Output.ILost.toString())) {
-                        return surrender(firstPlayerUsername);
-                    }
-                    break;
-                case 4:
-                    if (startTurn != turnCounter) {
-                        int loser = finishTheRound(BattlePhaseView.getInstance().run(), firstPlayerUsername);
-                        if (loser != 0) {
-                            return loser;
-                        }
-                    }
-                    break;
-                case 5:
-                    EffectView.getInstance().output("phase: Main Phase 2");
-                    if (MainPhase1View.getInstance().run().equals(Output.ILost.toString())) {
-                        return surrender(firstPlayerUsername);
-                    }
-                    break;
-                case 6:
-                    if (EndPhaseView.getInstance().run().equals(Output.ILost.toString())) {
-                        return surrender(firstPlayerUsername);
-                    }
-                    break;
-            }
-            phaseCounter++;
-            if (phaseCounter == 7) {
-                phaseCounter -= 6;
-                turnCounter++;
-            }
-        }
-    }
-
-    private int finishTheRound(String result, String firstPlayerUsername) {
-        if (result.equals(Output.IWon.toString())) {
-            setLP();
-            if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
-                return 1;
-            }
-            return 2;
-        } else if (result.equals(Output.ILost.toString())) {
-            setLP();
-            if (getEnemyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
-                return 1;
-            }
-            return 2;
-        }
-        return 0;
-    }
-
-    private int surrender(String firstPlayerUsername) {
-        setLP();
-        if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
-            return 2;
-        }
-        return 1;
-    }
-
     public void setUpGame(String firstPlayerUsername, String secondPlayerUsername, int lastRoundResult) {
         boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
         boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
-        //TODO Ask to update view here
-//        String starter = FirstToGoDeterminerView.getInstance()
-//                .determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername, lastRoundResult);
         turnCounter = 2;
-//            turnCounter = 3;
         startTurn = turnCounter;
         boards[0].setStartedTurn(2);
         boards[1].setStartedTurn(3);
         boards[0].setPlayerHandForFirstPlayer();
         boards[1].setPlayerHandForSecondPlayer();
-        MonsterCard monsterCard = new MonsterCard(Card.getCardByName("Axe Raider"));
-        monsterCard.setInAttackPosition(true);
-        monsterCard.setFacedUp(true);
-        MonsterCard monsterCard1 = new MonsterCard(Card.getCardByName("Axe Raider"));
-        monsterCard1.setInAttackPosition(false);
-        monsterCard1.setFacedUp(false);
-        MonsterCard monsterCard2 = new MonsterCard(Card.getCardByName("Axe Raider"));
-        monsterCard2.setInAttackPosition(false);
-        monsterCard2.setFacedUp(true);
-        MonsterCard monsterCard3 = new MonsterCard(Card.getCardByName("Battle warrior"));
-        monsterCard3.setInAttackPosition(true);
-        monsterCard3.setFacedUp(true);
-        boards[1].getMonsterTerritory().put(1, monsterCard);
-        boards[1].getMonsterTerritory().put(4, monsterCard2);
-        boards[1].getMonsterTerritory().put(5, monsterCard1);
-        boards[1].getMonsterTerritory().put(3, monsterCard3);
-        boards[1].getMonsterTerritory().put(2, new MonsterCard(Card.getCardByName("Yomi Ship")));
-        boards[0].getPlayerHand().add(new MonsterCard(Card.getCardByName("Command Knight")));
-        boards[0].getPlayerHand().add(new SpellCard(Card.getCardByName("Forest")));
-        boards[0].getPlayerHand().add(new SpellCard(Card.getCardByName("Dark Hole")));
     }
 
     public Board getMyBoard() {
@@ -213,68 +56,6 @@ public class DuelWithUser {
 
     public void selectCard(Card card) {
         getMyBoard().setSelectedCard(card);
-    }
-
-    private String selectMonster(Matcher matcher, String whichPlayer) {
-        int monsterNumber = Integer.parseInt(matcher.group(1));
-        if (monsterNumber > 5 || monsterNumber == 0) {
-            return Output.InvalidSelection.toString();
-        }
-        if (whichPlayer.equals("me")) {
-            if (getMyBoard().getMonsterTerritory().get(monsterNumber) == null) {
-                return "no card found in the given position";
-            }
-            getMyBoard().setSelectedCard(getMyBoard().getMonsterTerritory().get(monsterNumber));
-            return Output.CardSelected.toString();
-        }
-        if (getEnemyBoard().getMonsterTerritory().get(monsterNumber) == null) {
-            return "no card found in the given position";
-        }
-        getMyBoard().setSelectedCard(getEnemyBoard().getMonsterTerritory().get(monsterNumber));
-        return Output.CardSelected.toString();
-    }
-
-    private String selectSpellOrTrap(Matcher matcher, String whichPlayer) {
-        int spellOrTrapNumber = Integer.parseInt(matcher.group(1));
-        if (spellOrTrapNumber > 5 || spellOrTrapNumber == 0) {
-            return Output.InvalidSelection.toString();
-        }
-        if (whichPlayer.equals("me")) {
-            if (getMyBoard().getSpellAndTrapTerritory().get(spellOrTrapNumber) == null) {
-                return "no card found in the given position";
-            }
-            getMyBoard().setSelectedCard(getMyBoard().getSpellAndTrapTerritory().get(spellOrTrapNumber));
-            return Output.CardSelected.toString();
-        }
-        if (getEnemyBoard().getSpellAndTrapTerritory().get(spellOrTrapNumber) == null) {
-            return "no card found in the given position";
-        }
-        getMyBoard().setSelectedCard(getEnemyBoard().getSpellAndTrapTerritory().get(spellOrTrapNumber));
-        return Output.CardSelected.toString();
-    }
-
-    private String selectMyHandCard(Matcher matcher) {
-        int myHandCardsAddress = Integer.parseInt(matcher.group(1));
-        if (myHandCardsAddress > getMyBoard().getPlayerHand().size() || myHandCardsAddress == 0) {
-            return Output.InvalidSelection.toString();
-        }
-        getMyBoard().setSelectedCard(getMyBoard().getPlayerHand().get(myHandCardsAddress - 1));
-        return Output.CardSelected.toString();
-    }
-
-    private String selectFieldCard(String command) {
-        if (command.equals("select --field")) {
-            if (getMyBoard().getFieldSpell() == null) {
-                return "no card found in the given position";
-            }
-            getMyBoard().setSelectedCard(getMyBoard().getFieldSpell());
-        } else {
-            if (getEnemyBoard().getFieldSpell() == null) {
-                return "no card found in the given position";
-            }
-            getMyBoard().setSelectedCard(getEnemyBoard().getFieldSpell());
-        }
-        return Output.CardSelected.toString();
     }
 
     public String deselectCard() {

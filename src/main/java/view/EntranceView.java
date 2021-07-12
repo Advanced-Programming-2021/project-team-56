@@ -35,7 +35,7 @@ public class EntranceView {
     public void initialize() {
         editButtons();
         if (!isMusicPlayed) {
-          //  playMusic();
+            playMusic();
             isMusicPlayed = true;
         }
     }
