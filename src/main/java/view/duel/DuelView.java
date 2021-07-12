@@ -8,6 +8,7 @@ import controller.duel.phases.MainPhase1Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -238,7 +239,7 @@ public class DuelView {
     }
 
     public void updateAll() {
-        //TODO add the new updates field spell o ...
+        updateFielSpells();
         updateMyHandCards();
         updateOpponentHandCards();
         updateMyMonsterTerritory();
@@ -248,6 +249,15 @@ public class DuelView {
         updateMyDeckCardsNumber();
         updateOpponentDeckCardsNumber();
         updateRound();
+    }
+
+    private void updateFielSpells() {
+        Card myFieldSpell = DuelWithUser.getInstance().getMyBoard().getFieldSpell();
+        Card opponentFieldSpell = DuelWithUser.getInstance().getEnemyBoard().getFieldSpell();
+        if (myFieldSpell != null)
+        myFieldSpellImageView.setImage(new GameCard(myFieldSpell));
+        if (opponentFieldSpell != null)
+        opponentFieldSpellImageView.setImage(new GameCard(opponentFieldSpell));
     }
 
     public void updateFromDrawPhase() {
@@ -479,7 +489,6 @@ public class DuelView {
             DuelWithUser.getInstance().incrementTurnCounter();
             isBeginningOfARound = false;
             new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-                //Todo see here works!
                 setNewRoundFirstPlayerUsername(secondPlayer.getUsername());
                 try {
                     FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
@@ -653,7 +662,7 @@ public class DuelView {
     }
 
     private void onMouseClickedForMyMonsterTerritoryImageViewsInBattlePhase(ImageView imageView, MouseEvent event) {
-//TODO for testing this should be commented:   if (isStartRound) return;
+        if (isBeginningOfARound) return;
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
                 DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
             DuelWithUser.getInstance().selectCard(((GameCard) imageView.getImage()).getCard());
