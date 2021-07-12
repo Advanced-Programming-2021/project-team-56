@@ -93,9 +93,9 @@ public class BattlePhaseController {
         if (isThereSwordOfRevealingLight()) {
             return "you can't attack because of effect of\n swords of revealing light";
         }
-//        if (myMonster.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
-//            return "this card already attacked";
-//        }
+        if (myMonster.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
+            return "this card already attacked";
+        }
         if (!isUserUnderAttack) {
             enemyMonster = duelWithUser.getEnemyBoard().getMonsterTerritory().get(address);
             if (enemyMonster == null) {
