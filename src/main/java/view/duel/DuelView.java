@@ -4,6 +4,7 @@ import controller.SoundPlayer;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.BattlePhaseController;
 import controller.duel.phases.DrawPhaseController;
+import controller.duel.phases.EndPhaseController;
 import controller.duel.phases.MainPhase1Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -501,6 +502,7 @@ public class DuelView {
             }
         }
         if (currentPhase == PHASE_END) {
+            EndPhaseController.getInstance().run();
             DuelWithUser.getInstance().incrementTurnCounter();
             isBeginningOfARound = false;
             new Timeline(new KeyFrame(Duration.seconds(2), event -> {
