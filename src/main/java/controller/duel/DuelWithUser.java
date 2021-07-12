@@ -152,11 +152,6 @@ public class DuelWithUser {
         return 0;
     }
 
-    private void setLP() {
-        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
-        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
-    }
-
     private int surrender(String firstPlayerUsername) {
         setLP();
         if (getMyBoard().getUser().getUsername().equals(firstPlayerUsername)) {
@@ -196,6 +191,8 @@ public class DuelWithUser {
         boards[1].getMonsterTerritory().put(3, monsterCard3);
         boards[1].getMonsterTerritory().put(2, new MonsterCard(Card.getCardByName("Yomi Ship")));
         boards[0].getPlayerHand().add(new MonsterCard(Card.getCardByName("Command Knight")));
+        boards[0].getPlayerHand().add(new MonsterCard(Card.getCardByName("Battle OX")));
+        boards[0].getPlayerHand().add(new SpellCard(Card.getCardByName("Dark Hole")));
     }
 
     public Board getMyBoard() {
@@ -420,11 +417,16 @@ public class DuelWithUser {
         return turnCounter;
     }
 
-    private String singleRoundWin(String winnerUsername, int winnerScore, int looserScore) {
-        return winnerUsername + " won the game and the score is: " + winnerScore + "-" + looserScore;
+    public String singleRoundWin(String winnerUsername, int winnerScore, int looserScore) {
+        return winnerUsername + " won the game\nand the score is: " + winnerScore + "-" + looserScore;
     }
 
-    private String oneRoundWin(String winnerSideUsername, String loserSideUsername) {
+    public void setLP() {
+        getEnemyBoard().getUser().getPlayerLP().add(getEnemyBoard().getLP());
+        getMyBoard().getUser().getPlayerLP().add(getMyBoard().getLP());
+    }
+
+    public String oneRoundWin(String winnerSideUsername, String loserSideUsername) {
         User winner = User.getUserByUsername(winnerSideUsername);
         winner.increaseScore(1000);
         winner.increaseMoney(winner.getMaxLP() + 1000);
@@ -435,7 +437,7 @@ public class DuelWithUser {
         return winnerSideUsername + " won the whole match";
     }
 
-    private String threeRoundWinner(String winnerUsername, String looserUsername, int winnerScore, int looserScore) {
+    public String threeRoundWinner(String winnerUsername, String looserUsername, int winnerScore, int looserScore) {
         User winner = User.getUserByUsername(winnerUsername);
         winner.increaseScore(3000);
         winner.increaseMoney(3000 + 3 * winner.getMaxLP());
