@@ -65,21 +65,13 @@ public class MainGUI extends Application {
                 @Override
                 public void handle(MouseEvent event) {
                     button.setEffect(new Glow(0.6));
-                    button.setLayoutY(button.getLayoutY() - 5);
                     SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
-                    try {
-                        new Robot().mouseMove((int) MouseInfo.getPointerInfo().getLocation().getX(),
-                                (int) MouseInfo.getPointerInfo().getLocation().getY() - 2);
-                    } catch (AWTException e) {
-                        e.printStackTrace();
-                    }
                 }
             });
             button.setOnMouseExited(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     button.setEffect(null);
-                    button.setLayoutY(button.getLayoutY() + 5);
                 }
             });
 

@@ -178,11 +178,23 @@ public class DuelWithUser {
         boards[1].setStartedTurn(3);
         boards[0].setPlayerHandForFirstPlayer();
         boards[1].setPlayerHandForSecondPlayer();
-        MonsterCard monsterCard = (MonsterCard) Card.getCardByName("Axe Raider");
+        MonsterCard monsterCard = new MonsterCard(Card.getCardByName("Axe Raider"));
         monsterCard.setInAttackPosition(true);
         monsterCard.setFacedUp(true);
+        MonsterCard monsterCard1 = new MonsterCard(Card.getCardByName("Axe Raider"));
+        monsterCard1.setInAttackPosition(false);
+        monsterCard1.setFacedUp(false);
+        MonsterCard monsterCard2 = new MonsterCard(Card.getCardByName("Axe Raider"));
+        monsterCard2.setInAttackPosition(false);
+        monsterCard2.setFacedUp(true);
+        MonsterCard monsterCard3 = new MonsterCard(Card.getCardByName("Battle warrior"));
+        monsterCard3.setInAttackPosition(true);
+        monsterCard3.setFacedUp(true);
         boards[1].getMonsterTerritory().put(1, monsterCard);
-        boards[1].getMonsterTerritory().put(2, (MonsterCard) Card.getCardByName("Yomi Ship"));
+        boards[1].getMonsterTerritory().put(4, monsterCard2);
+        boards[1].getMonsterTerritory().put(5, monsterCard1);
+        boards[1].getMonsterTerritory().put(3, monsterCard3);
+        boards[1].getMonsterTerritory().put(2, new MonsterCard(Card.getCardByName("Yomi Ship")));
     }
 
     public Board getMyBoard() {

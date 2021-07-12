@@ -42,6 +42,8 @@ public class DuelView {
     private static User firstPlayer;
     private static User secondPlayer;
     private static int numberOfRounds;
+    public static boolean summonWithTribute = false;
+    public static int numberOfTributes;
 
     public static ArrayList<ImageView> myHandImageViews;
     public static ArrayList<ImageView> opponentHandImageViews;
@@ -136,8 +138,8 @@ public class DuelView {
     public ImageView myFieldSpellImageView;
 
     public Label duelInfoLabel;
-    public static boolean summonWithTribute = false;
-    public static int numberOfTributes;
+
+    private boolean isStartRound = true;
 
     public static void setPlayers(String firstPlayerName, String secondPlayerName) {
         firstPlayer = User.getUserByUsername(firstPlayerName);
@@ -227,9 +229,16 @@ public class DuelView {
     }
 
     private void processPhase() {
+        if (isStartRound) {
+            if (PHASE_END == currentPhase) {
+                isStartRound = false;
+            }
+            if (currentPhase == PHASE_BATTLE) {
+                showDuelInfoLabel("You cannot battle in first turn\nGo to the next phase");
+                return;
+            }
+        }
         showDuelInfoLabel(currentPhase.value);
-        new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-        })).play();
     }
 
     //TODO
@@ -355,10 +364,10 @@ public class DuelView {
         int enemyLP = enemyBoard.getLP();
         int myLP = myBoard.getLP();
         //pref width = 500, lp = 8000
-        opponentLPBar.setPrefWidth(500 * enemyLP / 8000);
-        opponentLPLabel.setText("LP: " + enemyLP);
-        myLPBar.setPrefWidth(500 * myLP / 8000);
-        myLPLabel.setText("LP: " + myLP);
+        opponentLPBar.setPrefWidth(500 * enemyLP / 8000.0);
+        opponentLPLabel.setText("LP: " + Math.max(0, enemyLP));
+        myLPBar.setPrefWidth(500 * myLP / 8000.0);
+        myLPLabel.setText("LP: " + Math.max(0, myLP));
         if (enemyLP <= 0 || myLP <= 0) {
             String winnerUsername;
             if (enemyLP <= 0) {
@@ -529,10 +538,6 @@ public class DuelView {
         }
     }
 
-    private void onMouseClickedForMyHandImageViewsInBattlePhase(ImageView imageView, MouseEvent event) {
-        //TODO startTurn != turnCounter for battle phase
-    }
-
 
     private void onMouseClickedMyMonsterTerritoryImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
@@ -558,12 +563,14 @@ public class DuelView {
     }
 
     private void onMouseClickedForMyMonsterTerritoryImageViewsInBattlePhase(ImageView imageView, MouseEvent event) {
+//TODO for testing this should be commented:        if (isStartRound) return;
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
                 DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
             DuelWithUser.getInstance().selectCard(((GameCard) imageView.getImage()).getCard());
         } else {
             if (event.getButton() == MouseButton.PRIMARY) {
                 showDuelInfoLabel(BattlePhaseController.getInstance().attackUser());
+                BattlePhaseController.getInstance().afterBattleEffects();
                 updateRound();
             }
         }
@@ -573,16 +580,19 @@ public class DuelView {
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() != null) {
             if (event.getButton() == MouseButton.PRIMARY) {
                 showDuelInfoLabel(BattlePhaseController.getInstance().attackCard(getClickedOpponentMonsterImageViewAddress(imageView)));
+                BattlePhaseController.getInstance().afterBattleEffects();
                 updateRound();
                 updateMyMonsterTerritory();
                 updateOpponentMonsterTerritory();
             }
+        } else {
+            showDuelInfoLabel("Please select a card\nfrom your cards first");
         }
     }
 
     private int getClickedOpponentMonsterImageViewAddress(ImageView clickedImageView) {
         for (int i = 0; i < opponentMonsterTerritoryImageViews.size(); i++) {
-            if (opponentMonsterTerritoryImageViews.get(i).equals(clickedImageView)) {
+            if (opponentMonsterTerritoryImageViews.get(i) == clickedImageView) {
                 return i + 1;
             }
         }
