@@ -48,6 +48,14 @@ public class DuelWithUser {
         return duelWithUser;
     }
 
+    public int getTurnCounter() {
+        return turnCounter;
+    }
+
+    public void incrementTurnCounter() {
+        turnCounter++;
+    }
+
     public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
         int roundResult = 0;
         if (rounds.equals("3")) {
@@ -411,10 +419,6 @@ public class DuelWithUser {
 
     public int getLastSummonedOrSetTurn() {
         return getMyBoard().getLastSummonedOrSetTurn();
-    }
-
-    public int getTurnCounter() {
-        return turnCounter;
     }
 
     public String singleRoundWin(String winnerUsername, int winnerScore, int looserScore) {

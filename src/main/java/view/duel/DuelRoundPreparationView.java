@@ -33,6 +33,7 @@ public class DuelRoundPreparationView {
         NodeEditor.editNode(0.6, leftButton, rightButton);
         leftButton.setOnMouseClicked(event -> {
             DuelView.setNewRoundFirstPlayerUsername(looserUsername);
+            DuelView.setIsBeginningOfARound(true);
             try {
                 FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
             } catch (IOException e) {
@@ -41,6 +42,7 @@ public class DuelRoundPreparationView {
         });
         rightButton.setOnMouseClicked(event -> {
             DuelView.setNewRoundFirstPlayerUsername(winnerUsername);
+            DuelView.setIsBeginningOfARound(true);
             try {
                 FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
             } catch (IOException e) {

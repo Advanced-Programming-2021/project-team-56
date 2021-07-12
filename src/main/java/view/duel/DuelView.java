@@ -46,6 +46,7 @@ public class DuelView {
     private static int numberOfRounds;
     public static boolean summonWithTribute = false;
     public static int numberOfTributes;
+    private static boolean isBeginningOfARound;
 
     public static ArrayList<ImageView> myHandImageViews;
     public static ArrayList<ImageView> opponentHandImageViews;
@@ -140,7 +141,7 @@ public class DuelView {
 
     public Label duelInfoLabel;
 
-    private boolean isStartRound = true;
+    private boolean isRoundsFirstTurn = true;
 
     public static void setPlayers(String firstPlayerName, String secondPlayerName) {
         firstPlayer = User.getUserByUsername(firstPlayerName);
@@ -162,6 +163,10 @@ public class DuelView {
         DuelView.numberOfRounds = numberOfRounds;
     }
 
+    public static void setIsBeginningOfARound(boolean value) {
+        isBeginningOfARound = value;
+    }
+
     @FXML
     public void initialize() {
         initializeFieldComponents();
@@ -169,7 +174,6 @@ public class DuelView {
         initializeImageViews();
         editSettingHBox();
         editPhaseVBoxes();
-
         new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             startRound();
         })).play();
@@ -219,9 +223,10 @@ public class DuelView {
     private void startRound() {
         editImageViews();
         currentPhase = PHASE_DRAW;
-        DuelWithUser.getInstance().setUpGame(firstPlayer.getUsername(), secondPlayer.getUsername(), 0);
-        updateOpponentMonsterTerritory();
-        updateFromDrawPhase();
+        if (isBeginningOfARound) {
+            DuelWithUser.getInstance().setUpGame(firstPlayer.getUsername(), secondPlayer.getUsername(), 0);
+        }
+        updateAll();
         showDuelInfoLabel(PHASE_DRAW.value);
         new Timeline(new KeyFrame(Duration.seconds(2), event -> {
             showDuelInfoLabel(DrawPhaseController.getInstance().run());
@@ -229,17 +234,17 @@ public class DuelView {
         })).play();
     }
 
-    private void processPhase() {
-        if (isStartRound) {
-            if (PHASE_END == currentPhase) {
-                isStartRound = false;
-            }
-            if (currentPhase == PHASE_BATTLE) {
-                showDuelInfoLabel("You cannot battle in first turn\nGo to the next phase");
-                return;
-            }
-        }
-        showDuelInfoLabel(currentPhase.value);
+    public void updateAll() {
+        //TODO add the new updates field spell o ...
+        updateMyHandCards();
+        updateOpponentHandCards();
+        updateMyMonsterTerritory();
+        updateOpponentMonsterTerritory();
+        updateMySpellAndTrapTerritory();
+        updateOpponentSpellAndTrapTerritory();
+        updateMyDeckCardsNumber();
+        updateOpponentDeckCardsNumber();
+        updateRound();
     }
 
     public void updateFromDrawPhase() {
@@ -429,6 +434,32 @@ public class DuelView {
         }
     }
 
+    private void processPhase() {
+        if (isRoundsFirstTurn) {
+            if (PHASE_END == currentPhase) {
+                isRoundsFirstTurn = false;
+            }
+            if (currentPhase == PHASE_BATTLE) {
+                showDuelInfoLabel("You cannot battle in first turn\nGo to the next phase");
+                return;
+            }
+        }
+        if (currentPhase == PHASE_END) {
+            DuelWithUser.getInstance().incrementTurnCounter();
+            isBeginningOfARound = false;
+            new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+                //Todo see here works!
+                setNewRoundFirstPlayerUsername(secondPlayer.getUsername());
+                try {
+                    FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }));
+        }
+        showDuelInfoLabel(currentPhase.value);
+    }
+
     private void setOnMouseClickedForImageViews() {
         setOnMouseClickedForMyHandImageViews();
         setOnMouseClickedForOpponentHandImageViews();
@@ -461,7 +492,7 @@ public class DuelView {
     private void setOnMouseClickedForMySpellAndTrapTerritoryImageViews() {
         for (ImageView imageView : mySpellAndTrapTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
-                if (imageView != null) {
+                if (imageView.getImage() != null) {
                     if (currentPhase == PHASE_MAIN1 || currentPhase == PHASE_MAIN2) {
                         onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(imageView, event);
                     }
@@ -553,7 +584,7 @@ public class DuelView {
             Card card = ((GameCard) imageView.getImage()).getCard();
             DuelWithUser.getInstance().selectCard(card);
         } else {
-       //     String result = MainPhase1Controller.getInstance().activateSpell();
+            //     String result = MainPhase1Controller.getInstance().activateSpell();
         }
     }
 
@@ -580,11 +611,12 @@ public class DuelView {
                     }
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     private void onMouseClickedForMyMonsterTerritoryImageViewsInBattlePhase(ImageView imageView, MouseEvent event) {
-//TODO for testing this should be commented:        if (isStartRound) return;
+//TODO for testing this should be commented:   if (isStartRound) return;
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
                 DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
             DuelWithUser.getInstance().selectCard(((GameCard) imageView.getImage()).getCard());
@@ -689,7 +721,7 @@ public class DuelView {
                     if (numberOfWinsPlayer1 != 2 && numberOfWinsPlayer2 != 2) {
                         DuelRoundPreparationView.setWinnerUsername(winnerUser.getUsername());
                         DuelRoundPreparationView.setLooserUsername(looserUser.getUsername());
-                                FxmlController.getInstance().setSceneFxml(MenuURL.DUEL_ROUND_PREPARATION);
+                        FxmlController.getInstance().setSceneFxml(MenuURL.DUEL_ROUND_PREPARATION);
                     } else {
                         if (numberOfWinsPlayer1 == 2) {
                             showDuelInfoLabel(DuelWithUser.getInstance().threeRoundWinner(player1.getUsername(),
@@ -706,7 +738,8 @@ public class DuelView {
                             }
                         })).play();
                     }
-                } catch (IOException ignored) {}
+                } catch (IOException ignored) {
+                }
             })).play();
         } else {
             showSingleRoundResult(winnerUser.getUsername(), looserUser.getUsername());
@@ -718,7 +751,8 @@ public class DuelView {
         new Timeline(new KeyFrame(Duration.seconds(2), event -> {
             try {
                 FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         })).play();
     }
 }
