@@ -15,8 +15,24 @@ public class Deck {
     }
 
     public Deck(Deck deck) {
-        mainDeck.addAll(deck.getMainDeck());
-        sideDeck.addAll(deck.getSideDeck());
+        for (Card card : deck.getMainDeck()) {
+            if (card instanceof MonsterCard) {
+                mainDeck.add(new MonsterCard(card));
+            } else if (card instanceof SpellCard) {
+                mainDeck.add(new SpellCard(card));
+            } else {
+                mainDeck.add(new TrapCard(card));
+            }
+        }
+        for (Card card : deck.getSideDeck()) {
+            if (card instanceof MonsterCard) {
+                sideDeck.add(new MonsterCard(card));
+            } else if (card instanceof SpellCard) {
+                sideDeck.add(new SpellCard(card));
+            } else {
+                sideDeck.add(new TrapCard(card));
+            }
+        }
     }
 
     public String getDeckName() {

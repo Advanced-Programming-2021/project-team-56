@@ -284,10 +284,12 @@ public class DuelView {
         updateOpponentDeckCardsNumber();
     }
 
-    public void updateFromSummon() {
+    public void updateAfterActivateSpellEffect() {
         updateMyHandCards();
         updateMySpellAndTrapTerritory();
         updateMyMonsterTerritory();
+        updateOpponentMonsterTerritory();
+        updateOpponentSpellAndTrapTerritory();
     }
 
     public void updateMyHandCards() {
@@ -645,6 +647,18 @@ public class DuelView {
             DuelWithUser.getInstance().selectCard(card);
         } else {
             if (event.getButton() == MouseButton.PRIMARY) {
+                if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() instanceof MonsterCard) {
+                    String result = MainPhase1Controller.getInstance().summon(false);
+                    if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
+                    else {
+                        updateMyHandCards();
+                        updateMyMonsterTerritory();
+                    }
+                } else {
+                    String result = MainPhase1Controller.getInstance().activateSpell();
+                    showDuelInfoLabel(result);
+                    updateAfterActivateSpellEffect();
+                }
                 String result = MainPhase1Controller.getInstance().summon(false);
                 if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
                 else {
