@@ -196,7 +196,7 @@
         </VBox>
         <AnchorPane layoutY="85.0" prefHeight="960.0" prefWidth="921.5" style="-fx-background-color: #0E061E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="758.5">
             <children>
-                <ImageView fitHeight="970.0" fitWidth="921.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                <ImageView fx:id="fieldImageView" fitHeight="970.0" fitWidth="921.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                     <image>
                         <Image url="@../../images/Duel/Field/fie_normal.png" />
                     </image>
