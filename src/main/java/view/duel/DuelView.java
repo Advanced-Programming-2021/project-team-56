@@ -141,8 +141,6 @@ public class DuelView {
 
     public Label duelInfoLabel;
 
-    private boolean isRoundsFirstTurn = true;
-
     public static void setPlayers(String firstPlayerName, String secondPlayerName) {
         firstPlayer = User.getUserByUsername(firstPlayerName);
         secondPlayer = User.getUserByUsername(secondPlayerName);
@@ -435,10 +433,7 @@ public class DuelView {
     }
 
     private void processPhase() {
-        if (isRoundsFirstTurn) {
-            if (PHASE_END == currentPhase) {
-                isRoundsFirstTurn = false;
-            }
+        if (isBeginningOfARound) {
             if (currentPhase == PHASE_BATTLE) {
                 showDuelInfoLabel("You cannot battle in first turn\nGo to the next phase");
                 return;
@@ -455,7 +450,7 @@ public class DuelView {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }));
+            })).play();
         }
         showDuelInfoLabel(currentPhase.value);
     }
