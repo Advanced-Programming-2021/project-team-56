@@ -256,10 +256,14 @@ public class DuelView {
         updateOpponentDeckCardsNumber();
     }
 
-    public void updateFromSummon() {
+    public void updateAfterActivateSpellEffect() {
         updateMyHandCards();
         updateMySpellAndTrapTerritory();
         updateMyMonsterTerritory();
+        updateOpponentMonsterTerritory();
+        updateOpponentSpellAndTrapTerritory();
+        updateOpponentHandCards();
+        updateRound();
     }
 
     public void updateMyHandCards() {
@@ -446,10 +450,8 @@ public class DuelView {
         for (ImageView imageView : myHandImageViews) {
             imageView.setOnMouseClicked(event -> {
                 if (imageView.getImage() != null) {
-                    switch (currentPhase) {
-                        case PHASE_MAIN1:
-                            onMouseClickedMyHandImageViewsInMainPhase(imageView, event);
-                            break;
+                    if (currentPhase == PHASE_MAIN1 || currentPhase == PHASE_MAIN2) {
+                        onMouseClickedMyHandImageViewsInMainPhase(imageView, event);
                     }
                 }
             });
@@ -467,7 +469,11 @@ public class DuelView {
     private void setOnMouseClickedForMySpellAndTrapTerritoryImageViews() {
         for (ImageView imageView : mySpellAndTrapTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
-                //TODO
+                if (imageView != null) {
+                    if (currentPhase == PHASE_MAIN1 || currentPhase == PHASE_MAIN2) {
+                        onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(imageView, event);
+                    }
+                }
             });
         }
     }
@@ -487,7 +493,7 @@ public class DuelView {
                     if (summonWithTribute) {
                         tributeCard(imageView, event);
                     }
-                    if (currentPhase == PHASE_MAIN1) {
+                    if (currentPhase == PHASE_MAIN1 || currentPhase == PHASE_MAIN2) {
                         onMouseClickedMyMonsterTerritoryImageViewsInMainPhase(imageView, event);
                     }
                     if (currentPhase == PHASE_BATTLE) {
@@ -502,9 +508,8 @@ public class DuelView {
         for (ImageView imageView : opponentMonsterTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
                 if (imageView.getImage() != null) {
-                    switch (currentPhase) {
-                        case PHASE_BATTLE:
-                            onMouseClickedForOpponentMonsterTerritoryImageViewsInBattlePhase(imageView, event);
+                    if (currentPhase == PHASE_BATTLE) {
+                        onMouseClickedForOpponentMonsterTerritoryImageViewsInBattlePhase(imageView, event);
                     }
                 }
             });
@@ -519,6 +524,18 @@ public class DuelView {
             DuelWithUser.getInstance().selectCard(card);
         } else {
             if (event.getButton() == MouseButton.PRIMARY) {
+                if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() instanceof MonsterCard) {
+                    String result = MainPhase1Controller.getInstance().summon(false);
+                    if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
+                    else {
+                        updateMyHandCards();
+                        updateMyMonsterTerritory();
+                    }
+                } else {
+                    String result = MainPhase1Controller.getInstance().activateSpell();
+                    showDuelInfoLabel(result);
+                    updateAfterActivateSpellEffect();
+                }
                 String result = MainPhase1Controller.getInstance().summon(false);
                 if (!result.equals("summoned successfully")) showDuelInfoLabel(result);
                 else {
@@ -536,6 +553,20 @@ public class DuelView {
                 }
             }
         }
+    }
+
+    private void onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
+        if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
+                DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
+            Card card = ((GameCard) imageView.getImage()).getCard();
+            DuelWithUser.getInstance().selectCard(card);
+        } else {
+       //     String result = MainPhase1Controller.getInstance().activateSpell();
+        }
+    }
+
+    private void onMouseClickedForMyHandImageViewsInBattlePhase(ImageView imageView, MouseEvent event) {
+        //TODO startTurn != turnCounter for battle phase
     }
 
 
