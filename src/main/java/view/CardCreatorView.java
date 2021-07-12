@@ -8,10 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import model.Card;
-import model.MonsterCard;
-import model.SpellCard;
-import model.TrapCard;
+import model.*;
 import model.enums.MenuURL;
 import view.components.NodeEditor;
 
@@ -143,6 +140,7 @@ public class CardCreatorView {
             TrapCard trapCard = new TrapCard(instantiateCard());
             trapCard.setType((String) spellAndTrapTypeComboBox.getValue());
             trapCard.setIcon((String) spellAndTrapIconComboBox.getValue());
+            User.getCurrentUser().getUserAllCards().add(trapCard);
         });
         try {
             FxmlController.getInstance().setSceneFxml(MenuURL.SHOP);
@@ -156,6 +154,7 @@ public class CardCreatorView {
             SpellCard spellCard = new SpellCard(instantiateCard());
             spellCard.setIcon((String) spellAndTrapIconComboBox.getValue());
             spellCard.setType((String) spellAndTrapTypeComboBox.getValue());
+            User.getCurrentUser().getUserAllCards().add(spellCard);
         });
         try {
             FxmlController.getInstance().setSceneFxml(MenuURL.SHOP);
@@ -172,6 +171,7 @@ public class CardCreatorView {
             monsterCard.setLevel(Integer.parseInt(monsterLevelTextField.getText()));
             monsterCard.setAttribute((String) monsterAttributeComboBox.getValue());
             monsterCard.setCardType((String) monsterCardTypeComboBox.getValue());
+            User.getCurrentUser().getUserAllCards().add(monsterCard);
         });
         try {
             FxmlController.getInstance().setSceneFxml(MenuURL.SHOP);
