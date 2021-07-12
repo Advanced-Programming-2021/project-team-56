@@ -3,6 +3,7 @@ package view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ public class CardCreatorView {
     public Button continueButton;
     public Button backButton;
     public Button createButton;
+    public Button descriptionsButton;
 
     public HBox fundamentalsHBox;
     public HBox spellAndTrapHBox;
@@ -46,6 +48,8 @@ public class CardCreatorView {
     private Label descriptionLabel = null;
     public ScrollPane descriptionsScrollPane;
     public GridPane descriptionsGridPane;
+
+    private String imageURL = "/images/Cards/mystery-card.png";
 
     @FXML
     public void initialize() {
@@ -71,11 +75,14 @@ public class CardCreatorView {
 
     private void onlyShowFundamentals() {
         spellAndTrapHBox.setVisible(false);
+        descriptionsScrollPane.setVisible(false);
         monsterHBox1.setVisible(false);
         monsterHBox2.setVisible(false);
     }
 
     private void editButtons() {
+        descriptionsButton.setOnMouseClicked(event -> descriptionsScrollPane.setVisible(true));
+        descriptionsScrollPane.setOnMouseExited(event -> descriptionsScrollPane.setVisible(false));
         NodeEditor.editNode(0.6, createButton, continueButton);
         MainGUI.editMenuButtons(new ArrayList<>(Collections.singletonList(backButton)));
         backButton.setOnMouseClicked(event -> {
@@ -143,55 +150,60 @@ public class CardCreatorView {
 
     private void setOnMouseClickedForCreateButtonForTrapCard() {
         createButton.setOnMouseClicked(event -> {
-            TrapCard trapCard = new TrapCard(instantiateCard());
+            System.out.println("Trap");
+            TrapCard trapCard = new TrapCard(instantiateTrapCard());
             trapCard.setType((String) spellAndTrapTypeComboBox.getValue());
             trapCard.setIcon((String) spellAndTrapIconComboBox.getValue());
             User.getCurrentUser().getUserAllCards().add(trapCard);
+            goBackToShop();
         });
-        try {
-            FxmlController.getInstance().setSceneFxml(MenuURL.SHOP);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void setOnMouseClickedForCreateButtonForSpellCard() {
         createButton.setOnMouseClicked(event -> {
-            SpellCard spellCard = new SpellCard(instantiateCard());
+            SpellCard spellCard = new SpellCard(instantiateSpellCard());
             spellCard.setIcon((String) spellAndTrapIconComboBox.getValue());
             spellCard.setType((String) spellAndTrapTypeComboBox.getValue());
             User.getCurrentUser().getUserAllCards().add(spellCard);
+            goBackToShop();
         });
-        try {
-            FxmlController.getInstance().setSceneFxml(MenuURL.SHOP);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void setOnMouseClickedForCreateButtonForMonsterCard() {
         createButton.setOnMouseClicked(event -> {
-            MonsterCard monsterCard = new MonsterCard(instantiateCard());
+            MonsterCard monsterCard = new MonsterCard(instantiateMonsterCard());
             monsterCard.setAttack(Integer.parseInt(monsterATKTextField.getText()));
             monsterCard.setDefence(Integer.parseInt(monsterDEFTextField.getText()));
             monsterCard.setLevel(Integer.parseInt(monsterLevelTextField.getText()));
             monsterCard.setAttribute((String) monsterAttributeComboBox.getValue());
             monsterCard.setCardType((String) monsterCardTypeComboBox.getValue());
             User.getCurrentUser().getUserAllCards().add(monsterCard);
+            goBackToShop();
         });
+    }
+
+    private TrapCard instantiateTrapCard() {
+        return new TrapCard(getCardByDescription(descriptionLabel.getText()), descriptionLabel.getText(),
+                imageURL, Integer.parseInt(priceTextField.getText()));
+    }
+
+    private MonsterCard instantiateMonsterCard() {
+        return new MonsterCard(getCardByDescription(descriptionLabel.getText()), descriptionLabel.getText(),
+                imageURL, Integer.parseInt(priceTextField.getText()));
+    }
+
+    private SpellCard instantiateSpellCard() {
+
+        return new SpellCard(getCardByDescription(descriptionLabel.getText()), descriptionLabel.getText(),
+                imageURL, Integer.parseInt(priceTextField.getText()));
+    }
+
+    private void goBackToShop() {
         try {
             FxmlController.getInstance().setSceneFxml(MenuURL.SHOP);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private Card instantiateCard() {
-        String imageURL = "/images/Cards/mystery-card.png";
-        //cardNameTextField.getText()
-        //TODO name should be description;
-        return new Card(getCardByDescription(descriptionLabel.getText()), descriptionLabel.getText(),
-                imageURL, Integer.parseInt(priceTextField.getText()));
     }
 
     private String getCardByDescription(String description) {
@@ -206,14 +218,18 @@ public class CardCreatorView {
     private void editDescriptionsScrollPane() {
         descriptionsScrollPane.setFitToWidth(true);
         for (int i = 0; i < Card.getCards().size(); i++) {
-            Label label = new Label();;
+            Label label = new Label();
+            label.setPadding(new Insets(0, 0, 0, 5));
+            label.setPrefWidth(descriptionsScrollPane.getPrefWidth());
             label.setPrefHeight(60);
-            label.setStyle("-fx-border-color:  #DBBEF6; -fx-border-width: 3; -fx-text-fill: white");
-            label.setFont(new Font(20));
+            label.setStyle("-fx-border-color:  #DBBEF6; -fx-border-width: 3; -fx-text-fill: white; -fx-font-size: 11");
             label.setText(Card.getCards().get(i).getDescription());
             descriptionsGridPane.add(label, 0, i);
             NodeEditor.editNode(0.6, label);
-            label.setOnMouseClicked(event -> descriptionLabel = label);
+            label.setOnMouseClicked(event -> {
+                descriptionLabel = label;
+                descriptionsScrollPane.setVisible(false);
+            });
         }
     }
 }

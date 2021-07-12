@@ -20,6 +20,10 @@ GridPane {
     -fx-border-color: #280079;
 }
 
+TextField {
+    -fx-text-fill: white;
+}
+
 .scroll-pane {
     -fx-background-color: transparent;
 }

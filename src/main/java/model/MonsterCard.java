@@ -31,6 +31,10 @@ public class MonsterCard extends Card {
 
     }
 
+    public MonsterCard(String name, String description, String imageURL, int price) {
+        super(name, description, imageURL, price);
+    }
+
     public MonsterCard(Card card) {
         super(card.getName(), card.getDescription(), card.getImageURL(), card.getPrice());
         MonsterCard monsterCard = (MonsterCard) card;
