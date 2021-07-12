@@ -157,20 +157,13 @@ public class DuelView {
         initializeImageViews();
         editSettingHBox();
         editPhaseVBoxes();
+        editGraveYardImageViews();
 
         new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             startRound();
         })).play();
 
         graveYardScrollPane.setFitToHeight(true);
-        for (int i = 0; i < 20; i++) {
-            Image image = new Image(Card.getCardByName("Battle OX").getImageURL());
-            ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(96);
-            imageView.setFitHeight(140);
-            graveYardGridPane.add(imageView, i, 0);
-            GridPane.setMargin(imageView, new Insets(5));
-        }
     }
 
     private void initializeFieldComponents() {
@@ -410,6 +403,36 @@ public class DuelView {
         phaseVBox.setOnMouseExited(event -> phaseVBox.setEffect(null));
     }
 
+    private void editGraveYardImageViews() {
+        NodeEditor.editNode(0.6, myGraveyardImageView, opponentGraveyardImageView);
+        myGraveyardImageView.setOnMouseExited(event -> myGraveyardImageView.setEffect(null));
+        myGraveyardImageView.setOnMouseClicked(event -> {
+            graveYardScrollPane.setVisible(true);
+            showCardImagesInGraveYard(DuelWithUser.getInstance().getMyBoard().getGraveyard());
+        });
+        graveYardScrollPane.setOnMouseExited(event -> graveYardScrollPane.setVisible(false));
+
+        opponentGraveyardImageView.setOnMouseExited(event -> opponentGraveyardImageView.setEffect(null));
+        opponentGraveyardImageView.setOnMouseClicked(event -> {
+            graveYardScrollPane.setVisible(true);
+            showCardImagesInGraveYard(DuelWithUser.getInstance().getEnemyBoard().getGraveyard());
+        });
+        graveYardScrollPane.setOnMouseExited(event -> graveYardScrollPane.setVisible(false));
+    }
+
+    private void showCardImagesInGraveYard(ArrayList<Card> cards) {
+        for (int i = 0; i < cards.size(); i++) {
+            Image image = new Image(cards.get(i).getImageURL());
+            ImageView imageView = new ImageView(image);
+            imageView.setOnMouseEntered(event -> imageView.setEffect(new Glow(0.6)));
+            imageView.setOnMouseExited(event -> imageView.setEffect(null));
+            imageView.setFitWidth(96);
+            imageView.setFitHeight(140);
+            graveYardGridPane.add(imageView, i, 0);
+            GridPane.setMargin(imageView, new Insets(5));
+        }
+    }
+
     private void editImageViews() {
         setOnMouseClickedForImageViews();
         ArrayList<ArrayList<ImageView>> allImageViewLists = new ArrayList<>(Arrays.asList(myHandImageViews,
@@ -561,7 +584,7 @@ public class DuelView {
             Card card = ((GameCard) imageView.getImage()).getCard();
             DuelWithUser.getInstance().selectCard(card);
         } else {
-       //     String result = MainPhase1Controller.getInstance().activateSpell();
+            //     String result = MainPhase1Controller.getInstance().activateSpell();
         }
     }
 
