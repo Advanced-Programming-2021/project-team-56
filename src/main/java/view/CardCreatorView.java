@@ -53,6 +53,7 @@ public class CardCreatorView {
 
     @FXML
     public void initialize() {
+        System.out.println(User.getCurrentUser().getUserAllCards().size());
         editDescriptionsScrollPane();
         onlyShowFundamentals();
         editButtons();
@@ -198,6 +199,7 @@ public class CardCreatorView {
     }
 
     private void goBackToShop() {
+        System.out.println(User.getCurrentUser().getUserAllCards().size());
         try {
             FxmlController.getInstance().setSceneFxml(MenuURL.SHOP);
         } catch (IOException e) {
