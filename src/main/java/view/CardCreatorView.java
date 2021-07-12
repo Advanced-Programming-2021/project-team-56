@@ -3,11 +3,15 @@ package view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import model.Card;
 import model.*;
 import model.enums.MenuURL;
 import view.components.NodeEditor;
@@ -39,11 +43,13 @@ public class CardCreatorView {
     public TextField monsterATKTextField;
     public TextField monsterDEFTextField;
     public TextField monsterLevelTextField;
-
     private Label descriptionLabel = null;
+    public ScrollPane descriptionsScrollPane;
+    public GridPane descriptionsGridPane;
 
     @FXML
     public void initialize() {
+        editDescriptionsScrollPane();
         onlyShowFundamentals();
         editButtons();
         ObservableList<String> items = FXCollections.observableArrayList("Monster", "Spell/Trap");
@@ -55,7 +61,7 @@ public class CardCreatorView {
         ObservableList<String> spellAndTrapIcons = FXCollections.observableArrayList("Normal", "Counter", "Continuous",
                 "Quick-play", "Field", "Equip", "Ritual");
         spellAndTrapIconComboBox.setItems(spellAndTrapIcons);
-//        .getValue() == null
+
         ObservableList<String> attributes = FXCollections.observableArrayList("FIRE", "WATER", "WIND", "EARTH", "LIGHT", "DARK");
         monsterAttributeComboBox.setItems(attributes);
 
@@ -195,5 +201,19 @@ public class CardCreatorView {
             }
         }
         return "";
+    }
+
+    private void editDescriptionsScrollPane() {
+        descriptionsScrollPane.setFitToWidth(true);
+        for (int i = 0; i < Card.getCards().size(); i++) {
+            Label label = new Label();;
+            label.setPrefHeight(60);
+            label.setStyle("-fx-border-color:  #DBBEF6; -fx-border-width: 3; -fx-text-fill: white");
+            label.setFont(new Font(20));
+            label.setText(Card.getCards().get(i).getDescription());
+            descriptionsGridPane.add(label, 0, i);
+            NodeEditor.editNode(0.6, label);
+            label.setOnMouseClicked(event -> descriptionLabel = label);
+        }
     }
 }
