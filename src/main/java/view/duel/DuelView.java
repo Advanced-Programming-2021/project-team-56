@@ -290,6 +290,8 @@ public class DuelView {
         updateMyMonsterTerritory();
         updateOpponentMonsterTerritory();
         updateOpponentSpellAndTrapTerritory();
+        updateOpponentHandCards();
+        updateRound();
     }
 
     public void updateMyHandCards() {
