@@ -258,7 +258,7 @@ public class DuelView {
         updateOpponentSpellAndTrapTerritory();
         updateOpponentHandCards();
         updateRound();
-        new Timeline(new KeyFrame(Duration.seconds(1), event -> updateMySpellAndTrapTerritory()) ).play();
+        new Timeline(new KeyFrame(Duration.seconds(1), event -> updateMySpellAndTrapTerritory())).play();
     }
 
     public void updateMyHandCards() {
@@ -494,7 +494,7 @@ public class DuelView {
     private void setOnMouseClickedForMySpellAndTrapTerritoryImageViews() {
         for (ImageView imageView : mySpellAndTrapTerritoryImageViews) {
             imageView.setOnMouseClicked(event -> {
-                if (imageView != null) {
+                if (imageView.getImage() != null) {
                     if (currentPhase == PHASE_MAIN1 || currentPhase == PHASE_MAIN2) {
                         onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(imageView, event);
                     }
@@ -560,7 +560,8 @@ public class DuelView {
                     String result = MainPhase1Controller.getInstance().activateSpell();
                     showDuelInfoLabel(result);
                     updateAfterActivateSpellEffect();
-                    if (card instanceof SpellCard && ((SpellCard)card).getIcon().equals("Field")) fieldSpellActivate(card);
+                    if (card instanceof SpellCard && ((SpellCard) card).getIcon().equals("Field"))
+                        fieldSpellActivate(card);
                 }
             } else {
                 String result = MainPhase1Controller.getInstance().set();
@@ -581,12 +582,17 @@ public class DuelView {
     }
 
     private void onMouseClickedMySpellAndTrapTerritoryImageViewsInMainPhase(ImageView imageView, MouseEvent event) {
+        Card card = ((GameCard) imageView.getImage()).getCard();
         if (DuelWithUser.getInstance().getMyBoard().getSelectedCard() == null ||
                 DuelWithUser.getInstance().getMyBoard().getSelectedCard() != ((GameCard) imageView.getImage()).getCard()) {
-            Card card = ((GameCard) imageView.getImage()).getCard();
+            card = ((GameCard) imageView.getImage()).getCard();
             DuelWithUser.getInstance().selectCard(card);
         } else {
-            //     String result = MainPhase1Controller.getInstance().activateSpell();
+            String result = MainPhase1Controller.getInstance().activateSpell();
+            showDuelInfoLabel(result);
+            updateAfterActivateSpellEffect();
+            if (card instanceof SpellCard && ((SpellCard) card).getIcon().equals("Field"))
+                fieldSpellActivate(card);
         }
     }
 
