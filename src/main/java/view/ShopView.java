@@ -44,6 +44,7 @@ public class ShopView {
     public Label errorLabel;
     public Button backButton;
     public Label capitalLabel;
+    public Button createCardButton;
 
     @FXML
     public void initialize() {
@@ -54,6 +55,7 @@ public class ShopView {
         addCards();
         setOnMouseEnteredAndExited(buyButton);
         setOnMouseEnteredAndExited(backButton);
+        setOnMouseEnteredAndExited(createCardButton);
         capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
     }
 
@@ -143,5 +145,9 @@ public class ShopView {
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+    }
+
+    public void createCardClicked(MouseEvent event) throws IOException {
+        FxmlController.getInstance().setSceneFxml(MenuURL.CARD_CREATOR);
     }
 }
