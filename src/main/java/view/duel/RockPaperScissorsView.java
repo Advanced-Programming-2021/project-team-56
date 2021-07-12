@@ -160,11 +160,13 @@ public class RockPaperScissorsView {
 
     public void button1Clicked(MouseEvent mouseEvent) throws IOException {
         DuelView.setPlayers(button1.getText(), button2.getText());
+        DuelView.setIsBeginningOfARound(true);
         FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
     }
 
     public void button2Clicked(MouseEvent mouseEvent) throws IOException {
         DuelView.setPlayers(button2.getText(), button1.getText());
+        DuelView.setIsBeginningOfARound(true);
         FxmlController.getInstance().setSceneFxml(MenuURL.DUEL);
     }
 }
