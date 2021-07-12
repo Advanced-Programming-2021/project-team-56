@@ -451,7 +451,10 @@ public class DuelView {
             graveYardScrollPane.setVisible(true);
             showCardImagesInGraveYard(DuelWithUser.getInstance().getEnemyBoard().getGraveyard());
         });
-        graveYardScrollPane.setOnMouseExited(event -> graveYardScrollPane.setVisible(false));
+        graveYardScrollPane.setOnMouseExited(event -> {
+            graveYardScrollPane.setVisible(false);
+            graveYardGridPane.getChildren().clear();
+        });
     }
 
     private void showCardImagesInGraveYard(ArrayList<Card> cards) {
