@@ -2,9 +2,7 @@ package view.duel.phase;
 
 import controller.duel.DuelWithUser;
 import controller.duel.phases.MainPhase1Controller;
-import controller.duel.phases.OpponentPhase;
 import model.Commands;
-import model.Output;
 import view.duel.DuelWithUserView;
 
 import java.util.regex.Matcher;

@@ -20,7 +20,6 @@ public class MainPhase1Controller {
     private final DuelWithUser duelWithUser;
     private final EffectView effectView;
     private final SpellEffectActivate spellEffectActivate;
-    private final OpponentPhase opponentPhase;
 
     private SpellCard spell;
     private boolean isSummoningInProcess;
@@ -29,7 +28,6 @@ public class MainPhase1Controller {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
         spellEffectActivate = SpellEffectActivate.getInstance();
-        opponentPhase = OpponentPhase.getInstance();
     }
 
     private MainPhase1Controller() {
@@ -378,7 +376,6 @@ public class MainPhase1Controller {
         if (monster.getAttack() >= 1000) {
             duelWithUser.getMyBoard().setMyMonsterInDangerOfTrapHole(true);
         }
-        opponentPhase.startChainLink();
         spawnKill(monster);
         if (monster.isItScanner()) {
             spellEffectActivate.scannerEffect();
@@ -513,7 +510,6 @@ public class MainPhase1Controller {
             spellEffectActivate.spellAbsorption();
             drawCardFromPlayerHand(spell);
             effectView.output("spell activated");
-            OpponentPhase.getInstance().startChainLink();
         } else {
             if (isMySpellAndTrapTerritoryFull()) {
                 effectView.output("spell card zone is full");
@@ -525,9 +521,6 @@ public class MainPhase1Controller {
                 dropSpellAndTrapOnTheGround(spell, false);
                 spell.setFacedUp(true);
                 spellEffectActivate.spellAbsorption();
-                spell.setItInChainLink(true);
-                opponentPhase.getChainLink().add(spell);
-                OpponentPhase.getInstance().startChainLink();
             }
         }
     }
@@ -541,7 +534,6 @@ public class MainPhase1Controller {
         if (spell.getIcon().equals("Field")) {
             duelWithUser.getMyBoard().setSelectedCard(null);
             spellEffectActivate.spellAbsorption();
-            OpponentPhase.getInstance().startChainLink();
             effectView.output("spell activated");
         } else {
             if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())) {
@@ -549,9 +541,6 @@ public class MainPhase1Controller {
                 return;
             }
             spellEffectActivate.spellAbsorption();
-            spell.setItInChainLink(true);
-            opponentPhase.getChainLink().add(spell);
-            OpponentPhase.getInstance().startChainLink();
         }
     }
 

@@ -51,6 +51,9 @@ public class ClientThread extends Thread {
         }else if (clientMessage.startsWith("Get-NickName")){
             String[] token = clientMessage.split(" ");
             return LoginController.getInstance().getNickname(token[1]);
+        }else if(clientMessage.startsWith("Get-Avatar")){
+            String[] token = clientMessage.split(" ");
+            return LoginController.getInstance().getAvatarURL(token[1]);
         }
         return "";
     }

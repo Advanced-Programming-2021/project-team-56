@@ -1,10 +1,8 @@
 package server;
 
 import model.*;
-import model.enums.AvatarURL;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class User {
     private String username;
@@ -17,20 +15,16 @@ public class User {
     private final ArrayList<Card> userAllCards = new ArrayList<>();
     private final ArrayList<Integer> playerLP = new ArrayList<>();
 
-    public User(String username, String nickname, String password) {
+    public User(String username, String nickname, String password, String avatarURL) {
         setPassword(password);
         setNickname(nickname);
         setUsername(username);
-        setUsersRandomAvatarURL();
+        setAvatarURL(avatarURL);
         currentUser = this;
     }
 
     public ArrayList<Integer> getPlayerLP() {
         return playerLP;
-    }
-
-    public String getAvatarURL() {
-        return avatarURL;
     }
 
     public int getMaxLP() {
@@ -69,21 +63,6 @@ public class User {
 
     public ArrayList<Card> getUserAllCards() {
         return userAllCards;
-    }
-
-    public void setAvatarURL(String avatarURL) {
-        this.avatarURL = avatarURL;
-    }
-
-    public void setUsersRandomAvatarURL() {
-        AvatarURL[] avatarURLs = AvatarURL.class.getEnumConstants();
-        int avatarURLsLength = AvatarURL.class.getEnumConstants().length;
-        int randomNumber = new Random().nextInt(avatarURLsLength);
-        for (int i = 0; i < avatarURLsLength; i++) {
-            if (i == randomNumber) {
-                this.avatarURL = avatarURLs[i].value;
-            }
-        }
     }
 
     public static void setCurrentUser(User currentUser) {
@@ -163,6 +142,10 @@ public class User {
         return Integer.toString(cardCounter);
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getUsername() {
         return this.username;
     }
@@ -175,15 +158,19 @@ public class User {
         return this.password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getNickname() {
         return this.nickname;
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getAvatarURL() {
+        return avatarURL;
+    }
+
+    public void setAvatarURL(String avatarURL) {
+        this.avatarURL = avatarURL;
     }
 }

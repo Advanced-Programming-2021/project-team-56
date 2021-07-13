@@ -48,41 +48,41 @@ public class DuelWithUser {
         return duelWithUser;
     }
 
-    public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
-        int roundResult = 0;
-        if (rounds.equals("3")) {
-            int numberOfWinsPlayer1 = 0;
-            int numberOfWinsPlayer2 = 0;
-            while (numberOfWinsPlayer1 != 2 && numberOfWinsPlayer2 != 2) {
-                setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
-                roundResult = phaseCaller(firstPlayerUsername);
-                if (roundResult == 1) {
-                    numberOfWinsPlayer1++;
-                    duelWithUserView.printEndMessage(singleRoundWin(firstPlayerUsername,
-                            numberOfWinsPlayer1, numberOfWinsPlayer2));
-                } else {
-                    numberOfWinsPlayer2++;
-                    duelWithUserView.printEndMessage(singleRoundWin(secondPlayerUsername,
-                            numberOfWinsPlayer2, numberOfWinsPlayer1));
-                }
-            }
-            if (numberOfWinsPlayer1 == 2) {
-                return (threeRoundWinner(firstPlayerUsername,
-                        secondPlayerUsername, numberOfWinsPlayer1, numberOfWinsPlayer2));
-            } else {
-                return (threeRoundWinner(secondPlayerUsername,
-                        firstPlayerUsername, numberOfWinsPlayer2, numberOfWinsPlayer1));
-            }
-        } else {
-            setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
-            roundResult = phaseCaller(firstPlayerUsername);
-            if (roundResult == 1) {
-                return (oneRoundWin(firstPlayerUsername, secondPlayerUsername));
-            } else {
-                return (oneRoundWin(secondPlayerUsername, firstPlayerUsername));
-            }
-        }
-    }
+//    public String run(String firstPlayerUsername, String secondPlayerUsername, String rounds) {
+//        int roundResult = 0;
+//        if (rounds.equals("3")) {
+//            int numberOfWinsPlayer1 = 0;
+//            int numberOfWinsPlayer2 = 0;
+//            while (numberOfWinsPlayer1 != 2 && numberOfWinsPlayer2 != 2) {
+//                setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
+//                roundResult = phaseCaller(firstPlayerUsername);
+//                if (roundResult == 1) {
+//                    numberOfWinsPlayer1++;
+//                    duelWithUserView.printEndMessage(singleRoundWin(firstPlayerUsername,
+//                            numberOfWinsPlayer1, numberOfWinsPlayer2));
+//                } else {
+//                    numberOfWinsPlayer2++;
+//                    duelWithUserView.printEndMessage(singleRoundWin(secondPlayerUsername,
+//                            numberOfWinsPlayer2, numberOfWinsPlayer1));
+//                }
+//            }
+////            if (numberOfWinsPlayer1 == 2) {
+////                return (threeRoundWinner(firstPlayerUsername,
+////                        secondPlayerUsername, numberOfWinsPlayer1, numberOfWinsPlayer2));
+////            } else {
+////                return (threeRoundWinner(secondPlayerUsername,
+////                        firstPlayerUsername, numberOfWinsPlayer2, numberOfWinsPlayer1));
+////            }
+//        } else {
+////            setUpGame(firstPlayerUsername, secondPlayerUsername, roundResult);
+////            roundResult = phaseCaller(firstPlayerUsername);
+////            if (roundResult == 1) {
+////                return (oneRoundWin(firstPlayerUsername, secondPlayerUsername));
+////            } else {
+////                return (oneRoundWin(secondPlayerUsername, firstPlayerUsername));
+////            }
+//        }
+//    }
 
     public int phaseCaller(String firstPlayerUsername) {
         String result;
@@ -165,8 +165,8 @@ public class DuelWithUser {
     }
 
     public void setUpGame(String firstPlayerUsername, String secondPlayerUsername, int lastRoundResult) {
-        boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
-        boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
+//        boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
+//        boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
         String starter = FirstToGoDeterminerView.getInstance()
                 .determineFirstPlayerToGo(firstPlayerUsername, secondPlayerUsername, lastRoundResult);
         if (starter.equals(firstPlayerUsername)) {
@@ -438,27 +438,27 @@ public class DuelWithUser {
         return winnerUsername + " won the game and the score is: " + winnerScore + "-" + looserScore;
     }
 
-    private String oneRoundWin(String winnerSideUsername, String loserSideUsername) {
-        User winner = User.getUserByUsername(winnerSideUsername);
-        winner.increaseScore(1000);
-        winner.increaseMoney(winner.getMaxLP() + 1000);
-        winner.clearLP();
-        User loser = User.getUserByUsername(loserSideUsername);
-        loser.increaseMoney(100);
-        loser.clearLP();
-        return winnerSideUsername + " won the whole match";
-    }
-
-    private String threeRoundWinner(String winnerUsername, String looserUsername, int winnerScore, int looserScore) {
-        User winner = User.getUserByUsername(winnerUsername);
-        winner.increaseScore(3000);
-        winner.increaseMoney(3000 + 3 * winner.getMaxLP());
-        winner.clearLP();
-        User loser = User.getUserByUsername(looserUsername);
-        loser.clearLP();
-        loser.increaseMoney(300);
-        return winnerUsername + " won the whole match with score: " + winnerScore + "-" + looserScore;
-    }
+//    private String oneRoundWin(String winnerSideUsername, String loserSideUsername) {
+//        User winner = User.getUserByUsername(winnerSideUsername);
+//        winner.increaseScore(1000);
+//        winner.increaseMoney(winner.getMaxLP() + 1000);
+//        winner.clearLP();
+//        User loser = User.getUserByUsername(loserSideUsername);
+//        loser.increaseMoney(100);
+//        loser.clearLP();
+//        return winnerSideUsername + " won the whole match";
+//    }
+//
+//    private String threeRoundWinner(String winnerUsername, String looserUsername, int winnerScore, int looserScore) {
+//        User winner = User.getUserByUsername(winnerUsername);
+//        winner.increaseScore(3000);
+//        winner.increaseMoney(3000 + 3 * winner.getMaxLP());
+//        winner.clearLP();
+//        User loser = User.getUserByUsername(looserUsername);
+//        loser.clearLP();
+//        loser.increaseMoney(300);
+//        return winnerUsername + " won the whole match with score: " + winnerScore + "-" + looserScore;
+//    }
 
     public void afterDeathEffect(int player, MonsterCard monsterCard) {
         SpellEffectCanActivate spellEffectCanActivate = SpellEffectCanActivate.getInstance();

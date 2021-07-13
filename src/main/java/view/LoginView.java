@@ -49,7 +49,8 @@ public class LoginView {
         String serverResponse = ClientSocket.dataInputStream.readUTF();
         if (serverResponse.equals("User logged in successfully!")) {
             String nickname = getNicknameFromServer(userNameField.getText());
-            new User(userNameField.getText(), passWordField.getText(), nickname);
+            String avatarURL = getAvatarURLFromServer(userNameField.getText());
+            new User(userNameField.getText(), passWordField.getText(), nickname, avatarURL);
         }
         errorLabel.setText(serverResponse);
         try {
@@ -71,6 +72,17 @@ public class LoginView {
             e.printStackTrace();
         }
         return getNicknameFromServer(username);
+    }
+
+    private String getAvatarURLFromServer(String username){
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Get-Avatar " + username);
+            ClientSocket.dataOutputStream.flush();
+            return ClientSocket.dataInputStream.readUTF();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return getAvatarURLFromServer(username);
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {

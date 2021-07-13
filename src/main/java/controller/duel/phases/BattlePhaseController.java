@@ -19,7 +19,6 @@ public class BattlePhaseController {
     private final DuelWithUser duelWithUser;
     private final EffectView effectView;
     private final SpellEffectActivate spellEffectActivate;
-    private final OpponentPhase opponentPhase;
 
     public MonsterCard myMonster;
     public MonsterCard enemyMonster;
@@ -28,7 +27,6 @@ public class BattlePhaseController {
         duelWithUser = DuelWithUser.getInstance();
         effectView = EffectView.getInstance();
         spellEffectActivate = SpellEffectActivate.getInstance();
-        opponentPhase = OpponentPhase.getInstance();
     }
 
     private BattlePhaseController() {
@@ -53,7 +51,6 @@ public class BattlePhaseController {
         if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
             return "you can't attack with this card due to the effect of messenger of peace";
         }
-        opponentPhase.startChainLink();
         monster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
             return magicCylinderConverseDamage(monster);
@@ -122,7 +119,6 @@ public class BattlePhaseController {
         if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
             return "you can't attack with this card due to the effect of messenger of peace";
         }
-        opponentPhase.startChainLink();
         myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
             return magicCylinderConverseDamage(myMonster);

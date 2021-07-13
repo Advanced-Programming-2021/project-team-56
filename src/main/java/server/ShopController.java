@@ -25,13 +25,6 @@ public class ShopController {
         return "";
     }
 
-    public String increaseMoney(String username, String amount) {
-        int moneyAmount = Integer.parseInt(amount);
-        User user = User.getUserByUsername(username);
-        user.increaseMoney(moneyAmount);
-        return "your money increased by the value of " + amount + "!";
-    }
-
     public String getNumberOfCardInUsersCards(String cardName) {
         return User.getCurrentUser().getNumberOfCardsInUsersAllCards(cardName);
     }

@@ -37,4 +37,8 @@ public class LoginController {
     public String getNickname(String username) {
         return ServerUser.getUserByUsername(username).getNickname();
     }
+
+    public String getAvatarURL(String username) {
+        return ServerUser.getUserByUsername(username).getAvatarURL();
+    }
 }
