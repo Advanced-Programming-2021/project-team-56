@@ -1,6 +1,5 @@
 package view;
 
-import server.LoginController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -38,7 +37,8 @@ public class MainView {
 
     }
 
-    public void goToDuelMenu(MouseEvent mouseEvent) {
+    public void goToDuelMenu(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(DUEL_PREPARATION);
     }
 
     public void goToDeckMenu(MouseEvent mouseEvent) throws IOException {
@@ -54,7 +54,6 @@ public class MainView {
     }
 
     public void goToShopMenu(MouseEvent mouseEvent) throws IOException {
-//        ShopView.currentCard = Card.getCardByName("Battle OX");
         FxmlController.getInstance().setSceneFxml(SHOP);
     }
 

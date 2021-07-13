@@ -49,7 +49,7 @@ public class BattlePhaseController {
         }
         effectFinalDamage();
         if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
-            return "you can't attack with this card due to the effect of messenger of peace";
+            return "you can't attack with this card\ndue to the effect of messenger of peace";
         }
         monster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
@@ -66,7 +66,7 @@ public class BattlePhaseController {
         int myMonsterAttack = monster.getFinalAttack();
         int enemyLife = duelWithUser.getEnemyBoard().getLP();
         duelWithUser.getEnemyBoard().setLP(enemyLife - myMonsterAttack);
-        return "your opponent receives " + myMonsterAttack + " battle damage";
+        return "your opponent receives\n" + myMonsterAttack + " battle damage";
     }
 
     private String magicCylinderConverseDamage(MonsterCard monster) {
@@ -91,7 +91,7 @@ public class BattlePhaseController {
             return "this card is not in attack position";
         }
         if (isThereSwordOfRevealingLight()) {
-            return "you can't attack because of effect of swords of revealing light";
+            return "you can't attack because of effect of\n swords of revealing light";
         }
         if (myMonster.getLastTimeAttackedTurn() == duelWithUser.getTurnCounter()) {
             return "this card already attacked";
@@ -103,7 +103,7 @@ public class BattlePhaseController {
             }
             if (enemyMonster.getName().equals("Command knight")) {
                 if (isThereAnyOtherCardOnMonsterTerritory()) {
-                    return "you can't attack this card while there are other monsters on the combat";
+                    return "you can't attack this card while\nthere are other monsters on the combat";
                 }
             }
         }
@@ -117,7 +117,7 @@ public class BattlePhaseController {
         }
         effectFinalDamage();
         if (doesEnemyTerritoryIncludeMessengerOfPeace() && myMonster.getFinalAttack() >= 1500) {
-            return "you can't attack with this card due to the effect of messenger of peace";
+            return "you can't attack with this card\ndue to the effect of messenger of peace";
         }
         myMonster.setLastTimeAttackedTurn(duelWithUser.getTurnCounter());
         if (duelWithUser.getMyBoard().isItEffectedByMagicCylinder()) {
@@ -226,7 +226,7 @@ public class BattlePhaseController {
             if (myMonster.getName().equals("Exploder Dragon")) {
                 destroyMyMonster(myMonster);
                 destroyEnemyMonster(address);
-                return "both you and your opponent monster cards are destroyed and no one receives damage";
+                return "both you and your opponent monster cards\nare destroyed and no one receives damage";
             }
             int damage = enemyMonsterAttack - myMonsterAttack;
             int myLife = duelWithUser.getMyBoard().getLP();
@@ -235,11 +235,11 @@ public class BattlePhaseController {
                 return "no card is destroyed";
             }
             destroyMyMonster(myMonster);
-            return "Your monster card is destroyed and you received " + damage + " battle damage";
+            return "Your monster card is destroyed\nand you received\n" + damage + " battle damage";
         } else {
             destroyMyMonster(myMonster);
             destroyEnemyMonster(address);
-            return "both you and your opponent monster cards are destroyed and no one receives damage";
+            return "both you and your opponent monster cards\n are destroyed and no one receives damage";
         }
     }
 
@@ -249,7 +249,7 @@ public class BattlePhaseController {
         int enemyMonsterDefence = enemyMonster.getFinalDefence();
         if (enemyMonsterDefence > myMonsterAttack) {
             if (myMonster.getName().equals("Exploder Dragon")) {
-                return "both you and your opponent monster cards are destroyed and no one receives damage";
+                return "both you and your opponent monster cards\nare destroyed and no one receives damage";
             }
             int damage = enemyMonsterDefence - myMonsterAttack;
             int myLife = duelWithUser.getMyBoard().getLP();
@@ -259,7 +259,7 @@ public class BattlePhaseController {
         }
         destroyMyMonster(myMonster);
         destroyEnemyMonster(address);
-        return "both you and your opponent monster cards are destroyed and no one receives damage";
+        return "both you and your opponent monster cards\nare destroyed and no one receives damage";
     }
 
     private boolean isEnemyMonsterTerritoryEmpty() {
@@ -407,18 +407,18 @@ public class BattlePhaseController {
                 return marshmelloAgainstDragonOrShip(address);
             }
             destroyEnemyMonster(address);
-            return "your opponent’s monster is destroyed and no one receives damage";
+            return "your opponent’s monster is destroyed \nand no one receives damage";
         }
         if (enemyMonster.getName().equals("Marshmallon")) {
             if (myMonster.getName().equals("Exploder Dragon")) {
                 return marshmelloAgainstDragonOrShip(address);
             }
             destroyMyMonster(myMonster);
-            return "your monster card is destroyed and no one receives damage";
+            return "your monster card is destroyed\nand no one receives damage";
         }
         destroyMyMonster(myMonster);
         destroyEnemyMonster(address);
-        return "both you and your opponent monster cards are destroyed and no one receives damage";
+        return "both you and your opponent\nmonster cards are destroyed\nand no one receives damage";
     }
 
     private String myAttackIsHigherThanEnemyAttack(int address) {
@@ -428,14 +428,14 @@ public class BattlePhaseController {
         int enemyLife = duelWithUser.getEnemyBoard().getLP();
         duelWithUser.getEnemyBoard().setLP(enemyLife - damage);
         if (enemyMonster.getName().equals("Marshmallon")) {
-            return "no card is destroyed and your opponent receives " + damage + " battle damage";
+            return "no card is destroyed\nand your opponent receives\n" + damage + " battle damage";
         }
         destroyEnemyMonster(address);
         if (enemyMonster.getName().equals("Yomi Ship")) {
             destroyMyMonster(myMonster);
-            return "both you and your opponent monster cards are destroyed and opponent receives" + damage + " damage";
+            return "both you and your opponent monster cards\nare destroyed and opponent receives\n" + damage + " damage";
         }
-        return "your opponent’s monster is destroyed and your opponent receives " + damage + " battle damage";
+        return "your opponent’s monster is destroyed\nand your opponent receives\n" + damage + " battle damage";
     }
 
     private String myAttackIsLowerThanEnemyAttack(int address) {
@@ -444,16 +444,16 @@ public class BattlePhaseController {
         if (myMonster.getName().equals("Exploder Dragon")) {
             destroyMyMonster(myMonster);
             destroyEnemyMonster(address);
-            return "both you and your opponent monster cards are destroyed and no one receives damage";
+            return "both you and your opponent monster cards\nare destroyed and no one receives damage";
         } else {
             int damage = enemyMonsterAttack - myMonsterAttack;
             int myLife = duelWithUser.getMyBoard().getLP();
             duelWithUser.getMyBoard().setLP(myLife - damage);
             if (myMonster.getName().equals("Marshmallon")) {
-                return "no card is destroyed and you received " + damage + " battle damage";
+                return "no card is destroyed and you received\n" + damage + " battle damage";
             }
             destroyMyMonster(myMonster);
-            return "Your monster card is destroyed and you received " + damage + " battle damage";
+            return "Your monster card is destroyed\nand you received \n" + damage + " battle damage";
         }
     }
 
@@ -488,7 +488,7 @@ public class BattlePhaseController {
             manEaterBugEffect(true);
         } else if (enemyMonster.getName().equals("Yomi Ship")) {
             destroyMyMonster(myMonster);
-            return "both you and your opponent monster cards are destroyed and no one receives damage";
+            return "both you and your opponent monster cards\nare destroyed and no one receives damage";
         }
         return "the defense position monster is destroyed";
     }
@@ -510,7 +510,7 @@ public class BattlePhaseController {
             if (enemyMonster.getName().equals("Marshmallon") && shouldFlipSummonOccur) {
                 int myLife = duelWithUser.getMyBoard().getLP();
                 duelWithUser.getMyBoard().setLP(myLife - 1000);
-                return "no card is destroyed and you received " + 1000 + "damage";
+                return "no card is destroyed\nand you received " + 1000 + "damage";
             }
             return "no one receives damage";
         }
@@ -524,22 +524,22 @@ public class BattlePhaseController {
             int myLife1 = duelWithUser.getMyBoard().getLP();
             duelWithUser.getMyBoard().setLP(myLife1 - 1000);
             damage += 1000;
-            return "no card is destroyed and you received " + damage + "damage";
+            return "no card is destroyed and you received\n" + damage + "damage";
         }
-        return "no card is destroyed and you received " + damage + " battle damage";
+        return "no card is destroyed and you received\n" + damage + " battle damage";
     }
 
     private String yomishipDestroyedInDefencePosition(int address) {
         destroyEnemyMonster(address);
         destroyMyMonster(myMonster);
-        return "both you and your opponent monster cards are destroyed and no one receives damage";
+        return "both you and your opponent monster cards\nare destroyed and no one receives damage";
     }
 
     private String marshmelloFlipSummons(boolean shouldFlipSummonOccur) {
         if (shouldFlipSummonOccur) {
             int myLife = duelWithUser.getMyBoard().getLP();
             duelWithUser.getMyBoard().setLP(myLife - 1000);
-            return "no card is destroyed and you received " + 1000 + "damage";
+            return "no card is destroyed and you received\n" + 1000 + "damage";
         }
         return "no card is destroyed";
     }
@@ -547,7 +547,7 @@ public class BattlePhaseController {
     private String marshmelloAgainstDragonOrShip(int address) {
         destroyEnemyMonster(address);
         destroyMyMonster(myMonster);
-        return "both you and your opponent monster cards are destroyed and no one receives damage";
+        return "both you and your opponent monster cards\nare destroyed and no one receives damage";
     }
 
     public void manEaterBugEffect(boolean isItUnderAttack) {

@@ -108,13 +108,10 @@ public class DeckView {
                 clickedCardImage.setImage(null);
                 if (isSideDeckCardImageView) {
                     deck.getSideDeck().remove(cardIndex);
-//                deck.getDeckCards().remove(card);
                     sideDeckAnchorPane.getChildren().clear();
                     initializeSideDeckCards();
                 } else {
-                    //TODO Somethings wrong here with the last card of main deck being removed
                     deck.getMainDeck().remove(cardIndex);
-//                deck.getDeckCards().remove(card);
                     mainDeckAnchorPane.getChildren().clear();
                     initializeMainDeckCards();
                 }
@@ -160,7 +157,6 @@ public class DeckView {
     }
 
     private GridPane makeUserCardsGridPane() {
-        //TODO there is a gap between curt of the something.. ask the gang wtf is going on
         GridPane gridPane = instantiateGridPane();
         ArrayList<Card> userAllCards = User.getCurrentUser().getUserAllCards();
         for (int i = 0; i < userAllCards.size(); i++) {

@@ -36,52 +36,48 @@ public class SpellEffectActivate {
         switch (spellName) {
             case "Advanced Ritual Art":
                 advancedRitualArt();
-                effectView.output(getRidOfSpell());
+                getRidOfSpell();
                 break;
             case "Terraforming":
                 terraformingActivate();
-                effectView.output(getRidOfSpell());
+                getRidOfSpell();
                 break;
             case "Change of Heart":
                 changeOfHeartActivate();
-                effectView.output(getRidOfSpell());
+                getRidOfSpell();
                 break;
             case "Harpie's Feather Duster":
                 harpiesFeatherDusterActivate();
-                effectView.output(getRidOfSpell());
+                getRidOfSpell();
                 break;
             case "Raigeki":
                 raigekiActivate();
-                effectView.output(getRidOfSpell());
+                getRidOfSpell();
                 break;
             case "Pot of Greed":
                 potOfGreedActivate();
-                effectView.output(getRidOfSpell());
+                getRidOfSpell();
                 break;
             case "Dark Hole":
                 darkHoleActivate();
-                effectView.output(getRidOfSpell());
+                getRidOfSpell();
                 break;
             case "Monster Reborn":
                 monsterRebornActivate();
-                effectView.output(getRidOfSpell());
+                getRidOfSpell();
                 break;
             case "Swords of Revealing Light":
                 swordsOfRevealingLightActivate();
-                effectView.output("spell activated");
                 break;
             case "Sword of Dark Destruction":
                 swordOfDarkDestructionActivate1();
-                effectView.output("spell activated");
                 break;
             case "Black Pendant":
             case "United We Stand":
                 blackPendantAndUnitedWeStandActivate();
-                effectView.output("spell activated");
                 break;
             case "Magnum Shield":
                 magnumShieldActivate1();
-                effectView.output("spell activated");
                 break;
         }
     }

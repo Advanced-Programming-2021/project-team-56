@@ -137,7 +137,7 @@ public class ExcelUtils {
                         break;
                 }
             }
-            spellCard.setImageURL(getClass().getResource("/images/Cards/SpellTrap/"+ spellCard.getName() +".jpg").toExternalForm());
+            spellCard.setImageURL("/images/Cards/SpellTrap/"+ spellCard.getName() +".jpg");
             spellCards.add(spellCard);
             cards.add(spellCard);
         }
@@ -176,7 +176,7 @@ public class ExcelUtils {
                         break;
                 }
             }
-            trapCard.setImageURL(getClass().getResource("/images/Cards/SpellTrap/"+ trapCard.getName() +".jpg").toExternalForm());
+            trapCard.setImageURL("/images/Cards/SpellTrap/"+ trapCard.getName() +".jpg");
             trapCards.add(trapCard);
             cards.add(trapCard);
         }

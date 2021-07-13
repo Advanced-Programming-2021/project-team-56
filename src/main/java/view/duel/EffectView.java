@@ -2,11 +2,8 @@ package view.duel;
 
 import controller.duel.DuelWithUser;
 import model.Card;
-import model.Output;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class EffectView {
 
@@ -38,7 +35,6 @@ public class EffectView {
     }
 
     public String input() {
-//        return LoginMenuView.scan.nextLine().trim();
         return null;
     }
 
@@ -51,17 +47,7 @@ public class EffectView {
 
 
     public int getAddress() {
-        while (true) {
-//            System.out.println("Give an address");
-//            String result = LoginMenuView.scan.nextLine().trim();
-//            Pattern number = Pattern.compile("^([\\d]+)$");
-//            Matcher matcher = number.matcher(result);
-//            if (matcher.find()) {
-//                return Integer.parseInt(result);
-//            } else {
-//                System.out.println(Output.InvalidCommand);
-//            }
-        }
+        return 1;
     }
 
     public void showGraveyardForCardsEffects(boolean player1, boolean player2) {

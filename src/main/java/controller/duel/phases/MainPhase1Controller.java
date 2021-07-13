@@ -3,10 +3,13 @@ package controller.duel.phases;
 import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
+import controller.duel.effects.TrapEffectActivate;
+import controller.duel.effects.TrapEffectCanActivate;
 import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
 import model.TrapCard;
+import view.duel.DuelView;
 import view.duel.EffectView;
 import model.Output;
 
@@ -21,7 +24,7 @@ public class MainPhase1Controller {
     private final EffectView effectView;
     private final SpellEffectActivate spellEffectActivate;
 
-    private SpellCard spell;
+    private Card effectCard;
     private boolean isSummoningInProcess;
 
     {
@@ -75,40 +78,16 @@ public class MainPhase1Controller {
             if (!areThereEnoughCardsToTribute(1)) {
                 return "there are not enough cards for tribute";
             }
-            int firstAddress = effectView.getAddress();
-            if (firstAddress < 1 || firstAddress > 5) {
-                return Output.InvalidSelection.toString();
-            }
-            if (!isAddressValid(firstAddress)) {
-                return "there is no monsters on this address";
-            } else {
-                tribute(firstAddress);
-                summon(monsterCard, false, isItSet);
-                return Output.SummonedSuccessfully.toString();
-            }
+            DuelView.summonWithTribute = true;
+            DuelView.numberOfTributes = 1;
+            return "tribute 1 monster\nto summon this card";
         } else {
             if (!areThereEnoughCardsToTribute(2)) {
                 return "there are not enough cards for tribute";
             }
-            int firstAddress = effectView.getAddress();
-            if (firstAddress < 1 || firstAddress > 5) {
-                return Output.InvalidSelection.toString();
-            }
-            int secondAddress = effectView.getAddress();
-            if (secondAddress < 1 || secondAddress > 5) {
-                return Output.InvalidSelection.toString();
-            }
-            if (firstAddress == secondAddress) {
-                return "there is no monster on one of these addresses";
-            }
-            if (isAddressValid(firstAddress) && isAddressValid(secondAddress)) {
-                tribute(firstAddress);
-                tribute(secondAddress);
-                summon(monsterCard, false, isItSet);
-                return "summoned successfully";
-            } else {
-                return "there is no monster on one of these addresses";
-            }
+            DuelView.summonWithTribute = true;
+            DuelView.numberOfTributes = 2;
+            return "tribute 2 monster\nto summon this card";
         }
     }
 
@@ -175,18 +154,18 @@ public class MainPhase1Controller {
         }
         MonsterCard monsterCard = (MonsterCard) duelWithUser.getMyBoard().getSelectedCard();
         if (monsterCard.getIsInAttackPosition() == inAttackPosition) {
-            return "this card is already in the wanted position";
+            return "this card is already\nin the wanted position";
         }
         if (!monsterCard.getIsFacedUp()) {
-            return "this card is faced down so you can't change its position";
+            return "this card is faced down\nso you can't change its position";
         }
         if (duelWithUser.getTurnCounter() == monsterCard.getLastTimeChangedPositionTurn()) {
-            return "you already changed this card position in this turn";
+            return "you already changed\nthis card position in this turn";
         }
         monsterCard.setInAttackPosition(inAttackPosition);
         monsterCard.setLastTimeChangedPositionTurn(duelWithUser.getTurnCounter());
         duelWithUser.getMyBoard().setSelectedCard(null);
-        return "monster card position changed successfully";
+        return "monster card position\nchanged successfully";
     }
 
     public String flipSummon() {
@@ -361,7 +340,7 @@ public class MainPhase1Controller {
         }
     }
 
-    private void summon(MonsterCard monster, boolean isSpecialSummon, boolean isItSet) {
+    public void summon(MonsterCard monster, boolean isSpecialSummon, boolean isItSet) {
         placeMonsterOnTheField(monster);
         drawCardFromPlayerHand(monster);
         duelWithUser.getMyBoard().setSelectedCard(null);
@@ -405,13 +384,16 @@ public class MainPhase1Controller {
         return monsterTerritory.get(address) != null;
     }
 
-    private void tribute(int address) {
+    public void tribute(int address) {
         HashMap<Integer, MonsterCard> monsterTerritory = duelWithUser.getMyBoard().getMonsterTerritory();
         ArrayList<Card> graveyard = duelWithUser.getMyBoard().getGraveyard();
         MonsterCard monsterCard = monsterTerritory.get(address);
         graveyard.add(monsterCard);
         monsterTerritory.put(address, null);
         duelWithUser.afterDeathEffect(address, monsterCard);
+        if (DuelView.numberOfTributes == 0) {
+            summon((MonsterCard) DuelWithUser.getInstance().getMyBoard().getSelectedCard(), false, false);
+        }
     }
 
     private void tributeFromHand(int address) {
@@ -480,67 +462,106 @@ public class MainPhase1Controller {
         return false;
     }
 
-    public void activateSpell() {
+    public String activateSpell() {
         Card card = duelWithUser.getMyBoard().getSelectedCard();
         if (card == null) {
-            effectView.output(Output.NoCardIsSelectedYet.toString());
-            return;
-        } else if (card instanceof TrapCard) {
-            effectView.output("you can't activate trap card right now");
-            return;
-        } else if (!(card instanceof SpellCard)) {
-            effectView.output("activate effect is only for spell cards.");
-            return;
+            return Output.NoCardIsSelectedYet.toString();
+        } else if (card instanceof MonsterCard) {
+            return "you can't activate this card";
         }
-        spell = (SpellCard) card;
+        effectCard = card;
         if (isSpellInMyHand()) {
-            activateSpellFromHand();
+            return activateSpellFromHand();
         } else {
-            activateSpellFromGround();
+            return activateSpellFromGround();
         }
-        //till this line we check possibility of
-        //activating spell card (generally)
     }
 
-    private void activateSpellFromHand() {
-        if (spell.getIcon().equals("Field")) {
-            dropSpellAndTrapOnTheGround(spell, true);
-            spell.setFacedUp(true);
-            duelWithUser.getMyBoard().setSelectedCard(null);
-            spellEffectActivate.spellAbsorption();
-            drawCardFromPlayerHand(spell);
-            effectView.output("spell activated");
-        } else {
-            if (isMySpellAndTrapTerritoryFull()) {
-                effectView.output("spell card zone is full");
-            } else {
-                if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())) {
-                    effectView.output("preparations of this spell are not done yet");
-                    return;
+    private String activateSpellFromHand() {
+        if (effectCard instanceof TrapCard) {
+            if (TrapEffectCanActivate.getInstance().checkSpellAndTrapPossibility(effectCard.getName())) {
+                if (isMySpellAndTrapTerritoryFull()) {
+                    return "spell card zone is full";
                 }
-                dropSpellAndTrapOnTheGround(spell, false);
+                effectCard.setFacedUp(true);
+                TrapEffectActivate.getInstance().trapAndQuickSpellCaller(effectCard.getName());
+                getRidOfTrapOrQuickPlaySpell(effectCard);
+                dropSpellAndTrapOnTheGround(effectCard, false);
+                return "spell activated";
+            } else  return "preparations of this spell are not done yet";
+        } else {
+            SpellCard spell = (SpellCard) this.effectCard;
+            if (spell.getIcon().equals("Field")) {
+                dropSpellAndTrapOnTheGround(spell, true);
                 spell.setFacedUp(true);
-                spellEffectActivate.spellAbsorption();
+                duelWithUser.getMyBoard().setSelectedCard(null);
+                drawCardFromPlayerHand(spell);
+                return "spell activated";
+            } else {
+                if (isMySpellAndTrapTerritoryFull()) {
+                    return "spell card zone is full";
+                }
+                if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())) {
+                    return "preparations of this spell are not done yet";
+                }
+                spell.setFacedUp(true);
+                if (spell.getIcon().equals("Quick-play")) {
+                    TrapEffectActivate.getInstance().trapAndQuickSpellCaller(spell.getName());
+                    getRidOfTrapOrQuickPlaySpell(spell);
+                    return "spell activated";
+                } else {
+                    dropSpellAndTrapOnTheGround(spell, false);
+                    spellEffectActivate.spellCaller(spell.getName());
+                    return "spell activated";
+                }
             }
         }
     }
 
-    private void activateSpellFromGround() {
-        if (spell.getIsFacedUp()) {
-            effectView.output("you have already activated this card");
-            return;
+    private String activateSpellFromGround() {
+        if (effectCard.getIsFacedUp()) {
+            return "you have already activated this card";
         }
-        spell.setFacedUp(true);
-        if (spell.getIcon().equals("Field")) {
-            duelWithUser.getMyBoard().setSelectedCard(null);
-            spellEffectActivate.spellAbsorption();
-            effectView.output("spell activated");
+        if (effectCard instanceof TrapCard) {
+            if (TrapEffectCanActivate.getInstance().checkSpellAndTrapPossibility(effectCard.getName())) {
+                TrapEffectActivate.getInstance().trapAndQuickSpellCaller(effectCard.getName());
+                getRidOfTrapOrQuickPlaySpell(effectCard);
+                effectCard.setFacedUp(true);
+                duelWithUser.getMyBoard().setSelectedCard(null);
+                return "spell activated";
+            } else return "preparations of this spell are not done yet";
         } else {
-            if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(spell.getName())) {
-                effectView.output("preparations of this spell are not done yet");
-                return;
+            if (((SpellCard) effectCard).getIcon().equals("Field")) {
+                duelWithUser.getMyBoard().setSelectedCard(null);
+                effectCard.setFacedUp(true);
+                return "spell activated";
+            } else {
+                if (!SpellEffectCanActivate.getInstance().checkSpellPossibility(effectCard.getName())) {
+                    return "preparations of this spell are not done yet";
+                }
+                effectCard.setFacedUp(true);
+                if (((SpellCard) effectCard).getIcon().equals("Quick-play")) {
+                    TrapEffectActivate.getInstance().trapAndQuickSpellCaller(effectCard.getName());
+                    effectCard.setFacedUp(true);
+                    return "spell activated";
+                } else {
+                    SpellEffectActivate.getInstance().spellCaller(effectCard.getName());
+                    effectCard.setFacedUp(true);
+                    return "spell activated";
+                }
             }
-            spellEffectActivate.spellAbsorption();
+        }
+    }
+
+    private void getRidOfTrapOrQuickPlaySpell(Card card) {
+        if (!card.getName().equals("Call of the Haunted")) {
+            HashMap<Integer, Card> spellAndTrapTerritory = duelWithUser.getMyBoard().getSpellAndTrapTerritory();
+            for (int i = 1; i < 6; i++) {
+                if (spellAndTrapTerritory.get(i) == card) {
+                    spellAndTrapTerritory.put(i, null);
+                }
+            }
+            duelWithUser.getMyBoard().getGraveyard().add(card);
         }
     }
 
@@ -556,7 +577,7 @@ public class MainPhase1Controller {
     private boolean isSpellInMyHand() {
         ArrayList<Card> playerHand = duelWithUser.getMyBoard().getPlayerHand();
         for (Card card : playerHand) {
-            if (card == spell) {
+            if (card == effectCard) {
                 return true;
             }
         }

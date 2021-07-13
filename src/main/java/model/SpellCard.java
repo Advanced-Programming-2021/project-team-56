@@ -13,6 +13,10 @@ public class SpellCard extends Card {
 
     }
 
+    public SpellCard(String name, String description, String imageURL, int price) {
+        super(name, description, imageURL, price);
+    }
+
     public SpellCard(Card card) {
         super(card.getName(), card.getDescription(), card.getImageURL(), card.getPrice());
         SpellCard spellCard = (SpellCard) card;

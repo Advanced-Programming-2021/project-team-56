@@ -1,9 +1,15 @@
 package model;
 
+import javafx.scene.image.ImageView;
+import view.duel.DuelView;
+
 import server.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+
+import static view.duel.DuelView.*;
 
 public class Board {
     private final ArrayList<Card> graveyard = new ArrayList<>();
@@ -27,6 +33,11 @@ public class Board {
     private boolean amIAffectedByTrapHole;
 
 
+    private final HashMap<Integer, GameCard> spellAndTrapTerritoryGUI = new HashMap<>();
+    private final HashMap<Integer, GameCard> monsterTerritoryGUI = new HashMap<>();
+    private final ArrayList<GameCard> playerHandGUI = new ArrayList<>();
+
+
     public Board(User user) {
         this.playerDeck = new Deck(user.getActiveDeck());
         this.user = user;
@@ -43,10 +54,11 @@ public class Board {
     }
 
     public void setPlayerHandForFirstPlayer() {
+        Collections.shuffle(playerDeck.getMainDeck());
         for (int i = 0; i < 5; i++) {
             Card newCard = playerDeck.getMainDeck().get(0);
-            if (newCard.getName().equals("Scanner")){
-                ((MonsterCard)newCard).setItScanner(true);
+            if (newCard.getName().equals("Scanner")) {
+                ((MonsterCard) newCard).setItScanner(true);
             }
             playerHand.add(newCard);
             playerDeck.getMainDeck().remove(0);
@@ -54,11 +66,12 @@ public class Board {
     }
 
     public void setPlayerHandForSecondPlayer() {
+        Collections.shuffle(playerDeck.getMainDeck());
         for (int i = 0; i < 5; i++) {
             int index = playerDeck.getMainDeck().size() - 1;
             Card newCard = playerDeck.getMainDeck().get(index);
-            if (newCard.getName().equals("Scanner")){
-                ((MonsterCard)newCard).setItScanner(true);
+            if (newCard.getName().equals("Scanner")) {
+                ((MonsterCard) newCard).setItScanner(true);
             }
             playerHand.add(newCard);
             playerDeck.getMainDeck().remove(index);
@@ -90,6 +103,22 @@ public class Board {
     }
 
     public HashMap<Integer, Card> getSpellAndTrapTerritory() {
+        return spellAndTrapTerritory;
+    }
+
+    public ArrayList<Card> getMonsterTerritoryArrayList() {
+        ArrayList<Card> monsterTerritory = new ArrayList<>();
+        for (int i = 1; i < 6; i++) {
+            monsterTerritory.add(this.monsterTerritory.get(i));
+        }
+        return monsterTerritory;
+    }
+
+    public ArrayList<Card> getSpellAndTrapTerritoryArrayList() {
+        ArrayList<Card> spellAndTrapTerritory = new ArrayList<>();
+        for (int i = 1; i < 6; i++) {
+            spellAndTrapTerritory.add(this.spellAndTrapTerritory.get(i));
+        }
         return spellAndTrapTerritory;
     }
 

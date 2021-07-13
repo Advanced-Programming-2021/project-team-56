@@ -40,7 +40,7 @@
                 <Font size="25.0" />
             </font>
         </Button>
-        <ImageView fitHeight="1050.0" fitWidth="1080.0" layoutX="600.0" layoutY="-15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="1050.0" fitWidth="1080.0" layoutX="600.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <image>
                 <Image url="@../images/Setu-kaiba.png" />
             </image>

@@ -1,11 +1,15 @@
 package view;
 
+import Server.LoginMenuController;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import model.ClientSocket;
 import model.enums.MenuURL;
 import server.User;
@@ -59,7 +63,14 @@ public class LoginView {
             e.printStackTrace();
         }
         if (serverResponse.equals(LOGIN_SUCCESSFUL.value)) {
-            FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+            Timeline goToMainMenuTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+                try {
+                    FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }));
+            goToMainMenuTimeline.play();
         }
     }
 

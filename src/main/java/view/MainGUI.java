@@ -56,21 +56,13 @@ public class MainGUI extends Application {
                 @Override
                 public void handle(MouseEvent event) {
                     button.setEffect(new Glow(0.6));
-                    button.setLayoutY(button.getLayoutY() - 5);
                     SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
-                    try {
-                        new Robot().mouseMove((int) MouseInfo.getPointerInfo().getLocation().getX(),
-                                (int) MouseInfo.getPointerInfo().getLocation().getY() - 2);
-                    } catch (AWTException e) {
-                        e.printStackTrace();
-                    }
                 }
             });
             button.setOnMouseExited(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     button.setEffect(null);
-                    button.setLayoutY(button.getLayoutY() + 5);
                 }
             });
 
@@ -84,6 +76,10 @@ public class MainGUI extends Application {
         setScene(scene);
         editStage(primaryStage);
         primaryStage.setScene(scene);
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint(null);
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
 
     }
@@ -98,11 +94,6 @@ public class MainGUI extends Application {
 
     private void editStage(Stage stage) {
         setStage(stage);
-        stage.setFullScreen(true);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setFullScreenExitHint(null);
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.initStyle(StageStyle.UTILITY);
     }
-
-
 }

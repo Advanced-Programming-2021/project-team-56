@@ -53,11 +53,6 @@ public class DeckListView {
 
     private VBox instantiateDeckListVBox() {
         VBox deckListVBox = new VBox();
-        //TODO test deck adding
-//        for (int i = 0; i < 20; i++) {
-//            DeckMenuController.getInstance().createDeck("Deck" + (i + 1));
-//        }
-
         String allDecksInformation = DeckMenuController.getInstance().getUsersDeckInformation();
         if (allDecksInformation.length() == 0) {
             return deckListVBox;
