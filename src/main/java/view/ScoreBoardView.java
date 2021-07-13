@@ -89,7 +89,6 @@ public class ScoreBoardView {
         Label rankLabel = new Label(rank);
         rankLabel.setPrefSize(506.66666666666666666666666666667, 100);
         rankLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 40px");
-//        rankLabel.setTextFill(Paint.valueOf("#551A8B"));
         rankLabel.setTextFill(Paint.valueOf("#D4B1F5"));
         rankLabel.setPadding(new Insets(0, 0, 0, 7));
         rankLabel.setAlignment(Pos.BASELINE_LEFT);
@@ -99,9 +98,7 @@ public class ScoreBoardView {
     private Label instantiateNicknameLabel(String nickname) {
         Label nicknameLabel = new Label(nickname);
         nicknameLabel.setPrefSize(506.66666666666666666666666666667, 100);
-//        nicknameLabel.setTextFill(Paint.valueOf("#3C01D6"));
         nicknameLabel.setTextFill(Paint.valueOf("#8bd6ff"));
-//        nicknameLabel.setTextFill(Paint.valueOf("#D4B1F5"));
         nicknameLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 30px");
         nicknameLabel.setAlignment(Pos.CENTER);
         return nicknameLabel;

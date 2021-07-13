@@ -10,7 +10,10 @@ public class TrapCard extends Card {
     private int setTurn;
 
     public TrapCard() {
+    }
 
+    public TrapCard(String name, String description, String imageURL, int price) {
+        super(name, description, imageURL, price);
     }
 
     public int getSetTurn() {

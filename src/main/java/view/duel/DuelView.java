@@ -4,6 +4,7 @@ import controller.SoundPlayer;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.BattlePhaseController;
 import controller.duel.phases.DrawPhaseController;
+import controller.duel.phases.EndPhaseController;
 import controller.duel.phases.MainPhase1Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -395,7 +396,6 @@ public class DuelView {
         Board myBoard = DuelWithUser.getInstance().getMyBoard();
         int enemyLP = enemyBoard.getLP();
         int myLP = myBoard.getLP();
-        //pref width = 500, lp = 8000
         opponentLPBar.setPrefWidth(500 * enemyLP / 8000.0);
         opponentLPLabel.setText("LP: " + Math.max(0, enemyLP));
         myLPBar.setPrefWidth(500 * myLP / 8000.0);
@@ -502,6 +502,7 @@ public class DuelView {
             }
         }
         if (currentPhase == PHASE_END) {
+            EndPhaseController.getInstance().run();
             DuelWithUser.getInstance().incrementTurnCounter();
             isBeginningOfARound = false;
             new Timeline(new KeyFrame(Duration.seconds(2), event -> {
