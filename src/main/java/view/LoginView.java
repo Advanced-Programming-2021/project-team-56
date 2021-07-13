@@ -1,6 +1,5 @@
 package view;
 
-import Server.LoginMenuController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -74,23 +73,23 @@ public class LoginView {
         }
     }
 
-    private String getNicknameFromServer(String username){
+    private String getNicknameFromServer(String username) {
         try {
             ClientSocket.dataOutputStream.writeUTF("Get-NickName " + username);
             ClientSocket.dataOutputStream.flush();
             return ClientSocket.dataInputStream.readUTF();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return getNicknameFromServer(username);
     }
 
-    private String getAvatarURLFromServer(String username){
+    private String getAvatarURLFromServer(String username) {
         try {
             ClientSocket.dataOutputStream.writeUTF("Get-Avatar " + username);
             ClientSocket.dataOutputStream.flush();
             return ClientSocket.dataInputStream.readUTF();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return getAvatarURLFromServer(username);
