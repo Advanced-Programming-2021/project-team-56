@@ -119,8 +119,8 @@ public class ShopView {
                 cardPriceLabel.setText(String.valueOf(Card.getCards().get(cardIndex).getPrice()));
                 Image image = new Image(Card.getCards().get(cardIndex).getImageURL());
                 cardImage.setImage(image);
-                numberOfCardLabel.setText(ShopController.getInstance()
-                        .getNumberOfCardInUsersCards(Card.getCards().get(cardIndex).getName()));
+                numberOfCardLabel.setText(User.getCurrentUser().
+                        getNumberOfCardsInUsersAllCards(Card.getCards().get(cardIndex).getName()));
                 if (Integer.parseInt(cardPriceLabel.getText()) > Integer.parseInt(capitalLabel.getText())) {
                     buyButton.setVisible(false);
                 }

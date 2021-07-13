@@ -16,7 +16,7 @@ public class LoginController {
     }
 
     public String logIn(String username, String password) {
-        ServerUser user = ServerUser.getUserByUsername(username);
+        ServerUsers user = ServerUsers.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             return LOGIN_FAILED.value;
         }
@@ -24,21 +24,21 @@ public class LoginController {
     }
 
     public synchronized String register(String username, String password, String nickname) {
-        if (ServerUser.isThisUsernameAlreadyTaken(username)) {
+        if (ServerUsers.isThisUsernameAlreadyTaken(username)) {
             return "user with username " + "\"" + username + "\"" + " already exists";
         }
-        if (ServerUser.isThisNicknameAlreadyTaken(nickname)) {
+        if (ServerUsers.isThisNicknameAlreadyTaken(nickname)) {
             return "user with nickname " + "\"" + nickname + "\"" + " already exists";
         }
-        new ServerUser(nickname, password, username);
+        new User(nickname, password, username);
         return SIGNUP_SUCCESSFUL.value;
     }
 
     public String getNickname(String username) {
-        return ServerUser.getUserByUsername(username).getNickname();
+        return ServerUsers.getUserByUsername(username).getNickname();
     }
 
     public String getAvatarURL(String username) {
-        return ServerUser.getUserByUsername(username).getAvatarURL();
+        return ServerUsers.getUserByUsername(username).getAvatarURL();
     }
 }

@@ -1,7 +1,6 @@
 package server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class ClientThread extends Thread {
@@ -40,21 +39,32 @@ public class ClientThread extends Thread {
         } else if (clientMessage.startsWith("Sign-Up")) {
             String[] token = clientMessage.split(" ");
             return LoginController.getInstance().register(token[1], token[2], token[3]);
-        }else if(clientMessage.startsWith("Change-Password")){
-            String[]token = clientMessage.split(" ");
+        } else if (clientMessage.startsWith("Change-Password")) {
+            String[] token = clientMessage.split(" ");
             return ProfileController.getInstance().changePasswords(token[1], token[2], token[3]);
-        }else if(clientMessage.startsWith("Change-Username")){
-            String[]token = clientMessage.split(" ");
+        } else if (clientMessage.startsWith("Change-Username")) {
+            String[] token = clientMessage.split(" ");
             return ProfileController.getInstance().changeNickname(token[1], token[2]);
-        }else if (clientMessage.equals("Show-ScoreBoard")){
+        } else if (clientMessage.equals("Show-ScoreBoard")) {
             return ScoreBoardController.getInstance().showScoreBoard();
-        }else if (clientMessage.startsWith("Get-NickName")){
+//        } else if (clientMessage.startsWith("Get-NickName")) {
+//            String[] token = clientMessage.split(" ");
+//            return LoginController.getInstance().getNickname(token[1]);
+        } else if (clientMessage.startsWith("Get-User")) {
             String[] token = clientMessage.split(" ");
-            return LoginController.getInstance().getNickname(token[1]);
-        }else if(clientMessage.startsWith("Get-Avatar")){
-            String[] token = clientMessage.split(" ");
-            return LoginController.getInstance().getAvatarURL(token[1]);
+            sendUser(token[1]);
         }
         return "";
+    }
+
+    private Object sendUser(String username) {
+        try {
+            OutputStream outputStream = client.getOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(ServerUsers.getUserByUsername(username));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sendUser(username);
     }
 }

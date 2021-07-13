@@ -24,10 +24,6 @@ public class ShopController {
         User.getCurrentUser().addCardToUserAllCards(card);
         return "";
     }
-
-    public String getNumberOfCardInUsersCards(String cardName) {
-        return User.getCurrentUser().getNumberOfCardsInUsersAllCards(cardName);
-    }
 }
 
 

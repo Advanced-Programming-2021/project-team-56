@@ -1,7 +1,6 @@
 package server;
 
 import model.*;
-import model.enums.AvatarURL;
 
 import java.util.ArrayList;
 
@@ -11,15 +10,14 @@ public class User {
     private String nickname;
     private static User currentUser;
     private String avatarURL;
+    private int score;
     private int money = 100000;
     private final ArrayList<Deck> decks = new ArrayList<>();
     private final ArrayList<Card> userAllCards = new ArrayList<>();
     private final ArrayList<Integer> playerLP = new ArrayList<>();
 
-    public User(String username, String nickname, String password, String avatarURL) {
+    public User(String username, String password) {
         setPassword(password);
-        setNickname(nickname);
-        setUsername(username);
         setAvatarURL(avatarURL);
         currentUser = this;
     }

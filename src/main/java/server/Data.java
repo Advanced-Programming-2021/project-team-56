@@ -28,12 +28,12 @@ public class Data {
         try {
             String json = new String(Files.readAllBytes(Paths.get("json.json")));
             if (json.length() > 0) {
-                ArrayList<ServerUser> users = new YaGson().fromJson(json,
-                        new TypeToken<List<ServerUser>>() {
+                ArrayList<ServerUsers> users = new YaGson().fromJson(json,
+                        new TypeToken<List<ServerUsers>>() {
                         }.getType()
                 );
-                for (ServerUser user : users) {
-                    ServerUser.getUsers().add(user);
+                for (ServerUsers user : users) {
+                    ServerUsers.getUsers().add(user);
                 }
             }
         } catch (IOException e) {
@@ -44,7 +44,7 @@ public class Data {
     public void updateJson() {
         try {
             FileWriter writer = new FileWriter("json.json");
-            writer.write(new YaGson().toJson(ServerUser.getUsers()));
+            writer.write(new YaGson().toJson(ServerUsers.getUsers()));
             writer.close();
         } catch (IOException e) {
             System.out.println("can't create or update json");

@@ -18,9 +18,9 @@ public class ScoreBoardController {
     }
 
     public String showScoreBoard() {
-        ArrayList<ServerUser> users = ServerUser.getUsers();
-        Comparator<ServerUser> comparator = Comparator.comparing(ServerUser::getScore, Comparator.reverseOrder())
-                .thenComparing(ServerUser::getNickname);
+        ArrayList<ServerUsers> users = ServerUsers.getUsers();
+        Comparator<ServerUsers> comparator = Comparator.comparing(ServerUsers::getScore, Comparator.reverseOrder())
+                .thenComparing(ServerUsers::getNickname);
         Collections.sort(users, comparator);
         StringBuilder scoreBoard = new StringBuilder();
         int rank = 1;

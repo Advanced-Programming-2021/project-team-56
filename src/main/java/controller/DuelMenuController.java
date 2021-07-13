@@ -1,7 +1,7 @@
 package controller;
 
 import model.Deck;
-import server.ServerUser;
+import server.ServerUsers;
 import server.User;
 
 public class DuelMenuController {
@@ -20,7 +20,7 @@ public class DuelMenuController {
     public String canUsersDuel(String firstPlayerUsername, String secondPlayerUsername) {
         User firstPlayer = User.getUserByUsername(firstPlayerUsername);
         User secondPlayer = User.getUserByUsername(secondPlayerUsername);
-        if (!ServerUser.isThisUsernameAlreadyTaken(secondPlayerUsername)) {
+        if (!ServerUsers.isThisUsernameAlreadyTaken(secondPlayerUsername)) {
             return "There is no player with this username";
         }
         if (!isPlayersDeckActive(firstPlayer)) {

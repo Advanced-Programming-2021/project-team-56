@@ -15,6 +15,8 @@ import server.User;
 import view.components.NodeEditor;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -51,9 +53,7 @@ public class LoginView {
         ClientSocket.dataOutputStream.flush();
         String serverResponse = ClientSocket.dataInputStream.readUTF();
         if (serverResponse.equals("User logged in successfully!")) {
-            String nickname = getNicknameFromServer(userNameField.getText());
-            String avatarURL = getAvatarURLFromServer(userNameField.getText());
-            new User(userNameField.getText(), passWordField.getText(), nickname, avatarURL);
+            User.setCurrentUser((User) getUserFromServer(userNameField.getText()));
         }
         errorLabel.setText(serverResponse);
         try {
@@ -73,26 +73,17 @@ public class LoginView {
         }
     }
 
-    private String getNicknameFromServer(String username) {
+    private Object getUserFromServer(String username) {
         try {
-            ClientSocket.dataOutputStream.writeUTF("Get-NickName " + username);
+            ClientSocket.dataOutputStream.writeUTF("Get-User " + username);
             ClientSocket.dataOutputStream.flush();
-            return ClientSocket.dataInputStream.readUTF();
+            InputStream inputStream = ClientSocket.socket.getInputStream();
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            return objectInputStream.readObject();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getNicknameFromServer(username);
-    }
-
-    private String getAvatarURLFromServer(String username) {
-        try {
-            ClientSocket.dataOutputStream.writeUTF("Get-Avatar " + username);
-            ClientSocket.dataOutputStream.flush();
-            return ClientSocket.dataInputStream.readUTF();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getAvatarURLFromServer(username);
+        return getUserFromServer(username);
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
