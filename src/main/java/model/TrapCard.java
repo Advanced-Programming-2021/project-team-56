@@ -1,5 +1,7 @@
 package model;
 
+import server.Card;
+
 import java.util.ArrayList;
 
 public class TrapCard extends Card {

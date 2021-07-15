@@ -1,5 +1,6 @@
 package view;
 
+import com.gilecode.yagson.YaGson;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -80,9 +81,8 @@ public class LoginView {
     private Object getUserFromServer(String username) throws IOException, ClassNotFoundException {
         ClientSocket.dataOutputStream.writeUTF("Get-User " + username);
         ClientSocket.dataOutputStream.flush();
-        InputStream inputStream = ClientSocket.socket.getInputStream();
-        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        return objectInputStream.readObject();
+        YaGson yaGson = new YaGson();
+        return yaGson.fromJson(ClientSocket.dataInputStream.readUTF(), User.class);
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {

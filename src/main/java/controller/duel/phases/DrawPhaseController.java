@@ -1,7 +1,7 @@
 package controller.duel.phases;
 
 import controller.duel.DuelWithUser;
-import model.Card;
+import server.Card;
 import model.MonsterCard;
 
 import java.util.ArrayList;

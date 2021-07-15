@@ -1,7 +1,7 @@
 package view;
 
+import com.gilecode.yagson.YaGson;
 import model.ClientSocket;
-import server.ShopController;
 import controller.SoundPlayer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,13 +18,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import model.Card;
+import server.Card;
 import server.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
-import view.components.NodeEditor;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 
 public class ShopView {
@@ -42,18 +43,30 @@ public class ShopView {
     public Button backButton;
     public Label capitalLabel;
     public Button createCardButton;
+    private ArrayList<Card> cards;
 
     @FXML
     public void initialize() {
-
         cardsGridPane.setStyle("-fx-background-color: #0E061E");
         cardsScrollPane.setContent(cardsGridPane);
         setHBoxBackGround();
+        getCardsFromServer();
         addCards();
         setOnMouseEnteredAndExited(buyButton);
         setOnMouseEnteredAndExited(backButton);
         setOnMouseEnteredAndExited(createCardButton);
         capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
+    }
+
+    private void getCardsFromServer() {
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Get-Cards ");
+            ClientSocket.dataOutputStream.flush();
+            YaGson yaGson = new YaGson();
+            cards = yaGson.fromJson(ClientSocket.dataInputStream.readUTF(), ArrayList.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void addCards() {
@@ -67,7 +80,7 @@ public class ShopView {
             Rectangle rectangle = new Rectangle(160, 210);
             setOnMouseEnteredAndExited(rectangle);
             setOnMouseClicked(rectangle, i);
-            Image image = new Image(Card.getCards().get(i).getImageURL());
+            Image image = new Image(cards.get(i).getImageURL());
             rectangle.setFill(new ImagePattern(image));
             cardsGridPane.add(rectangle, column++, row);
             GridPane.setMargin(rectangle, new Insets(30));
@@ -115,13 +128,13 @@ public class ShopView {
             public void handle(MouseEvent event) {
                 errorLabel.setText("");
                 buyButton.setVisible(true);
-                currentCard = Card.getCards().get(cardIndex);
-                cardNameLabel.setText(Card.getCards().get(cardIndex).getName());
-                cardPriceLabel.setText(String.valueOf(Card.getCards().get(cardIndex).getPrice()));
-                Image image = new Image(Card.getCards().get(cardIndex).getImageURL());
+                currentCard = cards.get(cardIndex);
+                cardNameLabel.setText(cards.get(cardIndex).getName());
+                cardPriceLabel.setText(String.valueOf(cards.get(cardIndex).getPrice()));
+                Image image = new Image(cards.get(cardIndex).getImageURL());
                 cardImage.setImage(image);
                 numberOfCardLabel.setText(User.getCurrentUser().
-                        getNumberOfCardsInUsersAllCards(Card.getCards().get(cardIndex).getName()));
+                        getNumberOfCardsInUsersAllCards(cards.get(cardIndex).getName()));
                 if (Integer.parseInt(cardPriceLabel.getText()) > Integer.parseInt(capitalLabel.getText())) {
                     buyButton.setVisible(false);
                 }
@@ -140,8 +153,7 @@ public class ShopView {
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
-            }
-            else errorLabel.setText(serverResponse);
+            } else errorLabel.setText(serverResponse);
         } catch (IOException e) {
             e.printStackTrace();
         }

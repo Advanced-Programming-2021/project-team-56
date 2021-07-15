@@ -1,6 +1,7 @@
 package model;
 
 import javafx.scene.image.Image;
+import server.Card;
 
 public class GameCard extends Image {
 

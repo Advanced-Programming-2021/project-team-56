@@ -1,9 +1,6 @@
 package server;
 
-import model.enums.AvatarURL;
-
 import java.util.ArrayList;
-import java.util.Random;
 
 public class ServerUsers {
     private final static ArrayList<User> users = new ArrayList<>();
@@ -34,12 +31,5 @@ public class ServerUsers {
                 return true;
         }
         return false;
-    }
-
-    public void setUsersRandomAvatarURL() {
-        AvatarURL[] avatarURLs = AvatarURL.class.getEnumConstants();
-        int avatarURLsLength = AvatarURL.class.getEnumConstants().length;
-        int randomNumber = new Random().nextInt(avatarURLsLength);
-//        avatarURLs[randomNumber].value;
     }
 }

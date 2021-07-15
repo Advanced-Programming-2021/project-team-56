@@ -2,7 +2,7 @@ package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
 import controller.duel.phases.MainPhase1Controller;
-import model.Card;
+import server.Card;
 import model.MonsterCard;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class TrapEffectCanActivate {
         HashMap<Integer, Card> trapTerritory = duelWithUser.getEnemyBoard().getSpellAndTrapTerritory();
         for (int i = 1; i < 6; i++) {
             Card trap = trapTerritory.get(i);
-            if (trap != null && trap.isItInChainLink() && trap.getName().equals("Magic Cylinder")) {
+            if (trap != null && trap.getName().equals("Magic Cylinder")) {
                 return true;
             }
         }

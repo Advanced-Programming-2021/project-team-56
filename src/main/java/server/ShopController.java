@@ -1,7 +1,5 @@
 package server;
 
-import model.Card;
-
 public class ShopController {
 
     private static ShopController shopController;

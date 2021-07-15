@@ -14,7 +14,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import model.Card;
+import server.Card;
 import model.Deck;
 import server.User;
 import model.enums.MenuURL;

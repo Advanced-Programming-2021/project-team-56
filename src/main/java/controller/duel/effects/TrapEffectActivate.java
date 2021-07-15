@@ -1,7 +1,7 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
-import model.Card;
+import server.Card;
 import model.MonsterCard;
 import model.Output;
 import view.duel.EffectView;
@@ -163,7 +163,7 @@ public class TrapEffectActivate {
         ArrayList<Card> graveyard = duelWithUser.getEnemyBoard().getGraveyard();
         for (int i = 1; i < 6; i++) {
             Card trap = trapTerritory.get(i);
-            if (trap != null && trap.isItInChainLink() && trap.getName().equals("Magic Cylinder")) {
+            if (trap != null && trap.getName().equals("Magic Cylinder")) {
                 graveyard.add(trap);
                 trapTerritory.put(i, null);
                 effectView.output(trap.getName() + "was disabled");

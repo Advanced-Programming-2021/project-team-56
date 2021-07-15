@@ -1,10 +1,9 @@
-package model;
+package server;
 
 import java.util.ArrayList;
 
 public class Card {
     private boolean isFacedUp;
-    private boolean isItInChainLink;
     private String name;
     private String description;
     private int startEffectTurn = -1;
@@ -26,14 +25,6 @@ public class Card {
         this.description = description;
         this.imageURL = imageURL;
         this.price = price;
-    }
-
-    public boolean isItInChainLink() {
-        return isItInChainLink;
-    }
-
-    public void setItInChainLink(boolean itInChainLink) {
-        isItInChainLink = itInChainLink;
     }
 
     public static ArrayList<Card> getCards() {

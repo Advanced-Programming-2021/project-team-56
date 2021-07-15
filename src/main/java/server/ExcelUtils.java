@@ -1,6 +1,5 @@
 package server;
 
-import model.Card;
 import model.MonsterCard;
 import model.SpellCard;
 import model.TrapCard;

@@ -1,5 +1,6 @@
 package view;
 
+import com.gilecode.yagson.YaGson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,8 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
-import model.Card;
+import server.Card;
 import model.*;
 import model.enums.MenuURL;
 import server.User;
@@ -49,12 +49,13 @@ public class CardCreatorView {
     private Label descriptionLabel = null;
     public ScrollPane descriptionsScrollPane;
     public GridPane descriptionsGridPane;
+    private ArrayList<Card> cards;
 
     private String imageURL = "/images/Cards/mystery-card.png";
 
     @FXML
     public void initialize() {
-        System.out.println(User.getCurrentUser().getUserAllCards().size());
+        getCardsFromServer();
         editDescriptionsScrollPane();
         onlyShowFundamentals();
         editButtons();
@@ -73,6 +74,17 @@ public class CardCreatorView {
 
         ObservableList<String> monsterTypes = FXCollections.observableArrayList("Normal", "Effect", "Ritual");
         monsterCardTypeComboBox.setItems(monsterTypes);
+    }
+
+    private void getCardsFromServer() {
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Get-Cards ");
+            ClientSocket.dataOutputStream.flush();
+            YaGson yaGson = new YaGson();
+            cards = yaGson.fromJson(ClientSocket.dataInputStream.readUTF(), ArrayList.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void onlyShowFundamentals() {
@@ -209,7 +221,7 @@ public class CardCreatorView {
     }
 
     private String getCardByDescription(String description) {
-        for (Card card : Card.getCards()) {
+        for (Card card : cards) {
             if (card.getDescription().equals(description)) {
                 return card.getName();
             }
@@ -219,13 +231,13 @@ public class CardCreatorView {
 
     private void editDescriptionsScrollPane() {
         descriptionsScrollPane.setFitToWidth(true);
-        for (int i = 0; i < Card.getCards().size(); i++) {
+        for (int i = 0; i < cards.size(); i++) {
             Label label = new Label();
             label.setPadding(new Insets(0, 0, 0, 5));
             label.setPrefWidth(descriptionsScrollPane.getPrefWidth());
             label.setPrefHeight(60);
             label.setStyle("-fx-border-color:  #DBBEF6; -fx-border-width: 3; -fx-text-fill: white; -fx-font-size: 11");
-            label.setText(Card.getCards().get(i).getDescription());
+            label.setText(cards.get(i).getDescription());
             descriptionsGridPane.add(label, 0, i);
             NodeEditor.editNode(0.6, label);
             label.setOnMouseClicked(event -> {

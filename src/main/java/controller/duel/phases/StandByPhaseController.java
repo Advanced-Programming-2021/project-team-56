@@ -3,7 +3,7 @@ package controller.duel.phases;
 import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
-import model.Card;
+import server.Card;
 import model.MonsterCard;
 import model.Output;
 import view.duel.EffectView;

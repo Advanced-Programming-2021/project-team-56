@@ -1,5 +1,7 @@
 package server;
 
+import com.gilecode.yagson.YaGson;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -47,18 +49,20 @@ public class ClientThread extends Thread {
         } else if (clientMessage.equals("Show-ScoreBoard")) {
             return ScoreBoardController.getInstance().showScoreBoard();
         } else if (clientMessage.startsWith("Get-User")) {
-            sendUser(token[1]);
+            return sendUser(token[1]);
+        }else if(clientMessage.startsWith("Get-Cards")){
+            return sendCards();
         }
         return "";
     }
 
-    private void sendUser(String username) {
-        try {
-            OutputStream outputStream = client.getOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            objectOutputStream.writeObject(ServerUsers.getUserByUsername(username));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private String sendUser(String username) {
+        YaGson yaGson = new YaGson();
+        return yaGson.toJson(ServerUsers.getUserByUsername(username));
+    }
+
+    private String sendCards(){
+        YaGson yaGson = new YaGson();
+        return yaGson.toJson(Card.getCards());
     }
 }

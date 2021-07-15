@@ -3,6 +3,7 @@ package controller.duel.effects;
 import model.*;
 
 import controller.duel.DuelWithUser;
+import server.Card;
 import view.duel.EffectView;
 
 import java.util.ArrayList;

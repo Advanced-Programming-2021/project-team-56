@@ -5,7 +5,7 @@ import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
 import controller.duel.effects.TrapEffectActivate;
 import controller.duel.effects.TrapEffectCanActivate;
-import model.Card;
+import server.Card;
 import model.MonsterCard;
 import model.SpellCard;
 import model.TrapCard;

@@ -1,15 +1,12 @@
 package model;
 
-import javafx.scene.image.ImageView;
-import view.duel.DuelView;
+import server.Card;
 
 import server.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
-import static view.duel.DuelView.*;
 
 public class Board {
     private final ArrayList<Card> graveyard = new ArrayList<>();

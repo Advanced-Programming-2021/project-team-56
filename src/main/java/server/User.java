@@ -20,7 +20,6 @@ public class User {
         setNickname(nickname);
         setUsername(username);
         setPassword(password);
-        setAvatarURL(avatarURL);
         currentUser = this;
     }
 
