@@ -53,7 +53,11 @@ public class LoginView {
         ClientSocket.dataOutputStream.flush();
         String serverResponse = ClientSocket.dataInputStream.readUTF();
         if (serverResponse.equals("User logged in successfully!")) {
-            User.setCurrentUser((User) getUserFromServer(userNameField.getText()));
+            try {
+                User.setCurrentUser((User) getUserFromServer(userNameField.getText()));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         errorLabel.setText(serverResponse);
         try {
@@ -73,17 +77,12 @@ public class LoginView {
         }
     }
 
-    private Object getUserFromServer(String username) {
-        try {
-            ClientSocket.dataOutputStream.writeUTF("Get-User " + username);
-            ClientSocket.dataOutputStream.flush();
-            InputStream inputStream = ClientSocket.socket.getInputStream();
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            return objectInputStream.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getUserFromServer(username);
+    private Object getUserFromServer(String username) throws IOException, ClassNotFoundException {
+        ClientSocket.dataOutputStream.writeUTF("Get-User " + username);
+        ClientSocket.dataOutputStream.flush();
+        InputStream inputStream = ClientSocket.socket.getInputStream();
+        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+        return objectInputStream.readObject();
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {

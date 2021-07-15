@@ -59,7 +59,6 @@ public class ClientThread extends Thread {
             objectOutputStream.writeObject(ServerUsers.getUserByUsername(username));
         } catch (IOException e) {
             e.printStackTrace();
-            sendUser(username);
         }
     }
 }
