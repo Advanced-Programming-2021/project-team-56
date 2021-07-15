@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import model.Card;
 import model.*;
 import model.enums.MenuURL;
+import server.User;
 import view.components.NodeEditor;
 
 import java.io.IOException;

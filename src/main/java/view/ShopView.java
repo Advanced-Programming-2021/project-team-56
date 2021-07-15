@@ -1,5 +1,6 @@
 package view;
 
+import model.ClientSocket;
 import server.ShopController;
 import controller.SoundPlayer;
 import javafx.event.EventHandler;
@@ -129,14 +130,22 @@ public class ShopView {
     }
 
     public void buyClicked(MouseEvent mouseEvent) {
-        String result = ShopController.getInstance().buyCard(currentCard.getName());
-        if (result.equals("")) {
-            errorLabel.setText("Buy successful");
-            capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
-            int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
-            numberOfCardLabel.setText(String.valueOf(numberOfCard));
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Buy-Card " + User.getCurrentUser().getUsername() +
+                    " " + currentCard.getName());
+            ClientSocket.dataOutputStream.flush();
+            String serverResponse = ClientSocket.dataInputStream.readUTF();
+            if (serverResponse.equals("")) {
+                errorLabel.setText("Buy successful");
+                capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
+                int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
+                numberOfCardLabel.setText(String.valueOf(numberOfCard));
+            }
+            else errorLabel.setText(serverResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else errorLabel.setText(result);
+        buyClicked(mouseEvent);
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {

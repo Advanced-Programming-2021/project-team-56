@@ -28,11 +28,11 @@ public class Data {
         try {
             String json = new String(Files.readAllBytes(Paths.get("json.json")));
             if (json.length() > 0) {
-                ArrayList<ServerUsers> users = new YaGson().fromJson(json,
-                        new TypeToken<List<ServerUsers>>() {
+                ArrayList<User> users = new YaGson().fromJson(json,
+                        new TypeToken<List<User>>() {
                         }.getType()
                 );
-                for (ServerUsers user : users) {
+                for (User user : users) {
                     ServerUsers.getUsers().add(user);
                 }
             }

@@ -23,7 +23,7 @@ public class ProfileController {
     }
 
     public String changePasswords(String currentPassWord, String newPassword, String username) {
-        ServerUsers user = ServerUsers.getUserByUsername(username);
+        User user = ServerUsers.getUserByUsername(username);
         if (!user.getPassword().equals(currentPassWord)) {
             return "current password is invalid";
         }

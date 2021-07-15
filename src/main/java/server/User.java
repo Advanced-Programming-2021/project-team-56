@@ -16,7 +16,9 @@ public class User {
     private final ArrayList<Card> userAllCards = new ArrayList<>();
     private final ArrayList<Integer> playerLP = new ArrayList<>();
 
-    public User(String username, String password) {
+    public User(String nickname, String password, String username) {
+        setNickname(nickname);
+        setUsername(username);
         setPassword(password);
         setAvatarURL(avatarURL);
         currentUser = this;
@@ -171,5 +173,13 @@ public class User {
 
     public void setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void increaseScore(int score) {
+        this.score += score;
     }
 }

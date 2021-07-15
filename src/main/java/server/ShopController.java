@@ -15,13 +15,14 @@ public class ShopController {
         return shopController;
     }
 
-    public String buyCard(String cardName) {
+    public String buyCard(String username, String cardName) {
         Card card = Card.getCardByName(cardName);
-        if (card.getPrice() > User.getCurrentUser().getMoney()) {
+        User user = ServerUsers.getUserByUsername(username);
+        if (card.getPrice() > user.getMoney()) {
             return "not enough money";
         }
-        User.getCurrentUser().decreaseMoney(card.getPrice());
-        User.getCurrentUser().addCardToUserAllCards(card);
+        user.decreaseMoney(card.getPrice());
+        user.addCardToUserAllCards(card);
         return "";
     }
 }

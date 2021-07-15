@@ -33,25 +33,20 @@ public class ClientThread extends Thread {
     }
 
     public String process(String clientMessage) {
+        String[] token = clientMessage.split(" ");
         if (clientMessage.startsWith("Login")) {
-            String[] token = clientMessage.split(" ");
             return LoginController.getInstance().logIn(token[1], token[2]);
         } else if (clientMessage.startsWith("Sign-Up")) {
-            String[] token = clientMessage.split(" ");
             return LoginController.getInstance().register(token[1], token[2], token[3]);
         } else if (clientMessage.startsWith("Change-Password")) {
-            String[] token = clientMessage.split(" ");
             return ProfileController.getInstance().changePasswords(token[1], token[2], token[3]);
         } else if (clientMessage.startsWith("Change-Username")) {
-            String[] token = clientMessage.split(" ");
             return ProfileController.getInstance().changeNickname(token[1], token[2]);
+        } else if (clientMessage.startsWith("Buy-Card")) {
+            return ShopController.getInstance().buyCard(token[1], token[2]);
         } else if (clientMessage.equals("Show-ScoreBoard")) {
             return ScoreBoardController.getInstance().showScoreBoard();
-//        } else if (clientMessage.startsWith("Get-NickName")) {
-//            String[] token = clientMessage.split(" ");
-//            return LoginController.getInstance().getNickname(token[1]);
         } else if (clientMessage.startsWith("Get-User")) {
-            String[] token = clientMessage.split(" ");
             sendUser(token[1]);
         }
         return "";
