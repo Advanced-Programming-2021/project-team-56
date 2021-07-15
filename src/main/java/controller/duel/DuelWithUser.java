@@ -3,9 +3,8 @@ package controller.duel;
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
 import model.*;
+import server.ServerUsers;
 import server.User;
-import view.duel.EffectView;
-import view.duel.phase.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,8 +38,8 @@ public class DuelWithUser {
     }
 
     public void setUpGame(String firstPlayerUsername, String secondPlayerUsername, int lastRoundResult) {
-        boards[0] = new Board(User.getUserByUsername(firstPlayerUsername));
-        boards[1] = new Board(User.getUserByUsername(secondPlayerUsername));
+        boards[0] = new Board(ServerUsers.getUserByUsername(firstPlayerUsername));
+        boards[1] = new Board(ServerUsers.getUserByUsername(secondPlayerUsername));
         turnCounter = 2;
         startTurn = turnCounter;
         boards[0].setStartedTurn(2);
@@ -215,22 +214,22 @@ public class DuelWithUser {
     }
 
     public String oneRoundWin(String winnerSideUsername, String loserSideUsername) {
-        User winner = User.getUserByUsername(winnerSideUsername);
+        User winner = ServerUsers.getUserByUsername(winnerSideUsername);
         winner.increaseScore(1000);
         winner.increaseMoney(winner.getMaxLP() + 1000);
         winner.clearLP();
-        User loser = User.getUserByUsername(loserSideUsername);
+        User loser = ServerUsers.getUserByUsername(loserSideUsername);
         loser.increaseMoney(100);
         loser.clearLP();
         return winnerSideUsername + " won the whole match";
     }
 
     public String threeRoundWinner(String winnerUsername, String looserUsername, int winnerScore, int looserScore) {
-        User winner = User.getUserByUsername(winnerUsername);
+        User winner = ServerUsers.getUserByUsername(winnerUsername);
         winner.increaseScore(3000);
         winner.increaseMoney(3000 + 3 * winner.getMaxLP());
         winner.clearLP();
-        User loser = User.getUserByUsername(looserUsername);
+        User loser = ServerUsers.getUserByUsername(looserUsername);
         loser.clearLP();
         loser.increaseMoney(300);
         return winnerUsername + " won the whole match with score: " + winnerScore + "-" + looserScore;

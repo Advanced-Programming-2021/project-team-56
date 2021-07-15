@@ -29,8 +29,10 @@ import model.*;
 import model.enums.DuelInfo;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
+import server.ServerUsers;
 import view.FxmlController;
 import view.components.NodeEditor;
+import server.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -146,8 +148,8 @@ public class DuelView {
     public Label duelInfoLabel;
 
     public static void setPlayers(String firstPlayerName, String secondPlayerName) {
-        firstPlayer = User.getUserByUsername(firstPlayerName);
-        secondPlayer = User.getUserByUsername(secondPlayerName);
+        firstPlayer = ServerUsers.getUserByUsername(firstPlayerName);
+        secondPlayer = ServerUsers.getUserByUsername(secondPlayerName);
         player1 = firstPlayer;
         player2 = secondPlayer;
         numberOfWinsPlayer1 = 0;
@@ -156,8 +158,8 @@ public class DuelView {
 
     public static void setNewRoundFirstPlayerUsername(String firstPlayerUsername) {
         if (!firstPlayerUsername.equals(firstPlayer.getUsername())) {
-            secondPlayer = User.getUserByUsername(firstPlayer.getUsername());
-            firstPlayer = User.getUserByUsername(firstPlayerUsername);
+            secondPlayer = ServerUsers.getUserByUsername(firstPlayer.getUsername());
+            firstPlayer = ServerUsers.getUserByUsername(firstPlayerUsername);
         }
     }
 

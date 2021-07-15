@@ -52,14 +52,14 @@ public class ClientThread extends Thread {
         return "";
     }
 
-    private Object sendUser(String username) {
+    private void sendUser(String username) {
         try {
             OutputStream outputStream = client.getOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(ServerUsers.getUserByUsername(username));
         } catch (IOException e) {
             e.printStackTrace();
+            sendUser(username);
         }
-        return sendUser(username);
     }
 }

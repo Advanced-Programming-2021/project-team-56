@@ -8,7 +8,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import model.User;
+import server.ServerUsers;
+import server.User;
 import model.enums.MenuURL;
 import view.FxmlController;
 import view.MainGUI;
@@ -50,7 +51,7 @@ public class DuelPreparationView {
             errorLabel.setText(result);
             if (result.equals("Duel is valid")) {
                 RockPaperScissorsView.setFirstUser(User.getCurrentUser());
-                RockPaperScissorsView.setSecondUser(User.getUserByUsername(opponentUserName.getText()));
+                RockPaperScissorsView.setSecondUser(ServerUsers.getUserByUsername(opponentUserName.getText()));
                 FxmlController.getInstance().setSceneFxml(MenuURL.ROCK_PAPER_SCISSORS);
             }
         }

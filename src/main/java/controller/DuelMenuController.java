@@ -18,8 +18,8 @@ public class DuelMenuController {
     }
 
     public String canUsersDuel(String firstPlayerUsername, String secondPlayerUsername) {
-        User firstPlayer = User.getUserByUsername(firstPlayerUsername);
-        User secondPlayer = User.getUserByUsername(secondPlayerUsername);
+        User firstPlayer = ServerUsers.getUserByUsername(firstPlayerUsername);
+        User secondPlayer = ServerUsers.getUserByUsername(secondPlayerUsername);
         if (!ServerUsers.isThisUsernameAlreadyTaken(secondPlayerUsername)) {
             return "There is no player with this username";
         }

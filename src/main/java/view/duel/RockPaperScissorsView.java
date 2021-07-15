@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import model.User;
+import server.User;
 import model.enums.MenuURL;
 import view.FxmlController;
 import view.MainGUI;
