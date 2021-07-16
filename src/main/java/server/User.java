@@ -1,6 +1,7 @@
 package server;
 
 import model.*;
+import server.model.Card;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,7 @@
-package server;
+package serverController;
+
+import server.model.ServerUsers;
+import server.User;
 
 public class ProfileController {
 

@@ -1,6 +1,6 @@
 package model;
 
-import server.Card;
+import server.model.Card;
 
 import server.User;
 

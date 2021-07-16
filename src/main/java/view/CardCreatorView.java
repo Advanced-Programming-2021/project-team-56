@@ -12,7 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import server.Card;
+import server.model.Card;
 import model.*;
 import model.enums.MenuURL;
 import server.User;

@@ -1,6 +1,12 @@
 package server;
 
 import com.gilecode.yagson.YaGson;
+import server.model.Card;
+import server.model.ServerUsers;
+import serverController.LoginController;
+import serverController.ProfileController;
+import serverController.ScoreBoardController;
+import serverController.ShopController;
 
 import java.io.*;
 import java.net.Socket;

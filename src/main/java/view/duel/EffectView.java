@@ -1,7 +1,7 @@
 package view.duel;
 
 import controller.duel.DuelWithUser;
-import server.Card;
+import server.model.Card;
 
 import java.util.ArrayList;
 

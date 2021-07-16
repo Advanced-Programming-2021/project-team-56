@@ -1,4 +1,8 @@
-package server;
+package serverController;
+
+import server.model.Card;
+import server.model.ServerUsers;
+import server.User;
 
 public class ShopController {
 

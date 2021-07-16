@@ -3,8 +3,8 @@ package controller.duel;
 import controller.duel.effects.SpellEffectActivate;
 import controller.duel.effects.SpellEffectCanActivate;
 import model.*;
-import server.Card;
-import server.ServerUsers;
+import server.model.Card;
+import server.model.ServerUsers;
 import server.User;
 
 import java.util.ArrayList;

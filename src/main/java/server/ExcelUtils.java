@@ -5,6 +5,7 @@ import model.SpellCard;
 import model.TrapCard;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import server.model.Card;
 
 import java.io.FileInputStream;
 import java.io.IOException;

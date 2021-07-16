@@ -1,6 +1,8 @@
-package server;
+package serverController;
 
 import model.enums.AvatarURL;
+import server.model.ServerUsers;
+import server.User;
 
 import java.util.Random;
 

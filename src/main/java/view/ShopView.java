@@ -18,13 +18,12 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import server.Card;
+import server.model.Card;
 import server.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 

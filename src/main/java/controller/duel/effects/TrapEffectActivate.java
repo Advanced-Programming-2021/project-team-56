@@ -1,7 +1,7 @@
 package controller.duel.effects;
 
 import controller.duel.DuelWithUser;
-import server.Card;
+import server.model.Card;
 import model.MonsterCard;
 import model.Output;
 import view.duel.EffectView;

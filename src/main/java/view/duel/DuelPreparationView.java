@@ -8,7 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import server.ServerUsers;
+import server.model.ServerUsers;
 import server.User;
 import model.enums.MenuURL;
 import view.FxmlController;

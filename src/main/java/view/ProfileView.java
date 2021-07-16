@@ -1,7 +1,6 @@
 package view;
 
 import model.ClientSocket;
-import server.ProfileController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

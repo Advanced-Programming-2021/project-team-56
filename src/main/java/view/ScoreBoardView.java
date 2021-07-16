@@ -1,7 +1,6 @@
 package view;
 
 import model.ClientSocket;
-import server.ScoreBoardController;
 import controller.SoundPlayer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

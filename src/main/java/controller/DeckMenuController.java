@@ -1,6 +1,6 @@
 package controller;
 
-import server.Card;
+import server.model.Card;
 import model.Deck;
 import server.User;
 
