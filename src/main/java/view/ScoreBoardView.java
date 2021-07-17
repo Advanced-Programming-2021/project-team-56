@@ -52,6 +52,7 @@ public class ScoreBoardView {
     private VBox instantiateScoreboardVBox() {
         VBox scoreboardVBox = new VBox();
         scoreboardVBox.setPadding(new Insets(1, 2, 1, 2));
+        scoreboardVBox.setStyle("-fx-background-color: black");
         try {
             ClientSocket.dataOutputStream.writeUTF("Show-ScoreBoard");
             ClientSocket.dataOutputStream.flush();
@@ -60,7 +61,6 @@ public class ScoreBoardView {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        scoreboardVBox.setStyle("-fx-background-color: black");
         return scoreboardVBox;
     }
 

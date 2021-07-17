@@ -1,4 +1,4 @@
-package serverController;
+package server.serverController;
 
 import model.enums.AvatarURL;
 import server.model.ServerUsers;

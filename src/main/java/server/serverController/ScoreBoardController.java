@@ -1,4 +1,4 @@
-package serverController;
+package server.serverController;
 
 import server.model.ServerUsers;
 import server.User;

@@ -3,10 +3,10 @@ package server;
 import com.gilecode.yagson.YaGson;
 import server.model.Card;
 import server.model.ServerUsers;
-import serverController.LoginController;
-import serverController.ProfileController;
-import serverController.ScoreBoardController;
-import serverController.ShopController;
+import server.serverController.LoginController;
+import server.serverController.ProfileController;
+import server.serverController.ScoreBoardController;
+import server.serverController.ShopController;
 
 import java.io.*;
 import java.net.Socket;
