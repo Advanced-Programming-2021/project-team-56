@@ -8,7 +8,6 @@ import controller.duel.phases.EndPhaseController;
 import controller.duel.phases.MainPhase1Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
