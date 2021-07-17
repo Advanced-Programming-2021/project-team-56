@@ -399,8 +399,8 @@ public class DuelView {
         opponentLPLabel.setText("LP: " + Math.max(0, enemyLP));
         myLPBar.setPrefWidth(500 * myLP / 8000.0);
         myLPLabel.setText("LP: " + Math.max(0, myLP));
-        DuelWithUser.getInstance().setLP();
         if (enemyLP <= 0 || myLP <= 0) {
+            DuelWithUser.getInstance().setLP();
             String winnerUsername;
             if (enemyLP <= 0) {
                 winnerUsername = myBoard.getUser().getUsername();
