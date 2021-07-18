@@ -26,6 +26,7 @@ public class LoginController {
         if (user == null || !user.getPassword().equals(password)) {
             return LOGIN_FAILED.value;
         }
+        ServerUsers.getOnlineUsers().add(user);
         return LOGIN_SUCCESSFUL.value;
     }
 
@@ -42,10 +43,16 @@ public class LoginController {
         return SIGNUP_SUCCESSFUL.value;
     }
 
-    public void setUsersRandomAvatarURL(User user) {
+    private void setUsersRandomAvatarURL(User user) {
         AvatarURL[] avatarURLs = AvatarURL.class.getEnumConstants();
         int avatarURLsLength = AvatarURL.class.getEnumConstants().length;
         int randomNumber = new Random().nextInt(avatarURLsLength);
         user.setAvatarURL(avatarURLs[randomNumber].value);
     }
+
+    public String logOut(String username) {
+        ServerUsers.getOnlineUsers().remove(ServerUsers.getUserByUsername(username));
+        return "Log out was successful";
+    }
+
 }

@@ -10,7 +10,6 @@ public enum Output {
     ThisCardCantBeSpecialSummoned("this card can't be special summoned"),
     TheGameContinues("the game continues"),
     YouCantFlipSummonThisCard("you can't flip summon this card"),
-    ItsNotYourTurnToPLayThisKindOfMove("it’s not your turn to play this kind of moves"),
     InvalidSelection("invalid selection");
 
     private final String output;

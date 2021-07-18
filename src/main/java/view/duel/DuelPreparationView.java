@@ -1,5 +1,6 @@
 package view.duel;
 
+import com.gilecode.yagson.YaGson;
 import controller.DuelMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import model.ClientSocket;
 import server.model.ServerUsers;
 import server.User;
 import model.enums.MenuURL;
@@ -51,9 +53,16 @@ public class DuelPreparationView {
             errorLabel.setText(result);
             if (result.equals("Duel is valid")) {
                 RockPaperScissorsView.setFirstUser(User.getCurrentUser());
-                RockPaperScissorsView.setSecondUser(ServerUsers.getUserByUsername(opponentUserName.getText()));
+                RockPaperScissorsView.setSecondUser((User) getUserFromServer(opponentUserName.getText()));
                 FxmlController.getInstance().setSceneFxml(MenuURL.ROCK_PAPER_SCISSORS);
             }
         }
+    }
+
+    private static Object getUserFromServer(String username) throws IOException {
+        ClientSocket.dataOutputStream.writeUTF("Get-User " + username);
+        ClientSocket.dataOutputStream.flush();
+        YaGson yaGson = new YaGson();
+        return yaGson.fromJson(ClientSocket.dataInputStream.readUTF(), User.class);
     }
 }

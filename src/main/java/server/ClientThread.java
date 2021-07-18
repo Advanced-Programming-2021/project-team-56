@@ -58,6 +58,8 @@ public class ClientThread extends Thread {
             return sendUser(token[1]);
         }else if(clientMessage.startsWith("Get-Cards")){
             return sendCards();
+        }else if(clientMessage.startsWith("Log-Out")){
+            return LoginController.getInstance().logOut(token[1]);
         }
         return "";
     }

@@ -1,5 +1,6 @@
 package view.duel;
 
+import com.gilecode.yagson.YaGson;
 import controller.SoundPlayer;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.BattlePhaseController;
@@ -147,18 +148,33 @@ public class DuelView {
     public Label duelInfoLabel;
 
     public static void setPlayers(String firstPlayerName, String secondPlayerName) {
-        firstPlayer = ServerUsers.getUserByUsername(firstPlayerName);
-        secondPlayer = ServerUsers.getUserByUsername(secondPlayerName);
+        try {
+            firstPlayer = (User) getUserFromServer(firstPlayerName);
+            secondPlayer = (User) getUserFromServer(secondPlayerName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         player1 = firstPlayer;
         player2 = secondPlayer;
         numberOfWinsPlayer1 = 0;
         numberOfWinsPlayer2 = 0;
     }
 
+    private static Object getUserFromServer(String username) throws IOException{
+        ClientSocket.dataOutputStream.writeUTF("Get-User " + username);
+        ClientSocket.dataOutputStream.flush();
+        YaGson yaGson = new YaGson();
+        return yaGson.fromJson(ClientSocket.dataInputStream.readUTF(), User.class);
+    }
+
     public static void setNewRoundFirstPlayerUsername(String firstPlayerUsername) {
         if (!firstPlayerUsername.equals(firstPlayer.getUsername())) {
-            secondPlayer = ServerUsers.getUserByUsername(firstPlayer.getUsername());
-            firstPlayer = ServerUsers.getUserByUsername(firstPlayerUsername);
+            try {
+                secondPlayer = (User) getUserFromServer(firstPlayer.getUsername());
+                firstPlayer = (User) getUserFromServer(firstPlayerUsername);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

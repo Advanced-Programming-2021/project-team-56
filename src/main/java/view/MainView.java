@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import model.ClientSocket;
 import model.enums.MenuURL;
 import server.User;
 
@@ -65,6 +66,13 @@ public class MainView {
     }
 
     public void logout(MouseEvent mouseEvent) throws IOException {
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Log-Out " + User.getCurrentUser().getUsername());
+            ClientSocket.dataOutputStream.flush();
+            ClientSocket.dataInputStream.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         User.setCurrentUser(null);
         FxmlController.getInstance().setSceneFxml(MenuURL.LOGIN);
     }

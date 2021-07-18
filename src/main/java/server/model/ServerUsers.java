@@ -6,9 +6,14 @@ import java.util.ArrayList;
 
 public class ServerUsers {
     private final static ArrayList<User> users = new ArrayList<>();
+    private final static ArrayList<User> onlineUsers = new ArrayList<>();
 
     public static ArrayList<User> getUsers() {
         return users;
+    }
+
+    public static ArrayList<User> getOnlineUsers() {
+        return onlineUsers;
     }
 
     public static boolean isThisUsernameAlreadyTaken(String username) {
