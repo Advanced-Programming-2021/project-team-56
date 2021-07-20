@@ -4,7 +4,7 @@ import controller.duel.DuelWithUser;
 import controller.duel.effects.SpellEffectActivate;
 import model.Board;
 import server.model.Card;
-import model.MonsterCard;
+import server.model.MonsterCard;
 import model.Output;
 import view.duel.EffectView;
 

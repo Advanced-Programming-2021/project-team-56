@@ -68,7 +68,6 @@ public class EntranceView {
     }
 
     public void exitClicked(MouseEvent mouseEvent) {
-        Data.getInstance().updateJson();
         System.exit(0);
     }
 
@@ -77,7 +76,7 @@ public class EntranceView {
     }
 
     private void playMusic() {
-        Media music = new Media(getClass().getResource("/sounds/mp3/Background-Music.mp3").toExternalForm());
+        Media music = new Media(getClass().getResource("/sounds/mp3/Call of Duty Black Ops - Multiplayer Menu Theme.mp3").toExternalForm());
         musicPlayer = new MediaPlayer(music);
         musicPlayer.setAutoPlay(true);
         musicPlayer.setCycleCount(MediaPlayer.INDEFINITE);

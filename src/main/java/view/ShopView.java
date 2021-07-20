@@ -41,7 +41,7 @@ public class ShopView {
     public Label errorLabel;
     public Button backButton;
     public Label capitalLabel;
-    public Button createCardButton;
+    public Label stockLabel;
     private ArrayList<Card> cards;
 
     @FXML
@@ -53,7 +53,6 @@ public class ShopView {
         addCards();
         setOnMouseEnteredAndExited(buyButton);
         setOnMouseEnteredAndExited(backButton);
-        setOnMouseEnteredAndExited(createCardButton);
         capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
     }
 
@@ -129,6 +128,8 @@ public class ShopView {
                 buyButton.setVisible(true);
                 currentCard = cards.get(cardIndex);
                 cardNameLabel.setText(cards.get(cardIndex).getName());
+                System.out.println("lol");
+                stockLabel.setText(getStock());
                 cardPriceLabel.setText(String.valueOf(cards.get(cardIndex).getPrice()));
                 Image image = new Image(cards.get(cardIndex).getImageURL());
                 cardImage.setImage(image);
@@ -139,6 +140,18 @@ public class ShopView {
                 }
             }
         });
+    }
+
+    public String getStock(){
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Get-Stock " + currentCard.getName());
+            ClientSocket.dataOutputStream.flush();
+            System.out.println("lol");
+            return ClientSocket.dataInputStream.readUTF();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getStock();
+        }
     }
 
     public void buyClicked(MouseEvent mouseEvent) {
@@ -156,14 +169,9 @@ public class ShopView {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        buyClicked(mouseEvent);
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
-    }
-
-    public void createCardClicked(MouseEvent event) throws IOException {
-        FxmlController.getInstance().setSceneFxml(MenuURL.CARD_CREATOR);
     }
 }

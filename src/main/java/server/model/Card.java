@@ -1,6 +1,7 @@
 package server.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Card {
     private boolean isFacedUp;
@@ -12,8 +13,13 @@ public class Card {
     private int equipID;
     public static int id = 0;
     private final static ArrayList<Card> cards = new ArrayList<>();
+    private final static HashMap<String, Integer> cardsAmount = new HashMap<>();
 
     public Card() {
+    }
+
+    public static HashMap<String, Integer> getShopCards() {
+        return cardsAmount;
     }
 
     public void setEquipID(int equipID) {
