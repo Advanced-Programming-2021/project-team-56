@@ -30,12 +30,18 @@ public class ScoreBoardController {
         int userCounter = 1;
         for (int i = 0; i < users.size(); i++) {
             if (i == 0) {
-                scoreBoard.append("1- " + users.get(0).getNickname() + ": " + users.get(0).getScore() + "\n");
+                if (ServerUsers.getOnlineUsers().contains(users.get(i)))
+                    scoreBoard.append("1- " + users.get(0).getNickname() + ": " + users.get(0).getScore() + "->online\n");
+                else
+                    scoreBoard.append("1- " + users.get(0).getNickname() + ": " + users.get(0).getScore() + "->offline\n");
             } else {
                 if (users.get(i).getScore() != users.get(i - 1).getScore()) {
                     rank = userCounter;
                 }
-                scoreBoard.append(rank + "- " + users.get(i).getNickname() + ": " + users.get(i).getScore() + "\n");
+               if (ServerUsers.getOnlineUsers().contains(users.get(i)))
+                   scoreBoard.append(rank + "- " + users.get(i).getNickname() + ": " + users.get(i).getScore() + "->online\n");
+               else
+                   scoreBoard.append(rank + "- " + users.get(i).getNickname() + ": " + users.get(i).getScore() + "->offline\n");
             }
             if (userCounter == 20) {
                 break;
