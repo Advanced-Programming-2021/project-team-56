@@ -1,8 +1,8 @@
 package server;
 
-import model.MonsterCard;
-import model.SpellCard;
-import model.TrapCard;
+import server.model.MonsterCard;
+import server.model.SpellCard;
+import server.model.TrapCard;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import server.model.Card;

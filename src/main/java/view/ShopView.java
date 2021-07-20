@@ -128,6 +128,16 @@ public class ShopView {
                 buyButton.setVisible(true);
                 currentCard = cards.get(cardIndex);
                 cardNameLabel.setText(cards.get(cardIndex).getName());
+                System.out.println("lol");
+                try {
+                    ClientSocket.dataOutputStream.writeUTF("Get-Stock " + currentCard.getName());
+                    ClientSocket.dataOutputStream.flush();
+                    String serverResponse = ClientSocket.dataInputStream.readUTF();
+                    stockLabel.setText(serverResponse);
+                    System.out.println("lol");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 cardPriceLabel.setText(String.valueOf(cards.get(cardIndex).getPrice()));
                 Image image = new Image(cards.get(cardIndex).getImageURL());
                 cardImage.setImage(image);

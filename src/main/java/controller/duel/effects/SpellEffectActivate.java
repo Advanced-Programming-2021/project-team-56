@@ -4,6 +4,8 @@ import controller.duel.DuelWithUser;
 import model.*;
 
 import server.model.Card;
+import server.model.MonsterCard;
+import server.model.SpellCard;
 import view.duel.EffectView;
 
 import java.util.ArrayList;

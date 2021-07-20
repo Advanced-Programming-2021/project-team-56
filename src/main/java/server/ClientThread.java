@@ -57,10 +57,12 @@ public class ClientThread extends Thread {
             return ScoreBoardController.getInstance().showScoreBoard();
         } else if (clientMessage.startsWith("Get-User")) {
             return sendUser(token[1]);
-        }else if(clientMessage.startsWith("Get-Cards")){
+        } else if (clientMessage.startsWith("Get-Cards")) {
             return sendCards();
-        }else if(clientMessage.startsWith("Log-Out")){
+        } else if (clientMessage.startsWith("Log-Out")) {
             return LoginController.getInstance().logOut(token[1]);
+        } else if (clientMessage.startsWith("Get-Stock")) {
+            return Card.getShopCards().get(token[1]).toString();
         }
         return "";
     }
@@ -70,7 +72,7 @@ public class ClientThread extends Thread {
         return yaGson.toJson(ServerUsers.getUserByUsername(username));
     }
 
-    private String sendCards(){
+    private String sendCards() {
         YaGson yaGson = new YaGson();
         return yaGson.toJson(Card.getCards());
     }

@@ -3,6 +3,8 @@ package model;
 import server.model.Card;
 
 import server.User;
+import server.model.MonsterCard;
+import server.model.SpellCard;
 
 import java.util.ArrayList;
 import java.util.Collections;

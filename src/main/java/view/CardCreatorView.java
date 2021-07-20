@@ -16,6 +16,9 @@ import server.model.Card;
 import model.*;
 import model.enums.MenuURL;
 import server.User;
+import server.model.MonsterCard;
+import server.model.SpellCard;
+import server.model.TrapCard;
 import view.components.NodeEditor;
 
 import java.io.IOException;

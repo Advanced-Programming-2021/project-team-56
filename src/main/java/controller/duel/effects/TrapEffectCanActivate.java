@@ -3,7 +3,7 @@ package controller.duel.effects;
 import controller.duel.DuelWithUser;
 import controller.duel.phases.MainPhase1Controller;
 import server.model.Card;
-import model.MonsterCard;
+import server.model.MonsterCard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
