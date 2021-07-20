@@ -36,6 +36,7 @@ public class ClientThread extends Thread {
         } catch (Exception ignored) {
 
         } finally {
+            Data.getInstance().updateJson();
             System.out.println("Client - exit!! ");
         }
     }

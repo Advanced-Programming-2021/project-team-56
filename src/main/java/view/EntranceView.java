@@ -68,7 +68,6 @@ public class EntranceView {
     }
 
     public void exitClicked(MouseEvent mouseEvent) {
-        Data.getInstance().updateJson();
         System.exit(0);
     }
 

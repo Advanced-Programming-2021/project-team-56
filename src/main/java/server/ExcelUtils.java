@@ -10,6 +10,7 @@ import server.model.Card;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ExcelUtils {
     private static ExcelUtils excelUtils;
@@ -56,6 +57,7 @@ public class ExcelUtils {
     private void createMonsterCardObjects(XSSFSheet sheet) {
         ArrayList<MonsterCard> monsterCards = MonsterCard.getMonsterCards();
         ArrayList<Card> cards = Card.getCards();
+        HashMap<String, Integer> shopCards = Card.getShopCards();
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             MonsterCard monsterCard = new MonsterCard();
             for (int j = 0; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
@@ -100,6 +102,7 @@ public class ExcelUtils {
             }
             monsterCard.setImageURL("/images/Cards/Monsters/"+ monsterCard.getName() +".jpg");
             cards.add(monsterCard);
+            shopCards.put(monsterCard.getName(), 20);
             monsterCards.add(monsterCard);
         }
     }
@@ -107,6 +110,7 @@ public class ExcelUtils {
     private void createSpellCards(XSSFSheet sheet) {
         ArrayList<SpellCard> spellCards = SpellCard.getSpellCards();
         ArrayList<Card> cards = Card.getCards();
+        HashMap<String, Integer> shopCards = Card.getShopCards();
         for (int i = 13; i < sheet.getPhysicalNumberOfRows(); i++) {
             SpellCard spellCard = new SpellCard();
             for (int j = 0; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
@@ -139,6 +143,7 @@ public class ExcelUtils {
             }
             spellCard.setImageURL("/images/Cards/SpellTrap/"+ spellCard.getName() +".jpg");
             spellCards.add(spellCard);
+            shopCards.put(spellCard.getName(), 10);
             cards.add(spellCard);
         }
     }
@@ -146,6 +151,7 @@ public class ExcelUtils {
     private void createTrapCards(XSSFSheet sheet) {
         ArrayList<TrapCard> trapCards = TrapCard.getTrapCards();
         ArrayList<Card> cards = Card.getCards();
+        HashMap<String, Integer> shopCards = Card.getShopCards();
         for (int i = 1; i < 13; i++) {
             TrapCard trapCard = new TrapCard();
             for (int j = 0; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
@@ -178,6 +184,7 @@ public class ExcelUtils {
             }
             trapCard.setImageURL("/images/Cards/SpellTrap/"+ trapCard.getName() +".jpg");
             trapCards.add(trapCard);
+            shopCards.put(trapCard.getName(), 5);
             cards.add(trapCard);
         }
     }
