@@ -19,6 +19,7 @@ import server.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +28,9 @@ import static model.enums.MenuURL.MAIN;
 
 public class ScoreBoardView {
 
+    private VBox scoreBoardVBox;
+    @FXML
+    public Button updateButton;
     @FXML
     private Button backButton;
     @FXML
@@ -39,7 +43,7 @@ public class ScoreBoardView {
     }
 
     private void editButtons() {
-        ArrayList<Button> buttons = new ArrayList<>(Collections.singletonList(backButton));
+        ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(backButton));
         MainGUI.editMenuButtons(buttons);
     }
 
@@ -51,6 +55,7 @@ public class ScoreBoardView {
 
     private VBox instantiateScoreboardVBox() {
         VBox scoreboardVBox = new VBox();
+        scoreBoardVBox = scoreboardVBox;
         scoreboardVBox.setPadding(new Insets(1, 2, 1, 2));
         scoreboardVBox.setStyle("-fx-background-color: black");
         try {
@@ -156,5 +161,17 @@ public class ScoreBoardView {
     @FXML
     private void goBackToMain(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MAIN);
+    }
+
+    public void updateClicked(MouseEvent event) {
+        try {
+            scoreBoardVBox.getChildren().clear();
+            ClientSocket.dataOutputStream.writeUTF("Show-ScoreBoard");
+            ClientSocket.dataOutputStream.flush();
+            String serverResponse = ClientSocket.dataInputStream.readUTF();
+            makeScoreboard(scoreBoardVBox, serverResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
