@@ -10,6 +10,7 @@ import java.net.Socket;
 
 public class ClientThread extends Thread {
     private final Socket client;
+    private User user;
 
     public ClientThread(Socket inSocket) {
         client = inSocket;
@@ -35,12 +36,14 @@ public class ClientThread extends Thread {
         } finally {
             Data.getInstance().updateJson();
             System.out.println("Client - exit!! ");
+            ServerUsers.getOnlineUsers().remove(user);
         }
     }
 
     public String process(String clientMessage) {
         String[] token = clientMessage.split(" ");
         if (clientMessage.startsWith("Login")) {
+            user = ServerUsers.getUserByUsername(token[1]);
             return LoginController.getInstance().logIn(token[1], token[2]);
         } else if (clientMessage.startsWith("Sign-Up")) {
             return LoginController.getInstance().register(token[1], token[2], token[3]);
