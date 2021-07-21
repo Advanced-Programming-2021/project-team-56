@@ -62,7 +62,7 @@ public class ChatRoom {
         initializePinnedMessage();
         initializeNumberOfOnlineLabel();
         editClickedUserInfoVBox();
-        updateTimeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+        updateTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             initializeChatBox();
             initializePinnedMessage();
             initializeNumberOfOnlineLabel();

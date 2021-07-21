@@ -52,7 +52,7 @@ public class ClientThread extends Thread {
         } else if (clientMessage.startsWith("Change-Username")) {
             return ProfileController.getInstance().changeNickname(token[1], token[2]);
         } else if (clientMessage.startsWith("Buy-Card")) {
-            return ShopController.getInstance().buyCard(token[1], token[2]);
+            return ShopController.getInstance().processBuyCard(clientMessage);
         } else if (clientMessage.equals("Show-ScoreBoard")) {
             return ScoreBoardController.getInstance().showScoreBoard();
         } else if (clientMessage.startsWith("Get-User")) {
@@ -65,7 +65,8 @@ public class ClientThread extends Thread {
             ServerUsers.getUserByUsername(token[1]).setAvatarURL(token[2]);
             return "Avatar Changed Successfully";
         } else if (clientMessage.startsWith("Sell-Card")) {
-            return ShopController.getInstance().sell(token[1], token[2]);
+            return ShopController.getInstance().processSellCard(clientMessage);
+//            return ShopController.getInstance().sell(token[1], token[2]);
         } else if (clientMessage.startsWith("Get-Stock")) {
             return sendStock();
         } else if (clientMessage.startsWith("Chat")) {

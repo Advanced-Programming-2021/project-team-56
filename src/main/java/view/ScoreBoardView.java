@@ -170,6 +170,7 @@ public class ScoreBoardView {
 
     @FXML
     private void goBackToMain(MouseEvent mouseEvent) throws IOException {
+        timeline.stop();
         FxmlController.getInstance().setSceneFxml(MAIN);
     }
 
