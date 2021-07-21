@@ -40,7 +40,6 @@ public class CardCreatorView {
     public TextField cardNameTextField;
     public TextField priceTextField;
 
-
     public ComboBox spellAndTrapTypeComboBox;
     public ComboBox spellAndTrapIconComboBox;
 
