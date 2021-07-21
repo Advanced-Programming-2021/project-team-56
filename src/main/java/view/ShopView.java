@@ -177,14 +177,14 @@ public class ShopView {
                 e.printStackTrace();
             }
 
-            if (serverResponse.equals("bought successfully")) {
+            if (serverResponse.equals("Bought successfully")) {
                 User.getCurrentUser().decreaseMoney(currentCard.getPrice());
                 User.getCurrentUser().addCardToUserAllCards(currentCard);
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
-                errorLabel.setText(serverResponse);
-            } else errorLabel.setText(serverResponse);
+            }
+            errorLabel.setText(serverResponse);
         } catch (IOException e) {
             e.printStackTrace();
         }
