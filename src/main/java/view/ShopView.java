@@ -170,7 +170,6 @@ public class ShopView {
                     " \"" + currentCard.getName() + "\"");
             ClientSocket.dataOutputStream.flush();
             String serverResponse = ClientSocket.dataInputStream.readUTF();
-
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -219,7 +218,7 @@ public class ShopView {
     }
 
     private void removeCardFromUserCards() {
-        for (int i = 0; i < cards.size(); i++) {
+        for (int i = 0; i < User.getCurrentUser().getUserAllCards().size(); i++) {
             if (User.getCurrentUser().getUserAllCards().get(i).equals(currentCard.getName())) {
                 User.getCurrentUser().getUserAllCards().remove(i);
                 return;
