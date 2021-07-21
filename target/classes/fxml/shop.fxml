@@ -128,7 +128,7 @@
                                         <Font name="Times New Roman Bold" size="25.0" />
                                     </font>
                                 </Button>
-                        <Button fx:id="saleButton" layoutX="65.0" layoutY="677.0" mnemonicParsing="false" onMouseClicked="#buyClicked" prefHeight="52.0" prefWidth="331.0" text="Sale Card" textFill="#828282">
+                        <Button fx:id="saleButton" layoutX="65.0" layoutY="677.0" mnemonicParsing="false" onMouseClicked="#sellClicked" prefHeight="52.0" prefWidth="331.0" text="Sale Card" textFill="#828282">
                            <font>
                               <Font name="Times New Roman Bold" size="25.0" />
                            </font>

@@ -32,7 +32,17 @@ public class ChatController {
             return deleteMessage(clientMessage);
         } else if (clientMessage.startsWith("Chat-Edit-Message")) {
             return editMessage(clientMessage);
+        } else if (clientMessage.startsWith("Chat-Reply-Message")) {
+            return replyMessage(clientMessage);
         }
+        return "";
+    }
+
+    private String replyMessage(String clientMessage) {
+        String[] splitClientMessage = clientMessage.split("\"");
+        String theReplyMessage = "Username: " + splitClientMessage[2] + " Message: \"" + splitClientMessage[1] + "\"" +
+                "REPLY Username: " + splitClientMessage[4] + " Message: \"" + splitClientMessage[3] + "\"";
+        Chat.getInstance().getChats().add(theReplyMessage);
         return "";
     }
 

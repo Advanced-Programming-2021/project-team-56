@@ -69,6 +69,8 @@ public class ClientThread extends Thread {
             return Card.getShopCards().get(token[1]).toString();
         } else if (clientMessage.startsWith("Chat")) {
             return ChatController.getInstance().processChatCommand(clientMessage);
+        } else if (clientMessage.equals("Get-Number-Of-LoggedIn")) {
+            return String.valueOf(ServerUsers.getOnlineUsers().size());
         }
         return "";
     }

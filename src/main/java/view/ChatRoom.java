@@ -50,6 +50,7 @@ public class ChatRoom {
     public Pane sendPane;
     public ImageView sendArrowImageView;
     public ScrollPane chatBoxScrollPane;
+    public Label numberOfOnlineLabel;
 
     private VBox chatVBox;
     private Timeline updateTimeline;
@@ -59,10 +60,12 @@ public class ChatRoom {
     public void initialize() {
         initializeChatBox();
         initializePinnedMessage();
+        initializeNumberOfOnlineLabel();
         editClickedUserInfoVBox();
         updateTimeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
             initializeChatBox();
             initializePinnedMessage();
+            initializeNumberOfOnlineLabel();
         }));
         updateTimeline.setCycleCount(Timeline.INDEFINITE);
         updateTimeline.play();
@@ -122,6 +125,17 @@ public class ChatRoom {
         }
     }
 
+    private void initializeNumberOfOnlineLabel() {
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Get-Number-Of-LoggedIn");
+            ClientSocket.dataOutputStream.flush();
+            String serverResponse = ClientSocket.dataInputStream.readUTF();
+            numberOfOnlineLabel.setText(serverResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void initializePinnedMessage() {
         try {
             ClientSocket.dataOutputStream.writeUTF("Chat-get-Pinned-Message");
@@ -148,12 +162,18 @@ public class ChatRoom {
         chatVBox = instantiateVBox();
         editScrollPane(chatVBox);
         String[] singleChats =  chats.split("\n");
-        Pattern chatPattern = Pattern.compile("^Username: (\\S+) Message: \"([\\S\\s&&[^\"]]+)\"$");
+        Pattern chatPattern = Pattern.compile("^Username: (\\S+) Message: \"([\\S\\s&&[^\"]]+)\"(REPLY Username: (\\S+) Message: \"([\\S\\s&&[^\"]]+)\")?$");
         for (int i = 0; i < singleChats.length; i++) {
             Matcher matcher = chatPattern.matcher(singleChats[i]);
             if (matcher.find()) {
-                HBox hBox = instantiateIndividualHBox(matcher.group(1), matcher.group(2), i);
-                chatVBox.getChildren().add(hBox);
+                if (matcher.group(3) != null) {
+                    chatVBox.getChildren().add(instantiateIndividualHBox(true, matcher.group(1), matcher.group(2),
+                            matcher.group(4), matcher.group(5)));
+                } else {
+                    System.out.println("this is not a reply");
+                    chatVBox.getChildren().add(instantiateIndividualHBox(false, matcher.group(1), matcher.group(2),
+                            null, null));
+                }
             }
         }
     }
@@ -171,7 +191,8 @@ public class ChatRoom {
         chatBoxScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
-    private HBox instantiateIndividualHBox(String username, String message, int messageIndex) {
+    private HBox instantiateIndividualHBox(boolean isReply, String username, String message,
+                                           String repliedUsername, String repliedMessage) {
         User user = null;
         try {
             ClientSocket.dataOutputStream.writeUTF("Get-User " + username);
@@ -191,6 +212,7 @@ public class ChatRoom {
         hBox.getChildren().add(userInfoVBox);
         hBox.getChildren().add(messageLabel);
         hBox.getChildren().add(messageComponentsVBox);
+        if (isReply) hBox.getChildren().add(instantiateReplyInfoVBox(repliedUsername, repliedMessage));
         return hBox;
     }
 
@@ -220,13 +242,27 @@ public class ChatRoom {
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.BOTTOM_CENTER);
         ImageView pinMessageImageView = instantiatePinMessageImageView(message);
+        ImageView replyMessageImageView = instantiateReplyMessageImageView(user, message);
         vBox.getChildren().add(pinMessageImageView);
+        vBox.getChildren().add(replyMessageImageView);
         if (User.getCurrentUser().getUsername().equals(user.getUsername())) {
             ImageView deleteMessageImageView = instantiateDeleteMessageImageView(message);
             Label editMessageLabel = instantiateEditMessageLabel(message);
             vBox.getChildren().add(deleteMessageImageView);
             vBox.getChildren().add(editMessageLabel);
         }
+        return vBox;
+    }
+
+    private VBox instantiateReplyInfoVBox(String repliedUsername, String repliedMessage) {
+        //TODO sizes;
+        Label fromUsernameLabel = new Label("From " + repliedUsername);
+        fromUsernameLabel.setStyle("-fx-text-fill: #8800d4; -fx-font-family: 'Times New Roman'; -fx-font-size: 20px");
+        Label repliedMessageLabel = new Label(repliedMessage);
+        repliedMessageLabel.setMaxWidth(100);
+        repliedMessageLabel.setStyle("-fx-text-fill: #8800d4; -fx-font-family: 'Times New Roman'; -fx-font-size: 20px");
+        VBox vBox = new VBox(10, fromUsernameLabel, repliedMessageLabel);
+        vBox.setAlignment(Pos.CENTER);
         return vBox;
     }
 
@@ -278,6 +314,23 @@ public class ChatRoom {
         return pinMessageImageView;
     }
 
+    private ImageView instantiateReplyMessageImageView(User user, String message) {
+        ImageView replyMessageImageView = new ImageView(new Image("/images/Reply-Arrow.png"));
+        replyMessageImageView.setFitWidth(50);
+        replyMessageImageView.setFitHeight(50);
+        replyMessageImageView.setOnMouseEntered(event -> {
+            SoundPlayer.getInstance().playAudioClip(SoundURL.BUTTON_HOVER);
+            replyMessageImageView.setEffect(new Glow(0.6));
+            replyMessageImageView.setBlendMode(BlendMode.GREEN);
+        });
+        replyMessageImageView.setOnMouseExited(event -> {
+            replyMessageImageView.setEffect(null);
+            replyMessageImageView.setBlendMode(BlendMode.SRC_OVER);
+        });
+        replyMessageImageView.setOnMouseClicked(event -> replyMessage(user, message));
+        return replyMessageImageView;
+    }
+
     private ImageView instantiateDeleteMessageImageView(String message) {
         ImageView deleteMessageImageView = new ImageView(new Image("/images/Trashcan-image.jpg"));
         deleteMessageImageView.setFitHeight(50);
@@ -321,6 +374,16 @@ public class ChatRoom {
         }
     }
 
+    private void replyMessage(User toReplyUser, String toReplyMessage) {
+        sendPane.setOnMouseClicked(event -> {
+            if (textArea.getText().length() != 0) {
+                sendReplyMessage(textArea.getText(), toReplyMessage, toReplyUser.getUsername());
+                textArea.setText("");
+                setOnMouseClickedForSendArrow(false, null);
+            }
+        });
+    }
+
     private void deleteMessage(String message) {
         try {
             ClientSocket.dataOutputStream.writeUTF("Chat-Delete-Message: \"" + message + "\"" + User.getCurrentUser().getUsername());
@@ -340,6 +403,17 @@ public class ChatRoom {
         try {
             ClientSocket.dataOutputStream.writeUTF("Chat-Edit-Message: \"" + originalMessage + "\"" +
                     User.getCurrentUser().getUsername() + "\"" + editedMessage + "\"");
+            ClientSocket.dataOutputStream.flush();
+            ClientSocket.dataInputStream.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendReplyMessage(String message, String repliedMessage, String repliedUsername) {
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Chat-Reply-Message: \"" + message + "\"" +
+                    User.getCurrentUser().getUsername() + "\"" + repliedMessage + "\"" + repliedUsername);
             ClientSocket.dataOutputStream.flush();
             ClientSocket.dataInputStream.readUTF();
         } catch (IOException e) {
