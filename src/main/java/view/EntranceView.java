@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import server.User;
+import model.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
 

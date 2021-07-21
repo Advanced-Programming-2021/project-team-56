@@ -6,7 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import model.ClientSocket;
 import model.enums.MenuURL;
-import server.User;
+import model.User;
 
 import java.io.IOException;
 import java.util.ArrayList;

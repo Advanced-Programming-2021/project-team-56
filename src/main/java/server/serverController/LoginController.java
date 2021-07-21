@@ -3,7 +3,7 @@ package server.serverController;
 import model.enums.AvatarURL;
 import server.Data;
 import server.model.ServerUsers;
-import server.User;
+import model.User;
 
 import java.util.Random;
 

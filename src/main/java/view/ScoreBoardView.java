@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import model.enums.SoundURL;
-import server.User;
+import model.User;
 
 import java.io.IOException;
 import java.util.ArrayList;

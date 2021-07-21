@@ -23,7 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import server.model.Card;
-import server.User;
+import model.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
 

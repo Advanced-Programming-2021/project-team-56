@@ -1,6 +1,6 @@
 package server.model;
 
-import server.User;
+import model.User;
 
 import java.util.ArrayList;
 

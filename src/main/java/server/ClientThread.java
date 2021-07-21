@@ -1,6 +1,7 @@
 package server;
 
 import com.gilecode.yagson.YaGson;
+import model.User;
 import server.model.Card;
 import server.model.ServerUsers;
 import server.serverController.*;

@@ -16,7 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import server.model.Card;
 import model.Deck;
-import server.User;
+import model.User;
 import model.enums.MenuURL;
 import view.components.NodeEditor;
 

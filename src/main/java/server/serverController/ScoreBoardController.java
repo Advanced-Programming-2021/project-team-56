@@ -1,7 +1,7 @@
 package server.serverController;
 
 import server.model.ServerUsers;
-import server.User;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -2,7 +2,7 @@ package server.serverController;
 
 import server.model.Card;
 import server.model.ServerUsers;
-import server.User;
+import model.User;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;

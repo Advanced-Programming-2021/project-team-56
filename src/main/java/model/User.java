@@ -1,6 +1,5 @@
-package server;
+package model;
 
-import model.*;
 import server.model.Card;
 import server.model.MonsterCard;
 import server.model.SpellCard;
