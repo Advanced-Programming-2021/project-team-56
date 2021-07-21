@@ -1,6 +1,7 @@
 package server.serverController;
 
 import model.enums.AvatarURL;
+import server.Data;
 import server.model.ServerUsers;
 import server.User;
 
@@ -40,6 +41,7 @@ public class LoginController {
         User user = new User(nickname, password, username);
         setUsersRandomAvatarURL(user);
         ServerUsers.getUsers().add(user);
+        Data.getInstance().updateJson();
         return SIGNUP_SUCCESSFUL.value;
     }
 

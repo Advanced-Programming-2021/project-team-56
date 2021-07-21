@@ -110,5 +110,22 @@
          </padding>
       </VBox>
       <Button fx:id="backButton" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="250.0" text="Back" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
+      <HBox alignment="CENTER_LEFT" layoutX="275.0" layoutY="920.0" spacing="10.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-radius: 8; -fx-border-width: 5;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="275.0">
+         <children>
+            <Label prefHeight="100.0" text="Onlines:  " textFill="#8800d4">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="numberOfOnlineLabel" prefHeight="50.0" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="25.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+      </HBox>
    </children>
 </AnchorPane>
