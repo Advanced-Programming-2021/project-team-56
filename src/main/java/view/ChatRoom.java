@@ -170,7 +170,6 @@ public class ChatRoom {
                     chatVBox.getChildren().add(instantiateIndividualHBox(true, matcher.group(1), matcher.group(2),
                             matcher.group(4), matcher.group(5)));
                 } else {
-                    System.out.println("this is not a reply");
                     chatVBox.getChildren().add(instantiateIndividualHBox(false, matcher.group(1), matcher.group(2),
                             null, null));
                 }

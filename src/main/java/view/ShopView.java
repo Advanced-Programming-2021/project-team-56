@@ -1,6 +1,10 @@
 package view;
 
 import com.gilecode.yagson.YaGson;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import model.ClientSocket;
 import controller.SoundPlayer;
 import javafx.event.EventHandler;
@@ -46,6 +50,7 @@ public class ShopView {
     public Label stockLabel;
     public Button saleButton;
     private ArrayList<Card> cards;
+    private Timeline getStockTimeLine;
 
     @FXML
     public void initialize() {
@@ -57,6 +62,9 @@ public class ShopView {
         setOnMouseEnteredAndExited(buyButton);
         setOnMouseEnteredAndExited(backButton);
         capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
+//        getStockTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), event -> getStock()));
+//        getStockTimeLine.setCycleCount(Animation.INDEFINITE);
+//        getStockTimeLine.play();
     }
 
     private void getCardsFromServer() {
