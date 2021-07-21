@@ -3,10 +3,7 @@ package server;
 import com.gilecode.yagson.YaGson;
 import server.model.Card;
 import server.model.ServerUsers;
-import server.serverController.LoginController;
-import server.serverController.ProfileController;
-import server.serverController.ScoreBoardController;
-import server.serverController.ShopController;
+import server.serverController.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -70,6 +67,8 @@ public class ClientThread extends Thread {
             System.out.println("something");
             System.out.println(Card.getShopCards().get(token[1]).toString());
             return Card.getShopCards().get(token[1]).toString();
+        } else if (clientMessage.startsWith("Chat")) {
+            return ChatController.getInstance().processChatCommand(clientMessage);
         }
         return "";
     }
