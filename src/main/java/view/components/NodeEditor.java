@@ -1,6 +1,5 @@
 package view.components;
 
-import controller.SoundPlayer;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.effect.Glow;

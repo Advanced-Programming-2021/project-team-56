@@ -1,7 +1,7 @@
 package view;
 
 import com.gilecode.yagson.YaGson;
-import controller.SoundPlayer;
+import view.components.SoundPlayer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;

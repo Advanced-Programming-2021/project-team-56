@@ -6,7 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import model.ClientSocket;
-import controller.SoundPlayer;
+import view.components.SoundPlayer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -176,7 +176,7 @@ public class ShopView {
                 e.printStackTrace();
             }
 
-            if (serverResponse.equals("")) {
+            if (serverResponse.equals("bought successfully")) {
                 User.getCurrentUser().decreaseMoney(currentCard.getPrice());
                 User.getCurrentUser().addCardToUserAllCards(currentCard);
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));

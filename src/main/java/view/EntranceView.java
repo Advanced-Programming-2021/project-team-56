@@ -1,6 +1,6 @@
 package view;
 
-import controller.SoundPlayer;
+import view.components.SoundPlayer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -16,7 +16,6 @@ import javafx.util.Duration;
 import server.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
-import server.Data;
 
 import java.io.IOException;
 import java.util.ArrayList;

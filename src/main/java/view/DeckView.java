@@ -1,6 +1,6 @@
 package view;
 
-import controller.DeckMenuController;
+import server.serverController.DeckMenuController;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
