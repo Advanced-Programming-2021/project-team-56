@@ -1,5 +1,9 @@
 package view;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import model.ClientSocket;
 import controller.SoundPlayer;
 import javafx.event.EventHandler;
@@ -28,9 +32,8 @@ import static model.enums.MenuURL.MAIN;
 
 public class ScoreBoardView {
 
-    private VBox scoreBoardVBox;
-    @FXML
-    public Button updateButton;
+    private static VBox scoreBoardVBox;
+    private Timeline timeline;
     @FXML
     private Button backButton;
     @FXML
@@ -40,6 +43,9 @@ public class ScoreBoardView {
     public void initialize() {
         setScrollPaneContent();
         editButtons();
+        timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> updateScoreBoard()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     private void editButtons() {
@@ -74,10 +80,12 @@ public class ScoreBoardView {
         scoreboardVBox.getChildren().add(titleHBox);
         String[] scoreboardIndividuals = scoreboard.split("\n");
         for (String scoreboardIndividual : scoreboardIndividuals) {
-            Matcher matcher = Pattern.compile("^\\d+- (\\w+): \\d+$").matcher(scoreboardIndividual);
+            Matcher matcher = Pattern.compile("^\\d+- (\\w+): \\d+->\\S+$").matcher(scoreboardIndividual);
             matcher.find();
             Label nicknameLabel = instantiateNicknameLabel(matcher.group(1));
             boolean isUserNickname = getCurrentUserNickName().equals(matcher.group(1));
+            boolean isOnline = scoreboardIndividual.split("->")[1].equals("online");
+            scoreboardIndividual = scoreboardIndividual.split("->")[0];
 
             String[] individualRank = scoreboardIndividual.split(" ");
             Label rankLabel = instantiateRankLabel(individualRank[0]);
@@ -86,7 +94,7 @@ public class ScoreBoardView {
             Label scoreLabel = instantiateScoreLabel(individualScore[1]);
 
             HBox individualLabelHBox = new HBox(rankLabel, nicknameLabel, scoreLabel);
-            editIndividualHBox(individualLabelHBox, isUserNickname);
+            editIndividualHBox(individualLabelHBox, isUserNickname, isOnline);
             scoreboardVBox.getChildren().add(individualLabelHBox);
             scoreboardVBox.setAlignment(Pos.CENTER);
         }
@@ -124,7 +132,7 @@ public class ScoreBoardView {
         return scoreLabel;
     }
 
-    private void editIndividualHBox(HBox individualHBox, boolean isUsersHBox) {
+    private void editIndividualHBox(HBox individualHBox, boolean isUsersHBox, boolean isOnline) {
         individualHBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -144,6 +152,8 @@ public class ScoreBoardView {
         individualHBox.setPrefSize(1520, 100);
         if (isUsersHBox) {
             individualHBox.setStyle("-fx-border-color: white; -fx-border-width: 10px");
+        } else if (isOnline) {
+            individualHBox.setStyle("-fx-border-color: #23ff00; -fx-border-width: 5px");
         } else {
             individualHBox.setStyle("-fx-border-color: #9b00ff; -fx-border-width: 5px");
         }
@@ -154,7 +164,7 @@ public class ScoreBoardView {
         Label nicknameTitleLabel = instantiateNicknameLabel("Nickname");
         Label scoreTitleLabel = instantiateScoreLabel("Score");
         HBox titleHBox = new HBox(rankTitleLabel, nicknameTitleLabel, scoreTitleLabel);
-        editIndividualHBox(titleHBox, false);
+        editIndividualHBox(titleHBox, false, false);
         return titleHBox;
     }
 
@@ -163,13 +173,14 @@ public class ScoreBoardView {
         FxmlController.getInstance().setSceneFxml(MAIN);
     }
 
-    public void updateClicked(MouseEvent event) {
+    private void updateScoreBoard() {
         try {
             scoreBoardVBox.getChildren().clear();
             ClientSocket.dataOutputStream.writeUTF("Show-ScoreBoard");
             ClientSocket.dataOutputStream.flush();
             String serverResponse = ClientSocket.dataInputStream.readUTF();
             makeScoreboard(scoreBoardVBox, serverResponse);
+            System.out.println("kir");
         } catch (IOException e) {
             e.printStackTrace();
         }
