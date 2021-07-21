@@ -182,6 +182,7 @@ public class ShopView {
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
+                errorLabel.setText(serverResponse);
             } else errorLabel.setText(serverResponse);
         } catch (IOException e) {
             e.printStackTrace();
