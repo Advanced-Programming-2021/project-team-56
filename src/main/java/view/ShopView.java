@@ -220,7 +220,7 @@ public class ShopView {
 
     private void removeCardFromUserCards() {
         for (int i = 0; i < User.getCurrentUser().getUserAllCards().size(); i++) {
-            if (User.getCurrentUser().getUserAllCards().get(i).equals(currentCard.getName())) {
+            if (User.getCurrentUser().getUserAllCards().get(i).getName().equals(currentCard.getName())) {
                 User.getCurrentUser().getUserAllCards().remove(i);
                 return;
             }
