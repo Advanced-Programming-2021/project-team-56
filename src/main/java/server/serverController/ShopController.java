@@ -24,7 +24,7 @@ public class ShopController {
     public String processBuyCard(String clientMessage) {
         Matcher matcher = Pattern.compile("Buy-Card (\\S+) \"([\\S\\s&&[^\"]]+)\"").matcher(clientMessage);
         if (matcher.find()) {
-            return buyCard(matcher.group(1),matcher.group(2));
+            return buyCard(matcher.group(1), matcher.group(2));
         }
         return "matcher failed";
     }
@@ -32,7 +32,7 @@ public class ShopController {
     public String processSellCard(String clientMessage) {
         Matcher matcher = Pattern.compile("Sell-Card (\\S+) \"([\\S\\s&&[^\"]]+)\"").matcher(clientMessage);
         if (matcher.find()) {
-            return sell(matcher.group(1),matcher.group(2));
+            return sell(matcher.group(1), matcher.group(2));
         }
         return "matcher failed";
     }
@@ -50,13 +50,16 @@ public class ShopController {
         user.decreaseMoney(card.getPrice());
         user.addCardToUserAllCards(card);
         shopCards.put(cardName, shopCards.get(cardName) - 1);
-        return "";
+        return "bought successfully";
     }
 
     public String sell(String username, String cardName) {
         Card card = Card.getCardByName(cardName);
         User user = ServerUsers.getUserByUsername(username);
         HashMap<String, Integer> shopCards = Card.getShopCards();
+        if (!doesUserHaveThisCard(username, cardName)) {
+            return "you dont have any card of this type";
+        }
         user.increaseMoney(card.getPrice());
         for (int i = 0; i < user.getUserAllCards().size(); i++) {
             if (user.getUserAllCards().get(i).getName().equals(cardName)) {
@@ -66,6 +69,16 @@ public class ShopController {
         }
         shopCards.put(cardName, shopCards.get(cardName) + 1);
         return "Sold successfully";
+    }
+
+    public boolean doesUserHaveThisCard(String username, String cardName) {
+        User user = ServerUsers.getUserByUsername(username);
+        for (int i = 0; i < user.getUserAllCards().size(); i++) {
+            if (user.getUserAllCards().get(i).getName().equals(cardName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

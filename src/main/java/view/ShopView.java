@@ -205,10 +205,10 @@ public class ShopView {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (serverResponse.equals("")) {
+            if (serverResponse.equals("Sold successfully")) {
                 User.getCurrentUser().increaseMoney(currentCard.getPrice());
                 removeCardFromUserCards();
-                errorLabel.setText("Sold successfully");
+                errorLabel.setText(serverResponse);
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) - 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
