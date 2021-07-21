@@ -25,11 +25,13 @@ import model.enums.SoundURL;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class ShopView {
 
     public Card currentCard;
+    public HashMap<String, Integer> stocks = new HashMap<>();
     public ScrollPane cardsScrollPane;
     public GridPane cardsGridPane;
     public HBox cardsHBox;
@@ -42,6 +44,7 @@ public class ShopView {
     public Button backButton;
     public Label capitalLabel;
     public Label stockLabel;
+    public Button saleButton;
     private ArrayList<Card> cards;
 
     @FXML
@@ -128,8 +131,7 @@ public class ShopView {
                 buyButton.setVisible(true);
                 currentCard = cards.get(cardIndex);
                 cardNameLabel.setText(cards.get(cardIndex).getName());
-                System.out.println("lol");
-                stockLabel.setText(getStock());
+                stockLabel.setText(String.valueOf(stocks.get(currentCard.getName())));
                 cardPriceLabel.setText(String.valueOf(cards.get(cardIndex).getPrice()));
                 Image image = new Image(cards.get(cardIndex).getImageURL());
                 cardImage.setImage(image);
@@ -142,15 +144,14 @@ public class ShopView {
         });
     }
 
-    public String getStock(){
+    public void getStock(){
         try {
-            ClientSocket.dataOutputStream.writeUTF("Get-Stock " + currentCard.getName());
+            ClientSocket.dataOutputStream.writeUTF("Get-Stocks");
             ClientSocket.dataOutputStream.flush();
-            System.out.println("lol");
-            return ClientSocket.dataInputStream.readUTF();
+            YaGson yaGson = new YaGson();
+            stocks = yaGson.fromJson(ClientSocket.dataInputStream.readUTF(), HashMap.class);
         } catch (Exception e) {
             e.printStackTrace();
-            return getStock();
         }
     }
 
@@ -161,7 +162,8 @@ public class ShopView {
             ClientSocket.dataOutputStream.flush();
             String serverResponse = ClientSocket.dataInputStream.readUTF();
             if (serverResponse.equals("")) {
-                errorLabel.setText("Buy successful");
+                User.getCurrentUser().decreaseMoney(currentCard.getPrice());
+                errorLabel.setText("Bought successful");
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
@@ -173,5 +175,23 @@ public class ShopView {
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+    }
+
+    public void sellClicked(MouseEvent mouseEvent) {
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Sell-Card " + User.getCurrentUser().getUsername() +
+                    " " + currentCard.getName());
+            ClientSocket.dataOutputStream.flush();
+            String serverResponse = ClientSocket.dataInputStream.readUTF();
+            if (serverResponse.equals("")) {
+                User.getCurrentUser().increaseMoney(currentCard.getPrice());
+                errorLabel.setText("Sold successfully");
+                capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
+                int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) - 1;
+                numberOfCardLabel.setText(String.valueOf(numberOfCard));
+            } else errorLabel.setText(serverResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -13,6 +13,7 @@ public enum MenuURL {
     SCOREBOARD("/fxml/scoreboard.fxml"),
     PROFILE("/fxml/profile.fxml"),
     SHOP("/fxml/shop.fxml"),
+    CHAT_ROOM("/fxml/chatRoom.fxml"),
     CARD_CREATOR("/fxml/cardCreator.fxml"),
     DUEL_PREPARATION("/fxml/duel/duelPreparation.fxml"),
     DUEL_ROUND_PREPARATION("/fxml/duel/duelRoundPreparation.fxml"),

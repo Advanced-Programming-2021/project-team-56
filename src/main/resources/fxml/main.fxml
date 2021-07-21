@@ -15,7 +15,7 @@
                 <Font size="25.0" />
             </font>
         </Button>
-        <Button fx:id="importExportButton" layoutX="10.0" layoutY="800.0" mnemonicParsing="false" onMouseClicked="#goToImportExportMenu" prefHeight="80.0" prefWidth="500.0" text="Import/Export" AnchorPane.leftAnchor="10.0">
+        <Button fx:id="chatRoomButton" layoutX="10.0" layoutY="800.0" mnemonicParsing="false" onMouseClicked="#goToChatRoom" prefHeight="80.0" prefWidth="500.0" text="ChatRoom" AnchorPane.leftAnchor="10.0">
             <font>
                 <Font size="25.0" />
             </font>

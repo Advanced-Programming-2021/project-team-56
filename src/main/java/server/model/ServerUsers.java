@@ -8,7 +8,7 @@ public class ServerUsers {
     private final static ArrayList<User> users = new ArrayList<>();
     private final static ArrayList<User> onlineUsers = new ArrayList<>();
 
-    public static ArrayList<User> getUsers() {
+    public static synchronized ArrayList<User> getUsers() {
         return users;
     }
 

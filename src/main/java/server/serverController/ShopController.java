@@ -34,6 +34,21 @@ public class ShopController {
         shopCards.put(cardName, shopCards.get(cardName) - 1);
         return "";
     }
+
+    public String sell(String username, String cardName) {
+        Card card = Card.getCardByName(cardName);
+        User user = ServerUsers.getUserByUsername(username);
+        HashMap<String, Integer> shopCards = Card.getShopCards();
+        user.increaseMoney(card.getPrice());
+        for (int i = 0; i < user.getUserAllCards().size(); i++) {
+            if (user.getUserAllCards().get(i).getName().equals(cardName)) {
+                user.getUserAllCards().remove(i);
+                break;
+            }
+        }
+        shopCards.put(cardName, shopCards.get(cardName) + 1);
+        return "";
+    }
 }
 
 

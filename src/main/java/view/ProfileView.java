@@ -79,6 +79,14 @@ public class ProfileView {
         imageCircle.setOnMouseClicked(event -> {
             User.getCurrentUser().setAvatarURL(avatarURL);
             userAvatar.setImage(new Image(avatarURL));
+            try {
+                ClientSocket.dataOutputStream.writeUTF("Change-Avatar " + User.getCurrentUser().getUsername() +
+                        " " + avatarURL);
+                ClientSocket.dataOutputStream.flush();
+                String serverResponse = ClientSocket.dataInputStream.readUTF();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -126,6 +134,9 @@ public class ProfileView {
             ClientSocket.dataOutputStream.flush();
             String serverResponse = ClientSocket.dataInputStream.readUTF();
             errorLabel.setText(serverResponse);
+            if (serverResponse.equals("nickname changed successfully")){
+                User.getCurrentUser().setNickname(newInfoField.getText());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -146,6 +157,9 @@ public class ProfileView {
             ClientSocket.dataOutputStream.flush();
             String serverResponse = ClientSocket.dataInputStream.readUTF();
             errorLabel.setText(serverResponse);
+            if (serverResponse.equals("password changed successfully")){
+                User.getCurrentUser().setPassword(newInfoField.getText());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -21,7 +21,7 @@ public class MainView {
     public Button shopButton;
     public Button profileButton;
     public Button scoreboardButton;
-    public Button importExportButton;
+    public Button chatRoomButton;
     public Button backButton;
     public Button logoutButton;
     public Pane root;
@@ -33,7 +33,7 @@ public class MainView {
 
     private void editButtons() {
         ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(duelButton, deckButton, shopButton, profileButton,
-                scoreboardButton, importExportButton, backButton, logoutButton));
+                scoreboardButton, chatRoomButton, backButton, logoutButton));
         MainGUI.editMenuButtons(buttons);
 
     }
@@ -58,11 +58,12 @@ public class MainView {
         FxmlController.getInstance().setSceneFxml(SHOP);
     }
 
-    public void goToImportExportMenu(MouseEvent mouseEvent) {
+    public void goToChatRoom(MouseEvent mouseEvent) throws IOException {
+        FxmlController.getInstance().setSceneFxml(CHAT_ROOM);
     }
 
     public void goBackToLoginMenu(MouseEvent mouseEvent) throws IOException {
-        FxmlController.getInstance().setSceneFxml(MenuURL.ENTRANCE);
+        FxmlController.getInstance().setSceneFxml(ENTRANCE);
     }
 
     public void logout(MouseEvent mouseEvent) throws IOException {

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1050.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ChatRoom">
+    <stylesheets>
+    <URL value="@../CSS/chatRoom.css" />
+    </stylesheets>
+   <children>
+      <VBox layoutX="560.0" layoutY="30.0" prefHeight="1000.0" prefWidth="1080.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <HBox prefHeight="150.0" spacing="60.0" style="-fx-background-color: #0E061E; -fx-border-color: #DBBEF6; -fx-border-width: 5;">
+               <children>
+                  <Label prefHeight="140.0" prefWidth="155.0" text="Pinned&#10;Message" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="28.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="pinnedMessageLabel" prefHeight="150.0" prefWidth="750.0" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane fx:id="chatBoxScrollPane" hbarPolicy="NEVER" prefHeight="700.0" prefWidth="1080.0" />
+            <HBox prefHeight="150.0" style="-fx-background-color: #0E061E; -fx-border-color: #DBBEF6; -fx-border-width: 5 5 5 0;">
+               <children>
+                  <TextArea fx:id="textArea" prefHeight="150.0" prefWidth="930.0" promptText="Type to chat" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </TextArea>
+                  <Pane fx:id="sendPane" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #0E061E;">
+                     <children>
+                        <ImageView fx:id="sendArrowImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+                           <image>
+                              <Image url="@../images/Down-Arrow.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clickedUserInfo" alignment="CENTER" layoutX="10.0" prefHeight="840.0" prefWidth="410.0" spacing="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane prefHeight="462.0" prefWidth="502.0">
+               <children>
+                  <Circle fill="#500274" radius="200.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="clickedMagicCircle" fill="DODGERBLUE" radius="200.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="clickedAvatarCircle" fill="DODGERBLUE" radius="127.3" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </StackPane>
+            <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-radius: 8; -fx-border-width: 5;">
+               <children>
+                  <Label prefHeight="100.0" text="Username:" textFill="#8800d4">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="clickedUsernameLabel" prefHeight="50.0" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-radius: 8; -fx-border-width: 5;">
+               <children>
+                  <Label prefHeight="100.0" text="Nickname:" textFill="#8800d4">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="clickedNicknameLabel" prefHeight="50.0" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </VBox>
+      <Button fx:id="backButton" layoutX="10.0" layoutY="950.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="250.0" text="Back" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
+      <HBox alignment="CENTER_LEFT" layoutX="275.0" layoutY="920.0" spacing="10.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-color: #DBBEF6; -fx-border-radius: 8; -fx-border-width: 5;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="275.0">
+         <children>
+            <Label prefHeight="100.0" text="Onlines:  " textFill="#8800d4">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="numberOfOnlineLabel" prefHeight="50.0" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="25.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>

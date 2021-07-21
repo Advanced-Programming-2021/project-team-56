@@ -3,10 +3,7 @@ package server;
 import com.gilecode.yagson.YaGson;
 import server.model.Card;
 import server.model.ServerUsers;
-import server.serverController.LoginController;
-import server.serverController.ProfileController;
-import server.serverController.ScoreBoardController;
-import server.serverController.ShopController;
+import server.serverController.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -61,8 +58,17 @@ public class ClientThread extends Thread {
             return sendCards();
         } else if (clientMessage.startsWith("Log-Out")) {
             return LoginController.getInstance().logOut(token[1]);
+        } else if (clientMessage.startsWith("Change-Avatar")) {
+            ServerUsers.getUserByUsername(token[1]).setAvatarURL(token[2]);
+            return "Avatar Changed Successfully";
+        } else if (clientMessage.startsWith("Sell-Card")) {
+            return ShopController.getInstance().sell(token[1], token[2]);
         } else if (clientMessage.startsWith("Get-Stock")) {
-            return Card.getShopCards().get(token[1]).toString();
+            return sendStock();
+        } else if (clientMessage.startsWith("Chat")) {
+            return ChatController.getInstance().processChatCommand(clientMessage);
+        } else if (clientMessage.equals("Get-Number-Of-LoggedIn")) {
+            return String.valueOf(ServerUsers.getOnlineUsers().size());
         }
         return "";
     }
@@ -75,5 +81,10 @@ public class ClientThread extends Thread {
     private String sendCards() {
         YaGson yaGson = new YaGson();
         return yaGson.toJson(Card.getCards());
+    }
+
+    private String sendStock(){
+        YaGson yaGson = new YaGson();
+        return yaGson.toJson(Card.getShopCards());
     }
 }
