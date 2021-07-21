@@ -42,6 +42,7 @@ public class ShopView {
     public Button backButton;
     public Label capitalLabel;
     public Label stockLabel;
+    public Button saleButton;
     private ArrayList<Card> cards;
 
     @FXML
@@ -128,7 +129,6 @@ public class ShopView {
                 buyButton.setVisible(true);
                 currentCard = cards.get(cardIndex);
                 cardNameLabel.setText(cards.get(cardIndex).getName());
-                System.out.println("lol");
                 stockLabel.setText(getStock());
                 cardPriceLabel.setText(String.valueOf(cards.get(cardIndex).getPrice()));
                 Image image = new Image(cards.get(cardIndex).getImageURL());
@@ -146,7 +146,6 @@ public class ShopView {
         try {
             ClientSocket.dataOutputStream.writeUTF("Get-Stock " + currentCard.getName());
             ClientSocket.dataOutputStream.flush();
-            System.out.println("lol");
             return ClientSocket.dataInputStream.readUTF();
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,7 +160,8 @@ public class ShopView {
             ClientSocket.dataOutputStream.flush();
             String serverResponse = ClientSocket.dataInputStream.readUTF();
             if (serverResponse.equals("")) {
-                errorLabel.setText("Buy successful");
+                User.getCurrentUser().decreaseMoney(currentCard.getPrice());
+                errorLabel.setText("Bought successful");
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
@@ -173,5 +173,23 @@ public class ShopView {
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
         FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
+    }
+
+    public void sellClicked(MouseEvent mouseEvent) {
+        try {
+            ClientSocket.dataOutputStream.writeUTF("Sell-Card " + User.getCurrentUser().getUsername() +
+                    " " + currentCard.getName());
+            ClientSocket.dataOutputStream.flush();
+            String serverResponse = ClientSocket.dataInputStream.readUTF();
+            if (serverResponse.equals("")) {
+                User.getCurrentUser().increaseMoney(currentCard.getPrice());
+                errorLabel.setText("Sold successfully");
+                capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
+                int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) - 1;
+                numberOfCardLabel.setText(String.valueOf(numberOfCard));
+            } else errorLabel.setText(serverResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
