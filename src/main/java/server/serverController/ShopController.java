@@ -65,7 +65,7 @@ public class ShopController {
             }
         }
         shopCards.put(cardName, shopCards.get(cardName) + 1);
-        return "";
+        return "Sold successfully";
     }
 }
 

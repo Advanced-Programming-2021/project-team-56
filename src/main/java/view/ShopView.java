@@ -63,9 +63,9 @@ public class ShopView {
         setOnMouseEnteredAndExited(backButton);
         capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
         getStock();
-//        getStockTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), event -> getStock()));
-//        getStockTimeLine.setCycleCount(Animation.INDEFINITE);
-//        getStockTimeLine.play();
+        getStockTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), event -> getStock()));
+        getStockTimeLine.setCycleCount(Animation.INDEFINITE);
+        getStockTimeLine.play();
     }
 
     private void getCardsFromServer() {
@@ -153,7 +153,7 @@ public class ShopView {
         });
     }
 
-    public void getStock(){
+    public void getStock() {
         try {
             ClientSocket.dataOutputStream.writeUTF("Get-Stocks");
             ClientSocket.dataOutputStream.flush();
@@ -179,6 +179,7 @@ public class ShopView {
 
             if (serverResponse.equals("")) {
                 User.getCurrentUser().decreaseMoney(currentCard.getPrice());
+                User.getCurrentUser().addCardToUserAllCards(currentCard);
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
@@ -189,6 +190,7 @@ public class ShopView {
     }
 
     public void backClicked(MouseEvent mouseEvent) throws IOException {
+        getStockTimeLine.stop();
         FxmlController.getInstance().setSceneFxml(MenuURL.MAIN);
     }
 
@@ -205,6 +207,7 @@ public class ShopView {
             }
             if (serverResponse.equals("")) {
                 User.getCurrentUser().increaseMoney(currentCard.getPrice());
+                removeCardFromUserCards();
                 errorLabel.setText("Sold successfully");
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) - 1;
@@ -212,6 +215,15 @@ public class ShopView {
             } else errorLabel.setText(serverResponse);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void removeCardFromUserCards() {
+        for (int i = 0; i < cards.size(); i++) {
+            if (User.getCurrentUser().getUserAllCards().get(i).equals(currentCard.getName())) {
+                User.getCurrentUser().getUserAllCards().remove(i);
+                return;
+            }
         }
     }
 }
