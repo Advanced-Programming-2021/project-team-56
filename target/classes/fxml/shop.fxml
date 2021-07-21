@@ -109,20 +109,6 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="543.0" prefHeight="48.0" prefWidth="440.0">
-                           <children>
-                              <Label alignment="CENTER" prefHeight="61.0" prefWidth="236.0" text="Stock:" textFill="WHITE">
-                                 <font>
-                                    <Font name="Times New Roman" size="28.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="stockLabel" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="61.0" prefWidth="184.0" text="0" textFill="WHITE">
-                                 <font>
-                                    <Font name="Times New Roman" size="28.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
                                 <Button fx:id="buyButton" mnemonicParsing="false" onMouseClicked="#buyClicked" prefHeight="52.0" prefWidth="331.0" text="Buy Card" textFill="#828282">
                                     <font>
                                         <Font name="Times New Roman Bold" size="25.0" />

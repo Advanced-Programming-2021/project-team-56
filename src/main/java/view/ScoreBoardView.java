@@ -180,7 +180,6 @@ public class ScoreBoardView {
             ClientSocket.dataOutputStream.flush();
             String serverResponse = ClientSocket.dataInputStream.readUTF();
             makeScoreboard(scoreBoardVBox, serverResponse);
-            System.out.println("kir");
         } catch (IOException e) {
             e.printStackTrace();
         }
