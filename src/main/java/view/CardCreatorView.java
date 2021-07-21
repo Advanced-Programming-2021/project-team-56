@@ -135,9 +135,9 @@ public class CardCreatorView {
         continueButton.setOnMouseClicked(event -> {
             if (monsterCardTypeComboBox.getValue() != null) {
                 if (monsterAttributeComboBox.getValue() != null) {
-                    if (monsterATKTextField.getText().length() != 0) {
-                        if (monsterDEFTextField.getText().length() != 0) {
-                            if (monsterLevelTextField.getText().matches("\\d*")) {
+                    if (monsterATKTextField.getText().matches("\\d+")) {
+                        if (monsterDEFTextField.getText().matches("\\d+")) {
+                            if (monsterLevelTextField.getText().matches("\\d+")) {
                                 setOnMouseClickedForCreateButtonForMonsterCard();
                             }
                         }
