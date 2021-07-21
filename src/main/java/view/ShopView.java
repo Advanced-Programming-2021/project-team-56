@@ -62,9 +62,10 @@ public class ShopView {
         setOnMouseEnteredAndExited(buyButton);
         setOnMouseEnteredAndExited(backButton);
         capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
-        getStockTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), event -> getStock()));
-        getStockTimeLine.setCycleCount(Animation.INDEFINITE);
-        getStockTimeLine.play();
+        getStock();
+//        getStockTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), event -> getStock()));
+//        getStockTimeLine.setCycleCount(Animation.INDEFINITE);
+//        getStockTimeLine.play();
     }
 
     private void getCardsFromServer() {
@@ -166,12 +167,18 @@ public class ShopView {
     public void buyClicked(MouseEvent mouseEvent) {
         try {
             ClientSocket.dataOutputStream.writeUTF("Buy-Card " + User.getCurrentUser().getUsername() +
-                    " " + currentCard.getName());
+                    " \"" + currentCard.getName() + "\"");
             ClientSocket.dataOutputStream.flush();
             String serverResponse = ClientSocket.dataInputStream.readUTF();
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if (serverResponse.equals("")) {
                 User.getCurrentUser().decreaseMoney(currentCard.getPrice());
-                errorLabel.setText("Bought successful");
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
@@ -188,9 +195,14 @@ public class ShopView {
     public void sellClicked(MouseEvent mouseEvent) {
         try {
             ClientSocket.dataOutputStream.writeUTF("Sell-Card " + User.getCurrentUser().getUsername() +
-                    " " + currentCard.getName());
+                    " \"" + currentCard.getName() + "\"");
             ClientSocket.dataOutputStream.flush();
             String serverResponse = ClientSocket.dataInputStream.readUTF();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             if (serverResponse.equals("")) {
                 User.getCurrentUser().increaseMoney(currentCard.getPrice());
                 errorLabel.setText("Sold successfully");

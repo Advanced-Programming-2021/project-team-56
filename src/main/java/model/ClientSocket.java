@@ -12,7 +12,8 @@ public class ClientSocket {
 
     public static void initialize() {
         try {
-            socket = new Socket("localhost", 7788);
+            socket = new Socket("0.tcp.ngrok.io", 16385);
+//            socket = new Socket("localhost", 7788);
             dataInputStream = new DataInputStream(socket.getInputStream());
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
