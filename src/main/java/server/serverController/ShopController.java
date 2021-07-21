@@ -50,7 +50,7 @@ public class ShopController {
         user.decreaseMoney(card.getPrice());
         user.addCardToUserAllCards(card);
         shopCards.put(cardName, shopCards.get(cardName) - 1);
-        return "bought successfully";
+        return "Bought successfully";
     }
 
     public String sell(String username, String cardName) {

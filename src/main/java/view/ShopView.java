@@ -61,6 +61,7 @@ public class ShopView {
         addCards();
         setOnMouseEnteredAndExited(buyButton);
         setOnMouseEnteredAndExited(backButton);
+        setOnMouseEnteredAndExited(saleButton);
         capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
         getStock();
         getStockTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), event -> getStock()));
@@ -175,14 +176,13 @@ public class ShopView {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            if (serverResponse.equals("")) {
+            if (serverResponse.equals("Bought successfully")) {
                 User.getCurrentUser().decreaseMoney(currentCard.getPrice());
                 User.getCurrentUser().addCardToUserAllCards(currentCard);
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
+                errorLabel.setText(serverResponse);
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
-                errorLabel.setText(serverResponse);
             } else errorLabel.setText(serverResponse);
         } catch (IOException e) {
             e.printStackTrace();
