@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 import server.model.Card;
 import model.*;
 import model.enums.MenuURL;
-import server.User;
+import model.User;
 import server.model.MonsterCard;
 import server.model.SpellCard;
 import server.model.TrapCard;

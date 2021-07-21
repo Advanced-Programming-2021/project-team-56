@@ -6,7 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import model.ClientSocket;
-import controller.SoundPlayer;
+import view.components.SoundPlayer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -23,7 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import server.model.Card;
-import server.User;
+import model.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
 
@@ -61,7 +61,6 @@ public class ShopView {
         addCards();
         setOnMouseEnteredAndExited(buyButton);
         setOnMouseEnteredAndExited(backButton);
-        setOnMouseEnteredAndExited(saleButton);
         capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
         getStock();
         getStockTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), event -> getStock()));
@@ -176,13 +175,14 @@ public class ShopView {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (serverResponse.equals("Bought successfully")) {
+
+            if (serverResponse.equals("bought successfully")) {
                 User.getCurrentUser().decreaseMoney(currentCard.getPrice());
                 User.getCurrentUser().addCardToUserAllCards(currentCard);
                 capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
-                errorLabel.setText(serverResponse);
                 int numberOfCard = Integer.parseInt(numberOfCardLabel.getText()) + 1;
                 numberOfCardLabel.setText(String.valueOf(numberOfCard));
+                errorLabel.setText(serverResponse);
             } else errorLabel.setText(serverResponse);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package view;
 
 import com.gilecode.yagson.YaGson;
-import controller.SoundPlayer;
+import view.components.SoundPlayer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -27,7 +27,7 @@ import javafx.util.Duration;
 import model.ClientSocket;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
-import server.User;
+import model.User;
 import view.components.NodeEditor;
 
 import java.io.IOException;

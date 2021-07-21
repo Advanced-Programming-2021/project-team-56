@@ -1,6 +1,6 @@
 package view;
 
-import controller.SoundPlayer;
+import view.components.SoundPlayer;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -18,7 +18,6 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.enums.SoundURL;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class MainGUI extends Application {

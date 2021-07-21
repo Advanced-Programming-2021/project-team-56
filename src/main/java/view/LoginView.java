@@ -12,12 +12,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import model.ClientSocket;
 import model.enums.MenuURL;
-import server.User;
+import model.User;
 import view.components.NodeEditor;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 

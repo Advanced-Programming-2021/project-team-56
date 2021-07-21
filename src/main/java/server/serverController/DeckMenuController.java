@@ -1,8 +1,8 @@
-package controller;
+package server.serverController;
 
 import server.model.Card;
 import model.Deck;
-import server.User;
+import model.User;
 
 public class DeckMenuController {
 

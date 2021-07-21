@@ -1,6 +1,6 @@
 package view;
-import controller.DeckMenuController;
-import controller.SoundPlayer;
+import server.serverController.DeckMenuController;
+import view.components.SoundPlayer;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import server.User;
+import model.User;
 import model.enums.MenuURL;
 import model.enums.SoundURL;
 
