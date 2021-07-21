@@ -61,6 +61,9 @@ public class ClientThread extends Thread {
             return sendCards();
         } else if (clientMessage.startsWith("Log-Out")) {
             return LoginController.getInstance().logOut(token[1]);
+        } else if (clientMessage.startsWith("Change-Avatar")) {
+            ServerUsers.getUserByUsername(token[1]).setAvatarURL(token[2]);
+            return "Avatar Changed Successfully";
         } else if (clientMessage.startsWith("Sell-Card")) {
             return ShopController.getInstance().sell(token[1], token[2]);
         } else if (clientMessage.startsWith("Get-Stock")) {
