@@ -64,9 +64,7 @@ public class ClientThread extends Thread {
         } else if (clientMessage.startsWith("Sell-Card")) {
             return ShopController.getInstance().sell(token[1], token[2]);
         } else if (clientMessage.startsWith("Get-Stock")) {
-            System.out.println("something");
-            System.out.println(Card.getShopCards().get(token[1]).toString());
-            return Card.getShopCards().get(token[1]).toString();
+            return sendStock();
         } else if (clientMessage.startsWith("Chat")) {
             return ChatController.getInstance().processChatCommand(clientMessage);
         } else if (clientMessage.equals("Get-Number-Of-LoggedIn")) {
@@ -83,5 +81,10 @@ public class ClientThread extends Thread {
     private String sendCards() {
         YaGson yaGson = new YaGson();
         return yaGson.toJson(Card.getCards());
+    }
+
+    private String sendStock(){
+        YaGson yaGson = new YaGson();
+        return yaGson.toJson(Card.getShopCards());
     }
 }

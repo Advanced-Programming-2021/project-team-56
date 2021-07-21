@@ -25,11 +25,13 @@ import model.enums.SoundURL;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class ShopView {
 
     public Card currentCard;
+    public HashMap<String, Integer> stocks = new HashMap<>();
     public ScrollPane cardsScrollPane;
     public GridPane cardsGridPane;
     public HBox cardsHBox;
@@ -129,7 +131,7 @@ public class ShopView {
                 buyButton.setVisible(true);
                 currentCard = cards.get(cardIndex);
                 cardNameLabel.setText(cards.get(cardIndex).getName());
-                stockLabel.setText(getStock());
+                stockLabel.setText(String.valueOf(stocks.get(currentCard.getName())));
                 cardPriceLabel.setText(String.valueOf(cards.get(cardIndex).getPrice()));
                 Image image = new Image(cards.get(cardIndex).getImageURL());
                 cardImage.setImage(image);
@@ -142,14 +144,14 @@ public class ShopView {
         });
     }
 
-    public String getStock(){
+    public void getStock(){
         try {
-            ClientSocket.dataOutputStream.writeUTF("Get-Stock " + currentCard.getName());
+            ClientSocket.dataOutputStream.writeUTF("Get-Stocks");
             ClientSocket.dataOutputStream.flush();
-            return ClientSocket.dataInputStream.readUTF();
+            YaGson yaGson = new YaGson();
+            stocks = yaGson.fromJson(ClientSocket.dataInputStream.readUTF(), HashMap.class);
         } catch (Exception e) {
             e.printStackTrace();
-            return getStock();
         }
     }
 
