@@ -61,6 +61,7 @@ public class ShopView {
         addCards();
         setOnMouseEnteredAndExited(buyButton);
         setOnMouseEnteredAndExited(backButton);
+        setOnMouseEnteredAndExited(saleButton);
         capitalLabel.setText(String.valueOf(User.getCurrentUser().getMoney()));
         getStock();
         getStockTimeLine = new Timeline(new KeyFrame(Duration.seconds(5), event -> getStock()));
